@@ -46,8 +46,7 @@ Versions 3.0â€“3.7 of this protocol ran ~35 real councils across ~15 projects â€
 Requires [Claude Code](https://claude.com/claude-code). No API keys, no external services, no Python (except to re-run the eval stats).
 
 ```bash
-# replace OWNER/REPO with this repository's actual path
-git clone https://github.com/OWNER/REPO.git ~/.claude/skills/wise-men
+git clone https://github.com/Ali-expandings/wise-men.git ~/.claude/skills/wise-men
 mkdir -p ~/.claude/agents && cp ~/.claude/skills/wise-men/agents/wise-member.md ~/.claude/agents/
 ```
 
