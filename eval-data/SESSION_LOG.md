@@ -510,3 +510,13 @@ Protocol findings from the run: canned `{standing_line}` would have overstated o
 ## 2026-09-16 — v3.8.2: holes the launch council exposed in itself
 
 Post-mortem of the v3.8.1 run: (1) Security misread one SESSION_LOG sentence as "PII sweep incomplete"; three Haiku reviewers amplified it into severe-disagreement flags; the Pragmatist's debate reversal repeated it as verified — nobody with Read access checked it. Fix: peer-review.md now requires reviewers to verify checkable file/line/number claims before scoring correctness, mark the rest "(asserted, unverified)", and never severe-flag on an unverified claim alone; chairman.md holds unverified "critical" findings for runbook 9.6 before they shape the Decision. (2) The re-judge scored the Pragmatist's reversal 4.5 over the Skeptic's better-calibrated hold at 3.25, rewarding "course correction" as a virtue while the corrected answer carried the false claim. Fix: debate.md tells the re-judge to score calibration of the revised position, not the act of revising.
+
+---
+
+## 2026-09-16 — v3.8.3: second review council (standard tier: Maintainer / Test writer / Empiricist / Historian / DA on Opus; 3 Sonnet reviewers; checker)
+
+Tier reduced from the mandated deep (second council this session) — disclosed. Reviewers up-tiered to Sonnet because the packet is about on-disk artifacts — disclosed; the new verify-before-scoring rule worked: reviewers Read the files and caught two wrong line citations on otherwise-correct facts. No debate (standard). Scores: Empiricist 4.75, DA 4.67, Test writer 4.58, Maintainer 4.08, Historian 3.83.
+
+Verified findings → fixed: item 5 of the launch council ("version-stamped") had already gone stale (3.8.1 stamp vs 3.8.2) and check.sh could not see it; README/SKILL said "8/8 single-prompt-shaped" — questions.yaml labels 13 and the council won all 13; the Q09/Q11 parity flag + its sensitivity resolution were absent from README's caveats; README cost figure disagreed with model-routing. DA (frame + falsification): the v3.8.2 fix patched the detectors, not the root cause (members never told to Read before asserting); it handed verification to the tier routing calls "low-judgment"; it narrowed the severe-flag channel on exactly the question types the tool exists for. All three adopted. DA's frame — "the loop is converging on whatever the orchestrator can fix in one pass; stop it" — adopted as a standing rule: no net lines to SKILL.md in 3.8.x; next change = held-out eval.
+
+Orchestrator verification: 13/13 confirmed from parsed/*.yaml; git history content clean, but every commit's AUTHOR line carries the user's personal handle + email — surfaced to the user as a pre-push decision (not rewritten by the thread).

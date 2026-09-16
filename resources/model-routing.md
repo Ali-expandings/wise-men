@@ -19,14 +19,14 @@ Everything else in this file names models for readability, but what is load-bear
 
 | Role tier | Means | Current mapping (verified 2026-09; Claude 5 generation) | Relative cost |
 |---|---|---|---|
-| **cheap** | fast, structured, low-judgment work (reviewers) | Haiku 4.5 — `claude-haiku-4-5` | 1x |
+| **cheap** | fast, structured grading work (reviewers), including spot-checking files an answer cites | Haiku 4.5 — `claude-haiku-4-5` | 1x |
 | **mid** | the council's workhorse — members, debate, the Stage 4.5 checker | Sonnet 5 — `claude-sonnet-5` | ~3x |
 | **strong** | adversarial + critical roles (DA, security, paranoid members) | Opus 5 — `claude-opus-5` | ~5x |
 | **max** | optional ceiling for irreversible decisions (DA at paranoid, `--model=max`) | Fable 5.1 — `claude-fable-5-1` (Fable 5 was retired and replaced, not removed). If no model sits above `strong` on your plan, **max simply equals strong** — a normal state, not a misconfiguration. | ~10x |
 
 **Before trusting this table, check it.** Model names move faster than documentation: run `/model` (or your plan's model list) and confirm each tier still points at a model that exists. If a name here is unfamiliar or missing, remap the tier and change nothing else — the protocol never references a model directly. Legacy ids (`claude-opus-4-8`, `claude-sonnet-4-6`, …) generally keep resolving, so a stale table degrades quietly rather than erroring, which is exactly why the check is worth thirty seconds.
 
-Rules that survive any remapping: **reviewers = cheap**, **members = mid**, **DA = one tier above members**, **Chairman = main thread (never routed)**, **auto-retry ceiling = strong** (max is never an auto-retry target). If a tier's model is unavailable on the user's plan, fall to the next tier down and warn once — never fail a council over a model id.
+Rules that survive any remapping: **reviewers = cheap** (mid when the grading packet contains claims about artifacts on disk — verification is judgment work), **members = mid**, **DA = one tier above members**, **Chairman = main thread (never routed)**, **auto-retry ceiling = strong** (max is never an auto-retry target). If a tier's model is unavailable on the user's plan, fall to the next tier down and warn once — never fail a council over a model id.
 
 ## Cost reality (2026-07 prices; recheck against current pricing)
 
