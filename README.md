@@ -1,6 +1,4 @@
-# wise-men
-
-**A council of Claude subagents that argue, grade each other, and hand you a synthesized answer with the dissent preserved.**
+<p align="center"><img src="assets/banner.svg" alt="wise-men — a council of Claude subagents that argue, grade each other, and hand you one answer with the dissent kept intact" width="860"></p>
 
 [![stars](https://img.shields.io/github/stars/Ali-expandings/wise-men?style=flat)](https://github.com/Ali-expandings/wise-men/stargazers) [![license](https://img.shields.io/github/license/Ali-expandings/wise-men)](LICENSE) [![check](https://github.com/Ali-expandings/wise-men/actions/workflows/check.yml/badge.svg)](https://github.com/Ali-expandings/wise-men/actions/workflows/check.yml) [![plugin](https://img.shields.io/badge/Claude%20Code-plugin-blue)](#install)
 
@@ -21,7 +19,7 @@ Then: *"run a council on whether we should rewrite the billing service or strang
 
 With that stated plainly, here is what was measured: a 30-question blind evaluation, 3 arms per question, 5-axis rubric (max 25):
 
-![Same 29 questions, three ways of answering — council 24.5, structured prompt 20.8, direct 16.3](assets/arms.svg)
+![Same 29 questions, three ways of answering — council 24.5, structured prompt 20.8, direct 16.3](assets/headline.svg)
 
 | Arm | Mean | Median |
 |---|---|---|
@@ -37,7 +35,7 @@ With that stated plainly, here is what was measured: a 30-question blind evaluat
 <details>
 <summary>Every question, and where the gap comes from</summary>
 
-![Council vs structured prompt on every question, sorted by gap; council ahead on 28 of 29](assets/per-question.svg)
+![Council vs structured prompt on every question, sorted by gap; council ahead on 28 of 29](assets/questions.svg)
 
 ![Per-axis means: correctness no difference; insight, practical, risk, dissent significantly better](assets/axes.svg)
 
@@ -175,7 +173,7 @@ eval-spec.md              the frozen evaluation design (written before the eval 
 eval-data/                the full blind eval: questions, raw arms, judgments, stats, frozen v2.3 protocol
 scripts/check.sh          consistency check — run before every commit (trigger sync, no $-digit, agent copy, PII)
 scripts/make_charts.py    regenerates assets/*.svg from eval-data/parsed/
-assets/                   the README charts (SVG + PNG)
+assets/                   banner + README charts (hand-authored SVG, theme-safe)
 CHANGELOG.md              condensed version history (detail in eval-data/SESSION_LOG.md)
 requirements.txt          PyYAML — only needed to re-run the eval stats
 AGENTS.md · CONTRIBUTING.md · SECURITY.md · LICENSE · .gitignore

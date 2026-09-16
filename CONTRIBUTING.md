@@ -4,5 +4,5 @@
 - `eval-data/` is a record, not code. Do not edit persisted arms, judgments, or parsed scores; add new runs under a new question id and log them in `eval-data/SESSION_LOG.md`.
 - `SKILL.md` is auto-loaded whole on every invocation. Standing rule: changes must not add net lines to it; put detail in `resources/`.
 - A protocol change needs either a live council run recorded with `resources/council-record.md` or eval evidence — not only reasoning.
-- Charts in `assets/` are generated: edit `scripts/make_charts.py`, not the SVGs.
+- Charts in `assets/` are generated: edit `scripts/make_charts.py`, not the SVGs. Colours must read on both GitHub themes (`#8b949e` text, no pure black/white).
 - No attribution trailers in commits.

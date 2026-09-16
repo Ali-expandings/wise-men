@@ -1,0 +1,7 @@
+<svg viewBox="0 0 860 190" width="860" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<title>wise-men</title>
+<rect width="860" height="190" rx="14" fill="#0b0f14"/>
+<circle cx="88" cy="96" r="9" fill="#e6edf3"/><circle cx="114" cy="70" r="9" fill="#e6edf3"/><circle cx="146" cy="62" r="9" fill="#e6edf3"/><circle cx="178" cy="70" r="9" fill="#1a9e8a"/><circle cx="204" cy="96" r="9" fill="#e6edf3"/><path d="M 88 96 Q 146 150 204 96" fill="none" stroke="#e6edf3" stroke-opacity="0.35" stroke-width="2"/><text x="250" y="92" font-size="52" font-weight="700" fill="#e6edf3" text-anchor="start" letter-spacing="-1">wise-men</text>
+<text x="252" y="126" font-size="16" font-weight="400" fill="#8b949e" text-anchor="start" >A council of Claude subagents that argue, grade each other,</text>
+<text x="252" y="148" font-size="16" font-weight="400" fill="#8b949e" text-anchor="start" >and hand you one answer with the dissent kept intact.</text>
+</svg>
