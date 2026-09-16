@@ -21,6 +21,8 @@ Then: *"run a council on whether we should rewrite the billing service or strang
 
 With that stated plainly, here is what was measured: a 30-question blind evaluation, 3 arms per question, 5-axis rubric (max 25):
 
+![Same 29 questions, three ways of answering — council 24.5, structured prompt 20.8, direct 16.3](assets/arms.svg)
+
 | Arm | Mean | Median |
 |---|---|---|
 | **C — full council** | **24.5** | 25 |
@@ -31,6 +33,16 @@ With that stated plainly, here is what was measured: a 30-question blind evaluat
 - Wilcoxon signed-rank: **p = 6.3 × 10⁻⁶** (council > structured prompt), **p = 1.3 × 10⁻⁶** (council > direct).
 - No rubric axis was significantly worse; four of five were significantly better.
 - It won **13/13** questions labeled single-prompt-shaped (written to favour one structured prompt).
+
+<details>
+<summary>Every question, and where the gap comes from</summary>
+
+![Council vs structured prompt on every question, sorted by gap; council ahead on 28 of 29](assets/per-question.svg)
+
+![Per-axis means: correctness no difference; insight, practical, risk, dissent significantly better](assets/axes.svg)
+
+Charts regenerate from `eval-data/parsed/` with `python3 scripts/make_charts.py`.
+</details>
 
 **Read the caveats too** — they're in `eval-data/HISTORY.md` and they're real: one blind judge, Claude judging Claude, N=29 with the 30th question outstanding, a p-value computed one question short of the pre-registered stopping rule (`HISTORY.md` literally says "do not declare a verdict before then"), the measured-vs-shipped gap described above, a treatment change to Arm B mid-eval (an anti-spawn wrapper), a reviewer-prompt fix that was reversed mid-eval, two early judgments salvaged from chat context rather than captured from disk, one question (Q23) resolved by a third blind judge, and two questions (Q09/Q11) whose Chairman model was never recorded — dropping them leaves the result unchanged (N=27, 26/27, p=1.4e-05; `eval-data/analysis/RESULTS_N29.md`).
 
@@ -135,6 +147,8 @@ Against the other council skills for Claude Code (facts from their READMEs, 2026
 | Cost tiers | 5, with spend ceiling | — | — | 5 modes | budget mode |
 | Evidence in the repo | raw eval + script | none | none | one A/B figure | one cost audit |
 
+![Feature matrix: council skills for Claude Code, from their READMEs 2026-09-16](assets/landscape.svg)
+
 What they have that this doesn't: multi-vendor councils, convergence-driven long debates, consensus gates, code-specific scanners, HTML reports — listed honestly in the landscape file.
 
 ## Cost
@@ -160,6 +174,8 @@ examples/                 two worked end-to-end runs
 eval-spec.md              the frozen evaluation design (written before the eval ran)
 eval-data/                the full blind eval: questions, raw arms, judgments, stats, frozen v2.3 protocol
 scripts/check.sh          consistency check — run before every commit (trigger sync, no $-digit, agent copy, PII)
+scripts/make_charts.py    regenerates assets/*.svg from eval-data/parsed/
+assets/                   the README charts (SVG + PNG)
 CHANGELOG.md              condensed version history (detail in eval-data/SESSION_LOG.md)
 requirements.txt          PyYAML — only needed to re-run the eval stats
 AGENTS.md · CONTRIBUTING.md · SECURITY.md · LICENSE · .gitignore
