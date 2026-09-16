@@ -1,0 +1,25 @@
+You are grading six different responses to the same question. Six different methods produced these responses. Your job is to assess answer quality only. Do not try to guess which method produced which response — that will bias your scoring. Ignore length: a longer answer is not a better answer.
+
+The question:
+"""
+{question}
+"""
+
+{responses}
+
+Grade in two passes.
+
+PASS 1 — Ranking. Rank the six responses from best to worst on overall usefulness to the person asking, one sentence per response on why it sits where it does.
+
+PASS 2 — Absolute. For each of A–F, score each axis 1-5 independently, with one-line justification. Axes: Correctness (factually right, logic intact), Insight (non-obvious, generative), Practical usefulness (actionable, right scope), Risk awareness (what could go wrong, hidden assumptions), Dissent quality (are the strongest counter-arguments to its own recommendation presented, and presented fairly). Use this fenced format exactly so the orchestrator can parse:
+
+```scores
+response: A
+correctness: 1-5
+insight: 1-5
+practical: 1-5
+risk: 1-5
+dissent: 1-5
+```
+
+[Repeat for B, C, D, E, F.]
