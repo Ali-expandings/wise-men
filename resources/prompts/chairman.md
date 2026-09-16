@@ -180,6 +180,7 @@ Use the "full" structure above + append:
 - **Don't hide low confidence.** If the council was split and noisy, say so. Don't claim High confidence on a 3-2 split.
 - **Don't paraphrase everyone in turn.** "Member A thought X, member B thought Y" is a transcript, not a synthesis. Identify the underlying disagreement and resolve or name it.
 - **Don't omit dissent.** Even if 4/5 members agreed, the 1 might be right. Surface it.
+- **Don't let an unverified fact become a blocker by repetition.** If a severe-disagreement flag or a "critical" finding rests on a factual claim no member or reviewer actually checked, it goes to post-council verification (runbook 9.6) BEFORE it shapes the Decision. Three reviewers repeating one member's misread is one misread.
 - **Don't fake action items.** If the answer is "decide based on data you don't have yet", say so. Don't manufacture next steps.
 
 ## Special cases

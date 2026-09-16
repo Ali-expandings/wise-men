@@ -504,3 +504,9 @@ Verdict: not ready as-is; fix-then-ship. Applied in this version: (1) injection 
 Preserved dissent (DA, peer-top on insight): the launch risk is the claim the repo ships under, not its defects — "a repo with no eval would be received better than this one"; v3.8 is "a compliance loop, not an improvement loop". Adopted in part (frontmatter, caveats, outside reader); the reposition ("ship the notebook, not the verdict") was not.
 
 Protocol findings from the run: canned `{standing_line}` would have overstated one reviewer's one-axis preference — rule now demands the precise statement; the Chairman put orchestrator-verified facts into the Decision — the checker is the only thing that caught it; six members exceed five procedures — disclose the share.
+
+---
+
+## 2026-09-16 — v3.8.2: holes the launch council exposed in itself
+
+Post-mortem of the v3.8.1 run: (1) Security misread one SESSION_LOG sentence as "PII sweep incomplete"; three Haiku reviewers amplified it into severe-disagreement flags; the Pragmatist's debate reversal repeated it as verified — nobody with Read access checked it. Fix: peer-review.md now requires reviewers to verify checkable file/line/number claims before scoring correctness, mark the rest "(asserted, unverified)", and never severe-flag on an unverified claim alone; chairman.md holds unverified "critical" findings for runbook 9.6 before they shape the Decision. (2) The re-judge scored the Pragmatist's reversal 4.5 over the Skeptic's better-calibrated hold at 3.25, rewarding "course correction" as a virtue while the corrected answer carried the false claim. Fix: debate.md tells the re-judge to score calibration of the revised position, not the act of revising.

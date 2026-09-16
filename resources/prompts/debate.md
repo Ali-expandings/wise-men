@@ -96,7 +96,7 @@ ONE THING YOU CONCEDE TO THEM:
 
 ## After debate
 
-Run a **lightweight Stage 2**: spawn one reviewer (any persona type) to re-rank the two updated answers on the same rubric. Single reviewer, single round — debate is cheap, re-judging it doesn't need a full panel.
+Run a **lightweight Stage 2**: spawn one reviewer (any persona type) to re-rank the two updated answers on the same rubric. Single reviewer, single round — debate is cheap, re-judging it doesn't need a full panel. Tell the re-judge explicitly: **score the accuracy and calibration of each revised position, not the act of revising** — an UPDATE is not evidence of rigor and a HOLD is not evidence of stubbornness. (The first v3.8 run's re-judge rewarded a reversal that carried a false factual claim over a correctly-calibrated hold.)
 
 The result feeds Chairman synthesis. Chairman should:
 - Note which debater UPDATED and which HELD
