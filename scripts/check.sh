@@ -29,6 +29,7 @@ v=$(grep -m1 '^version:' SKILL.md | awk '{print $2}'); c=$(grep -m1 -oE '\*\*[0-
 [ "$v" = "$c" ] && say "version $v matches CHANGELOG" ok || { say "version $v != CHANGELOG $c" FAIL; fail=1; }
 
 # 7. PII / secrets sweep of the working tree AND git history (add your own names via PII_TERMS)
+# Add personal names via the environment, never here: PII_TERMS='name1|name2|<default pattern>' scripts/check.sh
 PII_TERMS=${PII_TERMS:-'@[a-z0-9.-]+\.(com|net|org)|/Users/[a-z]+|sk-[A-Za-z0-9]{16,}|AKIA[A-Z0-9]{12}|ghp_[A-Za-z0-9]{20,}'}
 hits=$(grep -rnoiE "$PII_TERMS" --include='*.md' --include='*.yaml' --include='*.txt' --include='*.py' . 2>/dev/null | grep -v 'protocol-v2.3-frozen' | grep -v '^./scripts/check.sh' | wc -l | tr -d ' ')
 [ "$hits" = "0" ] && say "PII/secret sweep (working tree)" ok || { say "PII/secret sweep: $hits hit(s) — inspect" FAIL; fail=1; }
