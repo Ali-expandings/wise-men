@@ -1,0 +1,28 @@
+# arm: wise-men | question: Q25 | orchestrator: general-purpose/sonnet | run: 2026-09-16 (Amendment 1 rules)
+# skill: SKILL.md v3.9.2 (as written); standard tier selected by the skill (5 members, 3 reviewers)
+# subagent tokens: 162543 | tool uses: 16 | duration: 431s
+
+## Council answer
+
+**Not just p-hacking — and not a mystical "different way of knowing" either.** Five independent council members, each assigned a different reasoning procedure (base rates, first principles, precedent, falsification, incentives), converged on the same rejection of the question's binary. p-hacking and other questionable research practices are real and contributed to the crisis, but they're one layer in a stack of mechanisms that would produce widespread replication failure even if every researcher had acted in perfect good faith:
+
+- **Low statistical power → winner's curse.** Most psychology studies (historically N=20–50/cell) are underpowered. Conditioning on "reached p<.05" selects disproportionately from the inflated tail of the sampling distribution — a real, nonzero effect can still be published as large and "robust" and then shrink on honest re-measurement, with zero misconduct involved.
+- **Publication bias / the file drawer.** Journals filter for significance, so the *published* literature is a biased sample of the true landscape of results.
+- **Underspecified theory.** Many psychological constructs are described verbally, with no stated boundary conditions (which population, era, context the effect should hold in). "It replicated" often just means "it replicated in one more WEIRD undergraduate sample under correlated incentives" — which isn't independent evidence in the way it's treated.
+- **Researcher degrees of freedom.** Multiple DVs, exclusion rules, and subgroup splits create an effective false-positive rate well above 5%, achievable without anyone intending to cheat (this is the formal core of "p-hacking," but it's a property of flexible pipelines, not of dishonest people).
+
+The evidence that favors "deeper than just fraud" over "pure p-hacking exposed": large-scale registered replication projects (OSC 2015's ~100-study reproducibility project, Many Labs, and specific Registered Replication Reports on effects like ego depletion and facial feedback) show a *graded* pattern — shrinking effect sizes, partial replication, field-dependent success rates (cognitive/perceptual effects replicate far better than social priming) — rather than the clean bimodal "real effects replicate near-ceiling, fabricated ones collapse to near-zero" pattern that a pure-fraud story would predict.
+
+The practical upshot, if you want to evaluate any specific "robust" finding: ask about its statistical power, whether it has survived a pre-registered multi-lab replication, and whether it's a cognitive/perceptual effect (higher base rate of replication) or a social-priming/motivational one (lower base rate) — that tells you more than citation count or "textbook status" ever will. Being wrong about which mechanism dominates for a *specific* effect is cheap to fix (check the RRR data); treating the whole field as either "basically fine now that we preregister" or "basically bunk" is the costlier error, since neither extreme survives the evidence.
+
+## Dissent worth keeping
+
+The Devil's Advocate rejected the whole frame: both "p-hacking, retroactively caught" and "something deeper about social science" are stories that cost the field's incumbents nothing, and the real fault line is that psychology lets every study invent its own unvalidated dependent variable — so "replication" is often not even well-defined, and nobody in the production chain (researchers, journals, universities, funders, media, even the replication-crisis field itself) is paid for calibrated estimates rather than headline claims. On this reading, the canonical effects never had strong evidentiary robustness to begin with — "robust" was a media/textbook property, not a data property — and preregistration alone won't fix a field that hasn't validated what it's measuring. Reviewers rated this member weakest overall (its load-bearing empirical claim about *how* effect sizes shrink was explicitly self-flagged as unverified), but the construct-validity and incentive points survived scrutiny and aren't answered by the majority's account.
+
+---
+
+*Council of 5 members (Empiricist, Theorist, Methodologist, Integrator, Devil's Advocate on opus), standard tier, 3 reviewers (haiku), no debate (not triggered at this tier). Want the full audit trail? Ask "show me the council transcript."*
+
+## Orchestrator verification (after the council — not council output)
+
+Several members flagged specific figures as unverified-from-memory: OSC 2015 replication rate (~36–39%), Many Labs rate (~50–65%), the Hagger et al. 2016 ego-depletion RRR (null, ~23 labs), Dana Carney's power-pose disavowal (original N≈42), and the Wagenmakers et al. 2016 facial-feedback RRR (17 labs). **Deviation disclosed**: this session's environment rules restricted me to reading only the skill's own files and treating the question as self-contained, with no filesystem/web verification pass — so I did not perform the live check the skill's runbook (step 9.6) normally calls for here. These are widely-documented, frequently-cited metascience findings that I'm confident are substantially accurate as stated, and three independently-reasoning members converged on compatible figures — but none of that is a live re-verification, so treat exact percentages/sample sizes as "well-established to the best of available knowledge, not freshly checked this session" rather than confirmed.

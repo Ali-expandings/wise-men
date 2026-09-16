@@ -13,9 +13,14 @@ def normalize(arm, txt):
     lines = txt.split("\n")
     while lines and (lines[0].startswith("# ") or lines[0].strip() == ""): lines.pop(0)  # provenance header block (all '# ' lines at top)
     t = "\n".join(lines).strip()
-    # orchestrator status lines that precede the skill's own output (not part of any skill's user-facing format)
-    t = re.sub(r"^(All (five|four) members[^\n]*\n+(---\n+)?)", "", t)
-    if arm == "wise-men":  # same rule as the N=29 eval: strip the audit footer + status line; never edit content
+    # orchestrator status text that precedes the skill's own output (not part of any skill's user-facing format):
+    # for skills whose output is headed, cut to the first '## ' heading if what precedes it is short status prose
+    if arm in ("lifeos-council", "llm-council", "wise-men"):
+        m = re.search(r"^## ", t, re.M)
+        if m and m.start() > 0 and len(t[:m.start()].split("\n")) <= 4: t = t[m.start():]
+    if arm == "wise-men":  # same rule as the N=29 eval: strip the audit footer + status/process text; never edit content
+        m = re.search(r"^(\*Note: brief format upgraded|## )", t, re.M)  # skill output starts at its first heading/note
+        if m: t = t[m.start():]
         t = re.sub(r"^\*Note: brief format upgraded.*?\*\n+", "", t)
         t = re.split(r"\n---\n\n## Full audit( trail)?", t)[0].strip()
     return t
