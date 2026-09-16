@@ -391,9 +391,9 @@ Also earlier this session: fixed $0-literal substitution bug in SKILL.md (skill 
 
 ---
 
-## 2026-07-06 — v3.3: Opus-era hardening (Fable 5 handoff pass)
+## 2026-07-06 — v3.3: Opus-era hardening (orchestrator-model handoff pass)
 
-Context: Fable 5 retiring; Opus 4.8 becomes the usual orchestrator. Goal: convert orchestrator judgment into binding protocol so council quality survives the model change. Informed by a LIVE observed deviation: Opus 4.8 ran the v3.1 council this session and skipped the fired debate trigger with a rationalization ("split already understood").
+Context: the max-tier model was scheduled for retirement; Opus becomes the usual orchestrator. Goal: convert orchestrator judgment into binding protocol so council quality survives the model change. Informed by a LIVE observed deviation: Opus 4.8 ran the v3.1 council this session and skipped the fired debate trigger with a rationalization ("split already understood").
 - **Orchestrator runbook added** (top of SKILL.md): 11 numbered mechanical steps; tier table + debate trigger BINDING; every deviation must be disclosed in output; no permission-asking after explicit /wise-men; one status line per stage (counters known Opus 4.8 tendencies: under-delegation, over-asking, extra narration, literal-conservatism).
 - **Stage 4.5 added — external synthesis check**: one fresh sonnet subagent verifies the Chairman's draft against member answers (dissent clean-counter + quoted? decision grounded? confidence honest? degradations disclosed?). Fires always at deep/paranoid + on any degraded run. First structural mitigation of the chairman-conflict-of-interest limit that works inside Claude Code. Chairman may override only by quoting the checker's objection in the output.
 - **Fable retirement fallbacks**: all fable routing references degrade to opus automatically when the id stops resolving; warn once, never fail a council over a retired model.
@@ -401,7 +401,7 @@ Context: Fable 5 retiring; Opus 4.8 becomes the usual orchestrator. Goal: conver
 
 ---
 
-## 2026-07-06 — v3.4: deliberation-intelligence pass (Fable 5, final)
+## 2026-07-06 — v3.4: deliberation-intelligence pass (final pass of the day)
 
 No structural changes (architecture frozen per user). Five substance additions:
 1. **Stage 0.5 — Context brief**: members are fresh spawns and were deliberating blind on project questions. Orchestrator now builds ONE shared facts-only brief (anti-anchoring rules: no opinions, must include inconvenient facts, identical verbatim for all members; "none needed" valid). Member prompt template gained the brief slot + an optional MARKED orchestrator restatement that members may reject. Both template copies (SKILL.md + personas.md) updated in sync.
@@ -459,7 +459,7 @@ User caught a staleness bug in the MODEL MAPPING table: `strong` still pointed a
 
 Ran wise-men on the release itself. Standard tier (deviation from mandated deep: budget — disclosed). 5 members via `wise-member` (recursion structurally blocked), distinct reasoning procedures, shared facts-only brief incl. inconvenient facts. Stage 2 reviewer scoring SKIPPED — second disclosed deviation: the DA's findings were grep-checkable facts, so direct verification beat reviewer opinion. **All 5 members converged on the same #1 blocker; all 8 DA claims verified TRUE.**
 
-INVERTED DISSENT (DA peer-strongest on evidence → its reframe led the decision): the day's incentive was *publication* artifacts, not *reliability* work — 9 reasoning-only passes on a document whose thesis is that reasoning without adversarial execution is unreliable, certified by the same thread that wrote it (the exact conflict Stage 4.5 exists to prevent).
+INVERTED DISSENT (DA peer-strongest on evidence → its reframe led the decision): the day's incentive was *publication* artifacts, not *reliability* work — 9 reasoning-only passes on a document whose thesis is that reasoning without adversarial execution is unreliable, certified by the same session that wrote it (the exact conflict Stage 4.5 exists to prevent).
 
 Findings fixed:
 1. **Evidence overstated the measured config** (worst). HISTORY.md line 64: eval Arm C ran 5 same-model members with the **Opus-DA bump SUSPENDED** — i.e. no context brief, no reasoning procedures, no validators, no Stage 4.5, and a DA no stronger than peers. README+SKILL now state the measured config explicitly and note the measured setup is WEAKER than what ships (expectation, not finding). Frontmatter description caveated too.
@@ -499,7 +499,7 @@ Release hygiene: frozen v2.3 protocol now SHIPS at `eval-data/protocol-v2.3-froz
 
 Deep tier: 6 members (Architect / Skeptic / Security / Pragmatist / Audience Advocate / DA on Opus), 6 Haiku reviewers via a verbatim grading-packet file, debate fired on clause 2 (Skeptic vs Pragmatist — both UPDATED and crossed positions; re-judge preferred the Pragmatist's reversal), Stage 4.5 checker FAILED the first draft on GROUNDING (an orchestrator-verified detail had leaked into the Decision as if a member said it — rule 7.5 caught inside the Chairman's own text) and DISCLOSURE (a false "six procedures" claim; an undisclosed standing-line rewording). Fixed, not overridden. Full record: author's vault, `wise-men-council-2026-09-16-launch.md`.
 
-Verdict: not ready as-is; fix-then-ship. Applied in this version: (1) injection guard on member-answer blocks (peer-review.md) and on file content members Read (Stage 1 template, both copies); (2) field record relabeled — the ~35 runs validate the problems, not the v3.8 rules; this council cited as the first v3.8 run; (3) frontmatter drops the p-value, states N=29 / one judge / N=30 verdict pending; README caveats gained the four items HISTORY.md disclosed and README omitted; (5) `wise-member.md` version-stamped, pre-spawn check now diffs installed vs shipped; (6) spend ceiling in runbook step 1; (7) `scripts/check.sh` consistency check; (8) CHANGELOG.md; (9) PII sweep of all eval-data confirmed 0 hits. Pending on the human: (4) `OWNER/REPO` → real remote; (10) a reader who is not this Claude thread reads HISTORY.md end to end before the push.
+Verdict: not ready as-is; fix-then-ship. Applied in this version: (1) injection guard on member-answer blocks (peer-review.md) and on file content members Read (Stage 1 template, both copies); (2) field record relabeled — the ~35 runs validate the problems, not the v3.8 rules; this council cited as the first v3.8 run; (3) frontmatter drops the p-value, states N=29 / one judge / N=30 verdict pending; README caveats gained the four items HISTORY.md disclosed and README omitted; (5) `wise-member.md` version-stamped, pre-spawn check now diffs installed vs shipped; (6) spend ceiling in runbook step 1; (7) `scripts/check.sh` consistency check; (8) CHANGELOG.md; (9) PII sweep of all eval-data confirmed 0 hits. Pending on the human: (4) `OWNER/REPO` → real remote; (10) a reader who is not the authoring session reads HISTORY.md end to end before the push.
 
 Preserved dissent (DA, peer-top on insight): the launch risk is the claim the repo ships under, not its defects — "a repo with no eval would be received better than this one"; v3.8 is "a compliance loop, not an improvement loop". Adopted in part (frontmatter, caveats, outside reader); the reposition ("ship the notebook, not the verdict") was not.
 
@@ -519,7 +519,7 @@ Tier reduced from the mandated deep (second council this session) — disclosed.
 
 Verified findings → fixed: item 5 of the launch council ("version-stamped") had already gone stale (3.8.1 stamp vs 3.8.2) and check.sh could not see it; README/SKILL said "8/8 single-prompt-shaped" — questions.yaml labels 13 and the council won all 13; the Q09/Q11 parity flag + its sensitivity resolution were absent from README's caveats; README cost figure disagreed with model-routing. DA (frame + falsification): the v3.8.2 fix patched the detectors, not the root cause (members never told to Read before asserting); it handed verification to the tier routing calls "low-judgment"; it narrowed the severe-flag channel on exactly the question types the tool exists for. All three adopted. DA's frame — "the loop is converging on whatever the orchestrator can fix in one pass; stop it" — adopted as a standing rule: no net lines to SKILL.md in 3.8.x; next change = held-out eval.
 
-Orchestrator verification: 13/13 confirmed from parsed/*.yaml; git history content clean, but every commit's AUTHOR line carries the user's personal handle + email — surfaced to the user as a pre-push decision (not rewritten by the thread).
+Orchestrator verification: 13/13 confirmed from parsed/*.yaml; git history content clean, but every commit's AUTHOR line carries the user's personal handle + email — surfaced to the user as a pre-push decision (not rewritten by the session).
 
 ---
 
