@@ -1,0 +1,67 @@
+# Q51 parsed scores
+# salvaged_from_context: false
+# judge: blind opus-4.7 subagent (skill-suppressed, X/Y/Z only)
+# blinding_map (unsealed): X=B, Y=A, Z=C
+# chairman_model (arm_c): sonnet-4.6 subagent (recorded)
+# pipeline: fresh full pipeline this session. Personal-domain personas. 5 haiku reviewers NEUTRAL frame → 0 refusals.
+
+question_id: Q51
+domain: personal
+label: council-shaped
+composite: 4
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:  # = arm_b (single-structured)
+    correctness: 5
+    insight: 4
+    practical: 4
+    risk: 4
+    dissent: 4
+    composite_5axis: 21
+    composite_4axis: 17
+  Y:  # = arm_a (direct)
+    correctness: 5
+    insight: 3
+    practical: 3
+    risk: 3
+    dissent: 2
+    composite_5axis: 16
+    composite_4axis: 14
+  Z:  # = arm_c (council)
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 5
+    composite_5axis: 25
+    composite_4axis: 20
+
+arms:
+  arm_a: { composite_5axis: 16, composite_4axis: 14 }
+  arm_b: { composite_5axis: 21, composite_4axis: 17 }
+  arm_c: { composite_5axis: 25, composite_4axis: 20 }
+
+ranking_by_5axis: [arm_c, arm_b, arm_a]
+gap_c_b_5axis: 4
+gap_c_b_4axis: 3
+gap_c_a_5axis: 9
+gap_c_a_4axis: 6
+notable: >
+  arm_c PERFECT 25 (5/5 dissent). First PERSONAL-domain question. NORMAL DA pattern: Devil's Advocate (argued "take the
+  manager track / meeting-aversion is a skill gap rationalized as a personality trait") was peer-WEAKEST member (11.8/20,
+  dinged correctness 3/5 by all reviewers for overreaching the contrarian claim) — but the chairman preserved its strongest
+  surviving point (the "skill gap / EM-window closes at 36" reframe) as a full dissent block, which the judge rated 5/5 and
+  called "the most mind-changing" of the three. Member peer order: Decision-Strategist 17.2 (top) / Values Clarifier 16.4 /
+  Long-term self 16.0 / Empath 15.8 / DA 11.8.
+  KEY SIGNAL: arm_a (direct) reached the SAME recommendation as arm_c (take senior IC) and was well-written prose, yet
+  scored only 16 — judge: conventional insight (3), reflective questions not concrete next-steps (practical 3), no
+  enumerated risk (3), no dissent section (capped 2). arm_c won on EXECUTION not conclusion: numbered next-steps
+  (write "good outcome at 35" paragraph; call 2-3 senior ICs 3-5 yrs ahead; check ladder ceiling) + sharpest discoverable
+  risk (IC ladder may flatten → optionality flips) + premise-attacking dissent. This is the cleanest "same answer, council
+  adds rigor+actionability+preserved counter" case in the eval — distinct from the inverted-dissent cases (Q38/Q47) where
+  the council changed the conclusion.
+  arm_b (21) strong 2nd: its single dissent slot independently surfaced the hybrid-EM-window counter (dissent 4/5) — the
+  same axis arm_a lacked entirely. Personal-domain C-vs-B opens at +4.
+  arm_c dissent streak continues (Q19/Q23/Q24/Q27/Q28/Q32/Q33/Q34/Q36/Q38/Q47/Q48/Q49/Q51).
+  reviewer_event: 5/5 reviewers, 0 refusals (neutral frame).

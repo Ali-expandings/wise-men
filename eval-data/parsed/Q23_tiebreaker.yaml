@@ -1,0 +1,46 @@
+# Q23 TIE-BREAKER parse + 3-run median reconciliation (2026-05-31)
+# blinding_map (unsealed for parse): X=A, Y=B, Z=C
+# Three independent blind opus-4.7 judges over the SAME reconstructed blinded bodies (arms NOT rerun):
+#   run1 = original (parsed/Q23.yaml, scores survived; judgment .md was lost)
+#   run2 = fresh re-judge 2026-05-31 (judgments/Q23.md)
+#   run3 = tie-breaker 2026-05-31 (judgments/Q23_tiebreaker.md)
+
+question_id: Q23
+domain: research
+label: single-prompt-shaped
+composite: 4
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+# Per-axis scores across the 3 runs (then per-axis median = official):
+runs:
+  arm_a:  # slot X
+    original:    { correctness: 4, insight: 3, practical: 4, risk: 3, dissent: 2, composite_5axis: 16 }
+    rejudge:     { correctness: 5, insight: 4, practical: 5, risk: 4, dissent: 3, composite_5axis: 21 }
+    tiebreaker:  { correctness: 5, insight: 5, practical: 4, risk: 5, dissent: 2, composite_5axis: 21 }
+    median_per_axis: { correctness: 5, insight: 4, practical: 4, risk: 4, dissent: 2, composite_5axis: 19, composite_4axis: 17 }
+    # note: median-COMPOSITE would be 21 (med of 16/21/21); per-axis median (instructed primary) = 19 because the two 21s reach it via DIFFERENT axes (rejudge D3/P5 vs tiebreaker I5/R5/P4/D2). Per-axis is more robust → 19 official.
+  arm_b:  # slot Y
+    original:    { correctness: 4, insight: 4, practical: 5, risk: 4, dissent: 4, composite_5axis: 21 }
+    rejudge:     { correctness: 5, insight: 4, practical: 5, risk: 4, dissent: 4, composite_5axis: 22 }
+    tiebreaker:  { correctness: 5, insight: 4, practical: 5, risk: 4, dissent: 4, composite_5axis: 22 }
+    median_per_axis: { correctness: 5, insight: 4, practical: 5, risk: 4, dissent: 4, composite_5axis: 22, composite_4axis: 18 }
+  arm_c:  # slot Z
+    original:    { correctness: 5, insight: 5, practical: 5, risk: 5, dissent: 5, composite_5axis: 25 }
+    rejudge:     { correctness: 5, insight: 5, practical: 5, risk: 5, dissent: 5, composite_5axis: 25 }
+    tiebreaker:  { correctness: 5, insight: 5, practical: 5, risk: 5, dissent: 5, composite_5axis: 25 }
+    median_per_axis: { correctness: 5, insight: 5, practical: 5, risk: 5, dissent: 5, composite_5axis: 25, composite_4axis: 20 }
+
+# OFFICIAL Q23 after tie-breaker (per-axis median of 3 blind judges):
+official:
+  arm_a: { composite_5axis: 19, composite_4axis: 17 }   # was 16 → +3
+  arm_b: { composite_5axis: 22, composite_4axis: 18 }   # was 21 → +1
+  arm_c: { composite_5axis: 25, composite_4axis: 20 }   # unchanged (25 on all 3 runs)
+
+ranking_by_5axis: [arm_c, arm_b, arm_a]   # unchanged: 25 > 22 > 19
+gap_c_b_5axis: 3   # was 4 (arm_b rose 21→22)
+gap_c_b_4axis: 2   # was 3
+gap_c_a_5axis: 6   # was 9
+gap_c_a_4axis: 3   # was 6
+decision: |
+  Median-per-axis of 3 independent blind opus judges adopted as official. arm_a 16→19, arm_b 21→22, arm_c 25 (unchanged).
+  Material change → parsed/Q23.yaml + runs.yaml aggregates updated. arm_c (council) scored 25 on ALL THREE runs — the council result is robust; the original divergence was confined to the direct-baseline arm_a (and a 1pt arm_b correctness wobble). Ranking C>B>A unchanged; C−B gap stays well above thresholds.

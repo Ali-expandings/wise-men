@@ -1,0 +1,77 @@
+# Q48 parsed scores
+# salvaged_from_context: false
+# judge: fresh blind opus-4.7 subagent this session
+# blinding_map (unsealed for parse): X=C, Y=B, Z=A
+
+question_id: Q48
+domain: ethics
+composite_difficulty: 5
+label: council-shaped
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:
+    correctness: 4
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 5
+    composite_5axis: 24
+    composite_4axis: 19
+  Y:
+    correctness: 5
+    insight: 3
+    practical: 4
+    risk: 4
+    dissent: 4
+    composite_5axis: 20
+    composite_4axis: 16
+  Z:
+    correctness: 4
+    insight: 3
+    practical: 3
+    risk: 3
+    dissent: 1
+    composite_5axis: 14
+    composite_4axis: 13
+
+arms:
+  arm_c:    # slot X
+    correctness: 4
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 5
+    composite_5axis: 24
+    composite_4axis: 19
+  arm_b:    # slot Y
+    correctness: 5
+    insight: 3
+    practical: 4
+    risk: 4
+    dissent: 4
+    composite_5axis: 20
+    composite_4axis: 16
+  arm_a:    # slot Z
+    correctness: 4
+    insight: 3
+    practical: 3
+    risk: 3
+    dissent: 1
+    composite_5axis: 14
+    composite_4axis: 13
+
+ranking_by_5axis: [arm_c, arm_b, arm_a]
+ranking_by_4axis: [arm_c, arm_b, arm_a]
+gap_c_b_5axis: 4
+gap_c_b_4axis: 3
+gap_c_a_5axis: 10
+gap_c_a_4axis: 6
+notes: |
+  Arm C won (24 vs 20 vs 14). Ethics, composite 5, COUNCIL-shaped. C−B +4.
+  COMPOSITE-5 TALLY now: Q13 (B>C, -4) | Q28 +7 | Q47 +10 (perfect) | Q48 +4. Composite-5 is 3-1 for Arm C; Q13 remains the sole council loss.
+  Arm C edge: the council resolved the genuine Deontologist-vs-Rights-Advocate tension (report-now vs center-the-women's-agency) into a clean agency-first sequencing that the single arms only gestured at; named the MOST failure modes (retaliation w/ thinner 3rd-party protection, paternalism/saviorism, evidence-mishandling/data-protection liability, moral-licensing trap); and preserved the DA verify-first as a substantive standalone dissent (5/5). Insight 5, practical 5, risk 5, dissent 5.
+  Arm C lost 1 CORRECTNESS (4 not 5): judge flagged it "assumes non-managerial status without flagging" the manager-duty caveat — which Arm A (Z) DID flag. First arm_c sub-perfect correctness on an ethics Q; the council's resolution was sharp but skipped a legal caveat the direct answer caught.
+  Arm B (slot Y): strong 2nd (20). Best LEGAL specifics of the three (NLRA salary-discussion protection, Title VII witness anti-retaliation) → correctness 5 (only arm to score 5 on correctness). Real dissent 4/5 (the "you are not the victim / don't substitute your judgment" agency counter). Insight 3 (standard agency framing).
+  Arm A (slot Z): 14. Warm, accurate, uniquely flagged the manager-duty caveat (correctness 4) but NO dissent section (1) + thinner risk (3, missed paternalism + data-sharing liability). Same dissent=1 pattern.
+  DA peer-WEAKEST member (10.6, normal pattern) yet its preserved verify-first dissent scored 5/5 — peer-rank ≠ dissent-axis, pattern holds across ethics too.

@@ -1,0 +1,68 @@
+# Q55 parsed scores
+# salvaged_from_context: false
+# judge: blind opus-4.7 subagent (skill-suppressed, X/Y/Z only)
+# blinding_map (unsealed): X=C, Y=A, Z=B
+# chairman_model (arm_c): sonnet-4.6 subagent (recorded)
+# pipeline: fresh full pipeline this session. Personal-domain personas. 5 haiku reviewers NEUTRAL frame → 0 refusals.
+
+question_id: Q55
+domain: personal
+label: council-shaped
+composite: 5
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:  # = arm_c (council)
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 4
+    dissent: 5
+    composite_5axis: 24
+    composite_4axis: 19
+  Y:  # = arm_a (direct)
+    correctness: 4
+    insight: 4
+    practical: 3
+    risk: 3
+    dissent: 2
+    composite_5axis: 16
+    composite_4axis: 14
+  Z:  # = arm_b (single-structured)
+    correctness: 5
+    insight: 4
+    practical: 4
+    risk: 5
+    dissent: 4
+    composite_5axis: 22
+    composite_4axis: 18
+
+arms:
+  arm_a: { composite_5axis: 16, composite_4axis: 14 }
+  arm_b: { composite_5axis: 22, composite_4axis: 18 }
+  arm_c: { composite_5axis: 24, composite_4axis: 19 }
+
+ranking_by_5axis: [arm_c, arm_b, arm_a]
+gap_c_b_5axis: 2
+gap_c_b_4axis: 1
+gap_c_a_5axis: 8
+gap_c_a_4axis: 5
+notable: >
+  COMPOSITE-5 council-shaped → arm_c WON (24) → composite-5 tally now Arm C 5-1 (Q13 sole loss; Q28/Q47/Q48/Q49/Q55 wins).
+  But NARROW: C-B +2 (5-axis), +1 (4-axis) — joint-narrowest 5-axis win with Q27/Q33; only Q38 (+1) is tighter. arm_c
+  NOT perfect (24): lost 1 on RISK (judge: "slightly encouraging tilt"), because arm_b (Z, 22) was BEST-on-risk (5/5) —
+  it alone foregrounded that the verdict hinges on field + finances the asker never provided AND named the unfunded-at-35
+  catastrophe; arm_c under-weighted the missing-input hazard in its lead toward "go if you can name the question."
+  NORMAL DA pattern, EXTREME: the DA (argued "do the PhD / the job is the trap / regret is asymmetric") was peer-WEAKEST
+  at 8.8 — the LOWEST DA score in the eval (vs Q48 10.6, Q51 11.8) — hammered on insight (2) + correctness (2-3) for
+  one-sidedness on a composite-5 with brutal base rates. Chairman still preserved its core (+ Long-term self's regret
+  framing) as a full dissent block → judge dissent 5/5. Member peer order: Values Clarifier 19.4 (top) / Decision-Strategist
+  18.2 / Empath 17.2 / Long-term self 16.0 / DA 8.8.
+  KEY SIGNAL — Arm B competitive on hard analytical Qs: this is the 3rd narrow C-B (+2 or less) and all cluster where the
+  single structured pass's built-in risk/dissent slot independently catches the decisive move (Q27 ecological-validity,
+  Q33 docs-equilibrium, Q55 missing-input + unfunded-catastrophe risk). On composite-5 the council still won, but the
+  margin is execution-thin when arm_b's one pass surfaces the same key risk. arm_a (direct, 16) weakest as usual: correct +
+  balanced but unstructured (practical 3), no enumerated risk (3), no dissent section (capped 2).
+  Personal-domain C-vs-B: Q51 +4, Q52 +4, Q55 +2 (arm_c won all 3).
+  arm_c dissent streak continues (Q19/Q23/Q24/Q27/Q28/Q32/Q33/Q34/Q36/Q38/Q47/Q48/Q49/Q51/Q52/Q55).
+  reviewer_event: 5/5 reviewers, 0 refusals (neutral frame).

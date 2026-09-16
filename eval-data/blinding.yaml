@@ -1,0 +1,51 @@
+# Wise-men eval blinding map — SEALED until grading complete
+# spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+# random_seed: 20260526
+# Verification: each arm appears in each slot exactly 10 times across 30 questions.
+
+status: SEALED
+sealed_at: 2026-05-26
+
+# Slot-balance verification (computed deterministically from seed):
+#   slot X, arm A: 10
+#   slot X, arm B: 10
+#   slot X, arm C: 10
+#   slot Y, arm A: 10
+#   slot Y, arm B: 10
+#   slot Y, arm C: 10
+#   slot Z, arm A: 10
+#   slot Z, arm B: 10
+#   slot Z, arm C: 10
+
+# Per-question slot → arm mapping:
+mapping:
+  Q01: {X: C, Y: A, Z: B}
+  Q02: {X: A, Y: C, Z: B}
+  Q03: {X: B, Y: C, Z: A}
+  Q05: {X: A, Y: B, Z: C}
+  Q09: {X: A, Y: B, Z: C}
+  Q11: {X: B, Y: A, Z: C}
+  Q13: {X: C, Y: B, Z: A}
+  Q15: {X: B, Y: C, Z: A}
+  Q17: {X: A, Y: B, Z: C}
+  Q19: {X: B, Y: C, Z: A}
+  Q23: {X: A, Y: B, Z: C}
+  Q24: {X: C, Y: A, Z: B}
+  Q25: {X: B, Y: A, Z: C}
+  Q27: {X: C, Y: A, Z: B}
+  Q28: {X: A, Y: C, Z: B}
+  Q32: {X: A, Y: C, Z: B}
+  Q33: {X: A, Y: B, Z: C}
+  Q34: {X: A, Y: C, Z: B}
+  Q36: {X: B, Y: C, Z: A}
+  Q38: {X: B, Y: A, Z: C}
+  Q41: {X: A, Y: C, Z: B}
+  Q43: {X: C, Y: B, Z: A}
+  Q47: {X: B, Y: C, Z: A}
+  Q48: {X: C, Y: B, Z: A}
+  Q49: {X: B, Y: A, Z: C}
+  Q51: {X: B, Y: A, Z: C}
+  Q52: {X: C, Y: B, Z: A}
+  Q55: {X: C, Y: A, Z: B}
+  Q58: {X: C, Y: B, Z: A}
+  Q59: {X: C, Y: A, Z: B}

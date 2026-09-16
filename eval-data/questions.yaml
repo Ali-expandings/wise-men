@@ -1,0 +1,326 @@
+# Wise-men eval question set — FROZEN
+# spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+# freeze_date: 2026-05-26
+# authorship: Option B (60 candidates → blind-rated → 30 selected via seeded shuffle, random_seed=20260526)
+# distribution: 13 single-prompt-shaped + 17 council-shaped + 0 neither (max ratio 1.31:1, within 2:1 spec fallback)
+# domains: 5 questions per domain × 6 domains = 30
+
+distribution_summary:
+  total: 30
+  by_label:
+    single_prompt_shaped: 13
+    council_shaped: 17
+    neither: 0
+  by_domain:
+    engineering: 5
+    product: 5
+    research: 5
+    writing: 5
+    ethics: 5
+    personal: 5
+  composite_difficulty_distribution:
+    composite_2: 2
+    composite_3: 8
+    composite_4: 14
+    composite_5: 6
+
+questions:
+  - id: Q01
+    domain: engineering
+    label: single-prompt-shaped
+    depth: 3
+    stakes: 2
+    novelty: 1
+    composite: 3
+    question: |
+      I have a 1200-line React component and I keep adding to it. Is this fine or should I split it up? Tests are minimal and the component handles auth, form state, and some API calls all in one place.
+
+  - id: Q02
+    domain: engineering
+    label: council-shaped
+    depth: 2
+    stakes: 2
+    novelty: 1
+    composite: 2
+    question: |
+      We're building an internal tool that maybe 50 engineers will use. Should I bother with a proper design system or just use Tailwind utility classes directly everywhere? I feel like design systems are overkill here but my tech lead disagrees.
+
+  - id: Q03
+    domain: engineering
+    label: single-prompt-shaped
+    depth: 3
+    stakes: 3
+    novelty: 1
+    composite: 3
+    question: |
+      Our Postgres queries are getting slow — some taking 3-4 seconds — but I'm not sure if the bottleneck is missing indexes, query structure, or just the fact that we're doing too many joins. How do I even start diagnosing this properly?
+
+  - id: Q05
+    domain: engineering
+    label: council-shaped
+    depth: 4
+    stakes: 4
+    novelty: 2
+    composite: 4
+    question: |
+      We have a monolith that's getting hard to deploy without coordination across teams. Everyone says "go microservices" but our team is only 8 engineers. Is there a middle ground that isn't just pain in both directions?
+
+  - id: Q09
+    domain: engineering
+    label: single-prompt-shaped
+    depth: 4
+    stakes: 2
+    novelty: 3
+    composite: 4
+    question: |
+      Why does event sourcing feel so clean in tutorials but turn into a mess in real codebases? I've seen two companies abandon it mid-implementation. What actually goes wrong?
+
+  - id: Q11
+    domain: product
+    label: council-shaped
+    depth: 3
+    stakes: 4
+    novelty: 2
+    composite: 4
+    question: |
+      We have a working B2B SaaS product with 30 paying customers but we haven't done any real marketing. Should I hire a head of marketing now or is it too early — do I need more product-market fit signals first?
+
+  - id: Q13
+    domain: product
+    label: council-shaped
+    depth: 4
+    stakes: 5
+    novelty: 3
+    composite: 5
+    question: |
+      We're trying to enter a market that has one dominant player. Do we go after their unhappy customers, try to find a niche they ignore, or something else? They have 10x our resources and a strong brand.
+
+  - id: Q15
+    domain: product
+    label: single-prompt-shaped
+    depth: 4
+    stakes: 3
+    novelty: 3
+    composite: 4
+    question: |
+      Why do so many products launch with a big splash, get initial press coverage, and then quietly die within 18 months even when the product is genuinely good? What's the actual failure mode?
+
+  - id: Q17
+    domain: product
+    label: single-prompt-shaped
+    depth: 4
+    stakes: 3
+    novelty: 3
+    composite: 4
+    question: |
+      Our NPS is 72 which sounds great but our retention at month 6 is 55%. How is it possible to have raving fans who still churn? What am I misreading?
+
+  - id: Q19
+    domain: product
+    label: council-shaped
+    depth: 4
+    stakes: 4
+    novelty: 2
+    composite: 4
+    question: |
+      I'm trying to decide between charging per seat vs per usage for our API product. Our customers' usage varies wildly — some are 10x higher than others. What's the right pricing model and how do I switch without a revolt?
+
+  - id: Q23
+    domain: research
+    label: single-prompt-shaped
+    depth: 4
+    stakes: 3
+    novelty: 3
+    composite: 4
+    question: |
+      How seriously should I take a meta-analysis that finds a significant effect when half the underlying studies are unpublished and were located via a "gray literature search"? What are the actual failure modes here?
+
+  - id: Q24
+    domain: research
+    label: single-prompt-shaped
+    depth: 3
+    stakes: 3
+    novelty: 2
+    composite: 3
+    question: |
+      There's a study showing that a certain diet intervention lowered cholesterol by 12 points in an 8-week RCT. The sample was 80 people, mostly women, mostly 40-55, all in one US city. How far should I generalize from this?
+
+  - id: Q25
+    domain: research
+    label: single-prompt-shaped
+    depth: 5
+    stakes: 3
+    novelty: 4
+    composite: 5
+    question: |
+      Why do psychology replication studies so often fail even for effects that seemed very robust? Is this just p-hacking retroactively exposed, or is there something deeper about how social science knowledge works?
+
+  - id: Q27
+    domain: research
+    label: single-prompt-shaped
+    depth: 4
+    stakes: 4
+    novelty: 3
+    composite: 4
+    question: |
+      A company published a benchmark showing their AI model outperforms GPT-4 on 14 tasks. They chose the benchmark. They funded the study. How contaminated is this evidence and what would make it credible?
+
+  - id: Q28
+    domain: research
+    label: council-shaped
+    depth: 5
+    stakes: 4
+    novelty: 5
+    composite: 5
+    question: |
+      I'm trying to assess whether microplastics in blood have health consequences. The literature is new, conflicting, and mostly observational. How do I form a reasonable view on an actively contested empirical question like this?
+
+  - id: Q32
+    domain: writing
+    label: single-prompt-shaped
+    depth: 2
+    stakes: 3
+    novelty: 1
+    composite: 3
+    question: |
+      I need to write a cold email to a VP at a company I want to partner with. I've tried three drafts and they all sound either desperate or arrogant. What's the right register here and what's usually wrong with cold emails at this level?
+
+  - id: Q33
+    domain: writing
+    label: council-shaped
+    depth: 3
+    stakes: 2
+    novelty: 2
+    composite: 3
+    question: |
+      My team writes internal docs that nobody reads. They're well-organized and accurate but people still don't consult them before asking questions. Is this a writing problem or a culture problem, and how do I tell?
+
+  - id: Q34
+    domain: writing
+    label: single-prompt-shaped
+    depth: 4
+    stakes: 3
+    novelty: 3
+    composite: 4
+    question: |
+      I'm ghostwriting a memoir for someone who has a compelling story but their writing is stiff and formal. They want their voice to come through. How do I write in someone else's voice without flattening them into mine?
+
+  - id: Q36
+    domain: writing
+    label: council-shaped
+    depth: 4
+    stakes: 4
+    novelty: 3
+    composite: 4
+    question: |
+      I'm writing a postmortem for a major outage that affected customers. My manager wants it to be "blameless" but also wants accountability. Those feel contradictory. How do I actually write that?
+
+  - id: Q38
+    domain: writing
+    label: single-prompt-shaped
+    depth: 4
+    stakes: 3
+    novelty: 3
+    composite: 4
+    question: |
+      I'm writing a research paper for a general audience and I need to explain statistical uncertainty. Every metaphor I've tried either undersells the uncertainty or makes it sound like we know nothing. Is there a framing that actually works?
+
+  - id: Q41
+    domain: ethics
+    label: council-shaped
+    depth: 5
+    stakes: 5
+    novelty: 3
+    composite: 5
+    question: |
+      I'm an engineer at a health tech company. I found a bug that occasionally surfaces incorrect medication dosages to nurses — low probability but real. My manager told me not to escalate it yet because we're two weeks from a fundraise and it would "create noise." What do I do?
+
+  - id: Q43
+    domain: ethics
+    label: council-shaped
+    depth: 3
+    stakes: 3
+    novelty: 2
+    composite: 3
+    question: |
+      I'm a manager and I know one of my reports is quietly job searching. They haven't told me. Do I bring it up, plan around it silently, or act like I don't know? There's no clear right answer here and it's been bothering me.
+
+  - id: Q47
+    domain: ethics
+    label: council-shaped
+    depth: 4
+    stakes: 4
+    novelty: 3
+    composite: 4
+    question: |
+      I run a small nonprofit and I have a major donor who wants to fund a specific program I think is less effective than others. If I take the money I can do more total good but the donor is directing the allocation in a way I wouldn't choose. Is there a principled way to think about whether to accept restricted funding?
+
+  - id: Q48
+    domain: ethics
+    label: council-shaped
+    depth: 4
+    stakes: 5
+    novelty: 2
+    composite: 5
+    question: |
+      I discovered that my company has been systematically underpaying women in my department. I'm a man and I'm not affected directly. HR knows. Nothing has changed in 6 months. What are my obligations and what can I actually do?
+
+  - id: Q49
+    domain: ethics
+    label: council-shaped
+    depth: 5
+    stakes: 5
+    novelty: 4
+    composite: 5
+    question: |
+      I help run an online platform and I have to decide whether to remove content that's technically within our rules but is clearly designed to spread fear in a vulnerable community — not illegal, not hate speech by our definition, but clearly harmful in intent. What framework do I use?
+
+  - id: Q51
+    domain: personal
+    label: council-shaped
+    depth: 3
+    stakes: 4
+    novelty: 1
+    composite: 4
+    question: |
+      Should I take the senior IC offer at a slightly smaller company or the manager track at my current one? I'm 32, I like coding more than meetings, but I feel like I should be more strategic about career at this point.
+
+  - id: Q52
+    domain: personal
+    label: council-shaped
+    depth: 3
+    stakes: 4
+    novelty: 1
+    composite: 4
+    question: |
+      I've been offered a job that pays 40% more but it's in a city I don't want to live in long-term. I'm 29, no kids, partner is flexible. The money difference is real and my current comp is just okay. How do I actually think about this?
+
+  - id: Q55
+    domain: personal
+    label: council-shaped
+    depth: 4
+    stakes: 5
+    novelty: 2
+    composite: 5
+    question: |
+      I want to do a PhD but I'm 35 and I'd have to leave a well-paying job to do it. I'm genuinely curious about the research but I'm not sure I want an academic career. Is there any version of this decision where going back to school makes sense, or am I romanticizing it?
+
+  - id: Q58
+    domain: personal
+    label: council-shaped
+    depth: 3
+    stakes: 4
+    novelty: 2
+    composite: 4
+    question: |
+      I'm a freelancer who's been offered a full-time role at a client I like. The stability is appealing. But I've been freelancing for 4 years and I genuinely value the autonomy. I keep almost deciding and then pulling back. What's usually going on when someone can't commit to a decision like this?
+
+  - id: Q59
+    domain: personal
+    label: single-prompt-shaped
+    depth: 3
+    stakes: 4
+    novelty: 2
+    composite: 4
+    question: |
+      I've been working in tech for 10 years and I'm burning out. I want to take 3-6 months off but I'm afraid that gap will make me unhireable or signal that I can't handle pressure. Is that fear realistic in the current market?

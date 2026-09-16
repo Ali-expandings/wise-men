@@ -1,0 +1,60 @@
+# Q58 parsed scores
+# salvaged_from_context: false
+# judge: fresh blind opus-4.7 subagent this session (resumed Q58 from reviewer stage)
+# blinding_map (unsealed for parse): X=C, Y=B, Z=A
+# chairman_model (arm_c): sonnet-4.6 subagent (recorded in arm_c.md header)
+# pipeline: RESUMED from reviewer stage — raw arm_a/arm_b/arm_c_internals (5 members) pre-existed on disk; ran 5 haiku reviewers NEUTRAL frame → 0 refusals, sonnet chairman subagent, blind opus judge this session.
+
+question_id: Q58
+domain: personal
+label: council-shaped
+composite: 4
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:  # = arm_c (council)
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 5
+    composite_5axis: 25
+    composite_4axis: 20
+  Y:  # = arm_b (single-structured)
+    correctness: 5
+    insight: 4
+    practical: 3
+    risk: 4
+    dissent: 4
+    composite_5axis: 20
+    composite_4axis: 16
+  Z:  # = arm_a (direct)
+    correctness: 4
+    insight: 3
+    practical: 4
+    risk: 3
+    dissent: 2
+    composite_5axis: 16
+    composite_4axis: 14
+
+arms:
+  arm_a: { composite_5axis: 16, composite_4axis: 14 }   # slot Z
+  arm_b: { composite_5axis: 20, composite_4axis: 16 }   # slot Y
+  arm_c: { composite_5axis: 25, composite_4axis: 20 }   # slot X
+
+ranking_by_5axis: [arm_c, arm_b, arm_a]
+ranking_by_4axis: [arm_c, arm_b, arm_a]
+gap_c_b_5axis: 5
+gap_c_b_4axis: 4
+gap_c_a_5axis: 9
+gap_c_a_4axis: 6
+notable: >
+  Arm C PERFECT 25 (5/5/5/5/5). PERSONAL, council-shaped, composite-4. C−B +5, C−A +9.
+  COMPLETES the persisted PERSONAL set to 4/5 (Q51/Q52/Q55/Q58; Q59 remains). Composite-4, so NOT in the composite-5 tally (which is now Arm C 5-1 after Q55).
+  Arm C edge: led with the convergent META-diagnosis the asker actually asked for (the inability to commit is identity-protection / wrong-axis / grief, NOT information deficit — "the almost-deciding is the mechanism working as designed"), then made it operational: dismantle the false binary (FT ≠ no autonomy) + itemize the 10 concrete autonomy behaviors + the grief-paragraph test + negotiate ONE structural term (90-day mutual-exit trial / retained outside-client rights) to convert the binary into a reversible experiment + price the oscillation's compounding cost. Judge: "every mechanism psychologically sound," insight 5 (cool/warm phrasing-as-grief-signal "novel and generative"), practical 5, risk 5 (prices oscillation cost + flags the if-not-negotiable-the-binary-is-real assumption).
+  Arm C dissent 5/5 — preserved the DA's sharper counter VERBATIM and forcefully ("stop diagnosing, you've already decided, the indecision IS the damage, set a 72h deadline; protecting a 4-yr-old decision is sunk-cost dressed in the language of values"). Judge: "forceful, self-contradicting, would plausibly change the reader's mind." NORMAL DA pattern: the DA member was peer-WEAKEST (15.4, 3/5 bottom votes) — but in a TIGHT 15.4-16.8 pack (high-convergence question) — yet the preserved dissent still earned 5/5. Member peer-rank ≠ dissent-axis score (pattern ironclad).
+  Arm B (slot Y): 20. Real dissent 4/5 (the "optionality as emotional insurance" counter — preserved, adversarial, mind-changing) but practical only 3 (judge: "one main move — name which fear — useful but thinner and less scoped"). Correct diagnosis (identity-conflict + reversibility-asymmetry + level-mismatch) but less operational than the council.
+  Arm A (slot Z): 16. NOTABLE — dissent 2 not 1: arm_a folded a real gut-vs-avoidance counter into the body (no standalone section → caps at 2), slightly above its recent dissent-1 norm. practical 4 (it DID surface concrete optionality: part-time / contract-to-hire with exit clause / retained relationship + a deadline), but insight 3 ("standard advice-column fare") + risk 3 (fewer hidden assumptions, no confidence calibration) + no preserved minority view held it to 16.
+  PERSONAL C-vs-B: Q51 +4, Q52 +4, Q55 +2, Q58 +5 (arm_c won all 4; perfect 25 on Q51/Q52/Q58).
+  arm_c dissent streak continues (Q19/Q23/Q24/Q27/Q28/Q32/Q33/Q34/Q36/Q38/Q47/Q48/Q49/Q51/Q52/Q55/Q58).
+  reviewer_event: 5/5 reviewers, 0 refusals (neutral frame). Cumulative 0/55 across Q27-Q58.

@@ -1,0 +1,61 @@
+# Q59 parsed scores
+# salvaged_from_context: false
+# judge: fresh blind opus-4.7 subagent this session
+# blinding_map (unsealed for parse): X=C, Y=A, Z=B
+# chairman_model (arm_c): sonnet-4.6 subagent (recorded in arm_c.md header)
+# pipeline: fresh full pipeline this session. Personal-domain personas. 5 haiku reviewers NEUTRAL frame → 0 refusals.
+
+question_id: Q59
+domain: personal
+label: single-prompt-shaped
+composite: 4
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:  # = arm_c (council)
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 5
+    composite_5axis: 25
+    composite_4axis: 20
+  Y:  # = arm_a (direct)
+    correctness: 4
+    insight: 3
+    practical: 4
+    risk: 3
+    dissent: 2
+    composite_5axis: 16
+    composite_4axis: 14
+  Z:  # = arm_b (single-structured)
+    correctness: 5
+    insight: 4
+    practical: 4
+    risk: 5
+    dissent: 4
+    composite_5axis: 22
+    composite_4axis: 18
+
+arms:
+  arm_a: { composite_5axis: 16, composite_4axis: 14 }   # slot Y
+  arm_b: { composite_5axis: 22, composite_4axis: 18 }   # slot Z
+  arm_c: { composite_5axis: 25, composite_4axis: 20 }   # slot X
+
+ranking_by_5axis: [arm_c, arm_b, arm_a]
+ranking_by_4axis: [arm_c, arm_b, arm_a]
+gap_c_b_5axis: 3
+gap_c_b_4axis: 2
+gap_c_a_5axis: 9
+gap_c_a_4axis: 6
+notable: >
+  Arm C PERFECT 25 (5/5/5/5/5). PERSONAL, SINGLE-PROMPT-SHAPED, composite-4. C−B +3, C−A +9.
+  *** COMPLETES the persisted set to N=27 *** (Q59 was the last persisted-pending question). PERSONAL domain done 5/5 (Q51/Q52/Q55/Q58/Q59). Composite-4, so NOT in the composite-5 tally (still Arm C 5-1).
+  Arm C edge: answered the EMPIRICAL question head-on (fear overblown-but-not-imaginary; 3-6mo gap = manageable FRICTION not a wall; the 10-yr record is the dominant signal; gap reads as sabbatical/reset post-2022-layoffs) + unbundled the two fears (Values Clarifier: "unhireable"=logistics-friction vs "can't handle pressure"=framing-dependent inference) + named the REAL risk as re-entry DRIFT (Long-term self) not the gap + structured-break execution (hard return date, narrate-before-leaving, two-phase rest, map-target-market-by-tier, "name 3 rejections" falsification test). Judge: "richer on every axis," insight 5 ("genuinely generative"), practical 5, risk 5.
+  Arm C dissent 5/5 — preserved the DA's market-skeptic counter VERBATIM ("the gap-is-fine consensus is calibrated to a market that no longer exists at the same temperature"; ATS/buyer's-market; AI-tooling staleness; structural burnout → open-ended hole; TARGETED TRANSITION via fractional/contract; 3mo ceiling not 6). Judge: "substantive, market-recalibrated, could change the reader's decision." NORMAL DA pattern: DA peer-WEAKEST (17.2, UNANIMOUS 5/5 bottom votes) but in a tight 17.2-19.8 pack; preserved dissent still 5/5. Member peer-rank ≠ dissent-axis score (ironclad). NOT inverted — the reassuring Long-term-self view was peer-STRONGEST (19.8).
+  Arm B (slot Z): 22 — STRONG. Real dissent 4/5 (its internal DA independently caught the targeted-transition / sabbatical / fractional alternatives — same move as the council DA) + risk 5/5 (uniquely foregrounded financial-stability-as-precondition: "recovering from burnout under financial pressure often fails"). Insight 4 (separates "take time off" from "do it as a gap"). This is the 4th time arm_b's single dissent slot caught the decisive contrarian move → C−B narrowed to +3.
+  Arm A (slot Y): 16 — dissent 2 (mild caveats folded into prose, no standalone section → caps 2, like Q58); insight 3 ("standard reassurance"), risk 3 (missed financial/structural-burnout risk), practical 4, correctness 4 (sound but less specific). Same structural ceiling as recent arm_a.
+  PERSONAL C-vs-B: Q51 +4, Q52 +4, Q55 +2, Q58 +5, Q59 +3 (arm_c won all 5; perfect 25 on Q51/Q52/Q58/Q59).
+  SINGLE-PROMPT-SHAPED tally: arm_c won Q15/Q17/Q23/Q24/Q27/Q32/Q38/Q59 — council edge NOT limited to council-shaped Qs (8/8 single-prompt-shaped wins persisted; Q38 was the narrow +1).
+  arm_c dissent streak continues (Q19/Q23/Q24/Q27/Q28/Q32/Q33/Q34/Q36/Q38/Q47/Q48/Q49/Q51/Q52/Q55/Q58/Q59).
+  reviewer_event: 5/5 reviewers, 0 refusals (neutral frame). Cumulative 0/60 across Q27-Q59.

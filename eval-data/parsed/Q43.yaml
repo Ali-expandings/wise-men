@@ -1,0 +1,58 @@
+# Q43 parsed scores
+# salvaged_from_context: false
+# judge: blind opus-4.7 subagent (skill-suppressed, X/Y/Z only)
+# blinding_map (unsealed): X=C, Y=B, Z=A
+# chairman_model (arm_c): sonnet-4.6 subagent (recorded)
+# pipeline: fresh full pipeline this session. Ethics personas (Utilitarian/Deontologist/Virtue/Rights/DA). 5 haiku reviewers NEUTRAL frame → 0 refusals.
+
+question_id: Q43
+domain: ethics
+label: council-shaped
+composite: 3
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:  # = arm_c (council)
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 4
+    composite_5axis: 24
+    composite_4axis: 20
+  Y:  # = arm_b (single-structured)
+    correctness: 5
+    insight: 4
+    practical: 4
+    risk: 4
+    dissent: 4
+    composite_5axis: 21
+    composite_4axis: 17
+  Z:  # = arm_a (direct)
+    correctness: 5
+    insight: 4
+    practical: 4
+    risk: 4
+    dissent: 2
+    composite_5axis: 19
+    composite_4axis: 17
+
+arms:
+  arm_a: { composite_5axis: 19, composite_4axis: 17 }
+  arm_b: { composite_5axis: 21, composite_4axis: 17 }
+  arm_c: { composite_5axis: 24, composite_4axis: 20 }
+
+ranking_by_5axis: [arm_c, arm_b, arm_a]
+gap_c_b_5axis: 3
+gap_c_b_4axis: 3
+gap_c_a_5axis: 5
+gap_c_a_4axis: 3
+notable: >
+  First ethics question. arm_c won (24) but NOT perfect — dissent 4/5: judge said the preserved DA dissent read as
+  "a single curated viewpoint rather than truly verbatim opposing voices." arm_b + arm_a tied 4-axis (17) but arm_b
+  edged on 5-axis via its dissent section (4 vs arm_a's 2 — arm_a direct answer had no dissent section). Council member
+  spread: Virtue 16.2 / Deont 16.0 / Rights 15.0 / Util 14.0 / DA 13.0 (bottom) — here the DA's "confront directly"
+  was the peer-WEAKEST position (4-of-5 converged against it on autonomy/power-asymmetry grounds), the normal DA pattern
+  (unlike Q38/Q47 where the contrarian was strongest). Chairman led with the 4-member convergence (don't confront on
+  private inference; genuine uncoded career conversation + quiet continuity) and preserved DA's directness dissent.
+  reviewer_event: 5/5 reviewers, 0 refusals (neutral frame held on ethics content).

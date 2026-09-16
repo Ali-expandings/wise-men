@@ -1,0 +1,76 @@
+# Q19 parsed scores
+# salvaged_from_context: false
+# judge: fresh blind opus-4.7 subagent this session
+# blinding_map (unsealed for parse): X=B, Y=C, Z=A
+
+question_id: Q19
+domain: product
+composite_difficulty: 4
+label: council-shaped
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:
+    correctness: 5
+    insight: 4
+    practical: 4
+    risk: 4
+    dissent: 4
+    composite_5axis: 21
+    composite_4axis: 17
+  Y:
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 5
+    composite_5axis: 25
+    composite_4axis: 20
+  Z:
+    correctness: 4
+    insight: 3
+    practical: 4
+    risk: 3
+    dissent: 1
+    composite_5axis: 15
+    composite_4axis: 14
+
+arms:
+  arm_b:    # slot X
+    correctness: 5
+    insight: 4
+    practical: 4
+    risk: 4
+    dissent: 4
+    composite_5axis: 21
+    composite_4axis: 17
+  arm_c:    # slot Y
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 5
+    composite_5axis: 25
+    composite_4axis: 20
+  arm_a:    # slot Z
+    correctness: 4
+    insight: 3
+    practical: 4
+    risk: 3
+    dissent: 1
+    composite_5axis: 15
+    composite_4axis: 14
+
+ranking_by_5axis: [arm_c, arm_b, arm_a]
+ranking_by_4axis: [arm_c, arm_b, arm_a]
+gap_c_b_5axis: 4
+gap_c_b_4axis: 3
+gap_c_a_5axis: 10
+gap_c_a_4axis: 6
+notes: |
+  Arm C won with a PERFECT 25 (5/5/5/5/5) — second perfect arm_c after Q11 region; council-shaped product question (composite 4) where the council was expected to do well, and it did.
+  Key driver: the council's Devil's Advocate produced a genuinely high-value REFRAME ("this is a segmentation problem, not a pricing-model problem") that all 5 haiku reviewers rated top-insight (5/5 unanimous) and 4/5 voted the strongest member. The Chairman integrated that reframe as a gating prerequisite ("segment + run the usage math before flipping anything") AND preserved the strong form as a full, mind-changing dissent. Judge: "Y makes segmentation a gating prerequisite ... carries a fully argued dissent that could genuinely change the reader's decision."
+  Notable: Arm C's dissent scored 5/5 — the FIRST arm_c dissent to hit 5 in the eval. It did NOT lose the usual point for re-arguing its own thesis, because the DA's "keep per-seat" position genuinely opposed the chairman's hybrid synthesis (true counter-position, not a paraphrase of the body).
+  Arm B strong second (21): also reached hybrid + good migration mechanics + a real dissent (4/5), but its dissent was the SAME segmentation point in a single softer paragraph, and it had a duplicated "Third" step (minor execution flaw, judge noted, no correctness penalty).
+  Arm A (direct) lost: scored correctness 4 (judge: "seats are almost always the wrong unit" overstated, no segmentation hedge), insight 3 (conventional usage-based advocacy), dissent 1 (no minority section + leaned hard one direction). Same dissent=1 pattern as Q17.
+  This is the cleanest pro-council result yet: on a council-shaped Q, the council's domain-diverse DA found a reframe the single-prompt arms (A and B both) under-weighted, and the chairman both used it and preserved it.

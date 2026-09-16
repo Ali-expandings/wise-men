@@ -1,0 +1,72 @@
+# Q52 parsed scores
+# salvaged_from_context: false
+# judge: blind opus-4.7 subagent (skill-suppressed, X/Y/Z only)
+# blinding_map (unsealed): X=C, Y=B, Z=A
+# chairman_model (arm_c): sonnet-4.6 subagent (recorded)
+# pipeline: fresh full pipeline this session. Personal-domain personas. 5 haiku reviewers NEUTRAL frame → 0 refusals.
+
+question_id: Q52
+domain: personal
+label: council-shaped
+composite: 4
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:  # = arm_c (council)
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 5
+    composite_5axis: 25
+    composite_4axis: 20
+  Y:  # = arm_b (single-structured)
+    correctness: 5
+    insight: 4
+    practical: 4
+    risk: 4
+    dissent: 4
+    composite_5axis: 21
+    composite_4axis: 17
+  Z:  # = arm_a (direct)
+    correctness: 4
+    insight: 3
+    practical: 3
+    risk: 3
+    dissent: 2
+    composite_5axis: 15
+    composite_4axis: 13
+
+arms:
+  arm_a: { composite_5axis: 15, composite_4axis: 13 }
+  arm_b: { composite_5axis: 21, composite_4axis: 17 }
+  arm_c: { composite_5axis: 25, composite_4axis: 20 }
+
+ranking_by_5axis: [arm_c, arm_b, arm_a]
+gap_c_b_5axis: 4
+gap_c_b_4axis: 3
+gap_c_a_5axis: 10
+gap_c_a_4axis: 7
+notable: >
+  arm_c PERFECT 25 (5/5 dissent). 2nd personal-domain question; mirrors Q51 exactly (arm_c 25 / arm_b 21 / arm_a 15-16).
+  INVERTED-SETUP DA (3rd structural variant seen): here the "obvious" cautious answer (don't move for money to a city you
+  dislike) is the council MINORITY — 4-of-5 members lean take-it-as-a-time-boxed-bet. The DA (peer-WEAKEST 14.2) argued the
+  take-it case one-sidedly ("phase transition," "you're making it wrong") and was dinged on insight (3/5) for low nuance,
+  NOT for being contrarian. The genuine high-insight dissent came from the EMPATH (co-top 17.8, insight 5 from 4-of-5
+  reviewers): "flexible≠happy / partner's unchosen sacrifice → quiet resentment ledger / partner's TRUE feeling is the
+  binding constraint." Chairman correctly led with the take-it consensus (reframe as reversible 2-3yr experiment + quantify
+  net delta + "name what the money is for" sentence + audition-visit + concrete SHARED exit condition) and preserved the
+  Empath relational-cost case as a full dissent block → judge rated it "most mind-changing of the three" (5/5).
+  Member peer order: Long-term self = Empath = Values Clarifier 17.8 (3-way top) / Decision-Strategist 17.2 / DA 14.2.
+  KEY SIGNAL (repeat of Q51): arm_a (direct) gave a balanced, well-written, CORRECT both-sides answer and still scored
+  only 15 — judge: folded counters into an evenhanded body with NO distinct minority-view section (dissent capped 2),
+  ended on reflective questions not an actionable plan (practical 3), correctness 4 ("regret-minimization is a stock
+  frame," less rigorous on banking the delta). arm_c won on EXECUTION (concrete decision package + isolating the partner's
+  untested flexibility as THE binding constraint + preserved persuasive dissent), not on a different conclusion. Both
+  personal-domain Qs so far show the same mechanism: direct arm reaches a reasonable take but loses ~10 pts to the council
+  on actionability + risk-isolation + a preserved labeled dissent.
+  arm_b (21) strong 2nd both Qs: its single dissent slot independently surfaced a real contrarian read (Q51 EM-window;
+  Q52 environment-as-mood-tax / "2-year plans become 6"), dissent 4/5 — the axis arm_a structurally lacks.
+  Personal-domain C-vs-B: Q51 +4, Q52 +4 (arm_c won both).
+  arm_c dissent streak continues (Q19/Q23/Q24/Q27/Q28/Q32/Q33/Q34/Q36/Q38/Q47/Q48/Q49/Q51/Q52).
+  reviewer_event: 5/5 reviewers, 0 refusals (neutral frame).

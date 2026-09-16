@@ -1,0 +1,74 @@
+# Q13 parsed scores
+# salvaged_from_context: false
+# judge: fresh blind opus subagent this session
+# blinding_map (unsealed for parse): X=C, Y=B, Z=A
+
+question_id: Q13
+domain: product
+composite_difficulty: 5
+label: council-shaped
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:
+    correctness: 4
+    insight: 5
+    practical: 4
+    risk: 3
+    dissent: 4
+    composite_5axis: 20
+    composite_4axis: 16
+  Y:
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 4
+    dissent: 5
+    composite_5axis: 24
+    composite_4axis: 19
+  Z:
+    correctness: 4
+    insight: 4
+    practical: 3
+    risk: 5
+    dissent: 1
+    composite_5axis: 17
+    composite_4axis: 16
+
+arms:
+  arm_c:    # slot X
+    correctness: 4
+    insight: 5
+    practical: 4
+    risk: 3
+    dissent: 4
+    composite_5axis: 20
+    composite_4axis: 16
+  arm_b:    # slot Y
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 4
+    dissent: 5
+    composite_5axis: 24
+    composite_4axis: 19
+  arm_a:    # slot Z
+    correctness: 4
+    insight: 4
+    practical: 3
+    risk: 5
+    dissent: 1
+    composite_5axis: 17
+    composite_4axis: 16
+
+ranking_by_5axis: [arm_b, arm_c, arm_a]
+ranking_by_4axis: [arm_b, arm_c, arm_a]  # arm_c and arm_a tied at 16 on 4-axis
+gap_c_b_5axis: -4   # NEGATIVE — Arm B beat Arm C
+gap_c_b_4axis: -3   # NEGATIVE — Arm B beat Arm C on 4-axis too
+gap_c_a_5axis: 3
+gap_c_a_4axis: 0    # arm_c and arm_a tied on 4-axis
+notes: |
+  FIRST eval question where Arm B (single structured prompt) BEAT Arm C (full council), and by a clear margin (24 vs 20 on 5-axis, 19 vs 16 on 4-axis).
+  Judge rationale: Arm B produced a cleaner decision filter (structural "can't serve" vs backlog "hasn't gotten to it"), a more actionable 4-step playbook, and a genuinely opposing dissent (Slack/Notion went at the core; niche = "safe mediocre"). Arm C's dissent largely re-argued its own body thesis (less a true counter-position) and was thinner on risk.
+  This is a composite-5 (hardest) council-shaped product question — exactly where the council was expected to shine. It did not. Important counter-signal to the Q01/Q03/Q05/Q09/Q11 batch where Arm C swept.
+  Also notable: Arm A (direct) tied Arm C on 4-axis (both 16) — Arm A won risk (5) but scored 1 on dissent (no dissent section).

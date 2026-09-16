@@ -1,0 +1,55 @@
+# Q23 parsed scores — OFFICIAL (tie-breaker-resolved 2026-05-31)
+# salvaged_from_context: false
+# blinding_map (unsealed for scoring): X=A, Y=B, Z=C
+# chairman_model (arm_c): sonnet-4.6 subagent (recorded, parity preserved)
+#
+# *** SCORE PROVENANCE: official = per-axis MEDIAN of 3 independent blind opus-4.7 judges ***
+#   run1 original (judgment .md lost; scores survived) | run2 fresh re-judge (judgments/Q23.md) | run3 tie-breaker (judgments/Q23_tiebreaker.md)
+#   Full 3-run table + median derivation in parsed/Q23_tiebreaker.yaml.
+#   Change vs pre-tiebreaker: arm_a 16→19 (+3), arm_b 21→22 (+1), arm_c 25 unchanged (25 on all 3 runs). Aggregates in runs.yaml updated.
+
+question_id: Q23
+domain: research
+label: single-prompt-shaped
+composite: 4
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:  # = arm_a (per-axis median of 3 judges)
+    correctness: 5
+    insight: 4
+    practical: 4
+    risk: 4
+    dissent: 2
+    composite_5axis: 19
+    composite_4axis: 17
+  Y:  # = arm_b
+    correctness: 5
+    insight: 4
+    practical: 5
+    risk: 4
+    dissent: 4
+    composite_5axis: 22
+    composite_4axis: 18
+  Z:  # = arm_c
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 5
+    composite_5axis: 25
+    composite_4axis: 20
+
+arms:
+  arm_a: { composite_5axis: 19, composite_4axis: 17 }
+  arm_b: { composite_5axis: 22, composite_4axis: 18 }
+  arm_c: { composite_5axis: 25, composite_4axis: 20 }
+
+ranking_by_5axis: [arm_c, arm_b, arm_a]   # judge: Z > Y > X (25 > 22 > 19), unchanged
+gap_c_b_5axis: 3   # was 4 pre-tiebreaker (arm_b 21→22)
+gap_c_b_4axis: 2   # was 3
+gap_c_a_5axis: 6   # was 9 (arm_a 16→19)
+gap_c_a_4axis: 3   # was 6
+notable: arm_c perfect 25 (5/5 dissent — field-dependence inversion + DA gray-lit-virtue preserved verbatim); reproduced 25 on ALL 3 blind judges. arm_a no standalone dissent section (dissent stays 2 even at median). Tie-breaker raised arm_a 16→19 and arm_b 21→22; ranking C>B>A unchanged.
+reviewer_note: 7/10 first-pass reviewer refusals (aggressive anti-refusal framing tripped injection heuristic) — all recovered via neutral grading-frame retry.
+tiebreaker_note: judgment_source_missing repair — original judgment .md was lost; 3-judge per-axis median adopted 2026-05-31. See parsed/Q23_tiebreaker.yaml + judgments/Q23.md + judgments/Q23_tiebreaker.md.

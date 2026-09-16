@@ -1,0 +1,35 @@
+# Frozen pricing table for wise-men eval
+# Date: 2026-05-26
+# Source: resources/model-routing.md "Cost reality (recalibrated, late 2025)"
+# Currency: USD
+# Unit: dollars per 1,000,000 tokens
+
+models:
+  haiku-4.5:
+    input_per_million: 1.00
+    output_per_million: 5.00
+    relative_cost: 1.0
+    relative_speed: 1.0
+  sonnet-4.6:
+    input_per_million: 3.00
+    output_per_million: 15.00
+    relative_cost: 3.0
+    relative_speed: 0.3
+  opus-4.7:
+    input_per_million: 15.00
+    output_per_million: 75.00
+    relative_cost: 15.0
+    relative_speed: 0.1
+
+# Arm-to-model mapping (from eval-spec.md § 2)
+arm_models:
+  arm_a: sonnet-4.6              # Direct Claude answer
+  arm_b: sonnet-4.6              # Single structured prompt
+  arm_c_members: sonnet-4.6      # All 5 members (Opus-DA rule SUSPENDED for eval per § 2 Fix 1)
+  arm_c_reviewers: haiku-4.5     # 5 reviewers
+  arm_c_chairman: sonnet-4.6     # Main thread chairman
+
+judge_model: opus-4.7            # Per § 5
+
+# Frozen pricing applies to all 30 questions × 3 arms × 30 judge calls.
+# Mid-eval Anthropic price changes do not re-cost; note delta in final report if any.

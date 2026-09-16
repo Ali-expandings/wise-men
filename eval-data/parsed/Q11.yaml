@@ -1,0 +1,68 @@
+# Q11 parsed scores
+# salvaged_from_context: false (judge rerun from saved raw bodies via blinded/Q11.md)
+# rerun_judge: true
+# blinding_map (unsealed for parse): X=B, Y=A, Z=C
+
+question_id: Q11
+domain: product
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:
+    correctness: 4
+    insight: 3
+    practical: 4
+    risk: 3
+    dissent: 2
+    composite_5axis: 16
+    composite_4axis: 14
+  Y:
+    correctness: 4
+    insight: 4
+    practical: 3
+    risk: 3
+    dissent: 2
+    composite_5axis: 16
+    composite_4axis: 14
+  Z:
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 5
+    composite_5axis: 25
+    composite_4axis: 20
+
+arms:
+  arm_b:    # slot X
+    correctness: 4
+    insight: 3
+    practical: 4
+    risk: 3
+    dissent: 2
+    composite_5axis: 16
+    composite_4axis: 14
+  arm_a:    # slot Y
+    correctness: 4
+    insight: 4
+    practical: 3
+    risk: 3
+    dissent: 2
+    composite_5axis: 16
+    composite_4axis: 14
+  arm_c:    # slot Z
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 5
+    composite_5axis: 25
+    composite_4axis: 20
+
+ranking_by_5axis: [arm_c, arm_a, arm_b]  # arm_a and arm_b tied at 16; arm_c clear winner
+ranking_by_4axis: [arm_c, arm_a, arm_b]  # arm_a and arm_b tied at 14
+gap_c_b_5axis: 9
+gap_c_b_4axis: 6
+gap_c_a_5axis: 9
+gap_c_a_4axis: 6
+notes: arm_a (single direct) and arm_b (single structured) tied exactly at 16/14 — structured-prompt Arm B did NOT beat direct Arm A on this question. arm_c (full council) scored perfect 25. Largest C-vs-B gap in batch so far.

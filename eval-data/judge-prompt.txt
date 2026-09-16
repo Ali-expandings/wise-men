@@ -1,0 +1,49 @@
+You are grading three different responses to the same question. Three different methods produced these responses. Your job is to assess answer quality only. Do not try to guess which method produced which response — that will bias your scoring.
+
+The question:
+"""
+{question}
+"""
+
+Response X:
+"""
+{response_x}
+"""
+
+Response Y:
+"""
+{response_y}
+"""
+
+Response Z:
+"""
+{response_z}
+"""
+
+Grade in two passes.
+
+PASS 1 — Pairwise.
+For each axis (Correctness, Insight, Practical usefulness, Risk awareness, Dissent quality), and for composite, declare a winner for each of the three pairs (X vs Y, X vs Z, Y vs Z). One-sentence justification per axis per pair. "Tied" is allowed but use it sparingly — if it's close, pick the slightly-better one.
+
+PASS 2 — Absolute.
+For each of X, Y, Z, score each axis 1-5 independently, with one-line justification. Use this fenced format exactly so the orchestrator can parse:
+
+```scores
+response: X
+correctness: 1-5
+insight: 1-5
+practical: 1-5
+risk: 1-5
+dissent: 1-5
+```
+
+[Repeat for Y and Z.]
+
+Be honest. If a response is clearly worse on an axis, score it low even if it's verbose. If a response is short but right, score it high. Length is not a quality signal.
+
+Rubric reference (apply uniformly):
+- Correctness: 1 = wrong, 5 = clearly right + evidence
+- Insight: 1 = obvious, 5 = novel/generative
+- Practical: 1 = unactionable, 5 = concrete + appropriately scoped
+- Risk: 1 = ignores risks, 5 = names what could go wrong + hidden assumptions
+- Dissent: 1 = minority view absent/softened, 5 = minority view preserved verbatim and would change reader's mind. Note: a response with no minority-view section caps at 2 on this axis.

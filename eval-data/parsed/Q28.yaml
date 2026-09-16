@@ -1,0 +1,77 @@
+# Q28 parsed scores
+# salvaged_from_context: false
+# judge: fresh blind opus-4.7 subagent this session
+# blinding_map (unsealed for parse): X=A, Y=C, Z=B
+
+question_id: Q28
+domain: research
+composite_difficulty: 5
+label: council-shaped
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:
+    correctness: 5
+    insight: 4
+    practical: 4
+    risk: 4
+    dissent: 1
+    composite_5axis: 18
+    composite_4axis: 17
+  Y:
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 5
+    composite_5axis: 25
+    composite_4axis: 20
+  Z:
+    correctness: 4
+    insight: 4
+    practical: 3
+    risk: 3
+    dissent: 4
+    composite_5axis: 18
+    composite_4axis: 14
+
+arms:
+  arm_a:    # slot X
+    correctness: 5
+    insight: 4
+    practical: 4
+    risk: 4
+    dissent: 1
+    composite_5axis: 18
+    composite_4axis: 17
+  arm_c:    # slot Y
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 5
+    composite_5axis: 25
+    composite_4axis: 20
+  arm_b:    # slot Z
+    correctness: 4
+    insight: 4
+    practical: 3
+    risk: 3
+    dissent: 4
+    composite_5axis: 18
+    composite_4axis: 14
+
+ranking_by_5axis: [arm_c, arm_a, arm_b]   # arm_a and arm_b tied at 18 (5-axis)
+ranking_by_4axis: [arm_c, arm_a, arm_b]
+gap_c_b_5axis: 7
+gap_c_b_4axis: 6
+gap_c_a_5axis: 7
+gap_c_a_4axis: 3
+notes: |
+  *** KEY RESULT: composite-5 council-shaped stress test — Arm C PERFECT 25, beat Arm B by +7. ***
+  This is the DIRECT COUNTER to Q13 (the only prior question where Arm B beat Arm C, also composite-5 council-shaped). On the eval's hardest question type, the council decisively won this time.
+  Arm C 4-node win: the council members supplied a richer structure than either single arm — (a) the 3-node causal chain (accumulation [supported] / molecular effect [open] / clinical outcome [unestablished]) with per-node evidence ratings, (b) the Methodologist's "gate HARD on measurement validity / set aside contamination-uncontrolled studies" (the judge called this the single biggest methodological trap that Arm A MISSED), (c) explicit credence (30-50%) + belief-revision triggers, (d) NEJM-discount + co-benefit-only action track. Judge: Y "the most generative structure ... earns 5s across the board."
+  Arm A (direct, slot X): correctness 5 but NO dissent section (dissent 1) AND — notably — omitted the measurement-contamination failure mode (risk held at 4). 18 total.
+  Arm B (slot Z): unusually WEAK here — 18, tied with Arm A. Judge found Arm B "a more compressed, less concrete version" of the same causal-chain ideas; practical 3 + risk 3 (vaguer "modest low-cost protective actions", thinner risk treatment). Arm B's dissent 4/5 (good precautionary dissent). This is Arm B's weakest showing on a hard Q — the single structured prompt compressed the same skeleton the council expanded.
+  Arm C dissent 5/5 again (asymmetric-regret precaution, 5 named analogues incl DES, regret matrix). The DA was peer-rated WEAKEST member (10.6/20) yet the preserved dissent scored 5/5 — third time peer-weak-member ≠ weak-dissent (Q27 same). Confirms: dissent axis rewards a preserved mind-changing counter-position, independent of the member's own rubric rigor.
+  Composite-5 watch list now: Q13 (B>C, -4) vs Q28 (C>B, +7) — split. Remaining composite-5: Q25(pilot), Q41, Q48, Q49, Q55.

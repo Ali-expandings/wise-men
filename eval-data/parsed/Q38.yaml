@@ -1,0 +1,65 @@
+# Q38 parsed scores
+# salvaged_from_context: false
+# judge: blind opus-4.7 subagent (skill-suppressed, saw X/Y/Z only)
+# blinding_map (unsealed for scoring): X=B, Y=A, Z=C
+# chairman_model (arm_c): sonnet-4.6 subagent (recorded)
+# pipeline: fresh full pipeline this session. NEUTRAL reviewer frame → 0 refusals.
+
+question_id: Q38
+domain: writing
+label: single-prompt-shaped
+composite: 4
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:  # = arm_b (single-structured)
+    correctness: 5
+    insight: 4
+    practical: 5
+    risk: 4
+    dissent: 4
+    composite_5axis: 22
+    composite_4axis: 18
+  Y:  # = arm_a (direct)
+    correctness: 4
+    insight: 3
+    practical: 5
+    risk: 2
+    dissent: 1
+    composite_5axis: 15
+    composite_4axis: 14
+  Z:  # = arm_c (council)
+    correctness: 4
+    insight: 5
+    practical: 4
+    risk: 5
+    dissent: 5
+    composite_5axis: 23
+    composite_4axis: 18
+
+arms:
+  arm_a: { composite_5axis: 15, composite_4axis: 14 }
+  arm_b: { composite_5axis: 22, composite_4axis: 18 }
+  arm_c: { composite_5axis: 23, composite_4axis: 18 }
+
+ranking_by_5axis: [arm_c, arm_b, arm_a]   # arm_c 23 (not perfect), arm_b 22, arm_a 15
+gap_c_b_5axis: 1    # NARROWEST C-B WIN of the eval so far
+gap_c_b_4axis: 0    # arm_b and arm_c TIED on 4-axis (18 each)
+gap_c_a_5axis: 8
+gap_c_a_4axis: 4
+notable: >
+  NARROWEST Arm-C win of the eval (C-B +1 on 5-axis, TIED on 4-axis at 18). First arm_c sub-25 since Q09 — judge dinged
+  correctness to 4 (the worked-number repeated-sampling sentence subtly blurs "estimate" vs "interval bounds") and
+  practical to 4 (leans meta-advice). arm_c still won on the strength of insight 5 (precision-vs-robustness + the
+  uncertainty-ordering effect) + risk 5 + dissent 5. KEY EVAL SIGNAL: on a question whose best answer is "reject the
+  premise / drop the metaphor," Arm B (single structured prompt) nearly tied the council (22 vs 23) BECAUSE its built-in
+  dissent slot independently surfaced the same "skip the metaphor, give an operational sentence" insight that Arm C's
+  Devil's-Advocate member produced. When the winning move is a single contrarian reframe, Arm B's one-shot dissent step
+  captures most of the council's value — the multi-agent overhead buys less. This is the strongest "Arm B is close
+  enough" data point so far (narrower even than Q33's +2); contrast Q13 where Arm B actually beat Arm C.
+  arm_a (direct, weather-forecast — literally the obvious answer the council's DA argued AGAINST) weakest at 15:
+  judged correct-but-shallow, no dissent section (1), weak risk (2). The obvious answer scored worst; the premise-
+  rejecting answers (B + C) scored top — exactly the spread the council/dissent machinery is designed to produce.
+  arm_c dissent 5/5 — streak continues (Q19/Q23/Q24/Q27/Q28/Q32/Q33/Q34/Q36/Q38). Here the dissent was INVERTED
+  (contrarian DA was peer-strongest member 18.0; chairman led with it and preserved the 4-member conventional view as dissent).
+  reviewer_event: 5/5 reviewers, 0 refusals (neutral frame held on writing content).

@@ -1,0 +1,3 @@
+# Only needed to re-run the eval statistics in eval-data/analysis/.
+# The skill itself requires nothing — it is markdown that Claude Code reads.
+PyYAML>=6.0

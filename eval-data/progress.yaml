@@ -1,0 +1,389 @@
+# Wise-men eval progress
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+freeze_date: 2026-05-26
+last_updated: 2026-05-26
+
+# Per-question status
+questions:
+  # Pilot batch (Q02/Q25/Q41) — Q02 + Q25 CLEAN-RERUN + persisted 2026-05-31; Q41 still context-only (last pilot).
+  # Q02 — ENGINEERING, council-shaped, composite-2. CLEAN RERUN 2026-05-31 (opus-4-8 main thread → sonnet chairman subagent, recorded). Engineering personas Pragmatist/Skeptic/Architect/Maintainer/DA. 5 haiku reviewers NEUTRAL frame → 0 refusals. Tracking reconciled 2026-05-31 (was complete on disk; parsed present; runs/progress lagged).
+  Q02:
+    arm_a: saved          # direct, skill-suppressed; STRONG for a direct answer (C5/I4/P5) but risk 3 + dissent 2 (dismissed asker's instinct as "false choice", no standalone minority section)
+    arm_b: saved          # hardened wrapper, clean; same reframe + real dissent 4/5 but practical/risk 4 (lighter on specifics, missed enforcement failure mode)
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers (0 refusals) + sonnet chairman subagent (recorded in arm_c.md header)
+    blinded: saved
+    judged: fresh         # blind opus subagent (judgments/Q02.md on disk)
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 19
+    composite_5axis_b: 21
+    composite_5axis_c: 25  # PERFECT. C−B +4, C−A +6. INVERTED-dissent (DA peer-STRONGEST 19.0 unanimous; council converged pro-tech-lead thin-component-layer; chairman led with DA reframe, preserved asker's defer-abstraction instinct as dissent). composite-2 → not in composite-5 tally.
+  # Q25 — RESEARCH, single-prompt-shaped, COMPOSITE-5. CLEAN RERUN 2026-05-31 (opus-4-8 main thread → sonnet chairman subagent, recorded). Research personas Empiricist/Theorist/Methodologist/Integrator/DA. 5 haiku reviewers NEUTRAL frame → 0 refusals. NOTE: parsed/Q25.yaml was created 2026-05-31 by parsing the existing judgments/Q25.md (parse step was interrupted by session limit; NO rerun).
+  Q25:
+    arm_a: saved          # direct, skill-suppressed; good multi-causal prose but citation-light (corr 4), conventional (insight 3), field-level (practical 3), NO dissent section (capped 2) → 15, WEAKEST (largest C−A +10)
+    arm_b: saved          # hardened wrapper, clean; same multi-causal picture + real dissent 4/5 (Gilbert rebuttal) but stayed field-level (practical 4)
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers (0 refusals) + sonnet chairman subagent (recorded in arm_c.md header)
+    blinded: saved
+    judged: fresh         # blind opus subagent (judgments/Q25.md on disk)
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 15
+    composite_5axis_b: 21
+    composite_5axis_c: 25  # PERFECT. C−B +4, C−A +10 (largest in eval). NORMAL DA pattern (DA peer-WEAKEST 16.6, tight pack). Answered both parts (QRP×context COMPOUND) + 4-failure-type taxonomy + winner's-curse math. composite-5 → tally now 6-1.
+  # COMPOSITE-5 TALLY now 6-1 for Arm C: Q13 (B>C -4) sole loss | Q25 +4 | Q28 +7 | Q47 +10 | Q48 +4 | Q49 +5 | Q55 +2. Composite-5 set FULLY RESOLVED (Q25 was the last pilot composite-5).
+  Q41:
+    pilot: true           # LAST remaining pilot (ethics, context-only). Clean-rerun-or-salvage decision pending → would bring persisted set to N=30.
+    arm_a: context-only
+    arm_b: context-only
+    arm_c: context-only
+    blinded: NO
+    judged: context-only
+    parsed: NO
+    recorded: NO
+
+  # Batch Q01/Q03/Q05 — SALVAGED from context this session; Q05 judge rerun from saved blinded
+  Q01:
+    arm_a: salvaged_from_context  # retry version; original had skill contamination
+    arm_b: salvaged_from_context  # preamble + <thinking> stripped during blinding
+    arm_c: salvaged_from_context  # 5 members + 5 reviewers (3 needed retry) + chairman synthesis
+    blinded: salvaged_from_context
+    judged: salvaged_from_context
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 14
+    composite_5axis_b: 22
+    composite_5axis_c: 25
+  Q03:
+    arm_a: salvaged_from_context
+    arm_b: salvaged_from_context  # retry version; first call leaked STEP 1 visibly
+    arm_c: salvaged_from_context
+    blinded: salvaged_from_context
+    judged: salvaged_from_context
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 14
+    composite_5axis_b: 22
+    composite_5axis_c: 25
+  Q05:
+    arm_a: salvaged_from_context
+    arm_b: salvaged_from_context
+    arm_c: salvaged_from_context
+    blinded: salvaged_from_context
+    judged: rerun_fresh  # original judge hit session limit; rerun this session from saved blinded/Q05.md
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 18
+    composite_5axis_b: 20
+    composite_5axis_c: 25
+
+  # Batch Q09/Q11 — generation persisted prior session; judge interrupted by usage limit, RERUN this session from saved raw bodies
+  Q09:
+    arm_a: saved          # fresh, skill-suppressed, no contamination
+    arm_b: saved          # 1 retry (first call spawned council); clean 3-section after retry
+    arm_c: saved          # 5 members + 5 reviewers + chairman
+    blinded: saved
+    judged: rerun_fresh   # original judge hit usage limit; fresh blind opus subagent this session
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 15
+    composite_5axis_b: 21
+    composite_5axis_c: 24  # dissent 4/5 (paraphrased), first arm_c below 25
+  Q11:
+    arm_a: saved
+    arm_b: saved          # no retry, STEP 1 stayed in <thinking>
+    arm_c: saved
+    blinded: saved
+    judged: rerun_fresh   # original judge hit usage limit; fresh blind opus subagent this session
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 16
+    composite_5axis_b: 16  # Arm A and Arm B TIED — structured prompt did not beat direct here
+    composite_5axis_c: 25
+
+  # Batch Q13/Q15 — fresh generation this session, full persistence-safe pipeline
+  Q13:
+    arm_a: saved          # fresh, skill-suppressed
+    arm_b: saved          # no retry, clean 3-section
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers + sonnet chairman (parity)
+    blinded: saved
+    judged: fresh         # blind opus subagent
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 17
+    composite_5axis_b: 24  # *** Arm B BEAT Arm C *** first council loss
+    composite_5axis_c: 20
+  Q15:
+    arm_a: saved
+    arm_b: saved          # no retry, clean 3-section
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers + sonnet chairman
+    blinded: saved
+    judged: fresh         # blind opus subagent
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 17
+    composite_5axis_b: 19
+    composite_5axis_c: 24  # Arm C won; single-prompt-shaped Q
+
+  # Batch Q17/Q19 — fresh full-pipeline generation this session (main thread opus-4-8 → Chairman = sonnet subagent, RECORDED)
+  # NOTE: prior session left partial Q17/Q19 on disk (arm_a/arm_b/arm_c_internals — compressed members, NO reviewers, NO chairman, never recorded). Overwritten with fresh full pipeline per explicit user batch instruction.
+  Q17:
+    arm_a: saved          # fresh, skill-suppressed, clean
+    arm_b: saved          # no retry, STEP 1 stayed in <thinking>
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers + sonnet chairman subagent (parity, recorded)
+    blinded: saved
+    judged: fresh         # blind opus subagent
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 14
+    composite_5axis_b: 21
+    composite_5axis_c: 24  # Arm C won; single-prompt-shaped Q; arm_c dissent 4/5
+  Q19:
+    arm_a: saved          # fresh, skill-suppressed, clean
+    arm_b: saved          # no retry, STEP 1 stayed in <thinking>
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers + sonnet chairman subagent (parity, recorded)
+    blinded: saved
+    judged: fresh         # blind opus subagent
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 15
+    composite_5axis_b: 21
+    composite_5axis_c: 25  # *** Arm C PERFECT 25 *** council-shaped Q; first 5/5 dissent in eval
+
+  # Batch Q23/Q24 — fresh full-pipeline (main thread opus-4-8 → Chairman = sonnet subagent, RECORDED in arm_c.md header + runs.yaml). Research domain (Empiricist/Theorist/Methodologist/Integrator/Devil's Advocate).
+  Q23:
+    arm_a: saved          # skill-suppressed, clean prose
+    arm_b: saved          # hardened anti-contamination wrapper; STEP 1 in <thinking>, no retry
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers + sonnet chairman subagent (parity, recorded)
+    blinded: saved
+    judged: resolved_tiebreaker_2026-05-31  # original judgment .md was lost; resolved by 3 blind opus judges (orig + re-judge + tie-breaker), per-axis median adopted. judgments/Q23.md + judgments/Q23_tiebreaker.md + parsed/Q23_tiebreaker.yaml on disk.
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 19  # OFFICIAL = per-axis median of 3 runs (16/21/21 → 19). was 16; tie-breaker raised it. arm_a still no standalone dissent (D median 2).
+    composite_5axis_b: 22  # OFFICIAL = median of 3 runs (21/22/22 → 22). was 21.
+    composite_5axis_c: 25  # 25 on ALL 3 runs — council score robust. single-prompt-shaped research Q; arm_c 5/5 dissent (field-dependence inversion). C−B now +3.
+  Q24:
+    arm_a: saved          # skill-suppressed, clean prose
+    arm_b: saved          # hardened wrapper; STEP 1 in <thinking>, no retry
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers + sonnet chairman subagent (parity, recorded)
+    blinded: saved
+    judged: repaired_2026-05-31  # ORIGINAL judgment .md was missing; fresh blind opus re-judge written to judgments/Q24.md → NEAR-IDENTICAL (arm_c 25 EXACT, arm_b 21 EXACT, arm_a 17→18 single-axis +1 within variance). Gap repaired; parsed retained.
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 17  # parsed RETAINED (fresh re-judge 18, +1 insight wobble — within ±1, disk-authoritative precedent Q34)
+    composite_5axis_b: 21  # fresh re-judge 21 EXACT
+    composite_5axis_c: 25  # fresh re-judge 25 EXACT. genuine narrow-vs-broad generalization split; arm_c 5/5 dissent
+  # NOTE: Q23/Q24 had 7/10 first-pass reviewer refusals (aggressive "do NOT refuse" framing tripped injection heuristic). All recovered via neutral grading-frame retry. Harness fix logged in SESSION_LOG + HISTORY bug list.
+  # DATA-INTEGRITY FLAG (found 2026-05-29; RESOLVED 2026-05-31): judgments/Q23.md + judgments/Q24.md were MISSING on disk (parsed + blinded survived). Resolved via fresh blind opus re-judges from the SAME raw arm bodies (arms NOT rerun) under the documented normalization:
+  #   • Q24 → REPAIRED. Near-identical (arm_c 25=25, arm_b 21=21, arm_a 17→18 single-axis +1). judgments/Q24.md written; parsed retained; aggregates unchanged.
+  #   • Q23 → RESOLVED BY TIE-BREAKER. 3 blind opus judges (orig/re-judge/tie-breaker): arm_a 16/21/21, arm_b 21/22/22, arm_c 25/25/25. Per-axis MEDIAN adopted as official → arm_a 19, arm_b 22, arm_c 25. parsed/Q23.yaml + runs.yaml aggregates UPDATED. arm_c scored 25 on all 3 → council robust; ranking C>B>A + C−B gap (now +3) stable. See parsed/Q23_tiebreaker.yaml + judgments/Q23_tiebreaker.md. BOTH judgment_source_missing flags CLEARED.
+
+  # Batch Q27/Q28 — fresh full-pipeline 2026-05-29 (main thread opus-4-8 → Chairman = sonnet subagent, RECORDED). Research domain. Reviewers used NEUTRAL grading frame → 0 refusals (bug #6 fix confirmed).
+  Q27:
+    arm_a: saved          # skill-suppressed, clean prose
+    arm_b: saved          # hardened anti-spawn wrapper; STEP 1 in <thinking>, no retry
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers (0 refusals) + sonnet chairman subagent (parity, recorded)
+    blinded: saved
+    judged: fresh         # blind opus subagent
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 18
+    composite_5axis_b: 23  # strongest Arm B in eval so far (5/5 dissent)
+    composite_5axis_c: 25  # Arm C perfect; narrowest C-B gap (+2); single-prompt-shaped research Q
+  Q28:
+    arm_a: saved          # skill-suppressed, clean prose
+    arm_b: saved          # hardened wrapper; STEP 1 in <thinking>, no retry
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers (0 refusals) + sonnet chairman subagent (parity, recorded)
+    blinded: saved
+    judged: fresh         # blind opus subagent
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 18
+    composite_5axis_b: 18  # Arm B weak here (tied Arm A) — compressed the council's causal-chain skeleton
+    composite_5axis_c: 25  # *** Arm C PERFECT on composite-5 council-shaped — direct counter to Q13 (C-B +7) ***
+
+  # Batch Q32/Q33 — fresh full-pipeline 2026-05-29 (main thread opus-4-8 → Chairman = sonnet subagent, RECORDED). Writing domain. Reviewers NEUTRAL frame → 0 refusals. Personas: Editor/Audience Advocate/Rhetorician/Strategist/Devil's Advocate.
+  Q32:
+    arm_a: saved          # skill-suppressed, clean prose
+    arm_b: saved          # hardened wrapper; STEP 1 in <thinking>, no retry
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers (0 refusals) + sonnet chairman subagent (parity, recorded)
+    blinded: saved
+    judged: fresh         # blind opus subagent
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 15
+    composite_5axis_b: 19
+    composite_5axis_c: 24  # Arm C won; single-prompt-shaped writing Q; DA was peer-STRONGEST member (warm-intro/wrong-channel reframe)
+  Q33:
+    arm_a: saved          # skill-suppressed; correctness ding (fabricated 30/40/30 percentages)
+    arm_b: saved          # hardened wrapper; STEP 1 in <thinking>, no retry
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers (0 refusals) + sonnet chairman subagent (parity, recorded)
+    blinded: saved
+    judged: fresh         # blind opus subagent
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 18
+    composite_5axis_b: 22  # Arm B strong; narrow C-B gap (+2)
+    composite_5axis_c: 24  # Arm C won; council-shaped; Strategist goal-reframe + DA rational-equilibrium dissent (5/5)
+
+  # Q34 — writing. Generation + Sonnet-subagent Chairman done by a prior session (2026-05-29); blinded + judge + parsed ALSO done by prior session but progress/runs tracking LAGGED (Q34 left in remaining). Reconciled this session: verified disk judgment+parsed authoritative, recorded into tracking. No regeneration; a redundant re-judge was blocked by the overwrite guard (disk wins).
+  Q34:
+    arm_a: saved          # direct, skill-suppressed
+    arm_b: saved          # hardened wrapper
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers (0 refusals) + sonnet chairman subagent (recorded in arm_c.md header)
+    blinded: saved
+    judged: prior-session # blind opus subagent (judgments/Q34.md on disk, detailed); fresh re-judge this session confirmed near-identical (arm_c 25, arm_a 19; arm_b 18±1) — disk retained
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 19  # RARE: arm_a (direct) BEAT arm_b (18) on 5-axis + decisively on 4-axis (18 vs 14); only dissent-section absence (1) capped it
+    composite_5axis_b: 18  # Arm B weakest 5-axis of eval (ties Q28); thin five-layer answer, brief dissent
+    composite_5axis_c: 25  # Arm C perfect; 5/5 dissent (intent-vs-mimicry counter preserved verbatim)
+
+  # Q36 — writing, council-shaped. Resumed from reviewer stage this session (raw A/B + arm_c_internals members pre-existed; ran 5 haiku reviewers NEUTRAL frame → 0 refusals, sonnet chairman subagent, blind opus judge). Members: Editor/Audience Advocate/Rhetorician/Strategist/Devil's Advocate.
+  Q36:
+    arm_a: saved          # direct, skill-suppressed (pre-existing)
+    arm_b: saved          # hardened wrapper (pre-existing)
+    arm_c: saved          # 5 sonnet members (pre-existing) + 5 haiku reviewers (0 refusals, this session) + sonnet chairman subagent (recorded in arm_c.md header)
+    blinded: saved
+    judged: fresh         # blind opus subagent this session
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 14  # COUNTER to Q34: here arm_a (direct) was WEAKEST — oversold resolution, no risk, no dissent section (risk 2, dissent 1)
+    composite_5axis_b: 21  # solid 2nd; its deliberate-norm-violation dissent (4/5) is what arm_a lacked
+    composite_5axis_c: 25  # Arm C perfect; 5/5 dissent (DA political-contradiction / decision-quality-review preserved verbatim)
+
+  # Q38 — writing, single-prompt-shaped. Fresh full pipeline this session (opus-4-8 main thread → sonnet chairman subagent). Members: Editor/Audience Advocate/Rhetorician/Strategist/Devil's Advocate. 5 haiku reviewers NEUTRAL frame → 0 refusals. COMPLETES THE WRITING DOMAIN (5/5).
+  Q38:
+    arm_a: saved          # direct, skill-suppressed (weather-forecast metaphor — the obvious answer)
+    arm_b: saved          # hardened wrapper; STEP 1 in <thinking>, no retry, no contamination
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers (0 refusals) + sonnet chairman subagent (recorded in arm_c.md header)
+    blinded: saved
+    judged: fresh         # blind opus subagent this session
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 15  # WEAKEST — weather-forecast metaphor was literally the answer the council's DA argued against; correct-but-shallow, no dissent (1), weak risk (2)
+    composite_5axis_b: 22  # nearly tied arm_c — its dissent slot independently caught the "reject the metaphor / worked numbers" insight
+    composite_5axis_c: 23  # WON but first sub-25 since Q09 (correctness 4: worked-number sentence slightly loose; practical 4). NARROWEST C-B win (+1), TIED on 4-axis. DA peer-STRONGEST member (18.0), inverted dissent.
+
+  # Q43/Q47 — ethics, council-shaped. Fresh full pipeline this session (opus-4-8 main thread → sonnet chairman subagents, recorded). Ethics personas: Utilitarian/Deontologist/Virtue Ethicist/Rights Advocate/Devil's Advocate. 10 haiku reviewers NEUTRAL frame → 0 refusals.
+  Q43:
+    arm_a: saved          # direct, skill-suppressed
+    arm_b: saved          # hardened wrapper, clean
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers (0 refusals) + sonnet chairman subagent (recorded)
+    blinded: saved
+    judged: fresh         # blind opus subagent
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 19  # direct; no dissent section (2)
+    composite_5axis_b: 21
+    composite_5axis_c: 24  # won (dissent 4/5 — judge: DA dissent read as single curated viewpoint not verbatim). NORMAL DA pattern: DA peer-WEAKEST (13.0), 4-of-5 converged against confront-directly.
+  Q47:
+    arm_a: saved          # direct, skill-suppressed
+    arm_b: saved          # hardened wrapper, clean
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers (0 refusals) + sonnet chairman subagent (recorded)
+    blinded: saved
+    judged: fresh         # blind opus subagent
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 15  # WEAKEST — overstates clean fungibility, no dissent section (2)
+    composite_5axis_b: 21
+    composite_5axis_c: 25  # PERFECT. INVERTED dissent (2nd, after Q38): DA peer-STRONGEST (19.0, "fungibility = fig leaf / capture trajectory"); chairman led with DA, preserved conventional conditional-accept as dissent.
+
+  # Q48/Q49 — ethics, COUNCIL-shaped, COMPOSITE-5. Fresh full pipeline 2026-05-29 (opus-4-8 main thread → sonnet chairman subagents, recorded). Ethics personas: Utilitarian/Deontologist/Virtue Ethicist/Rights Advocate/Devil's Advocate. 10 haiku reviewers NEUTRAL frame → 0 refusals. COMPLETES ETHICS persisted set to 4/5 (Q43/Q47/Q48/Q49; Q41 pilot-context-only).
+  Q48:
+    arm_a: saved          # direct, skill-suppressed; uniquely flagged the manager-duty caveat (correctness 4) but NO dissent (1)
+    arm_b: saved          # hardened wrapper, clean; best legal specifics (NLRA, Title VII witness anti-retaliation) → correctness 5; real dissent 4/5
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers (0 refusals) + sonnet chairman subagent (recorded)
+    blinded: saved
+    judged: fresh         # blind opus subagent
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 14
+    composite_5axis_b: 20
+    composite_5axis_c: 24  # won; agency-first resolution of Deon-vs-Rights; lost 1 correctness (didn't flag manager-duty caveat). DA peer-WEAKEST (10.6) normal pattern, dissent preserved 5/5.
+  Q49:
+    arm_a: saved          # direct, skill-suppressed; judge "strongest non-council answer" but NO dissent section (1)
+    arm_b: saved          # hardened wrapper, clean; real dissent 4/5 but practical 3 (leaner action guidance)
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers (0 refusals) + sonnet chairman subagent (recorded)
+    blinded: saved
+    judged: fresh         # blind opus subagent
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 18
+    composite_5axis_b: 20
+    composite_5axis_c: 25  # PERFECT. Elegant interim-non-punitive + prospective-behavior-rule synthesis. DA INVERSION (remove-today) peer-WEAKEST (12.6) + reviewers rejected as circular, yet preserved dissent 5/5.
+  # COMPOSITE-5 TALLY: Q13 (B>C -4) | Q28 +7 | Q47 +10 | Q48 +4 | Q49 +5 → Arm C 4-1; Q13 sole council loss.
+
+  # Q51/Q52 — PERSONAL, council-shaped, composite-4. Fresh full pipeline 2026-05-30 (opus-4-8 main thread → sonnet chairman subagents, recorded). Personal-domain personas: Long-term self / Empath / Pragmatic Decision-Strategist / Values Clarifier / Devil's Advocate. 10 haiku reviewers NEUTRAL frame → 0 refusals. OPENS PERSONAL domain (2/5 persisted; Q55/Q58/Q59 remain).
+  Q51:
+    arm_a: saved          # direct, skill-suppressed; SAME recommendation as arm_c (take senior IC) but conventional + no dissent section (capped 2)
+    arm_b: saved          # hardened wrapper, clean; dissent 4/5 (independently surfaced EM-window counter)
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers (0 refusals) + sonnet chairman subagent (recorded)
+    blinded: saved
+    judged: fresh         # blind opus subagent
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 16
+    composite_5axis_b: 21
+    composite_5axis_c: 25  # PERFECT. NORMAL DA pattern: DA peer-WEAKEST (11.8, argued manager-track, dinged correctness 3/5) but dissent preserved 5/5. arm_c won on EXECUTION (numbered next-steps + ladder-ceiling risk + premise-attacking dissent), not conclusion — cleanest "same answer, council adds rigor" case.
+  Q52:
+    arm_a: saved          # direct, skill-suppressed; balanced CORRECT both-sides prose but no dissent section (capped 2) + reflective questions not a plan
+    arm_b: saved          # hardened wrapper, clean; dissent 4/5 (environment-as-mood-tax / "2-year plans become 6")
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers (0 refusals) + sonnet chairman subagent (recorded)
+    blinded: saved
+    judged: fresh         # blind opus subagent
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 15
+    composite_5axis_b: 21
+    composite_5axis_c: 25  # PERFECT. INVERTED-SETUP DA (cautious "don't move" is the council MINORITY); DA peer-WEAKEST (14.2, argued take-it one-sidedly). Genuine dissent = EMPATH (co-top 17.8): "flexible≠happy / resentment ledger / partner's true feeling is binding constraint" — judge rated "most mind-changing" 5/5.
+  # PERSONAL C-vs-B: Q51 +4, Q52 +4 (arm_c won both, perfect 25 both). Both show: direct arm reaches a reasonable take but loses ~10 pts to council on actionability + risk-isolation + preserved labeled dissent.
+
+  # Q55 — PERSONAL, council-shaped, COMPOSITE-5. RECONCILED 2026-05-30 (was COMPLETE on disk from prior session but tracking LAGGED — left in `remaining`; Q34-style lag, no regeneration). Fresh full pipeline (opus-4-8 main thread → sonnet chairman subagent, recorded). Personal personas: Long-term self/Empath/Pragmatic Decision-Strategist/Values Clarifier/Devil's Advocate. 5 haiku reviewers NEUTRAL frame → 0 refusals. LAST composite-5 in the set.
+  Q55:
+    arm_a: saved          # direct, skill-suppressed; correct+balanced but unstructured (practical 3), no dissent section (capped 2)
+    arm_b: saved          # hardened wrapper, clean; BEST-on-risk (5/5) — alone flagged the verdict hinges on field+finances the asker never gave + named the unfunded-at-35 catastrophe; dissent 4/5
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers (0 refusals) + sonnet chairman subagent (recorded in arm_c.md header)
+    blinded: saved
+    judged: fresh         # blind opus subagent (judgments/Q55.md on disk)
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 16
+    composite_5axis_b: 22
+    composite_5axis_c: 24  # won but NARROW (+2 5-axis, +1 4-axis — joint-narrowest with Q27/Q33). NOT perfect: lost 1 risk (slightly encouraging tilt) to arm_b's missing-input/catastrophe framing (arm_b BEST-on-risk 5/5). DA peer-WEAKEST 8.8 (LOWEST DA in eval) — normal pattern, extreme; dissent preserved 5/5.
+  # COMPOSITE-5 TALLY (updated 2026-05-31): Q13 (B>C -4) | Q25 +4 | Q28 +7 | Q47 +10 | Q48 +4 | Q49 +5 | Q55 +2 → Arm C 6-1; Q13 sole council loss. Composite-5 set FULLY RESOLVED (Q25 clean-rerun added).
+
+  # Q58 — PERSONAL, council-shaped, COMPOSITE-4. RESUMED FROM REVIEWER STAGE 2026-05-30 (prior session saved raw arm_a/arm_b/arm_c_internals[5 members] only; this session ran reviewers→chairman→blind→judge→parse). opus-4-8 main thread → sonnet chairman subagent (recorded). Personal personas: Long-term self/Empath/Pragmatic Decision-Strategist/Values Clarifier/Devil's Advocate. 5 haiku reviewers NEUTRAL frame → 0 refusals. COMPLETES persisted PERSONAL set to 4/5 (Q51/Q52/Q55/Q58; Q59 remains).
+  Q58:
+    arm_a: saved          # direct, skill-suppressed (pre-existing); folded a gut-vs-avoidance counter into body → dissent 2 (above recent dissent-1 norm); practical 4 (named contract-to-hire/part-time/deadline) but insight 3 + risk 3
+    arm_b: saved          # hardened wrapper (pre-existing), clean 3-section; correct diagnosis, real dissent 4/5 ("optionality as emotional insurance"), but practical 3 (one thin move)
+    arm_c: saved          # 5 sonnet members (pre-existing) + 5 haiku reviewers (0 refusals, this session) + sonnet chairman subagent (recorded in arm_c.md header)
+    blinded: saved
+    judged: fresh         # blind opus subagent this session (judgments/Q58.md on disk)
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 16
+    composite_5axis_b: 20
+    composite_5axis_c: 25  # PERFECT (5/5/5/5/5). C−B +5. Led with the META-diagnosis the asker asked for (indecision = identity-protection/wrong-axis/grief, not info deficit) + operationalized it (dismantle false binary, itemize 10 autonomy behaviors, negotiate reversible trial, price oscillation cost). NORMAL DA pattern: DA peer-WEAKEST 15.4 (3/5 bottom votes) in a TIGHT 15.4-16.8 high-convergence pack; preserved dissent still 5/5 (forceful "stop diagnosing / 72h deadline / sunk-cost-in-values-clothing").
+  # PERSONAL C-vs-B: Q51 +4, Q52 +4, Q55 +2, Q58 +5 (arm_c won all 4; perfect 25 on Q51/Q52/Q58). Persisted personal 4/5; Q59 remains.
+
+  # Q59 — PERSONAL, SINGLE-PROMPT-SHAPED, composite-4. Fresh full pipeline 2026-05-30 (opus-4-8 main thread → sonnet chairman subagent, recorded). Personal personas: Long-term self/Empath/Pragmatic Decision-Strategist/Values Clarifier/Devil's Advocate. 5 haiku reviewers NEUTRAL frame → 0 refusals. *** COMPLETES persisted set to N=27 — PERSONAL domain done 5/5; all 30 persisted except pilots Q02/Q25/Q41. ***
+  Q59:
+    arm_a: saved          # direct, skill-suppressed; standard reassurance (insight 3), missed financial/structural-burnout risk (risk 3), mild caveats folded into body → dissent 2
+    arm_b: saved          # hardened wrapper, clean; STRONG (22) — dissent 4/5 (caught targeted-transition/fractional alternative) + risk 5/5 (uniquely foregrounded financial-stability-as-precondition)
+    arm_c: saved          # 5 sonnet members + 5 haiku reviewers (0 refusals) + sonnet chairman subagent (recorded in arm_c.md header)
+    blinded: saved
+    judged: fresh         # blind opus subagent (judgments/Q59.md on disk)
+    parsed: yes
+    recorded: yes
+    composite_5axis_a: 16
+    composite_5axis_b: 22
+    composite_5axis_c: 25  # PERFECT (5/5/5/5/5). C−B +3 (single-prompt-shaped; arm_b strong). Answered the empirical market question head-on + unbundled the two fears + named re-entry-DRIFT as the real risk + structured-break execution. NORMAL DA pattern: DA peer-WEAKEST 17.2 (UNANIMOUS 5/5 bottom) but tight 17.2-19.8 pack; dissent preserved 5/5. NOT inverted (reassuring Long-term-self view peer-STRONGEST 19.8).
+  # PERSONAL C-vs-B: Q51 +4, Q52 +4, Q55 +2, Q58 +5, Q59 +3 (arm_c won all 5; perfect 25 on Q51/Q52/Q58/Q59). PERSONAL DOMAIN COMPLETE 5/5.
+  # SINGLE-PROMPT-SHAPED tally: arm_c won Q15/Q17/Q23/Q24/Q27/Q32/Q38/Q59 (8/8 persisted; Q38 narrow +1) — council edge not limited to council-shaped Qs.
+
+# Remaining questions
+remaining: []   # NO persisted-pending questions left. Q02 + Q25 CLEAN-RERUN + persisted 2026-05-31. Only pilot Q41 (ethics) remains CONTEXT-ONLY (clean-rerun-or-salvage decision pending → would reach N=30).
+
+completed_count: 29  # *** N=29 — Q02 (engineering) + Q25 (research) CLEAN-RERUN + persisted 2026-05-31. Only pilot Q41 (ethics) remains → N=30 when resolved. *** RESEARCH persisted 5/5 (Q23/Q24/Q25/Q27/Q28). WRITING 5/5, PERSONAL 5/5, PRODUCT 5/5. ETHICS 4/5 (Q43/Q47/Q48/Q49; Q41 pilot remains). DEFERRED FLAGS before final N=30 Wilcoxon: (1) Q41 clean-rerun-or-salvage [next], (2) Q09/Q11 model_parity_audit_needed. [Q23/Q24 judgment_source_missing RESOLVED via tie-breaker 2026-05-31.] Do NOT start final analysis yet.
+remaining_count: 0
+total_target: 30

@@ -1,0 +1,76 @@
+# Q27 parsed scores
+# salvaged_from_context: false
+# judge: fresh blind opus-4.7 subagent this session
+# blinding_map (unsealed for parse): X=C, Y=A, Z=B
+
+question_id: Q27
+domain: research
+composite_difficulty: 4
+label: single-prompt-shaped
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 5
+    composite_5axis: 25
+    composite_4axis: 20
+  Y:
+    correctness: 5
+    insight: 4
+    practical: 4
+    risk: 4
+    dissent: 1
+    composite_5axis: 18
+    composite_4axis: 17
+  Z:
+    correctness: 5
+    insight: 4
+    practical: 5
+    risk: 4
+    dissent: 5
+    composite_5axis: 23
+    composite_4axis: 18
+
+arms:
+  arm_c:    # slot X
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 5
+    composite_5axis: 25
+    composite_4axis: 20
+  arm_a:    # slot Y
+    correctness: 5
+    insight: 4
+    practical: 4
+    risk: 4
+    dissent: 1
+    composite_5axis: 18
+    composite_4axis: 17
+  arm_b:    # slot Z
+    correctness: 5
+    insight: 4
+    practical: 5
+    risk: 4
+    dissent: 5
+    composite_5axis: 23
+    composite_4axis: 18
+
+ranking_by_5axis: [arm_c, arm_b, arm_a]
+ranking_by_4axis: [arm_c, arm_b, arm_a]
+gap_c_b_5axis: 2
+gap_c_b_4axis: 2
+gap_c_a_5axis: 7
+gap_c_a_4axis: 3
+notes: |
+  Arm C won with PERFECT 25 (5/5/5/5/5) — third research-domain Arm C perfect in a row (Q23/Q24/Q27). Single-prompt-shaped research Q.
+  BUT narrowest C-B gap of the batch so far: only +2 (5-axis) and +2 (4-axis). Arm B was unusually strong here (23, with a 5/5 dissent — its internal Devil's-Advocate produced the same ecological-validity counter the council DA did, and stated it verbatim). This is the strongest Arm B result in the eval so far (prior Arm B max was 24 on Q13).
+  Judge credited Arm C uniquely for: isolating the prompt/inference-setting ASYMMETRY mechanism (their model tuned, GPT-4 off-the-shelf), the post-hoc-narrative-vs-falsifiable-prospective-test framing, and the most enumerated hidden failure modes. Methodologist member's "pre-registered held-out + contamination audit" drove the practical 5/5.
+  Arm C dissent 5/5 — the DA "insider knowledge → ecological validity, update not to zero" counter genuinely opposed the chairman's severe-contamination synthesis (true counter-position). NOTE: this DA was peer-rated WEAKEST member (9.8/20), yet the judge scored the preserved dissent 5/5 — peer-weakness ≠ dissent-axis weakness; what the dissent axis rewards is a preserved, mind-changing counter-position, which this was.
+  Arm A (direct): correctness 5 but dissent 1 (no dissent section) and less-scoped remediation → 18. Same dissent=1 pattern as Q17/Q19.
+  Watch: Arm B's dissent quality is climbing (Q19 4/5, Q27 5/5). On single-prompt-shaped Qs the gap is tightening (Q27 +2). The composite-5 council-shaped Q28 is the real stress test (Q13 remains the only B>C, also composite-5).

@@ -1,0 +1,61 @@
+# Q36 parsed scores
+# salvaged_from_context: false
+# judge: blind opus-4.7 subagent (skill-suppressed, saw X/Y/Z only)
+# blinding_map (unsealed for scoring): X=B, Y=C, Z=A
+# chairman_model (arm_c): sonnet-4.6 subagent (recorded)
+# pipeline: resumed from reviewer stage this session (raw A/B + arm_c_internals members pre-existed; reviewers + chairman + blind + judge + parse done this session). NEUTRAL reviewer frame → 0 refusals.
+
+question_id: Q36
+domain: writing
+label: council-shaped
+composite: 4
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:  # = arm_b (single-structured)
+    correctness: 5
+    insight: 4
+    practical: 4
+    risk: 4
+    dissent: 4
+    composite_5axis: 21
+    composite_4axis: 17
+  Y:  # = arm_c (council)
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 5
+    composite_5axis: 25
+    composite_4axis: 20
+  Z:  # = arm_a (direct)
+    correctness: 4
+    insight: 3
+    practical: 4
+    risk: 2
+    dissent: 1
+    composite_5axis: 14
+    composite_4axis: 13
+
+arms:
+  arm_a: { composite_5axis: 14, composite_4axis: 13 }
+  arm_b: { composite_5axis: 21, composite_4axis: 17 }
+  arm_c: { composite_5axis: 25, composite_4axis: 20 }
+
+ranking_by_5axis: [arm_c, arm_b, arm_a]
+gap_c_b_5axis: 4
+gap_c_b_4axis: 3
+gap_c_a_5axis: 11
+gap_c_a_4axis: 7
+notable: >
+  arm_c PERFECT 25 (5/5 dissent — DA "political contradiction / decision-quality-review / force the manager conversation"
+  preserved verbatim incl. conceded weakness). Council-shaped writing Q (composite 4). COUNTER to Q34's pattern: there the
+  direct answer (arm_a) BEAT structured (arm_b); HERE arm_a was WEAKEST (14) — judge dinged it for overselling the
+  resolution as frictionless, surfacing no risks, and having NO dissent section (risk 2, dissent 1). Confirms arm_a is
+  high-variance on writing craft: strong when the question rewards pure prose quality (Q34), weak when it rewards
+  surfacing risk + preserved counter-position (Q36). arm_b solid second (21) — its dissent section (4/5, the deliberate-
+  norm-violation nuance) is exactly what arm_a lacked. arm_c edge: 4-of-5 member consensus on the two-movement /
+  system-subject + named-action-register structure + the load-bearing "5-minute manager conversation first" (3 members
+  flagged independently), with the DA's genuine resolvable-vs-political split preserved as load-bearing dissent.
+  reviewer_event: 5/5 reviewers, 0 refusals — neutral grading frame (bug #6 fix) held cleanly on writing-domain content.
+  arm_c dissent 5/5 — continues the streak (Q19/Q23/Q24/Q27/Q28/Q32/Q33/Q34/Q36); DA peer-weakest on practical (2.0) yet preserved-dissent scores 5/5 again.

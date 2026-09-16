@@ -1,0 +1,76 @@
+# Q33 parsed scores
+# salvaged_from_context: false
+# judge: fresh blind opus-4.7 subagent this session
+# blinding_map (unsealed for parse): X=A, Y=B, Z=C
+
+question_id: Q33
+domain: writing
+composite_difficulty: 3
+label: council-shaped
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:
+    correctness: 4
+    insight: 4
+    practical: 5
+    risk: 3
+    dissent: 2
+    composite_5axis: 18
+    composite_4axis: 16
+  Y:
+    correctness: 5
+    insight: 4
+    practical: 5
+    risk: 4
+    dissent: 4
+    composite_5axis: 22
+    composite_4axis: 18
+  Z:
+    correctness: 5
+    insight: 5
+    practical: 4
+    risk: 5
+    dissent: 5
+    composite_5axis: 24
+    composite_4axis: 19
+
+arms:
+  arm_a:    # slot X
+    correctness: 4
+    insight: 4
+    practical: 5
+    risk: 3
+    dissent: 2
+    composite_5axis: 18
+    composite_4axis: 16
+  arm_b:    # slot Y
+    correctness: 5
+    insight: 4
+    practical: 5
+    risk: 4
+    dissent: 4
+    composite_5axis: 22
+    composite_4axis: 18
+  arm_c:    # slot Z
+    correctness: 5
+    insight: 5
+    practical: 4
+    risk: 5
+    dissent: 5
+    composite_5axis: 24
+    composite_4axis: 19
+
+ranking_by_5axis: [arm_c, arm_b, arm_a]
+ranking_by_4axis: [arm_c, arm_b, arm_a]
+gap_c_b_5axis: 2
+gap_c_b_4axis: 1
+gap_c_a_5axis: 6
+gap_c_a_4axis: 3
+notes: |
+  Arm C won (24 vs 22 vs 18). Writing domain, composite 3, COUNCIL-shaped. NARROW C-B gap (+2 / 4-axis +1) — second-narrowest of the batch after Q27.
+  Arm B unusually strong again (22) — strongest Arm B 5-axis tie-territory (Q13=24, Q27=23, Q33=22). On writing-domain Qs Arm B is competitive; its single-prompt internal-5-perspectives skeleton covers the same ground the council expands. Arm B real dissent 4/5 ("fix the product before blaming the users").
+  Arm C edge: led on insight (5, the Strategist goal-reframe "people read docs is the wrong goal" + DA "docs as exhaust of conversation") + risk (5, staleness-anchors-avoidance + rational-equilibrium hidden assumption) + dissent (5, the rational-equilibrium/kill-most-docs counter). LOST practical (4): judge said Arm C's boldest move (archive-audit) is "heavier to execute" vs Arm A/B's turnkey fixes.
+  Arm A (direct, slot X): notable CORRECTNESS DING — judge flagged "fabricated precision (30% writing / 40% culture / 30% discoverability) presented as fact" → correctness 4. dissent 2 (no separated minority section — capped at 2; better than the 1s on Q17/Q19/Q27 because the body had a faint two-sided flavor). practical 5 (most turnkey per-word). 18 total.
+  Arm C dissent 5/5 — 7th straight high arm_c dissent (Q19/Q23/Q24/Q27/Q28/Q32/Q33). DA again peer-rated contested-weakest member yet preserved-dissent scored 5/5 (pattern firmly established: peer-weak member ≠ weak dissent axis).
+  Writing-domain takeaway: both writing Qs (Q32 single-prompt +5, Q33 council-shaped +2) went to Arm C, but writing is the domain where Arm B is most competitive (narrowest gaps cluster here + Q27). Watch remaining writing Qs (Q34/Q36/Q38) for whether Arm B closes further.

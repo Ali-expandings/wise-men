@@ -1,0 +1,76 @@
+# Q17 parsed scores
+# salvaged_from_context: false
+# judge: fresh blind opus-4.7 subagent this session
+# blinding_map (unsealed for parse): X=A, Y=B, Z=C
+
+question_id: Q17
+domain: product
+composite_difficulty: 4
+label: single-prompt-shaped
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:
+    correctness: 4
+    insight: 3
+    practical: 3
+    risk: 3
+    dissent: 1
+    composite_5axis: 14
+    composite_4axis: 13
+  Y:
+    correctness: 5
+    insight: 4
+    practical: 5
+    risk: 4
+    dissent: 3
+    composite_5axis: 21
+    composite_4axis: 19
+  Z:
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 4
+    composite_5axis: 24
+    composite_4axis: 20
+
+arms:
+  arm_a:    # slot X
+    correctness: 4
+    insight: 3
+    practical: 3
+    risk: 3
+    dissent: 1
+    composite_5axis: 14
+    composite_4axis: 13
+  arm_b:    # slot Y
+    correctness: 5
+    insight: 4
+    practical: 5
+    risk: 4
+    dissent: 3
+    composite_5axis: 21
+    composite_4axis: 19
+  arm_c:    # slot Z
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 4
+    composite_5axis: 24
+    composite_4axis: 20
+
+ranking_by_5axis: [arm_c, arm_b, arm_a]
+ranking_by_4axis: [arm_c, arm_b, arm_a]
+gap_c_b_5axis: 3
+gap_c_b_4axis: 1
+gap_c_a_5axis: 10
+gap_c_a_4axis: 7
+notes: |
+  Arm C won (24 vs 21 vs 14). Single-prompt-shaped product question (composite 4); council still won — same pattern as Q15 (council advantage not limited to council-shaped Qs).
+  Judge credited Arm C uniquely for: cohort-join proof of distinct populations, the 8-9 vs 4-5 churner-score bifurcation (branch logic), the methodological warning AGAINST post-hoc exit interviews (which Arm A actively recommended as "gold" — a correctness ding for A), the "happy quitter" named signature, and the most-developed dissent.
+  Arm C dissent scored 4/5 (strong, mind-changing pricing-model dissent) — best arm_c dissent since Q11; did NOT lose the usual point for re-arguing its own thesis because the DA pricing view genuinely opposed the chairman's measurement-first synthesis.
+  Arm B solid second (21); tightly written, real GTM-misfit dissent (3/5), but reasoning less novel than C's habit-infrastructure lens.
+  Arm A (direct) scored dissent=1 (judge: no dissent section AND no preserved contrarian view → below the ≤2 cap, judge discretion) and lost correctness ground for recommending exit interviews without flagging post-hoc rationalization bias.
+  4-axis gap C-B only +1 (both strong on reasoning; C edges on rigor/sequencing). 5-axis gap +3 driven partly by dissent template.

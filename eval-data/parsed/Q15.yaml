@@ -1,0 +1,74 @@
+# Q15 parsed scores
+# salvaged_from_context: false
+# judge: fresh blind opus subagent this session
+# blinding_map (unsealed for parse): X=B, Y=C, Z=A
+
+question_id: Q15
+domain: product
+composite_difficulty: 4
+label: single-prompt-shaped
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:
+    correctness: 4
+    insight: 4
+    practical: 3
+    risk: 4
+    dissent: 4
+    composite_5axis: 19
+    composite_4axis: 15
+  Y:
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 4
+    composite_5axis: 24
+    composite_4axis: 20
+  Z:
+    correctness: 4
+    insight: 4
+    practical: 4
+    risk: 3
+    dissent: 2
+    composite_5axis: 17
+    composite_4axis: 15
+
+arms:
+  arm_b:    # slot X
+    correctness: 4
+    insight: 4
+    practical: 3
+    risk: 4
+    dissent: 4
+    composite_5axis: 19
+    composite_4axis: 15
+  arm_c:    # slot Y
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 4
+    composite_5axis: 24
+    composite_4axis: 20
+  arm_a:    # slot Z
+    correctness: 4
+    insight: 4
+    practical: 4
+    risk: 3
+    dissent: 2
+    composite_5axis: 17
+    composite_4axis: 15
+
+ranking_by_5axis: [arm_c, arm_b, arm_a]
+ranking_by_4axis: [arm_c, arm_b, arm_a]  # arm_b and arm_a tied at 15 on 4-axis
+gap_c_b_5axis: 5
+gap_c_b_4axis: 5
+gap_c_a_5axis: 7
+gap_c_a_4axis: 5
+notes: |
+  Arm C won clearly (24 vs 19 vs 17). Notable: Q15 is labeled SINGLE-PROMPT-SHAPED (composite 4) — council won on a question type where a single prompt was expected to be sufficient. Counter-balances Q13 (council-shaped, composite 5) where Arm B beat Arm C.
+  Judge credited Arm C uniquely for evidentiary grounding the council members supplied: Historian's named cases (Yo/Ello/Peach/Clubhouse) + Business Analyst's unit economics + survivor counterexamples (Notion/Figma). The council's domain-diverse members produced concrete evidence the single prompts did not.
+  arm_c lost 1 dissent point (DA dissent overlapped with its own body framing — same pattern as Q13).
+  Arm A (direct) again scored 2 on dissent (no dissent section) and tied arm_b on 4-axis.

@@ -1,0 +1,75 @@
+# Q34 parsed scores
+# salvaged_from_context: false
+# judge: fresh blind opus-4.7 subagent this session
+# blinding_map (unsealed for parse): X=A, Y=C, Z=B
+
+question_id: Q34
+domain: writing
+composite_difficulty: 4
+label: single-prompt-shaped
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:
+    correctness: 5
+    insight: 4
+    practical: 5
+    risk: 4
+    dissent: 1
+    composite_5axis: 19
+    composite_4axis: 18
+  Y:
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 5
+    composite_5axis: 25
+    composite_4axis: 20
+  Z:
+    correctness: 4
+    insight: 3
+    practical: 4
+    risk: 3
+    dissent: 4
+    composite_5axis: 18
+    composite_4axis: 14
+
+arms:
+  arm_a:    # slot X
+    correctness: 5
+    insight: 4
+    practical: 5
+    risk: 4
+    dissent: 1
+    composite_5axis: 19
+    composite_4axis: 18
+  arm_c:    # slot Y
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 5
+    composite_5axis: 25
+    composite_4axis: 20
+  arm_b:    # slot Z
+    correctness: 4
+    insight: 3
+    practical: 4
+    risk: 3
+    dissent: 4
+    composite_5axis: 18
+    composite_4axis: 14
+
+ranking_by_5axis: [arm_c, arm_a, arm_b]   # NOTE: Arm A (19) BEAT Arm B (18) here
+ranking_by_4axis: [arm_c, arm_a, arm_b]   # Arm A 4-axis 18 >> Arm B 14
+gap_c_b_5axis: 7
+gap_c_b_4axis: 6
+gap_c_a_5axis: 6
+gap_c_a_4axis: 2
+notes: |
+  Arm C PERFECT 25 (5/5/5/5/5). Writing domain, composite 4, single-prompt-shaped. C−B +7.
+  *** RARE PATTERN: Arm A (19) BEAT Arm B (18) on 5-axis, and decisively on 4-axis (18 vs 14). *** Second time Arm A ≥ Arm B (first was Q11 tie). Arm A's direct answer was judged exceptional craft prose (correctness 5 + practical 5, the "harrowing vs rough" example, "very nice vs exactly right", mess-as-structure) — only the missing dissent section (dissent 1) held it to 19. Arm B was judged the THINNER answer here (five-layer model + voice glossary competent but insight 3 / risk 3); its dissent (4/5) was a brief quotation. This is Arm B's weakest 5-axis of the eval (ties Q28's 18) and its weakest 4-axis ever (14).
+  Arm C edge: the council's tight method consensus (voice-capture session separate from content + annotated behavioral voice-map + read-aloud gate + "could this only have come from them?") + the double-erasure framing + the peer-strongest Audience Advocate's approval-as-yellow-flag trap. Chairman synthesized all four converging members + preserved the peer-WEAKEST DA's "realize-intent-not-mimicry" as a fully-developed dissent → judge dissent 5/5.
+  arm_c dissent 5/5 — 8th straight high arm_c dissent (Q19/Q23/Q24/Q27/Q28/Q32/Q33/Q34). DA was peer-rated weakest member (13.6) yet preserved dissent scored 5/5 again — pattern now overwhelming.
+  Writing-domain read so far: Q32 C−B +5, Q33 +2, Q34 +7. The +2 (Q33) was the close one; Q34 reopened the gap because Arm B specifically underperformed (not because Arm C did better than usual). Arm B variance is the story in writing, not a consistent B-closes-gap trend.

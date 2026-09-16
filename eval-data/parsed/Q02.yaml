@@ -1,0 +1,57 @@
+# Q02 parsed scores
+# salvaged_from_context: false
+# judge: fresh blind opus-4.7 subagent this session (clean rerun)
+# blinding_map (unsealed for parse): X=A, Y=C, Z=B
+# chairman_model (arm_c): sonnet-4.6 subagent (recorded in arm_c.md header)
+# pipeline: clean rerun 2026-05-31 (pilot Q02 was context-only). ENGINEERING-domain personas (Pragmatist/Skeptic/Architect/Maintainer/DA) — frozen questions.yaml domain=engineering (prior HISTORY mislabeled "product"). 5 haiku reviewers NEUTRAL frame → 0 refusals.
+
+question_id: Q02
+domain: engineering
+label: council-shaped
+composite: 2
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:  # = arm_a (direct)
+    correctness: 5
+    insight: 4
+    practical: 5
+    risk: 3
+    dissent: 2
+    composite_5axis: 19
+    composite_4axis: 17
+  Y:  # = arm_c (council)
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 5
+    composite_5axis: 25
+    composite_4axis: 20
+  Z:  # = arm_b (single-structured)
+    correctness: 5
+    insight: 4
+    practical: 4
+    risk: 4
+    dissent: 4
+    composite_5axis: 21
+    composite_4axis: 17
+
+arms:
+  arm_a: { composite_5axis: 19, composite_4axis: 17 }   # slot X
+  arm_b: { composite_5axis: 21, composite_4axis: 17 }   # slot Z
+  arm_c: { composite_5axis: 25, composite_4axis: 20 }   # slot Y
+
+ranking_by_5axis: [arm_c, arm_b, arm_a]
+ranking_by_4axis: [arm_c, arm_a, arm_b]   # arm_a 4-axis 17 = arm_b 17 (tie); arm_a's risk 3 vs arm_b risk 4 but arm_a practical 5 vs 4 → both 17
+gap_c_b_5axis: 4
+gap_c_b_4axis: 3
+gap_c_a_5axis: 6
+gap_c_a_4axis: 3
+notable: >
+  Arm C PERFECT 25 (5/5/5/5/5). ENGINEERING, council-shaped, composite-2 (lowest-difficulty Q in the eval). C−B +4, C−A +6.
+  Clean rerun of pilot Q02 (was context-only). INVERTED-dissent (cf. Q38/Q47/Q32): the Devil's Advocate — tasked with arguing AGAINST the asker's "design systems are overkill, just Tailwind" lean — produced the council's sharpest framing ("the relevant number is 50 engineers CONTRIBUTING CODE, not 50 users consuming; a component layer coordinates contributors") and was peer-rated STRONGEST (19.0, UNANIMOUS top votes). The whole council converged pro-tech-lead (thin component layer over Tailwind, NOT a full design system). Chairman LED with the DA reframe + concrete plan (token baseline in tailwind.config first → thin /components/ui of 10-15 primitives → extract-on-second-use → enforce via lint/PR) and preserved the GENUINE MINORITY = the asker's defer-abstraction instinct at full strength (only 4-5 real UI contributors / fast-shifting reqs / ~2yr-replace → duplication beats wrong abstraction; make the contributor-count + trajectory bet explicit). Judge: insight 5, practical 5, risk 5, dissent 5; "shadow design system nobody owns" + "component folder with no enforcement is worse than either pure alternative" genuinely generative.
+  Arm B (slot Z): 21. Same correct reframe + real dissent 4/5 (premature-abstraction / extract-on-second-use, internal-tools-get-replaced) but practical 4 / risk 4 (lighter on operational specifics + did not surface the enforcement failure mode).
+  Arm A (slot X): 19 — STRONG for a direct answer (C5/I4/P5: "tech lead right but for the wrong reasons" + concrete locked-down tailwind.config + 8-12 primitives + "90% benefit for 5% effort"). Capped by risk 3 (ignored risks of its OWN recommendation) + dissent 2 (dismissed the asker's instinct as a "false choice" rather than steelmanning it → no standalone minority section). Notable: arm_a tied arm_b on 4-axis (17=17).
+  ENGINEERING domain note: Q02 joins Q03/Q05 (also engineering, salvaged). Composite-2 → not in composite-5 tally.
+  reviewer_event: 5/5 reviewers, 0 refusals (neutral frame).

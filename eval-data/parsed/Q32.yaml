@@ -1,0 +1,76 @@
+# Q32 parsed scores
+# salvaged_from_context: false
+# judge: fresh blind opus-4.7 subagent this session
+# blinding_map (unsealed for parse): X=A, Y=C, Z=B
+
+question_id: Q32
+domain: writing
+composite_difficulty: 3
+label: single-prompt-shaped
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:
+    correctness: 4
+    insight: 3
+    practical: 5
+    risk: 2
+    dissent: 1
+    composite_5axis: 15
+    composite_4axis: 14
+  Y:
+    correctness: 5
+    insight: 5
+    practical: 4
+    risk: 5
+    dissent: 5
+    composite_5axis: 24
+    composite_4axis: 19
+  Z:
+    correctness: 4
+    insight: 4
+    practical: 4
+    risk: 3
+    dissent: 4
+    composite_5axis: 19
+    composite_4axis: 15
+
+arms:
+  arm_a:    # slot X
+    correctness: 4
+    insight: 3
+    practical: 5
+    risk: 2
+    dissent: 1
+    composite_5axis: 15
+    composite_4axis: 14
+  arm_c:    # slot Y
+    correctness: 5
+    insight: 5
+    practical: 4
+    risk: 5
+    dissent: 5
+    composite_5axis: 24
+    composite_4axis: 19
+  arm_b:    # slot Z
+    correctness: 4
+    insight: 4
+    practical: 4
+    risk: 3
+    dissent: 4
+    composite_5axis: 19
+    composite_4axis: 15
+
+ranking_by_5axis: [arm_c, arm_b, arm_a]
+ranking_by_4axis: [arm_c, arm_b, arm_a]
+gap_c_b_5axis: 5
+gap_c_b_4axis: 4
+gap_c_a_5axis: 9
+gap_c_a_4axis: 5
+notes: |
+  Arm C won (24 vs 19 vs 15). Writing domain, composite 3, single-prompt-shaped. First writing-domain question persisted.
+  Arm C's edge came from the council's Devil's Advocate, which was peer-rated the STRONGEST member (4/5 votes, 19.2/20): the channel reframe ("three failed drafts = wrong instrument, not wrong words; cold VP email ~2-5% base rate; get a warm intro / director-level champion; a polished cold email can BURN THE NAME"). The chairman led with this reframe + supplied the craft fix (subject-positioning / status-framing, open-on-them, tiny ask, cut low-status tells, <120 words), then preserved the hardest DA form ("don't send it at all") as dissent. Judge: Y "questions whether to write it at all", risk 5, dissent 5.
+  Arm C lost 1 on practical (4 not 5): judge noted it "partly redirects away from the literal ask" (fix-the-email) toward channel strategy. Trade-off: the redirect bought the risk + insight + dissent points.
+  Arm A (direct, slot X): strong craft-level scrub lists → practical 5 (highest practical of any arm this Q), but risk 2 (assumed the channel is correct, surfaced few failure modes) + dissent 1 (no dissent section) → 15. Note Arm A's 4-axis (14) actually TRAILS Arm B (15) and Arm C (19) — the no-dissent + low-risk combination, not just the dissent cap, sank it.
+  Arm B (slot Z): solid (19), real DA dissent 4/5 (the "over-coached brevity reads as template" counter — milder than Arm C's channel reframe). Stayed "inside the email" (insight 4) vs Arm C questioning the channel.
+  Pattern holds: Arm A keeps scoring 1 on dissent (no section). Arm C dissent 5/5 again — 6th straight high arm_c dissent (Q19/Q23/Q24/Q27/Q28/Q32). Council edge on a LOW-difficulty (composite 3) single-prompt-shaped writing Q — reinforces that council advantage is not confined to hard or council-shaped questions.

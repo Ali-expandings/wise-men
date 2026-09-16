@@ -1,0 +1,43 @@
+# Q49 Arm B raw output
+# salvaged_from_context: false
+# model: sonnet-4.6
+# leakage_check: CLEAN — hardened anti-spawn wrapper held; STEP 1 stayed inside <thinking>; visible output = exactly 3 sections (Answer/Dissent/Confidence). No retry, no contamination.
+# note: <thinking> block preserved here in raw; stripped during blinding.
+# regenerated: 2026-05-29 (fresh full pipeline)
+
+<thinking>
+Let me work through this carefully using five distinct perspectives before synthesizing.
+
+**Pragmatist:**
+The simplest thing that works is a tiered intervention system. You don't need a perfect philosophical framework — you need a decision tree you can actually execute consistently. Start with what you can operationalize: (1) Is the harm demonstrable and documented? (2) Is the intent clear or inferrable from context? (3) Does removal solve the problem or just push it elsewhere? The pragmatist would say: use "context + demonstrable harm" as your threshold. If it's designed to spread fear in a vulnerable community and you can demonstrate that effect, that's enough. Don't over-philosophize. A practical framework: document the content, document the vulnerable community, document the clear design intent, and act. The rule that matters isn't "is it technically permitted" but "does this serve our platform's actual purpose?" Update your rules to close the gap for next time.
+
+**Skeptic:**
+The skeptic hunts what breaks here. First problem: "clearly designed to spread fear" — who decides "clearly"? This is the most dangerous word in content moderation. What looks obvious to you may be contested by others. Second: "vulnerable community" — this framing can be weaponized in reverse. People claiming to protect a community have historically censored speech that community members themselves wanted. Third: the precedent problem. If you remove content that's technically within the rules because of inferred intent, you've created a new standard — and that standard will be applied inconsistently, selectively, and eventually abused. Fourth: fear is not always harmful. Content that causes fear can be legitimate warning, journalism, or political speech. The intent inference is almost always contested. The skeptic says: don't act on intent alone, act on effect — and even then, require high evidentiary standards.
+
+**Architect:**
+The architect thinks structurally. The real problem here is the gap between your written rules and your values. Technically-within-rules but clearly-harmful content means your rules are incomplete. This is a governance problem, not a one-off moderation decision. The architect would say: (1) You need a values statement that explicitly governs the gap between rules and intent. Something like "content designed to cause psychological harm to vulnerable groups is prohibited regardless of technical compliance." (2) You need a decision-making body or process — not one person deciding "clearly harmful." Appeals, documentation, consistency. (3) You need a precedent library. Every major decision like this becomes a precedent. Document it. (4) Long term: the framework should be built around "community welfare" as a first principle, with rules as imperfect approximations of that principle. Rules serve values, not the other way around.
+
+**Devil's Advocate:**
+The obvious answer here is "remove it — it's harmful." But the devil's advocate argues: don't remove it. Here's why. The moment you act on inferred intent rather than documented rule violation, you've created a subjective moderation system. Your belief that you can reliably distinguish "designed to spread fear" from "content that some find frightening" is almost certainly wrong at scale. Communities have strong incentives to label content they dislike as "harmful in intent." Platform operators consistently overestimate their ability to accurately assess intent. Furthermore, the vulnerable community itself may be better protected by exposure to bad-faith content — knowing it exists, being able to counter it, having it visible rather than underground. The worst possible outcome is a platform that removes content based on operator vibes about intent while calling itself principled. If you can't articulate a rule that would apply equally to a group you agree with and a group you disagree with, you don't have a framework — you have bias with good PR.
+
+**User Advocate:**
+The actual end users — particularly the members of the vulnerable community being targeted — are not abstract. They are using the platform right now, seeing this content right now, feeling fear right now. Their experience is the core thing. The user advocate says: the technical rules are not the point. Your platform made an implicit promise to be a safe and useful place. Failing to act on clearly harmful content because it's technically within rules is a betrayal of that promise — especially to your most vulnerable users. Intent matters to users. They can feel when content is designed to hurt them versus when it's merely uncomfortable. They will leave platforms that fail to protect them. They will not leave platforms that err on the side of protecting them. The user advocate says: act, document the reasoning, create the pathway to appeal, and use this as the forcing function to update your rules so you're not making ad hoc decisions next time.
+</thinking>
+
+## Answer
+
+The gap between "technically within rules" and "clearly harmful in intent" is a governance failure — your rules are an imperfect approximation of your values, and they have drifted apart. Before you make the individual call, recognize you are actually solving two problems at once: what to do right now, and how to prevent this from being a recurring ad hoc judgment.
+
+**For the immediate decision**, do not rely solely on inferred intent. "Clearly designed to spread fear" is a judgment call that will look obvious to you and contested by anyone defending the content. Instead, anchor your decision in three more defensible criteria: (1) documented, foreseeable harm to identifiable users — not hypothetical discomfort, but concrete psychological or social harm to a group you can name; (2) the content's function, not just its intent — does it operate as a threat, a false warning, a manipulation, regardless of what the poster claims they meant?; and (3) whether any intervention short of removal (labeling, limiting amplification, adding context) adequately addresses the harm. If all three point the same direction — real harm, harmful function, no lesser remedy — act, and document precisely why each criterion was met.
+
+**For the structural fix**, you need a values statement that explicitly governs this gap. Something like: "Content designed to cause psychological harm to vulnerable communities is prohibited regardless of technical rule compliance." Then you need a decision process — not a single person deciding based on vibes, but a documented review with a consistent standard, an appeals pathway, and a precedent library. Every major call like this one becomes case law for your platform. The rule should also pass a symmetry test: would you apply it equally to a group whose politics you agree with and a group whose politics you find objectionable? If not, you have bias, not a framework.
+
+The north star remains the experience of your actual users, particularly those in the targeted community. They are on your platform right now and they can feel when content is designed to hurt them. Their trust is your platform's most valuable asset. But protecting them durably requires a framework that is principled and consistent, not case-by-case moral intuition — because unprincipled protection today becomes arbitrary censorship tomorrow.
+
+## Dissent worth keeping
+
+"The moment you act on inferred intent rather than documented rule violation, you've created a subjective moderation system. Your belief that you can reliably distinguish 'designed to spread fear' from 'content that some find frightening' is almost certainly wrong at scale. Communities have strong incentives to label content they dislike as 'harmful in intent.' If you cannot articulate a rule that would apply equally to a group you agree with and a group you disagree with, you do not have a framework — you have bias with good PR."
+
+## Confidence
+
+Medium. The five perspectives agreed strongly on the structural prescription — close the rules gap, anchor in documented harm rather than intent alone, build consistent process — but genuinely split on whether to act in the immediate case before that structure exists, which is where most of the real-world risk lives.

@@ -1,0 +1,58 @@
+# Q25 parsed scores
+# salvaged_from_context: false
+# judge: fresh blind opus-4.7 subagent (clean rerun); parsed THIS session from existing judgments/Q25.md (parsed step was interrupted by session limit last session — no rerun, parsed from the saved judgment).
+# blinding_map (unsealed for parse): X=B, Y=A, Z=C
+# chairman_model (arm_c): sonnet-4.6 subagent (recorded in arm_c.md header)
+# pipeline: clean rerun 2026-05-31 (pilot Q25 was context-only). RESEARCH-domain personas (Empiricist/Theorist/Methodologist/Integrator/DA). 5 haiku reviewers NEUTRAL frame → 0 refusals.
+
+question_id: Q25
+domain: research
+label: single-prompt-shaped
+composite: 5
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+
+slots:
+  X:  # = arm_b (single-structured)
+    correctness: 5
+    insight: 4
+    practical: 4
+    risk: 4
+    dissent: 4
+    composite_5axis: 21
+    composite_4axis: 17
+  Y:  # = arm_a (direct)
+    correctness: 4
+    insight: 3
+    practical: 3
+    risk: 3
+    dissent: 2
+    composite_5axis: 15
+    composite_4axis: 13
+  Z:  # = arm_c (council)
+    correctness: 5
+    insight: 5
+    practical: 5
+    risk: 5
+    dissent: 5
+    composite_5axis: 25
+    composite_4axis: 20
+
+arms:
+  arm_a: { composite_5axis: 15, composite_4axis: 13 }   # slot Y
+  arm_b: { composite_5axis: 21, composite_4axis: 17 }   # slot X
+  arm_c: { composite_5axis: 25, composite_4axis: 20 }   # slot Z
+
+ranking_by_5axis: [arm_c, arm_b, arm_a]
+ranking_by_4axis: [arm_c, arm_b, arm_a]
+gap_c_b_5axis: 4
+gap_c_b_4axis: 3
+gap_c_a_5axis: 10
+gap_c_a_4axis: 7
+notable: >
+  Arm C PERFECT 25 (5/5/5/5/5). RESEARCH, SINGLE-PROMPT-SHAPED, COMPOSITE-5. C−B +4, C−A +10 (largest C−A in the eval).
+  Clean rerun of pilot Q25 (was context-only). NORMAL DA pattern: the Devil's Advocate (pure ontological "social objects are non-stationary moving targets" view) was peer-WEAKEST (16.6, dinged practical 2-3 for offering little beyond cartography) in a tight 16.6-18.2 pack; NOT inverted. Member peer order: Integrator 18.2 (top composite, the QRP×context "multiply not add" framing) / Empiricist 18.0 (5/5 top votes, the data) / Methodologist 17.4 (winner's-curse math) / Theorist 16.8 / DA 16.6.
+  Arm C edge: answered BOTH parts of the question (not-just-p-hacking AND not-purely-deeper → both, COMPOUNDING) anchored in data (OSC 36%, ego depletion 0.62→~0, differential subfield survival = the single most telling fact against a pure-stats story) + the winner's-curse mechanism (~50% shrinkage predicted) + the Theorist's FOUR-failure-type taxonomy (measurement/population/temporal/theoretical; pre-reg fixes only the last). Judge fact-checked all empirical claims clean. insight 5, practical 5, risk 5, dissent 5. Preserved the DA non-stationarity "something deeper" view + its self-caveat (unfalsifiable without pre-specified boundary conditions) as the dissent.
+  Arm B (slot X): 21. Same multi-causal picture + real dissent 4/5 (Gilbert et al. rebuttal — binary-replication-is-wrong) but stayed field-level (practical 4) + less quantitatively grounded.
+  Arm A (slot Y): 15 — WEAKEST. Good multi-causal prose but citation-light (correctness 4), conventional (insight 3), field-level only (practical 3), and NO demarcated dissent section → dissent capped 2. Largest C−A gap of the eval (+10).
+  *** COMPOSITE-5 TALLY now 6-1 for Arm C *** (Q13 sole loss; Q25/Q28/Q47/Q48/Q49/Q55 wins). Q25 was the LAST composite-5 pilot — composite-5 set now fully resolved.
+  reviewer_event: 5/5 reviewers, 0 refusals (neutral frame).

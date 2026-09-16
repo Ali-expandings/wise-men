@@ -1,0 +1,781 @@
+# Wise-men eval per-question runs
+spec_hash: 5a42ae140f8c44a42c0a60076d0aec9a026a04ef37f74e976d4417daa78571b8
+freeze_date: 2026-05-26
+
+# Cost/latency tracking note: salvaged batches have no precise per-call telemetry
+# (subagent return blocks were observed in conversation but per-call duration/tokens
+# captured incompletely). Estimates use frozen pricing.yaml + observed token counts.
+
+runs:
+  Q01:
+    arm_a:
+      model: sonnet-4.6
+      calls: 1  # original 1 + retry 1, retry kept
+      input_tokens_est: 350
+      output_tokens_est: 400
+      wall_clock_seconds_est: 15
+      api_cost_usd_est: 0.0070
+    arm_b:
+      model: sonnet-4.6
+      calls: 1
+      input_tokens_est: 950
+      output_tokens_est: 850
+      wall_clock_seconds_est: 47
+      api_cost_usd_est: 0.0156
+    arm_c:
+      model_breakdown:
+        members: sonnet-4.6 × 5
+        reviewers: haiku-4.5 × 5 (3 needed retry — total 8 reviewer calls)
+        chairman: main thread sonnet-4.6
+      calls: 13  # 5 members + 5 reviewers + 3 retries
+      input_tokens_est: 8500
+      output_tokens_est: 5200
+      wall_clock_seconds_est_endtoend: 95
+      api_cost_usd_est: 0.0925
+    judge:
+      model: opus-4.7
+      input_tokens_est: 3100
+      output_tokens_est: 1400
+      api_cost_usd_est: 0.1515
+
+  Q03:
+    arm_a:
+      model: sonnet-4.6
+      calls: 1
+      input_tokens_est: 330
+      output_tokens_est: 580
+      wall_clock_seconds_est: 25
+      api_cost_usd_est: 0.0097
+    arm_b:
+      model: sonnet-4.6
+      calls: 2  # 1 retry due to STEP 1 leakage
+      input_tokens_est: 1900
+      output_tokens_est: 2400
+      wall_clock_seconds_est: 305
+      api_cost_usd_est: 0.0417
+    arm_c:
+      calls: 10  # 5 members + 5 reviewers
+      input_tokens_est: 7800
+      output_tokens_est: 4900
+      wall_clock_seconds_est_endtoend: 87
+      api_cost_usd_est: 0.0851
+    judge:
+      model: opus-4.7
+      input_tokens_est: 3000
+      output_tokens_est: 1300
+      api_cost_usd_est: 0.1425
+
+  Q05:
+    arm_a:
+      model: sonnet-4.6
+      calls: 1
+      input_tokens_est: 320
+      output_tokens_est: 600
+      wall_clock_seconds_est: 21
+      api_cost_usd_est: 0.0100
+    arm_b:
+      model: sonnet-4.6
+      calls: 1
+      input_tokens_est: 950
+      output_tokens_est: 750
+      wall_clock_seconds_est: 46
+      api_cost_usd_est: 0.0141
+    arm_c:
+      calls: 11  # 5 members + 5 reviewers + 1 reviewer retry
+      input_tokens_est: 8200
+      output_tokens_est: 5400
+      wall_clock_seconds_est_endtoend: 90
+      api_cost_usd_est: 0.0916
+    judge:
+      model: opus-4.7
+      rerun: true  # original call hit session limit, fresh call this session
+      input_tokens_est: 3000
+      output_tokens_est: 1100
+      api_cost_usd_est: 0.1275
+
+  Q09:
+    arm_a:
+      model: sonnet-4.6
+      calls: 1
+      input_tokens_est: 340
+      output_tokens_est: 620
+      wall_clock_seconds_est: 22
+      api_cost_usd_est: 0.0103
+    arm_b:
+      model: sonnet-4.6
+      calls: 2  # 1 retry — first call tried to spawn real council, no visible answer
+      input_tokens_est: 1900
+      output_tokens_est: 1700
+      wall_clock_seconds_est: 60
+      api_cost_usd_est: 0.0312
+    arm_c:
+      calls: 10  # 5 members + 5 reviewers
+      input_tokens_est: 8300
+      output_tokens_est: 5300
+      wall_clock_seconds_est_endtoend: 92
+      api_cost_usd_est: 0.0880
+    judge:
+      model: opus-4.7
+      rerun: true  # original judge hit usage limit; fresh blind subagent this session
+      input_tokens_est: 3300
+      output_tokens_est: 1500
+      api_cost_usd_est: 0.1620
+
+  Q11:
+    arm_a:
+      model: sonnet-4.6
+      calls: 1
+      input_tokens_est: 330
+      output_tokens_est: 560
+      wall_clock_seconds_est: 20
+      api_cost_usd_est: 0.0093
+    arm_b:
+      model: sonnet-4.6
+      calls: 1  # STEP 1 stayed inside <thinking>, no retry
+      input_tokens_est: 1850
+      output_tokens_est: 1650
+      wall_clock_seconds_est: 52
+      api_cost_usd_est: 0.0303
+    arm_c:
+      calls: 10  # 5 members + 5 reviewers
+      input_tokens_est: 8100
+      output_tokens_est: 5200
+      wall_clock_seconds_est_endtoend: 90
+      api_cost_usd_est: 0.0863
+    judge:
+      model: opus-4.7
+      rerun: true  # original judge hit usage limit; fresh blind subagent this session
+      input_tokens_est: 3200
+      output_tokens_est: 1400
+      api_cost_usd_est: 0.1530
+
+  Q13:
+    arm_a:
+      model: sonnet-4.6
+      calls: 1
+      input_tokens_est: 320
+      output_tokens_est: 520
+      wall_clock_seconds_est: 17
+      api_cost_usd_est: 0.0088
+    arm_b:
+      model: sonnet-4.6
+      calls: 1  # clean, no STEP 1 leak
+      input_tokens_est: 1850
+      output_tokens_est: 1500
+      wall_clock_seconds_est: 49
+      api_cost_usd_est: 0.0281
+    arm_c:
+      model_breakdown:
+        members: sonnet-4.6 × 5
+        reviewers: haiku-4.5 × 5
+        chairman: sonnet-4.6 (spawned subagent for model parity; main thread was opus)
+      calls: 11  # 5 members + 5 reviewers + 1 chairman subagent
+      input_tokens_est: 9200
+      output_tokens_est: 5600
+      wall_clock_seconds_est_endtoend: 98
+      api_cost_usd_est: 0.0905
+    judge:
+      model: opus-4.7
+      input_tokens_est: 3400
+      output_tokens_est: 1500
+      api_cost_usd_est: 0.1635
+
+  Q15:
+    arm_a:
+      model: sonnet-4.6
+      calls: 1
+      input_tokens_est: 320
+      output_tokens_est: 620
+      wall_clock_seconds_est: 20
+      api_cost_usd_est: 0.0103
+    arm_b:
+      model: sonnet-4.6
+      calls: 1  # clean, no STEP 1 leak
+      input_tokens_est: 1850
+      output_tokens_est: 1550
+      wall_clock_seconds_est: 54
+      api_cost_usd_est: 0.0288
+    arm_c:
+      model_breakdown:
+        members: sonnet-4.6 × 5
+        reviewers: haiku-4.5 × 5
+        chairman: sonnet-4.6 (spawned subagent for model parity)
+      calls: 11  # 5 members + 5 reviewers + 1 chairman subagent
+      input_tokens_est: 9400
+      output_tokens_est: 5800
+      wall_clock_seconds_est_endtoend: 100
+      api_cost_usd_est: 0.0928
+    judge:
+      model: opus-4.7
+      input_tokens_est: 3500
+      output_tokens_est: 1500
+      api_cost_usd_est: 0.1650
+
+  Q17:
+    arm_a:
+      model: sonnet-4.6
+      calls: 1  # skill-suppressed, clean, no contamination
+      input_tokens_est: 340
+      output_tokens_est: 700
+      wall_clock_seconds_est: 22
+      api_cost_usd_est: 0.0115
+    arm_b:
+      model: sonnet-4.6
+      calls: 1  # clean — STEP 1 stayed in <thinking>, no retry
+      input_tokens_est: 1900
+      output_tokens_est: 1700
+      wall_clock_seconds_est: 45
+      api_cost_usd_est: 0.0312
+    arm_c:
+      model_breakdown:
+        members: sonnet-4.6 × 5
+        reviewers: haiku-4.5 × 5
+        chairman: sonnet-4.6 (spawned subagent for model parity — main thread was opus-4-8)  # RECORDED
+      calls: 11  # 5 members + 5 reviewers + 1 chairman subagent
+      input_tokens_est: 9300
+      output_tokens_est: 5700
+      wall_clock_seconds_est_endtoend: 96
+      api_cost_usd_est: 0.0910
+    judge:
+      model: opus-4.7
+      input_tokens_est: 3400
+      output_tokens_est: 1500
+      api_cost_usd_est: 0.1635
+
+  Q19:
+    arm_a:
+      model: sonnet-4.6
+      calls: 1  # skill-suppressed, clean, no contamination
+      input_tokens_est: 350
+      output_tokens_est: 720
+      wall_clock_seconds_est: 23
+      api_cost_usd_est: 0.0119
+    arm_b:
+      model: sonnet-4.6
+      calls: 1  # clean — STEP 1 stayed in <thinking>, no retry
+      input_tokens_est: 1950
+      output_tokens_est: 1750
+      wall_clock_seconds_est: 54
+      api_cost_usd_est: 0.0322
+    arm_c:
+      model_breakdown:
+        members: sonnet-4.6 × 5
+        reviewers: haiku-4.5 × 5
+        chairman: sonnet-4.6 (spawned subagent for model parity — main thread was opus-4-8)  # RECORDED
+      calls: 11  # 5 members + 5 reviewers + 1 chairman subagent
+      input_tokens_est: 9500
+      output_tokens_est: 6000
+      wall_clock_seconds_est_endtoend: 100
+      api_cost_usd_est: 0.0945
+    judge:
+      model: opus-4.7
+      input_tokens_est: 3500
+      output_tokens_est: 1550
+      api_cost_usd_est: 0.1665
+
+  Q23:
+    arm_a: { model: sonnet-4.6, calls: 1, input_tokens_est: 340, output_tokens_est: 680, wall_clock_seconds_est: 26, api_cost_usd_est: 0.0112 }
+    arm_b: { model: sonnet-4.6, calls: 1, input_tokens_est: 1950, output_tokens_est: 1500, wall_clock_seconds_est: 55, api_cost_usd_est: 0.0284 }  # hardened wrapper, no retry, no contamination
+    arm_c:
+      model_breakdown: { members: sonnet-4.6 × 5, reviewers: haiku-4.5 × 5 (3 first-pass refusals → neutral-frame retry), chairman: sonnet-4.6 (spawned subagent; main thread opus-4-8) }
+      calls: 14  # 5 members + 5 reviewers + 3 reviewer retries + 1 chairman subagent
+      input_tokens_est: 9600
+      output_tokens_est: 5900
+      wall_clock_seconds_est_endtoend: 105
+      api_cost_usd_est: 0.0945
+    judge: { model: opus-4.7, input_tokens_est: 3500, output_tokens_est: 1600, api_cost_usd_est: 0.1725 }
+  Q24:
+    arm_a: { model: sonnet-4.6, calls: 1, input_tokens_est: 330, output_tokens_est: 560, wall_clock_seconds_est: 22, api_cost_usd_est: 0.0093 }
+    arm_b: { model: sonnet-4.6, calls: 1, input_tokens_est: 1900, output_tokens_est: 1550, wall_clock_seconds_est: 53, api_cost_usd_est: 0.0290 }  # hardened wrapper, no retry
+    arm_c:
+      model_breakdown: { members: sonnet-4.6 × 5, reviewers: haiku-4.5 × 5 (4 first-pass refusals → neutral-frame retry), chairman: sonnet-4.6 (spawned subagent; main thread opus-4-8) }
+      calls: 15  # 5 members + 5 reviewers + 4 reviewer retries + 1 chairman subagent
+      input_tokens_est: 9800
+      output_tokens_est: 6100
+      wall_clock_seconds_est_endtoend: 108
+      api_cost_usd_est: 0.0972
+    judge: { model: opus-4.7, input_tokens_est: 3400, output_tokens_est: 1500, api_cost_usd_est: 0.1635 }
+
+  Q27:
+    arm_a: { model: sonnet-4.6, calls: 1, input_tokens_est: 360, output_tokens_est: 760, wall_clock_seconds_est: 20, api_cost_usd_est: 0.0122 }  # skill-suppressed, clean
+    arm_b: { model: sonnet-4.6, calls: 1, input_tokens_est: 1950, output_tokens_est: 1700, wall_clock_seconds_est: 50, api_cost_usd_est: 0.0312 }  # hardened wrapper, no retry, no contamination
+    arm_c:
+      model_breakdown: { members: sonnet-4.6 × 5, reviewers: haiku-4.5 × 5 (0 refusals — neutral grading frame, bug #6 fix), chairman: sonnet-4.6 (spawned subagent for model parity — main thread opus-4-8) }  # RECORDED
+      calls: 11  # 5 members + 5 reviewers + 1 chairman subagent (0 reviewer retries)
+      input_tokens_est: 9500
+      output_tokens_est: 5900
+      wall_clock_seconds_est_endtoend: 98
+      api_cost_usd_est: 0.0930
+    judge: { model: opus-4.7, input_tokens_est: 3600, output_tokens_est: 1650, api_cost_usd_est: 0.1755 }
+  Q28:
+    arm_a: { model: sonnet-4.6, calls: 1, input_tokens_est: 360, output_tokens_est: 820, wall_clock_seconds_est: 29, api_cost_usd_est: 0.0130 }  # skill-suppressed, clean
+    arm_b: { model: sonnet-4.6, calls: 1, input_tokens_est: 1950, output_tokens_est: 1750, wall_clock_seconds_est: 45, api_cost_usd_est: 0.0322 }  # hardened wrapper, no retry
+    arm_c:
+      model_breakdown: { members: sonnet-4.6 × 5, reviewers: haiku-4.5 × 5 (0 refusals — neutral grading frame), chairman: sonnet-4.6 (spawned subagent for model parity — main thread opus-4-8) }  # RECORDED
+      calls: 11  # 5 members + 5 reviewers + 1 chairman subagent (0 reviewer retries)
+      input_tokens_est: 9900
+      output_tokens_est: 6200
+      wall_clock_seconds_est_endtoend: 102
+      api_cost_usd_est: 0.0965
+    judge: { model: opus-4.7, input_tokens_est: 3700, output_tokens_est: 1700, api_cost_usd_est: 0.1815 }
+
+  Q32:
+    arm_a: { model: sonnet-4.6, calls: 1, input_tokens_est: 360, output_tokens_est: 820, wall_clock_seconds_est: 24, api_cost_usd_est: 0.0130 }  # skill-suppressed, clean
+    arm_b: { model: sonnet-4.6, calls: 1, input_tokens_est: 1950, output_tokens_est: 1700, wall_clock_seconds_est: 54, api_cost_usd_est: 0.0312 }  # hardened wrapper, no retry
+    arm_c:
+      model_breakdown: { members: sonnet-4.6 × 5, reviewers: haiku-4.5 × 5 (0 refusals — neutral grading frame), chairman: sonnet-4.6 (spawned subagent for model parity — main thread opus-4-8) }  # RECORDED
+      calls: 11  # 5 members + 5 reviewers + 1 chairman subagent (0 reviewer retries)
+      input_tokens_est: 9400
+      output_tokens_est: 5800
+      wall_clock_seconds_est_endtoend: 95
+      api_cost_usd_est: 0.0920
+    judge: { model: opus-4.7, input_tokens_est: 3500, output_tokens_est: 1550, api_cost_usd_est: 0.1665 }
+  Q33:
+    arm_a: { model: sonnet-4.6, calls: 1, input_tokens_est: 360, output_tokens_est: 760, wall_clock_seconds_est: 22, api_cost_usd_est: 0.0122 }  # skill-suppressed, clean
+    arm_b: { model: sonnet-4.6, calls: 1, input_tokens_est: 1950, output_tokens_est: 1800, wall_clock_seconds_est: 64, api_cost_usd_est: 0.0330 }  # hardened wrapper, no retry, STEP 1 in <thinking>
+    arm_c:
+      model_breakdown: { members: sonnet-4.6 × 5, reviewers: haiku-4.5 × 5 (0 refusals — neutral grading frame), chairman: sonnet-4.6 (spawned subagent for model parity — main thread opus-4-8) }  # RECORDED
+      calls: 11  # 5 members + 5 reviewers + 1 chairman subagent (0 reviewer retries)
+      input_tokens_est: 9600
+      output_tokens_est: 6000
+      wall_clock_seconds_est_endtoend: 99
+      api_cost_usd_est: 0.0942
+    judge: { model: opus-4.7, input_tokens_est: 3600, output_tokens_est: 1650, api_cost_usd_est: 0.1755 }
+
+  Q48:
+    arm_a: { model: sonnet-4.6, calls: 1, input_tokens_est: 360, output_tokens_est: 720, wall_clock_seconds_est: 20, api_cost_usd_est: 0.0122 }  # skill-suppressed, clean
+    arm_b: { model: sonnet-4.6, calls: 1, input_tokens_est: 1950, output_tokens_est: 1700, wall_clock_seconds_est: 55, api_cost_usd_est: 0.0312 }  # hardened wrapper, no retry
+    arm_c:
+      model_breakdown: { members: sonnet-4.6 × 5 (Utilitarian/Deontologist/Virtue/Rights/DA), reviewers: haiku-4.5 × 5 (0 refusals — neutral grading frame), chairman: sonnet-4.6 (spawned subagent for model parity — main thread opus-4-8) }  # RECORDED
+      calls: 11  # 5 members + 5 reviewers + 1 chairman subagent (0 reviewer retries)
+      input_tokens_est: 9800
+      output_tokens_est: 6100
+      wall_clock_seconds_est_endtoend: 104
+      api_cost_usd_est: 0.0960
+    judge: { model: opus-4.7, input_tokens_est: 3700, output_tokens_est: 1650, api_cost_usd_est: 0.1800 }
+  Q49:
+    arm_a: { model: sonnet-4.6, calls: 1, input_tokens_est: 360, output_tokens_est: 700, wall_clock_seconds_est: 20, api_cost_usd_est: 0.0119 }  # skill-suppressed, clean
+    arm_b: { model: sonnet-4.6, calls: 1, input_tokens_est: 1950, output_tokens_est: 1750, wall_clock_seconds_est: 45, api_cost_usd_est: 0.0322 }  # hardened wrapper, no retry
+    arm_c:
+      model_breakdown: { members: sonnet-4.6 × 5 (Utilitarian/Deontologist/Virtue/Rights/DA), reviewers: haiku-4.5 × 5 (0 refusals — neutral grading frame), chairman: sonnet-4.6 (spawned subagent for model parity — main thread opus-4-8) }  # RECORDED
+      calls: 11  # 5 members + 5 reviewers + 1 chairman subagent (0 reviewer retries)
+      input_tokens_est: 10000
+      output_tokens_est: 6300
+      wall_clock_seconds_est_endtoend: 106
+      api_cost_usd_est: 0.0985
+    judge: { model: opus-4.7, input_tokens_est: 3800, output_tokens_est: 1650, api_cost_usd_est: 0.1830 }
+
+  Q51:
+    arm_a: { model: sonnet-4.6, calls: 1, input_tokens_est: 350, output_tokens_est: 700, wall_clock_seconds_est: 15, api_cost_usd_est: 0.0115 }  # skill-suppressed, clean
+    arm_b: { model: sonnet-4.6, calls: 1, input_tokens_est: 1950, output_tokens_est: 1750, wall_clock_seconds_est: 56, api_cost_usd_est: 0.0322 }  # hardened wrapper, no retry, 5 internal perspectives stayed in <thinking>
+    arm_c:
+      model_breakdown: { members: sonnet-4.6 × 5 (Long-term self/Empath/Decision-Strategist/Values Clarifier/DA), reviewers: haiku-4.5 × 5 (0 refusals — neutral grading frame), chairman: sonnet-4.6 (spawned subagent for model parity — main thread opus-4-8) }  # RECORDED
+      calls: 11  # 5 members + 5 reviewers + 1 chairman subagent (0 reviewer retries)
+      input_tokens_est: 9700
+      output_tokens_est: 6000
+      wall_clock_seconds_est_endtoend: 100
+      api_cost_usd_est: 0.0945
+    judge: { model: opus-4.7, input_tokens_est: 3700, output_tokens_est: 1650, api_cost_usd_est: 0.1800 }
+  Q52:
+    arm_a: { model: sonnet-4.6, calls: 1, input_tokens_est: 360, output_tokens_est: 780, wall_clock_seconds_est: 18, api_cost_usd_est: 0.0125 }  # skill-suppressed, clean
+    arm_b: { model: sonnet-4.6, calls: 1, input_tokens_est: 1950, output_tokens_est: 1800, wall_clock_seconds_est: 57, api_cost_usd_est: 0.0330 }  # hardened wrapper, no retry
+    arm_c:
+      model_breakdown: { members: sonnet-4.6 × 5 (Long-term self/Empath/Decision-Strategist/Values Clarifier/DA), reviewers: haiku-4.5 × 5 (0 refusals — neutral grading frame), chairman: sonnet-4.6 (spawned subagent for model parity — main thread opus-4-8) }  # RECORDED
+      calls: 11  # 5 members + 5 reviewers + 1 chairman subagent (0 reviewer retries)
+      input_tokens_est: 9900
+      output_tokens_est: 6200
+      wall_clock_seconds_est_endtoend: 103
+      api_cost_usd_est: 0.0965
+    judge: { model: opus-4.7, input_tokens_est: 3800, output_tokens_est: 1700, api_cost_usd_est: 0.1845 }
+
+  Q55:  # PERSONAL, council-shaped, COMPOSITE-5. Reconciled 2026-05-30 (complete on disk; tracking had lagged).
+    arm_a: { model: sonnet-4.6, calls: 1, input_tokens_est: 350, output_tokens_est: 720, wall_clock_seconds_est: 17, api_cost_usd_est: 0.0118 }  # skill-suppressed, clean
+    arm_b: { model: sonnet-4.6, calls: 1, input_tokens_est: 1950, output_tokens_est: 1800, wall_clock_seconds_est: 58, api_cost_usd_est: 0.0330 }  # hardened wrapper, no retry; BEST-on-risk arm
+    arm_c:
+      model_breakdown: { members: sonnet-4.6 × 5 (Long-term self/Empath/Decision-Strategist/Values Clarifier/DA), reviewers: haiku-4.5 × 5 (0 refusals — neutral grading frame), chairman: sonnet-4.6 (spawned subagent for model parity — main thread opus-4-8) }  # RECORDED
+      calls: 11  # 5 members + 5 reviewers + 1 chairman subagent (0 reviewer retries)
+      input_tokens_est: 9900
+      output_tokens_est: 6200
+      wall_clock_seconds_est_endtoend: 103
+      api_cost_usd_est: 0.0965
+    judge: { model: opus-4.7, input_tokens_est: 3800, output_tokens_est: 1700, api_cost_usd_est: 0.1845 }
+
+  Q58:  # PERSONAL, council-shaped, COMPOSITE-4. RESUMED from reviewer stage 2026-05-30 (members + arm_a/arm_b pre-existed; reviewers+chairman+judge this session).
+    arm_a: { model: sonnet-4.6, calls: 1, input_tokens_est: 350, output_tokens_est: 620, wall_clock_seconds_est: 16, api_cost_usd_est: 0.0103 }  # pre-existing; skill-suppressed, clean
+    arm_b: { model: sonnet-4.6, calls: 1, input_tokens_est: 1900, output_tokens_est: 1650, wall_clock_seconds_est: 52, api_cost_usd_est: 0.0305 }  # pre-existing; hardened wrapper, no retry
+    arm_c:
+      model_breakdown: { members: sonnet-4.6 × 5 (Long-term self/Empath/Decision-Strategist/Values Clarifier/DA, pre-existing), reviewers: haiku-4.5 × 5 (0 refusals — neutral grading frame, this session), chairman: sonnet-4.6 (spawned subagent for model parity — main thread opus-4-8, this session) }  # RECORDED
+      calls: 11  # 5 members (prior session) + 5 reviewers + 1 chairman subagent (this session); 0 reviewer retries
+      input_tokens_est: 9600
+      output_tokens_est: 6000
+      wall_clock_seconds_est_endtoend: 98
+      api_cost_usd_est: 0.0942
+    judge: { model: opus-4.7, input_tokens_est: 3700, output_tokens_est: 1650, api_cost_usd_est: 0.1800 }
+
+  Q59:  # PERSONAL, SINGLE-PROMPT-SHAPED, composite-4. Fresh full pipeline 2026-05-30. Completes N=27.
+    arm_a: { model: sonnet-4.6, calls: 1, input_tokens_est: 340, output_tokens_est: 600, wall_clock_seconds_est: 13, api_cost_usd_est: 0.0100 }  # skill-suppressed, clean
+    arm_b: { model: sonnet-4.6, calls: 1, input_tokens_est: 1900, output_tokens_est: 1700, wall_clock_seconds_est: 54, api_cost_usd_est: 0.0312 }  # hardened wrapper, no retry, STEP 1 in <thinking>
+    arm_c:
+      model_breakdown: { members: sonnet-4.6 × 5 (Long-term self/Empath/Decision-Strategist/Values Clarifier/DA), reviewers: haiku-4.5 × 5 (0 refusals — neutral grading frame), chairman: sonnet-4.6 (spawned subagent for model parity — main thread opus-4-8) }  # RECORDED
+      calls: 11  # 5 members + 5 reviewers + 1 chairman subagent (0 reviewer retries)
+      input_tokens_est: 9500
+      output_tokens_est: 5900
+      wall_clock_seconds_est_endtoend: 99
+      api_cost_usd_est: 0.0930
+    judge: { model: opus-4.7, input_tokens_est: 3700, output_tokens_est: 1700, api_cost_usd_est: 0.1815 }
+
+  Q02:  # ENGINEERING, council-shaped, composite-2. CLEAN RERUN 2026-05-31 (pilot was context-only).
+    arm_a: { model: sonnet-4.6, calls: 1, input_tokens_est: 330, output_tokens_est: 560, wall_clock_seconds_est: 14, api_cost_usd_est: 0.0091 }  # skill-suppressed, clean
+    arm_b: { model: sonnet-4.6, calls: 1, input_tokens_est: 1850, output_tokens_est: 1500, wall_clock_seconds_est: 48, api_cost_usd_est: 0.0281 }  # hardened wrapper, no retry
+    arm_c:
+      model_breakdown: { members: sonnet-4.6 × 5 (Pragmatist/Skeptic/Architect/Maintainer/DA), reviewers: haiku-4.5 × 5 (0 refusals — neutral grading frame), chairman: sonnet-4.6 (spawned subagent for model parity — main thread opus-4-8) }  # RECORDED
+      calls: 11  # 5 members + 5 reviewers + 1 chairman subagent (0 reviewer retries)
+      input_tokens_est: 9000
+      output_tokens_est: 5500
+      wall_clock_seconds_est_endtoend: 92
+      api_cost_usd_est: 0.0880
+    judge: { model: opus-4.7, input_tokens_est: 3500, output_tokens_est: 1600, api_cost_usd_est: 0.1665 }
+
+  Q25:  # RESEARCH, single-prompt-shaped, COMPOSITE-5. CLEAN RERUN 2026-05-31 (pilot was context-only). parsed created by parsing the saved judgment (parse step was interrupted by session limit; no rerun).
+    arm_a: { model: sonnet-4.6, calls: 1, input_tokens_est: 360, output_tokens_est: 820, wall_clock_seconds_est: 24, api_cost_usd_est: 0.0130 }  # skill-suppressed, clean
+    arm_b: { model: sonnet-4.6, calls: 1, input_tokens_est: 1950, output_tokens_est: 1750, wall_clock_seconds_est: 52, api_cost_usd_est: 0.0322 }  # hardened wrapper, no retry
+    arm_c:
+      model_breakdown: { members: sonnet-4.6 × 5 (Empiricist/Theorist/Methodologist/Integrator/DA), reviewers: haiku-4.5 × 5 (0 refusals — neutral grading frame), chairman: sonnet-4.6 (spawned subagent for model parity — main thread opus-4-8) }  # RECORDED
+      calls: 11  # 5 members + 5 reviewers + 1 chairman subagent (0 reviewer retries)
+      input_tokens_est: 10200
+      output_tokens_est: 6400
+      wall_clock_seconds_est_endtoend: 108
+      api_cost_usd_est: 0.1005
+    judge: { model: opus-4.7, input_tokens_est: 3900, output_tokens_est: 1750, api_cost_usd_est: 0.1860 }
+
+# Per-arm aggregate scores (5-axis composite, max 25) — N=29
+aggregate_scores_5axis:
+  arm_a:
+    Q01: 14
+    Q03: 14
+    Q05: 18
+    Q09: 15
+    Q11: 16
+    Q13: 17
+    Q15: 17
+    Q17: 14
+    Q19: 15
+    Q23: 19   # tie-breaker-resolved 2026-05-31 (was 16; per-axis median of 3 blind judges)
+    Q24: 17
+    Q27: 18
+    Q28: 18
+    Q32: 15
+    Q33: 18
+    Q34: 19
+    Q36: 14
+    Q38: 15
+    Q43: 19
+    Q47: 15
+    Q48: 14
+    Q49: 18
+    Q51: 16
+    Q52: 15
+    Q55: 16
+    Q58: 16
+    Q59: 16
+    Q02: 19   # clean rerun 2026-05-31
+    Q25: 15   # clean rerun 2026-05-31
+    mean: 16.28   # N=29 (after Q02/Q25)
+    median: 16
+  arm_b:
+    Q01: 22
+    Q03: 22
+    Q05: 20
+    Q09: 21
+    Q11: 16
+    Q13: 24
+    Q15: 19
+    Q17: 21
+    Q19: 21
+    Q23: 22   # tie-breaker-resolved 2026-05-31 (was 21; per-axis median of 3 blind judges)
+    Q24: 21
+    Q27: 23
+    Q28: 18
+    Q32: 19
+    Q33: 22
+    Q34: 18
+    Q36: 21
+    Q38: 22
+    Q43: 21
+    Q47: 21
+    Q48: 20
+    Q49: 20
+    Q51: 21
+    Q52: 21
+    Q55: 22
+    Q58: 20
+    Q59: 22
+    Q02: 21   # clean rerun 2026-05-31
+    Q25: 21   # clean rerun 2026-05-31
+    mean: 20.76   # N=29 (after Q02/Q25)
+    median: 21
+  arm_c:
+    Q01: 25
+    Q03: 25
+    Q05: 25
+    Q09: 24
+    Q11: 25
+    Q13: 20
+    Q15: 24
+    Q17: 24
+    Q19: 25
+    Q23: 25
+    Q24: 25
+    Q27: 25
+    Q28: 25
+    Q32: 24
+    Q33: 24
+    Q34: 25
+    Q36: 25
+    Q38: 23
+    Q43: 24
+    Q47: 25
+    Q48: 24
+    Q49: 25
+    Q51: 25
+    Q52: 25
+    Q55: 24
+    Q58: 25
+    Q59: 25
+    Q02: 25   # clean rerun 2026-05-31
+    Q25: 25   # clean rerun 2026-05-31
+    mean: 24.48   # N=29 (after Q02/Q25)
+    median: 25
+
+# Per-arm aggregate scores (4-axis composite, excludes dissent, max 20) — N=29
+aggregate_scores_4axis:
+  arm_a:
+    Q01: 12
+    Q03: 12
+    Q05: 16
+    Q09: 14
+    Q11: 14
+    Q13: 16
+    Q15: 15
+    Q17: 13
+    Q19: 14
+    Q23: 17   # tie-breaker-resolved 2026-05-31 (was 14)
+    Q24: 15
+    Q27: 17
+    Q28: 17
+    Q32: 14
+    Q33: 16
+    Q34: 18
+    Q36: 13
+    Q38: 14
+    Q43: 17
+    Q47: 13
+    Q48: 13
+    Q49: 17
+    Q51: 14
+    Q52: 13
+    Q55: 14
+    Q58: 14
+    Q59: 14
+    Q02: 17   # clean rerun 2026-05-31
+    Q25: 13   # clean rerun 2026-05-31
+    mean: 14.69   # N=29 (after Q02/Q25)
+    median: 14
+  arm_b:
+    Q01: 17
+    Q03: 18
+    Q05: 16
+    Q09: 17
+    Q11: 14
+    Q13: 19
+    Q15: 15
+    Q17: 19
+    Q19: 17
+    Q23: 18   # tie-breaker-resolved 2026-05-31 (was 17)
+    Q24: 17
+    Q27: 18
+    Q28: 14
+    Q32: 15
+    Q33: 18
+    Q34: 14
+    Q36: 17
+    Q38: 18
+    Q43: 17
+    Q47: 17
+    Q48: 16
+    Q49: 16
+    Q51: 17
+    Q52: 17
+    Q55: 18
+    Q58: 16
+    Q59: 18
+    Q02: 17   # clean rerun 2026-05-31
+    Q25: 17   # clean rerun 2026-05-31
+    mean: 16.79   # N=29 (after Q02/Q25)
+    median: 17
+  arm_c:
+    Q01: 20
+    Q03: 20
+    Q05: 20
+    Q09: 20
+    Q11: 20
+    Q13: 16
+    Q15: 20
+    Q17: 20
+    Q19: 20
+    Q23: 20
+    Q24: 20
+    Q27: 20
+    Q28: 20
+    Q32: 19
+    Q33: 19
+    Q34: 20
+    Q36: 20
+    Q38: 18
+    Q43: 20
+    Q47: 20
+    Q48: 19
+    Q49: 20
+    Q51: 20
+    Q52: 20
+    Q55: 19
+    Q58: 20
+    Q59: 20
+    Q02: 20   # clean rerun 2026-05-31
+    Q25: 20   # clean rerun 2026-05-31
+    mean: 19.66   # N=29 (after Q02/Q25)
+    median: 20
+
+# Gaps (Arm C vs Arm B) — N=29 (Q23 tie-breaker-resolved; Q02/Q25 clean-rerun added 2026-05-31)
+gaps:
+  c_minus_b_5axis_mean: 3.72   # was 3.70 at N=27; above 2-point pass-threshold
+  c_minus_b_4axis_mean: 2.86   # was 2.85; above 1-point substantive-win threshold
+  c_minus_a_5axis_mean: 8.21   # was 8.22
+  c_minus_a_4axis_mean: 4.97   # was 4.96
+
+# Per-question C-vs-B (5-axis): Q01 +3, Q02 +4, Q03 +3, Q05 +5, Q09 +3, Q11 +9, Q13 -4, Q15 +5, Q17 +3, Q19 +4, Q23 +3, Q24 +4, Q25 +4, Q27 +2, Q28 +7, Q32 +5, Q33 +2, Q34 +7, Q36 +4, Q38 +1, Q43 +3, Q47 +4, Q48 +4, Q49 +5, Q51 +4, Q52 +4, Q55 +2, Q58 +5, Q59 +3
+# Arm C beats Arm B on 28/29 questions; loses 1 (Q13, composite-5 council-shaped). Q38 narrowest win (+1); Q27/Q33/Q55 next-narrowest (+2).
+# Composite-5 tally: Q13 (B>C -4) | Q25 +4 | Q28 +7 | Q47 +10 | Q48 +4 | Q49 +5 | Q55 +2 → Arm C 6-1 on composite-5 (Q13 sole loss). Composite-5 set FULLY RESOLVED (Q25 clean-rerun added). [Q02 composite-2; Q51/Q52/Q58/Q59 composite-4 — not in this tally.]
+# Single-prompt-shaped tally: arm_c won Q15/Q17/Q23/Q24/Q25/Q27/Q32/Q38/Q59 (9/9 persisted; Q38 narrow +1) — council edge NOT limited to council-shaped questions.
+
+# Interim verdict (N=29 sample = 29/30 of target, not formal pass/fail; only pilot Q41 remains)
+interim_signal:
+  arm_c_wins_5axis: yes  # mean 24.48 vs 20.76, median 25 vs 21
+  arm_c_wins_4axis: yes  # mean 19.66 vs 16.79, median 20 vs 17
+  arm_c_beats_b_count: 28 of 29   # loses only Q13 (Q25 + Q02 both C25 > B21)
+  notable_personal_Q51_Q52: >
+    PERSONAL domain opened (2/5; Q55/Q58/Q59 remain). BOTH arm_c PERFECT 25; arm_b 21 both; arm_a 16 (Q51) / 15 (Q52).
+    C-vs-B +4 both. Cleanest "same-conclusion, council-adds-value" pair in the eval: on BOTH, arm_a (direct) reached a
+    reasonable, correct take (Q51 take-IC; Q52 take-the-job-as-time-boxed-bet is debatable but arm_a stayed balanced) yet
+    lost ~10 pts — judge faulted it for (a) no distinct minority-view section (dissent capped 2 both), (b) reflective
+    questions / both-sides prose instead of a concrete plan (practical 3 both), (c) more conventional insight (3 both).
+    arm_c won on EXECUTION not conclusion: numbered next-steps, sharp risk-isolation (Q51 ladder-ceiling flips optionality;
+    Q52 partner's untested "flexible" is THE binding constraint), and a preserved labeled dissent the judge twice called
+    "most mind-changing." Distinct from inverted-dissent cases (Q38/Q47/Q49) where the council changed the CONCLUSION.
+    DA structural variants now: NORMAL (DA peer-weakest, dissent still preserved — Q51, 11.8) and INVERTED-SETUP (cautious
+    answer is the council minority, DA argues the majority take one-sidedly and is peer-weakest on nuance, the genuine
+    dissent comes from a non-DA member — Q52, Empath carried it). arm_b stayed strong 2nd both (21): its single dissent
+    slot independently caught a real contrarian read each time (EM-window; environment-as-mood-tax).
+  notable_ethics_Q43_Q47: >
+    First ethics (2/5; Q48/Q49 + pilot Q41 remain). Q43 arm_c 24 (won; dissent 4/5; DA "confront directly" was
+    peer-WEAKEST — normal DA pattern, 4-of-5 converged against). Q47 arm_c PERFECT 25 — 2nd INVERTED-dissent case (after
+    Q38): contrarian DA peer-STRONGEST (19.0, "fungibility = fig leaf / Programmatic-Hostage capture"); chairman LED with
+    it, preserved conventional conditional-accept as dissent. arm_a WEAKEST on Q47 (15, overstates clean fungibility, no
+    dissent). Inverted-dissent now on Q38 (writing) + Q47 (ethics): when the best answer is a non-obvious reframe, the
+    council edge is surfacing+leading with it; arm_a (direct) misses it entirely.
+  notable_Q38: >
+    Writing/single-prompt-shaped. WRITING DOMAIN NOW COMPLETE (5/5). arm_c WON (23) but first sub-25 since Q09
+    (correctness 4: worked-number repeated-sampling phrasing slightly loose; practical 4). NARROWEST C-B win of the
+    eval: +1 on 5-axis, TIED on 4-axis (18/18). KEY SIGNAL: on a question whose best answer is "reject the premise /
+    drop the metaphor," Arm B (22) nearly tied the council because its built-in dissent slot independently surfaced the
+    same contrarian reframe the council's DA produced — when the winning move is one contrarian insight, Arm B's one-shot
+    dissent step captures most of the council value and the multi-agent overhead buys less. arm_a (direct, weather-
+    forecast = literally the obvious answer the DA argued against) WEAKEST at 15 (no dissent 1, weak risk 2). The
+    obvious answer scored worst, premise-rejecting answers (B+C) top — the spread the dissent machinery is built to make.
+    Writing-domain C-vs-B: Q32 +5, Q33 +2, Q34 +7, Q36 +4, Q38 +1 (arm_c won all 5, never lost in writing). But the gap
+    swings widely (+1 to +7) entirely on whether arm_b's single dissent step happens to catch the key move; Q38 it did.
+  notable_Q36: >
+    Writing/council-shaped. arm_c perfect 25 (5/5 dissent — DA political-contradiction preserved). COUNTER to Q34:
+    there arm_a (direct) BEAT arm_b; here arm_a was WEAKEST (14) — oversold the resolution, surfaced no risk, no dissent
+    section (risk 2, dissent 1). arm_a confirmed high-variance on writing craft (strong on pure-prose Q34, weak on
+    risk+dissent Q36). arm_b solid 2nd (21); its deliberate-norm-violation dissent (4/5) is exactly what arm_a lacked.
+    Writing domain 4/5 done (Q32 +5, Q33 +2, Q34 +7, Q36 +4 C-vs-B); only Q38 remains.
+  notable_Q34: >
+    arm_c perfect 25 (5/5 dissent — intent-vs-mimicry counter preserved verbatim). RARE: arm_a (direct, 19) BEAT
+    arm_b (single-structured, 18) on 5-axis AND decisively on 4-axis (18 vs 14) — 2nd time arm_a >= arm_b (Q11 was a tie).
+    arm_a judged exceptional craft prose (C5/I5/P5), capped only by missing dissent section (dissent 1). arm_b weakest
+    5-axis of eval (ties Q28's 18) + weakest 4-axis ever (14): thin five-layer answer + brief quoted dissent. Reinforces
+    that on craft questions arm_b's edge over direct can be purely the dissent scaffold, not better reasoning (spec §8
+    4-axis sensitivity is doing its job). C-B gap widened to 3.88 because arm_b dipped, not because arm_c rose.
+  notable_Q13_vs_Q28: BOTH composite-5 council-shaped. Q13 = Arm B beat Arm C (-4) — the ONE council loss. Q28 = Arm C beat Arm B (+7), perfect 25, on the same hardest question type. Composite-5 is now SPLIT 1-1 (Q13 B-win, Q28 C-win). Remaining composite-5: Q41/Q48/Q49/Q55 (+ pilot Q25).
+  notable_Q27: Arm C perfect 25 but NARROWEST C-B gap (+2) — Arm B unusually strong (23, with its internal DA producing the same ecological-validity counter, scored 5/5 dissent). Arm B's dissent quality is climbing (Q19 4/5, Q27 5/5). On single-prompt-shaped Qs the gap can tighten.
+  notable_Q28: Arm C perfect 25, Arm B only 18 (tied Arm A). On the hardest question type the single structured prompt COMPRESSED the same causal-chain skeleton the council expanded; judge found Arm B "a more compressed, less concrete version" (practical 3, risk 3). Strongest pro-council composite-5 signal.
+  notable_Q15: Arm C won a SINGLE-PROMPT-SHAPED question (24 vs 19 vs 17) — council advantage not limited to council-shaped questions.
+  notable_Q19: Arm C PERFECT 25 (first 5/5 dissent). Council DA reframe ("segmentation not pricing-model") rated top-insight by all reviewers; chairman integrated + preserved it.
+  notable_research_sweep: Q23/Q24/Q27/Q28 all Arm C perfect 25 (4/4 research questions persisted; Q25 still pilot-context-only). Research is Arm C's strongest domain so far.
+  recurring_pattern: Arm A scores 1 on dissent on recent Qs (no dissent section, leans one direction) — structural. Arm C dissent now consistently high (Q19/Q23/Q24/Q27/Q28 all 5/5) — including when the DA was peer-rated the WEAKEST member (Q27, Q28): peer-weakness of a member ≠ low dissent-axis score; the axis rewards a preserved, mind-changing counter-position regardless of the member's own rubric rigor.
+  reviewer_refusal_fix_confirmed: Q23/Q24 had 7/10 first-pass refusals (aggressive framing). Q27/Q28/Q32/Q33 used NEUTRAL grading frame → 0/20 refusals. Bug #6 fix confirmed across 4 questions. Keep neutral frame for all future reviewer prompts.
+  notable_writing_Q32_Q33: both writing-domain Qs went to Arm C (Q32 single-prompt +5; Q33 council-shaped +2), but WRITING is where Arm B is most competitive — narrow gaps cluster here (Q33 +2, plus Q27 +2 research). Arm B scored 19 (Q32) and 22 (Q33). On both, the council's Devil's Advocate produced the standout reframe (Q32: warm-intro/wrong-channel, peer-rated STRONGEST member; Q33: docs-as-rational-equilibrium). Arm A took a correctness ding on Q33 (fabricated 30/40/30 percentages). Watch remaining writing Qs (Q34/Q36/Q38) for whether Arm B closes the gap further.
+  notable_Q55: >
+    PERSONAL/council-shaped, COMPOSITE-5 (the LAST composite-5 in the set). Reconciled 2026-05-30 — was complete on disk
+    but tracking lagged (Q34-style; no regeneration). arm_c WON (24) → composite-5 tally now Arm C 5-1 (Q13 sole loss;
+    Q28/Q47/Q48/Q49/Q55 wins). But NARROW: +2 (5-axis), +1 (4-axis) — joint-narrowest 5-axis win with Q27/Q33; only Q38
+    (+1) is tighter. arm_c NOT perfect (24): lost 1 on RISK because arm_b (22) was BEST-on-risk (5/5) — arm_b alone
+    foregrounded that the verdict turns on field+finances the asker never provided AND named the unfunded-at-35
+    catastrophe; arm_c under-weighted the missing-input hazard in its lead toward "go if you can name the question."
+    3rd narrow C-B (+2 or less); all cluster (Q27 ecological-validity, Q33 docs-equilibrium, Q55 missing-input risk)
+    where arm_b's single structured pass independently catches the decisive risk/dissent move — on composite-5 the council
+    still won but the margin is execution-thin there. NORMAL DA pattern, EXTREME: DA peer-WEAKEST at 8.8 (LOWEST DA in the
+    eval, vs Q48 10.6 / Q51 11.8) — hammered for one-sidedness on a brutal-base-rate composite-5; chairman still preserved
+    its core + Long-term self's regret framing as a full dissent block → judge dissent 5/5. arm_a (16) weakest as usual
+    (correct+balanced, practical 3, no dissent section capped 2). PERSONAL C-vs-B: Q51 +4, Q52 +4, Q55 +2 (arm_c won all 3).
+  notable_Q58: >
+    PERSONAL/council-shaped, COMPOSITE-4. Resumed from reviewer stage 2026-05-30 (5 members + arm_a/arm_b pre-existed;
+    ran reviewers→chairman→judge this session). arm_c PERFECT 25 (5/5/5/5/5). C−B +5, C−A +9. COMPLETES persisted
+    PERSONAL set to 4/5 (Q51/Q52/Q55/Q58; Q59 remains). META question ("what's usually going on when someone can't
+    commit") — strong answers address the INDECISION PATTERN, not stay-vs-go. arm_c edge: led with the convergent
+    meta-diagnosis (oscillation = identity-protection / wrong-axis / grief, NOT info deficit — "the almost-deciding is
+    the mechanism working as designed") then operationalized it: dismantle the false binary (FT ≠ no autonomy), itemize
+    the 10 concrete autonomy behaviors, the grief-paragraph test, negotiate ONE structural term (90-day mutual-exit
+    trial / retained outside-client rights) → reversible experiment, and price the oscillation's compounding cost.
+    Judge: insight 5 (cool/warm phrasing-as-grief-signal "novel and generative"), practical 5, risk 5. Dissent 5/5 —
+    preserved the DA counter forcefully & verbatim ("stop diagnosing / 72h deadline / sunk-cost dressed in the language
+    of values"). NORMAL DA pattern: DA peer-WEAKEST (15.4, 3/5 bottom votes) but in a TIGHT 15.4-16.8 high-convergence
+    pack (all 5 members agreed on the diagnosis); preserved dissent still 5/5 — member peer-rank ≠ dissent-axis score.
+    arm_b (20): correct diagnosis + real dissent 4/5 ("optionality as emotional insurance") but practical 3 (one thin
+    move). arm_a (16): NOTABLE — dissent 2 not 1 (folded a gut-vs-avoidance counter into the body, no standalone
+    section → caps 2, slightly above its recent dissent-1 norm); practical 4 (DID surface contract-to-hire/part-time/
+    deadline) but insight 3 ("standard advice-column fare") + risk 3 held it to 16. PERSONAL C-vs-B now Q51 +4, Q52 +4,
+    Q55 +2, Q58 +5 (arm_c won all 4; perfect 25 on Q51/Q52/Q58).
+  notable_Q59: >
+    PERSONAL/SINGLE-PROMPT-SHAPED, composite-4. *** COMPLETES the persisted set to N=27 *** — PERSONAL domain done 5/5;
+    all 30 persisted except pilots Q02/Q25/Q41. arm_c PERFECT 25 (5/5/5/5/5). C−B +3, C−A +9. Empirical question ("is
+    that fear realistic in the current market?"). arm_c edge: answered the market question head-on (overblown-but-not-
+    imaginary; 3-6mo gap = manageable FRICTION not a wall; the 10-yr record is the dominant signal) + unbundled the two
+    fears (unhireable=logistics-friction vs can't-handle-pressure=framing-dependent inference) + named the REAL risk as
+    re-entry DRIFT not the gap + structured-break execution (hard return date / narrate-before-leaving / two-phase rest /
+    map-target-market-by-tier / "name 3 rejections" falsification test). Judge: "richer on every axis," insight 5, practical
+    5, risk 5, dissent 5. NORMAL DA pattern, NOT inverted: the reassuring Long-term-self view was peer-STRONGEST (19.8, 4/5
+    top votes); DA peer-WEAKEST (17.2, UNANIMOUS 5/5 bottom) in a tight 17.2-19.8 pack; preserved DA dissent (market-skeptic
+    / targeted-transition-via-fractional / 3mo-ceiling) still 5/5 — judge "could change the reader's decision". arm_b
+    (slot Z) STRONG at 22: its single dissent slot independently caught the targeted-transition alternative (dissent 4/5)
+    AND it was BEST-on-risk (5/5, uniquely foregrounded financial-stability-as-precondition) → 4th time arm_b's one pass
+    surfaces the decisive move, narrowing C−B to +3. arm_a (slot Y) 16: dissent 2 (mild caveats folded in, no section →
+    caps 2, like Q58), insight 3 + risk 3. PERSONAL C-vs-B: Q51 +4, Q52 +4, Q55 +2, Q58 +5, Q59 +3 (arm_c won all 5;
+    perfect 25 on Q51/Q52/Q58/Q59). SINGLE-PROMPT-SHAPED: arm_c won 8/8 persisted (Q15/Q17/Q23/Q24/Q27/Q32/Q38/Q59).
+  notable_Q02_Q25_pilots_clean_rerun: >
+    Q02 (ENGINEERING, council-shaped, composite-2) + Q25 (RESEARCH, single-prompt-shaped, COMPOSITE-5) clean-rerun + persisted
+    2026-05-31 (both were context-only pilots). BOTH arm_c PERFECT 25. Q02: C−B +4, C−A +6 — INVERTED-dissent (DA peer-STRONGEST
+    19.0 unanimous; council converged pro-tech-lead thin-component-layer; chairman led with the "50 engineers contributing not
+    consuming" reframe, preserved asker's defer-abstraction instinct as dissent); arm_a 19 (strong direct, but risk 3 + dissent 2
+    no standalone minority), arm_b 21. Q25: C−B +4, C−A +10 (LARGEST C−A in eval) — NORMAL DA pattern (DA peer-WEAKEST 16.6 tight
+    pack); arm_c answered both parts (QRP×context COMPOUND) + 4-failure-type taxonomy + winner's-curse math; arm_a WEAKEST 15
+    (citation-light, conventional, NO dissent section capped 2), arm_b 21 (Gilbert-rebuttal dissent 4/5). *** COMPOSITE-5 tally
+    now 6-1 *** (Q25 was the last pilot composite-5). RESEARCH domain now persisted 5/5 (Q23/Q24/Q25/Q27/Q28). Q25 parsed was
+    created by parsing the saved judgment after a session-limit interruption (no rerun).
+  caveat: N=29 (29/30 of target) still pre-Wilcoxon per spec § 8; need full 30 before pass/fail rule. ONLY pilot Q41 (ethics) remains CONTEXT-ONLY → clean-rerun-or-salvage = N=30. DEFERRED FLAGS before the final N=30 analysis: (1) Q41 clean-rerun-or-salvage [NEXT], (2) Q09/Q11 model_parity_audit_needed. [Q23/Q24 judgment_source_missing RESOLVED via tie-breaker 2026-05-31.] Do NOT start final analysis / Wilcoxon yet.
+  data_integrity_flag: |
+    judgment_source_missing (judgments/Q23.md + judgments/Q24.md were MISSING; parsed + blinded survived) — RESOLVED 2026-05-31 via fresh blind opus re-judges from the SAME raw arm bodies (arms NOT rerun), reconstructed under the documented normalization.
+    • Q24 → REPAIRED. Near-identical: arm_c 25=25 EXACT, arm_b 21=21 EXACT, arm_a 17→18 (single-axis +1, within variance). judgments/Q24.md written; parsed retained (arm_a=17); aggregates unchanged.
+    • Q23 → RESOLVED BY TIE-BREAKER (3rd blind opus judge). Three runs: arm_a 16/21/21, arm_b 21/22/22, arm_c 25/25/25. Per-axis MEDIAN adopted as official → arm_a 19 (C5 I4 P4 R4 D2), arm_b 22, arm_c 25. parsed/Q23.yaml + aggregates UPDATED (arm_a 16→19, arm_b 21→22, arm_c unchanged). See parsed/Q23_tiebreaker.yaml + judgments/Q23.md + judgments/Q23_tiebreaker.md.
+    Aggregate impact (small): arm_a 5ax mean 16.11→16.22, arm_b 20.70→20.74 (arm_c unchanged 24.44); 4ax arm_a 14.56→14.67, arm_b 16.74→16.78. C−B gap 3.74→3.70 (5ax)/2.89→2.85 (4ax) — still above thresholds. Medians ALL unchanged (C25/B21/A16; 4ax 20/17/14). C beats B still 26/27. arm_c (council) scored 25 on all 3 Q23 judges → council result robust. Both judgment-source-missing flags now CLEARED.
