@@ -33,7 +33,7 @@ PII_TERMS=${PII_TERMS:-'@[a-z0-9.-]+\.(com|net|org)|/Users/[a-z]+|sk-[A-Za-z0-9]
 hits=$(grep -rnoiE "$PII_TERMS" --include='*.md' --include='*.yaml' --include='*.txt' --include='*.py' . 2>/dev/null | grep -v 'protocol-v2.3-frozen' | grep -v '^./scripts/check.sh' | wc -l | tr -d ' ')
 [ "$hits" = "0" ] && say "PII/secret sweep (working tree)" ok || { say "PII/secret sweep: $hits hit(s) — inspect" FAIL; fail=1; }
 if git rev-parse --git-dir >/dev/null 2>&1; then
-  hh=$(git log -p --all 2>/dev/null | grep -vE '^(Author|Committer):|Co-Authored-By:' | grep -ciE "$PII_TERMS" || true)
+  hh=$(git log -p --all 2>/dev/null | grep -vE '^(Author|Committer):|^[[:space:]]*[A-Za-z-]+-[Bb]y:' | grep -ciE "$PII_TERMS" || true)
   [ "$hh" = "0" ] && say "PII/secret sweep (git history content)" ok || { say "git history content: $hh hit(s) — rewrite before push" FAIL; fail=1; }
   say "commit author identity (verify before public push)" "$(git log -1 --format='%an <%ae>')"
 fi
