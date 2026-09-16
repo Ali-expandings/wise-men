@@ -23,7 +23,7 @@ With that stated plainly, here is what was measured: a 30-question blind evaluat
 - No rubric axis was significantly worse; four of five were significantly better.
 - It won **8/8** questions specifically designed to favour a single prompt.
 
-**Read the caveats too** — they're in `eval-data/HISTORY.md` and they're real: one blind judge, Claude judging Claude, N=29 with the 30th question outstanding, a p-value computed one question short of the pre-registered stopping rule, and the measured-vs-shipped gap described above.
+**Read the caveats too** — they're in `eval-data/HISTORY.md` and they're real: one blind judge, Claude judging Claude, N=29 with the 30th question outstanding, a p-value computed one question short of the pre-registered stopping rule (`HISTORY.md` literally says "do not declare a verdict before then"), the measured-vs-shipped gap described above, a treatment change to Arm B mid-eval (an anti-spawn wrapper), a reviewer-prompt fix that was reversed mid-eval, two early judgments salvaged from chat context rather than captured from disk, and one question (Q23) resolved by a third blind judge.
 
 **Reproducing the numbers.** Requires Python 3 and PyYAML (`pip install pyyaml`), then:
 
@@ -39,7 +39,7 @@ The other honest finding: **a single structured prompt (Arm B, 20.8) captures mo
 
 ## Field use (Jul–Sep 2026)
 
-The shipped protocol has run ~35 real councils across ~15 projects — code cutovers, business plans, hiring, brand, security, one go-live audit at paranoid tier. That is use, not measurement, but it is where the current rules come from. The synthesis checker (Stage 4.5) rejected the Chairman's first draft in at least four runs for real errors (fabricated attributions, a pre-debate quote presented as post-debate, undisclosed shortcuts). What broke in the field became v3.8: a reviewer floor instead of a rule every run violated, a verbatim grading packet, an anti-anchoring rule for the orchestrator, a post-council verification step, defined round-2 pairing, and a persisted council record. Details in `SKILL.md` → "Field record".
+Versions 3.0–3.7 of this protocol ran ~35 real councils across ~15 projects — code cutovers, business plans, hiring, brand, security, one go-live audit at paranoid tier. That is use, not measurement, and it validates the *problems* the v3.8 rules fix, not the rules themselves: those were written from the transcripts afterwards, and their first live run was the skill reviewing its own release (2026-09-16, deep tier, record in `CHANGELOG.md`). The synthesis checker (Stage 4.5) rejected the Chairman's first draft in at least four runs for real errors (fabricated attributions, a pre-debate quote presented as post-debate, undisclosed shortcuts). What broke in the field became v3.8: a reviewer floor instead of a rule every run violated, a verbatim grading packet, an anti-anchoring rule for the orchestrator, a post-council verification step, defined round-2 pairing, and a persisted council record. Details in `SKILL.md` → "Field record".
 
 ## Install
 
@@ -116,6 +116,8 @@ resources/                personas · model routing · stage prompt templates ·
 examples/                 two worked end-to-end runs
 eval-spec.md              the frozen evaluation design (written before the eval ran)
 eval-data/                the full blind eval: questions, raw arms, judgments, stats, frozen v2.3 protocol
+scripts/check.sh          consistency check — run before every commit (trigger sync, no $-digit, agent copy, PII)
+CHANGELOG.md              condensed version history (detail in eval-data/SESSION_LOG.md)
 requirements.txt          PyYAML — only needed to re-run the eval stats
 LICENSE · .gitignore
 ```
