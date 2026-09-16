@@ -1,0 +1,59 @@
+seed: 20260916
+note: sealed before any arm was run; slot->arm per question
+map:
+  Q05:
+    A: brainstorming
+    B: grilling
+    C: llm-council
+    D: lifeos-council
+    E: wise-men
+    F: direct
+  Q09:
+    A: wise-men
+    B: lifeos-council
+    C: direct
+    D: brainstorming
+    E: llm-council
+    F: grilling
+  Q13:
+    A: lifeos-council
+    B: grilling
+    C: wise-men
+    D: brainstorming
+    E: llm-council
+    F: direct
+  Q19:
+    A: wise-men
+    B: llm-council
+    C: brainstorming
+    D: direct
+    E: grilling
+    F: lifeos-council
+  Q25:
+    A: wise-men
+    B: direct
+    C: grilling
+    D: brainstorming
+    E: lifeos-council
+    F: llm-council
+  Q36:
+    A: direct
+    B: llm-council
+    C: grilling
+    D: lifeos-council
+    E: brainstorming
+    F: wise-men
+  Q48:
+    A: brainstorming
+    B: grilling
+    C: wise-men
+    D: lifeos-council
+    E: llm-council
+    F: direct
+  Q55:
+    A: lifeos-council
+    B: brainstorming
+    C: llm-council
+    D: grilling
+    E: direct
+    F: wise-men
