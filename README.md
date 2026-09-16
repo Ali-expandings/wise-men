@@ -15,11 +15,12 @@ Then: *"run a council on whether we should rewrite the billing service or strang
 
 ## Does it actually work?
 
-**Short version: the core loop is measured; the refinements on top are field-used, not measured.** The numbers below come from the **v2.3-era core loop** — a council with no context brief, no reasoning-procedure assignment, no validators, no synthesis-checker, and with the Devil's-Advocate model upgrade deliberately switched off so every member ran the same model. Everything this repo adds on top of that is *reasoned from* the result, not measured by it. The measured configuration is weaker than what ships, so the shipped default should be at least as good — but treat that as an expectation, not a finding. The judge was a single blinded Claude model grading Claude outputs, which is exactly the bias described in one of the papers credited at the bottom of this file.
-
-With that stated plainly, here is what was measured: a 30-question blind evaluation, 3 arms per question, 5-axis rubric (max 25):
-
 ![Same 29 questions, three ways of answering — council 24.5, structured prompt 20.8, direct 16.3](assets/headline.svg)
+
+**Short version: the core loop is measured; the refinements on top are field-used, not measured.** The numbers above come from the **v2.3-era core loop** — a council with no context brief, no reasoning-procedure assignment, no validators, no synthesis-checker, and with the Devil's-Advocate model upgrade deliberately switched off so every member ran the same model. Everything this repo adds on top of that is *reasoned from* the result, not measured by it. The measured configuration is weaker than what ships, so the shipped default should be at least as good — but treat that as an expectation, not a finding. The judge was a single blinded Claude model grading Claude outputs, which is exactly the bias described in one of the papers credited at the bottom of this file.
+
+With that stated plainly, the table behind the chart — 30-question blind evaluation, 3 arms per question, 5-axis rubric (max 25):
+
 
 | Arm | Mean | Median |
 |---|---|---|
