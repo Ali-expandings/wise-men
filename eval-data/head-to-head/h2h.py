@@ -10,7 +10,8 @@ def qtext(q):
     return next(x.get("text") or x.get("question") for x in qs if x["id"] == q)
 
 def normalize(arm, txt):
-    lines = [l for l in txt.split("\n") if not l.startswith("# arm:") and not l.startswith("# skill:") and not l.startswith("# subagent") and not l.startswith("# adaptation") and not l.startswith("# environment")]
+    lines = txt.split("\n")
+    while lines and (lines[0].startswith("# ") or lines[0].strip() == ""): lines.pop(0)  # provenance header block (all '# ' lines at top)
     t = "\n".join(lines).strip()
     # orchestrator status lines that precede the skill's own output (not part of any skill's user-facing format)
     t = re.sub(r"^(All (five|four) members[^\n]*\n+(---\n+)?)", "", t)
