@@ -2,7 +2,16 @@
 
 **A council of Claude subagents that argue, grade each other, and hand you a synthesized answer with the dissent preserved.**
 
-Most prompt patterns ask you to take their word for it. This one ships with the blind eval that tested it.
+[![stars](https://img.shields.io/github/stars/Ali-expandings/wise-men?style=flat)](https://github.com/Ali-expandings/wise-men/stargazers) [![license](https://img.shields.io/github/license/Ali-expandings/wise-men)](LICENSE) [![check](https://github.com/Ali-expandings/wise-men/actions/workflows/check.yml/badge.svg)](https://github.com/Ali-expandings/wise-men/actions/workflows/check.yml) [![plugin](https://img.shields.io/badge/Claude%20Code-plugin-blue)](#install)
+
+Most prompt patterns ask you to take their word for it. This one ships with the blind eval that tested it — raw answers, judgments, and the script that reproduces the p-value.
+
+```
+/plugin marketplace add Ali-expandings/wise-men
+/plugin install wise-men@wise-men
+```
+
+Then: *"run a council on whether we should rewrite the billing service or strangle it incrementally"*.
 
 ---
 
@@ -43,20 +52,29 @@ Versions 3.0–3.7 of this protocol ran ~35 real councils across ~15 projects �
 
 ## Install
 
-Requires [Claude Code](https://claude.com/claude-code). No API keys, no external services, no Python (except to re-run the eval stats).
+**Plugin (recommended — one step, the member agent registers itself):**
+
+```
+/plugin marketplace add Ali-expandings/wise-men
+/plugin install wise-men@wise-men
+```
+
+**Or clone into your skills folder:**
 
 ```bash
 git clone https://github.com/Ali-expandings/wise-men.git ~/.claude/skills/wise-men
 mkdir -p ~/.claude/agents && cp ~/.claude/skills/wise-men/agents/wise-member.md ~/.claude/agents/
 ```
 
-The second line matters: `wise-member` is a **tool-restricted agent** (read-only, no ability to spawn agents or run commands) used for every council member. It makes runaway recursion structurally impossible instead of merely asking the model not to. Without it the skill still runs — just on a politer guarantee.
+The second line matters for the clone path: `wise-member` is a **tool-restricted agent** (read-only, no ability to spawn agents or run commands) used for every council member. It makes runaway recursion structurally impossible instead of merely asking the model not to. The plugin install registers it automatically (as `wise-men:wise-member`); the clone install needs the copy. Without it the skill still runs — just on a politer guarantee.
 
-Restart Claude Code, then:
+Requires [Claude Code](https://claude.com/claude-code). No API keys, no external services, no Python (except to re-run the eval stats). Restart Claude Code, then:
 
 ```
-/wise-men should we rewrite the billing service or strangle it incrementally?
+/wise-men:wise-men should we rewrite the billing service or strangle it incrementally?
 ```
+
+(`/wise-men` with the clone install; plain language — "run a council on…", "red team this" — works with both.)
 
 ## Usage
 
@@ -134,8 +152,9 @@ Roughly: solo ~free, quick ~3-5¢, standard ~5-7¢, deep ~15¢, paranoid ~25-50�
 ## Repo layout
 
 ```
+.claude-plugin/           plugin + marketplace manifests
 SKILL.md                  the protocol (the only file auto-loaded)
-agents/wise-member.md     tool-restricted member agent — install this
+agents/wise-member.md     tool-restricted member agent — auto-registered by the plugin install
 resources/                personas · model routing · stage prompt templates · council-record template · landscape (competitors, sourced)
 examples/                 two worked end-to-end runs
 eval-spec.md              the frozen evaluation design (written before the eval ran)
@@ -143,7 +162,7 @@ eval-data/                the full blind eval: questions, raw arms, judgments, s
 scripts/check.sh          consistency check — run before every commit (trigger sync, no $-digit, agent copy, PII)
 CHANGELOG.md              condensed version history (detail in eval-data/SESSION_LOG.md)
 requirements.txt          PyYAML — only needed to re-run the eval stats
-LICENSE · .gitignore
+AGENTS.md · CONTRIBUTING.md · SECURITY.md · LICENSE · .gitignore
 ```
 
 The skill itself has **no runtime dependencies** — it is markdown that Claude Code reads. Python and PyYAML are needed only if you want to recompute the eval statistics yourself.

@@ -161,7 +161,7 @@ Match persona role to best subagent type. Set the `subagent_type` parameter on t
 
 | Persona role | Subagent type | Required? |
 |---|---|---|
-| **Any member, reviewer, or the Stage 4.5 checker (default)** | **`wise-member`** — tool-restricted (Read/Grep/Glob only), makes recursion structurally impossible | ships with skill; falls back to `general-purpose` |
+| **Any member, reviewer, or the Stage 4.5 checker (default)** | **`wise-men:wise-member`** (plugin install) or **`wise-member`** (clone + copy install) — tool-restricted (Read/Grep/Glob only), makes recursion structurally impossible | ships with skill; falls back to `general-purpose` |
 | Security persona, when the environment provides a security-review agent | that agent | optional |
 | Code-focused personas, when a code-review agent exists | that agent (note: some emit compressed output — the orchestrator must handle it) | optional |
 | Anything else / unknown | `wise-member` | — |
@@ -300,7 +300,7 @@ When spawning Agent calls, set the `model` field explicitly:
 ```
 Agent({
   description: "Pragmatist persona",
-  subagent_type: "wise-member",
+  subagent_type: "wise-men:wise-member",  // "wise-member" if installed by clone + copy
   model: "haiku",  // ← from routing algorithm
   prompt: "[persona prompt + question]"
 })

@@ -1,0 +1,9 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "wise-men",
+  "description": "Council of Claude subagents with peer review, debate, preserved dissent, and a shipped blind eval.",
+  "owner": { "name": "Ali-expandings", "url": "https://github.com/Ali-expandings" },
+  "plugins": [
+    { "name": "wise-men", "source": "./", "description": "Run hard questions through a council: independent members, rubric peer review, conditional debate, chairman synthesis with verbatim dissent.", "category": "productivity" }
+  ]
+}

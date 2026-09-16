@@ -47,6 +47,10 @@ else say "README clone path set" ok; fi
 sv=$(grep -m1 -oE 'wise-member v[0-9]+\.[0-9]+\.[0-9]+' agents/wise-member.md | sed 's/wise-member v//')
 [ "$sv" = "$v" ] && say "agent file stamp v$sv matches SKILL.md" ok || { say "agent file stamp v$sv != SKILL.md $v" FAIL; fail=1; }
 
+# 7e. plugin manifest version matches SKILL.md
+pv=$(python3 -c 'import json;print(json.load(open(".claude-plugin/plugin.json"))["version"])' 2>/dev/null || echo "?")
+[ "$pv" = "$v" ] && say "plugin.json version $pv matches SKILL.md" ok || { say "plugin.json version $pv != SKILL.md $v" FAIL; fail=1; }
+
 # 7d. Headline eval numbers consistent across README and SKILL.md
 for n in '13/13' '28( of |/)29' '24\.5' '20\.8' '16\.3'; do
   grep -qE -- "$n" README.md && grep -qE -- "$n" SKILL.md || { say "eval figure '$n' missing from README or SKILL.md" FAIL; fail=1; }

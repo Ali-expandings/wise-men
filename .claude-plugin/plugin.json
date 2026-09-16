@@ -1,0 +1,10 @@
+{
+  "name": "wise-men",
+  "version": "3.9.0",
+  "description": "A council of Claude subagents that argue, grade each other, and hand you a synthesized answer with the dissent preserved. Ships its own blind eval.",
+  "author": { "name": "Ali-expandings", "url": "https://github.com/Ali-expandings" },
+  "homepage": "https://github.com/Ali-expandings/wise-men",
+  "repository": "https://github.com/Ali-expandings/wise-men",
+  "license": "MIT",
+  "keywords": ["council", "deliberation", "multi-agent", "devils-advocate", "decision", "review"]
+}

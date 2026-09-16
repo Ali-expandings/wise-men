@@ -526,3 +526,9 @@ Orchestrator verification: 13/13 confirmed from parsed/*.yaml; git history conte
 ## 2026-09-16 — v3.8.4: competitive landscape (docs only)
 
 User goal: readers should place wise-men against skills they already know (ponytail, caveman) and against the other council skills. Researched 15 projects (firecrawl + GitHub API, 2026-09-16). Framing chosen: the Scott Logic critique of ponytail ("a seven-word prompt matched it") is the question wise-men's Arm B answered before it was asked — so the README leads with the three-arm baseline table in ponytail's format, then a feature table against the four most relevant Claude Code council skills, then a link to `resources/landscape.md` which also lists what competitors do better. Nothing in the protocol changed; SKILL.md net lines +0 (standing rule holds).
+
+---
+
+## 2026-09-16 — v3.9.0: plugin packaging
+
+Comparison against the repos readers know (ponytail, caveman, superpowers) showed the gap was not the protocol but the package: they are installable plugins with manifests, auto-registered agents, CI, community files, and a hero README; this was a bare skill folder with a manual copy step. Added `.claude-plugin/plugin.json` + `marketplace.json` (SKILL.md stays at root — single-skill plugins may), which also removes the manual agent copy: the plugin registers `wise-men:wise-member`. Protocol text now names both agent ids (plugin / clone). CI runs the check script on every push. Still not matched: multi-runtime adapters (`.codex-plugin`, `.opencode`, `.cursor`), a demo video, translations.
