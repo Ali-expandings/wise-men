@@ -12,9 +12,11 @@ def qtext(q):
 def normalize(arm, txt):
     lines = [l for l in txt.split("\n") if not l.startswith("# arm:") and not l.startswith("# skill:") and not l.startswith("# subagent") and not l.startswith("# adaptation") and not l.startswith("# environment")]
     t = "\n".join(lines).strip()
+    # orchestrator status lines that precede the skill's own output (not part of any skill's user-facing format)
+    t = re.sub(r"^(All (five|four) members[^\n]*\n+(---\n+)?)", "", t)
     if arm == "wise-men":  # same rule as the N=29 eval: strip the audit footer + status line; never edit content
         t = re.sub(r"^\*Note: brief format upgraded.*?\*\n+", "", t)
-        t = t.split("\n---\n\n## Full audit trail")[0].strip()
+        t = re.split(r"\n---\n\n## Full audit( trail)?", t)[0].strip()
     return t
 
 def blind(q):
