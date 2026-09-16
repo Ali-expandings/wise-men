@@ -94,6 +94,31 @@ Two design choices carry most of the weight:
 
 **Dissent is structurally protected.** It's preserved verbatim, it can't be truncated by any brevity flag, and it must be a clean counter-position — re-stating the majority view with hedges doesn't count. The eval's single council loss was exactly that failure.
 
+## How it compares
+
+The question every prompt-skill gets asked — after ponytail's benchmark was matched by a seven-word prompt — is *does the skill beat just asking well?* This eval was built around that question. Arm B is one structured prompt (five perspectives + a dissent, no subagents); it is also shipped as the `solo` tier.
+
+| vs direct answer (blind, 25-pt rubric, N=29) | score | beat the structured prompt | cost |
+|---|---|---|---|
+| **wise-men council** (standard tier) | **24.5** | **28 / 29** | ~5–7¢ |
+| structured single prompt (= `solo` tier) | 20.8 | — | ~free |
+| direct answer | 16.3 | 0 / 29 | ~free |
+
+Against the other council skills for Claude Code (facts from their READMEs, 2026-09-16; full table with sources in [`resources/landscape.md`](resources/landscape.md)):
+
+| | wise-men | [llm-council skill](https://github.com/aiwithremy/claude-skills-llm-council) 2.1k★ | [llm-council-skill](https://github.com/tenfoldmarc/llm-council-skill) 766★ | [council-review](https://github.com/ngmeyer/council-review) | [agent-review-panel](https://github.com/wan-huiyan/agent-review-panel) |
+|---|---|---|---|---|---|
+| Independent members, no keys | yes | yes | yes | yes | yes |
+| Peer review | 4-axis rubric, parsed + validated | method unspecified | anonymized | anonymous, confidence | blind final score |
+| Debate | conditional, mechanical trigger | — | inside review | adaptive multi-round | 1–3 rounds |
+| Dissent preserved | verbatim, cannot be truncated | agree/clash | agree/clash | "What You Lose" | with judge rulings |
+| Independent check of the synthesis | yes | — | — | — | Opus judge |
+| Members structurally unable to spawn/run/write | yes | — | — | — | read-only shell |
+| Cost tiers | 5, with spend ceiling | — | — | 5 modes | budget mode |
+| Evidence in the repo | raw eval + script | none | none | one A/B figure | one cost audit |
+
+What they have that this doesn't: multi-vendor councils, convergence-driven long debates, consensus gates, code-specific scanners, HTML reports — listed honestly in the landscape file.
+
 ## Cost
 
 Roughly: solo ~free, quick ~3-5¢, standard ~5-7¢, deep ~15¢, paranoid ~25-50¢ per question (2026-07 pricing, cheap models on routine roles). Cheap models grade; stronger models argue; the model mapping lives in one table in `resources/model-routing.md` — update it there when models change and nothing else moves.
@@ -111,7 +136,7 @@ Roughly: solo ~free, quick ~3-5¢, standard ~5-7¢, deep ~15¢, paranoid ~25-50�
 ```
 SKILL.md                  the protocol (the only file auto-loaded)
 agents/wise-member.md     tool-restricted member agent — install this
-resources/                personas · model routing · stage prompt templates · council-record template
+resources/                personas · model routing · stage prompt templates · council-record template · landscape (competitors, sourced)
 examples/                 two worked end-to-end runs
 eval-spec.md              the frozen evaluation design (written before the eval ran)
 eval-data/                the full blind eval: questions, raw arms, judgments, stats, frozen v2.3 protocol

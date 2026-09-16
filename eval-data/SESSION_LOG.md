@@ -520,3 +520,9 @@ Tier reduced from the mandated deep (second council this session) — disclosed.
 Verified findings → fixed: item 5 of the launch council ("version-stamped") had already gone stale (3.8.1 stamp vs 3.8.2) and check.sh could not see it; README/SKILL said "8/8 single-prompt-shaped" — questions.yaml labels 13 and the council won all 13; the Q09/Q11 parity flag + its sensitivity resolution were absent from README's caveats; README cost figure disagreed with model-routing. DA (frame + falsification): the v3.8.2 fix patched the detectors, not the root cause (members never told to Read before asserting); it handed verification to the tier routing calls "low-judgment"; it narrowed the severe-flag channel on exactly the question types the tool exists for. All three adopted. DA's frame — "the loop is converging on whatever the orchestrator can fix in one pass; stop it" — adopted as a standing rule: no net lines to SKILL.md in 3.8.x; next change = held-out eval.
 
 Orchestrator verification: 13/13 confirmed from parsed/*.yaml; git history content clean, but every commit's AUTHOR line carries the user's personal handle + email — surfaced to the user as a pre-push decision (not rewritten by the thread).
+
+---
+
+## 2026-09-16 — v3.8.4: competitive landscape (docs only)
+
+User goal: readers should place wise-men against skills they already know (ponytail, caveman) and against the other council skills. Researched 15 projects (firecrawl + GitHub API, 2026-09-16). Framing chosen: the Scott Logic critique of ponytail ("a seven-word prompt matched it") is the question wise-men's Arm B answered before it was asked — so the README leads with the three-arm baseline table in ponytail's format, then a feature table against the four most relevant Claude Code council skills, then a link to `resources/landscape.md` which also lists what competitors do better. Nothing in the protocol changed; SKILL.md net lines +0 (standing rule holds).
