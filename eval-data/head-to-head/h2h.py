@@ -23,6 +23,7 @@ def normalize(arm, txt):
         if m: t = t[m.start():]
         t = re.sub(r"^\*Note: brief format upgraded.*?\*\n+", "", t)
         t = re.split(r"\n---\n\n## Full audit( trail)?", t)[0].strip()
+        t = re.sub(r"\n+\*One process note:.*?\*\s*$", "", t, flags=re.S).strip()  # orchestrator environment note (harness artefact, not skill output)
     return t
 
 def blind(q):

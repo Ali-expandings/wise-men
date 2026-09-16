@@ -1,0 +1,50 @@
+question_id: Q25
+arms:
+  wise-men:
+    correctness: 5
+    insight: 4
+    practical: 4
+    risk: 5
+    dissent: 5
+    composite: 23
+    slot: A
+  direct:
+    correctness: 5
+    insight: 3
+    practical: 3
+    risk: 3
+    dissent: 2
+    composite: 16
+    slot: B
+  grilling:
+    correctness: 4
+    insight: 3
+    practical: 3
+    risk: 2
+    dissent: 2
+    composite: 14
+    slot: C
+  brainstorming:
+    correctness: 5
+    insight: 5
+    practical: 4
+    risk: 3
+    dissent: 2
+    composite: 19
+    slot: D
+  lifeos-council:
+    correctness: 5
+    insight: 5
+    practical: 4
+    risk: 5
+    dissent: 5
+    composite: 24
+    slot: E
+  llm-council:
+    correctness: 4
+    insight: 4
+    practical: 4
+    risk: 4
+    dissent: 4
+    composite: 20
+    slot: F
