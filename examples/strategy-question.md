@@ -15,7 +15,7 @@ A worked end-to-end run for a non-engineering question. Shows domain adaptation.
 - Domain: product / strategy (with marketing flavor).
 - Tier: standard.
 - Members: User Advocate + Business Analyst + Historian + Devil's Advocate + Designer (5).
-- Expected calls: 10.
+- Expected calls: 8 (5 members + 3 reviewers).
 
 Note: not using Pragmatist/Skeptic/Architect because this isn't a code question. Persona selection matched to domain.
 

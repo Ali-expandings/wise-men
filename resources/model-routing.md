@@ -32,11 +32,11 @@ Rules that survive any remapping: **reviewers = cheap**, **members = mid**, **DA
 
 Per-million-token rates: cheap 1/5, mid 3/15, strong 5/25, max 10/50 (input/output USD). Relative costs in the table above are what actually matter and drift far more slowly than absolute prices.
 
-**10-call council, realistic token volumes** (~700 in / 400 out per member, ~2700 in / 300 out per reviewer):
+**Standard council (5 members + 3 reviewers ≈ 8 calls), realistic token volumes** (~700 in / 400 out per member, ~2700 in / 300 out per reviewer):
 
 - Solo tier: 1 main-thread pass, ~$0.01-0.02 — no routing needed
 - All-haiku: ~$0.03-0.05
-- Smart-routed standard (4 sonnet members + 1 opus DA + 5 haiku reviewers): ~$0.06-0.08
+- Smart-routed standard (4 sonnet members + 1 opus DA + 3 haiku reviewers): ~$0.05-0.07
 - All-sonnet: ~$0.10
 - All-opus: ~$0.15-0.20
 - Paranoid tier (7 opus members + sonnet reviewers + 2 debate rounds): ~$0.25-0.50
@@ -262,7 +262,7 @@ Member models:
 - Maintainer:        sonnet
 - Devil's Advocate:  opus      (per-role override)
 
-Reviewer model: haiku × 5
+Reviewer model: haiku × 3
 Chairman: main thread (sonnet)
 
 Validator: 0 retries triggered

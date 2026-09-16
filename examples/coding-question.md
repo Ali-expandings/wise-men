@@ -22,11 +22,11 @@ A worked end-to-end run. Shows what the council looks like in practice for a typ
   - Architect:         sonnet  (override: sonnet at standard+ ← matches default here)
   - Maintainer:        sonnet  (tier default)
   - Devil's Advocate:  opus    (override: DA always +1 tier → opus)
-  - Reviewers × 5:     haiku   (tier default — rubric scoring is haiku-tolerant)
+  - Reviewers × 3:     haiku   (tier default — rubric scoring is haiku-tolerant; floor is 3 at standard)
   - Debate:            n/a     (skipped at standard tier)
   - Chairman:          main thread
-- Expected calls: 5 + 5 = 10.
-- Estimated cost: ~$0.08 (4 sonnet members + 1 opus DA + 5 haiku reviewers + chairman on main).
+- Expected calls: 5 + 3 = 8.
+- Estimated cost: ~$0.07 (4 sonnet members + 1 opus DA + 3 haiku reviewers + chairman on main).
 
 ## Stage 1 — 5 parallel Agent calls
 

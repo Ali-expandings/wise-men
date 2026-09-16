@@ -1,7 +1,7 @@
 ---
 name: wise-men
 version: 3.8.2
-description: Wise-men council — multi-persona deliberative answer pattern using Claude subagents. Distinct personas independently answer a hard question, peer-review each other under stable persona labels, optionally debate when split, then a Chairman synthesizes a final answer with preserved dissent. Adaptive tier system (solo/quick/standard/deep/paranoid) auto-scales effort to question stakes. Domain-aware persona auto-selection (engineering/product/strategy/research/writing/creative/ethics/personal). Smart model routing spends cheap models on routine roles and strong models on adversarial ones, driven by 3-axis difficulty (depth/stakes/novelty, max-dominates), with validators and retry fallback at every stage. Blind-judged eval (N=29) of the earlier core loop: the council beat a structured single prompt on 28/29 questions (24.5 vs 20.8 on a 25-point rubric; N=29, one blind Claude judge, pre-registered N=30 verdict pending) — later protocol additions are reasoned from that result, not separately measured; the shipped protocol has ~35 logged live runs (Jul–Sep 2026) behind its v3.8 rules. Use when the user asks for a "council", "panel", "wise men", "wisemen", "wise-men", "multiple perspectives", "deliberate", "debate", "second opinion x N", "stress-test", "war-game", "red team this", "high-stakes decision", or invokes /wise-men. Inspired by github.com/karpathy/llm-council; design choices drew on (but are not validated by) Du 2023 multi-agent debate, Liang 2024 divergent thinking, Khan 2024 debate-via-persuasion, Zheng 2024 LLM-as-judge bias. Pure Claude — no external APIs.
+description: Use when the user asks for a "council", "panel", "wise men", "wisemen", "wise-men", "multiple perspectives", "deliberate", "debate", "second opinion x N", "stress-test", "war-game", "red team this", "high-stakes decision", or invokes /wise-men. Wise-men council — multi-persona deliberative answer pattern using Claude subagents. Distinct personas independently answer a hard question, peer-review each other under stable persona labels, optionally debate when split, then a Chairman synthesizes a final answer with preserved dissent. Adaptive tier system (solo/quick/standard/deep/paranoid) auto-scales effort to question stakes. Domain-aware persona auto-selection (engineering/product/strategy/research/writing/creative/ethics/personal). Smart model routing spends cheap models on routine roles and strong models on adversarial ones, driven by 3-axis difficulty (depth/stakes/novelty, max-dominates), with validators and retry fallback at every stage. Blind-judged eval (N=29) of the earlier core loop: the council beat a structured single prompt on 28/29 questions (24.5 vs 20.8 on a 25-point rubric; N=29, one blind Claude judge, pre-registered N=30 verdict pending) — later protocol additions are reasoned from that result, not separately measured; the shipped protocol has ~35 logged live runs (Jul–Sep 2026) behind its v3.8 rules. Inspired by github.com/karpathy/llm-council; design choices drew on (but are not validated by) Du 2023 multi-agent debate, Liang 2024 divergent thinking, Khan 2024 debate-via-persuasion, Zheng 2024 LLM-as-judge bias. Pure Claude — no external APIs.
 ---
 
 # wise-men
@@ -74,13 +74,13 @@ Max-dominates because each axis can independently break the answer. Hard axis wi
 
 `composite` maps to tier. User can override (`/wise-men deep <question>`).
 
-| Tier | Members | Debate | Calls | Used at composite |
-|---|---|---|---|---|
-| **solo** | 0 (single structured pass) | no | 0 | 1-2 (default) |
-| **quick** | 3 | no | ~6 | explicit request only |
-| **standard** | 5 | no | ~10 | 3 (default if no override) |
-| **deep** | 5-7 | conditional | ~15-20 | 4 |
-| **paranoid** | 7 | yes (2 rounds) | ~25+ | 5 |
+| Tier | Members | Reviewers | Debate | Calls | Used at composite |
+|---|---|---|---|---|---|
+| **solo** | 0 (single structured pass) | 0 | no | 0 | 1-2 (default) |
+| **quick** | 3 | 3 | no | ~6 | explicit request only |
+| **standard** | 5 | 3 | no | ~8 | 3 (default if no override) |
+| **deep** | 5-7 | = members | conditional | ~15-20 (+1 checker) | 4 |
+| **paranoid** | 7 | 7 | yes (2 rounds) | ~25+ (+1 checker) | 5 |
 
 Bump up if the question framing has signals like "should I really", "irreversible", "high stakes".
 
