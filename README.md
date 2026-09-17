@@ -151,18 +151,28 @@ It also answers to plain language — "run a council on this", "red team this pl
 
 ```mermaid
 flowchart TB
-    Q["<b>Your question, sized first</b><br/>depth · stakes · novelty<br/>the hardest axis decides"]
-    Q -->|"easy"| S(["<b>solo</b><br/>one structured pass<br/>zero subagents"])
-    Q --> M1
-    Q --> M2
-    Q -->|"hard"| M3
-    subgraph council["Same verified facts · different minds · no peeking"]
+    Q["<b>Your question, scored 1–5</b><br/>depth · stakes · novelty<br/>the hardest axis decides"]
+    Q -->|"1–2"| T0
+    Q -->|"on request"| T1
+    Q -->|"3"| T2
+    Q -->|"4"| T3
+    Q -->|"5"| T4
+    subgraph tiers["Spawns only the agents the question needs"]
+        T0(["<b>solo</b><br/>0 agents · one pass"])
+        T1["<b>quick</b><br/>~6 agents"]
+        T2["<b>standard</b><br/>~8 agents"]
+        T3["<b>deep</b><br/>~15–20 agents"]
+        T4["<b>paranoid</b><br/>~25+ agents"]
+    end
+    T1 & T2 & T3 & T4 --> B["<b>Same verified facts</b><br/>one facts-only brief for all"]
+    B --> M1 & M2 & M3
+    subgraph council["3–7 members · different minds · no peeking"]
         M1["Member<br/>reasons from<br/><b>first principles</b>"]
         M2["Member<br/>reasons from<br/><b>base rates</b>"]
         M3["<b>Devil's Advocate</b><br/>on a stronger model<br/>attacks the framing"]
     end
-    M1 & M2 & M3 --> G["<b>Neutral graders</b><br/>score the verbatim answers<br/>check facts before scoring<br/>a score split forces debate"]
-    G -.->|"debate"| council
+    M1 & M2 & M3 --> G["<b>3–7 neutral graders</b><br/>score the verbatim answers<br/>check facts before scoring<br/>a score split forces debate"]
+    G -.->|"debate: 1–2 rounds"| council
     G --> C["<b>Chairman</b><br/>dissent kept word for word<br/>shared blind spots<br/>lower the confidence"]
     C --> K["<b>Independent check</b><br/>grounding · dissent<br/>confidence · disclosure<br/><i>caught errors in 4+ runs</i>"]
     K -.->|"fails: redraft"| C
@@ -178,7 +188,7 @@ Easy questions skip the council (`solo` tier). Standard tier skips the debate an
 
 | Technique | Failure it prevents |
 |---|---|
-| Effort sized by the hardest of depth, stakes and novelty | a quick answer where a council was needed, or ~10 subagent calls spent on a lookup |
+| Agents spawned to match the question — 0 for an easy one, ~25+ for an irreversible call — sized by the hardest of depth, stakes and novelty | a quick answer where a council was needed, or a council's worth of agents spent on a lookup |
 | One verified, facts-only brief, identical for every member | members arguing from different — or invented — facts |
 | A different reasoning method per member: first principles, base rates, precedent, incentives, falsification | five answers that agree for the same wrong reason |
 | Members run as read-only agents and never see each other | groupthink, runaway subagents, a member editing your files |
