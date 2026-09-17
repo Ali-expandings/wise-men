@@ -29,7 +29,7 @@ For each non-abstaining member, compute:
 
 Note which member won each individual axis. A member can lose overall but win on risk awareness — that's a real signal, preserve it in the council record.
 
-**Scores steer the process, never the argument.** They decide whether debate fires, which claims get verified (runbook 9.6) and where you look hardest. They are not evidence: reviewers are offline and grade reasoning, not truth. Never write "rated highest", "the council's own peer review says", "reviewers corroborated" or a vote count into the answer — in the head-to-head each of those phrases dressed an unverified claim as a checked one (Q13, Q19, Q48) and cost correctness points.
+**Scores steer the process, never the argument.** They decide whether debate fires, which claims get verified (runbook 9.6) and where you look hardest. They are not evidence: reviewers are offline and grade reasoning, not truth. Never write "rated highest", "the council's own peer review says", "reviewers corroborated" or a vote count into the answer — in the head-to-head each of those phrases dressed an unverified claim as a checked one (Q13, Q19, Q48) and cost correctness points. The ban is on the meaning, not the words: "five independent analyses converged", "several perspectives agreed" and "it survived a debate round" are the same claim renamed (the first smoke run of this template wrote all three).
 
 ### Step 2 — Identify the consensus
 
@@ -66,8 +66,8 @@ Now write the final answer as the decision memo below.
 Before delivering, ask yourself:
 - Did I preserve the counter-position at full strength, or quietly bury or soften it?
 - Did I just pick the highest-scoring answer, or did I actually synthesize?
-- Does each confidence rest on evidence, not on how many members agreed?
-- Is anything about how the council ran above the footer — member or persona names, votes, peer scores, tier, stage results, transcript offers? Remove it.
+- Does each confidence rest on evidence, not on agreement, convergence or surviving debate?
+- Does the memo mention how it was produced, in any wording — members, "analyses", "perspectives", reviewers, votes, rounds, debate, convergence, head-counts, tier, transcript offers? Rewrite as one voice stating the reasons.
 - Is every load-bearing precedent, legal effect, statistic, date or timeline from the brief, marked unverified with what to check, or cut — and do the numbers and timelines agree with each other?
 - Did I name the material unknowns instead of pretending the council resolved everything?
 - **Did the run degrade anywhere?** Members abstained or force-abstained after retries, reviewers excluded by the Stage 2 validator, a DA that failed, a debate round that was mandated but skipped — every one of these MUST be stated in the footer (one line each is enough). A degraded council that presents itself as a full council is the fake-council anti-pattern in disguise.
@@ -85,11 +85,11 @@ At deep/paranoid (or any degraded run), your self-check in Step 5 is not the las
 ```
 ## Recommendation
 
-[The answer in one paragraph. Specific. No hedging a reader has to decode.]
+[The decision in one to three sentences. Specific, no hedging a reader has to decode. The plan's detail goes in What to do — say it once.]
 
 ## Why
 
-[Reasons from evidence. Every precedent, legal effect, statistic or date is from the brief, marked "(unverified — check X)", or cut. No member or persona names, votes, peer scores, tiers or stage results.]
+[Reasons from evidence, in one voice. Every precedent, legal effect, statistic or date is from the brief, marked "(unverified — check X)", or cut. Never mention how the answer was produced — members, "analyses", perspectives, reviewers, votes, rounds, debate or how many agreed.]
 
 ## What to do
 
@@ -105,11 +105,11 @@ At deep/paranoid (or any degraded run), your self-check in Step 5 is not the las
 
 ## Confidence
 
-[High / Medium / Low for each load-bearing claim, from the evidence behind it — agreement among members is not evidence. Then the material unknowns, any shared assumption first.]
+[High / Medium / Low for each load-bearing claim, from the evidence behind it — agreement, convergence and surviving debate are not evidence. Then the material unknowns, any shared assumption first, stated as unknowns ("whether the pages are mostly noise"), not as head-counts.]
 
 ---
 
-[Only real degradations, one line each. No degradations → nothing here.]
+[Only real degradations — an abstention, an excluded reviewer, a failed Devil's Advocate, a skipped debate — one line each. No degradations → nothing here. Debate pairings, record notes and other protocol notes go in the council record.]
 ```
 
 If members flagged facts they could not verify, add a separate section after the memo: `## Orchestrator verification (after the council — not council output)` (see Special cases).
@@ -118,7 +118,7 @@ If members flagged facts they could not verify, add a separate section after the
 
 - **What to do** flexes; it is never padded: an action plan for action-shaped questions, a test or triage for analytical ones, and for purely philosophical or ethical questions the one question the reader should answer to decide. Filler steps degrade output quality.
 - **Risks of this plan** covers the plan the answer recommends — not a generic risk list.
-- **Confidence** is per load-bearing claim, not one grade for the whole answer, and never "based on council agreement".
+- **Confidence** is per load-bearing claim, not one grade for the whole answer, and never based on agreement, convergence or debate.
 - Nothing else goes above the footer. Where the council agreed, the position map, scores and transcripts belong in the council record and the `--full` audit.
 
 ## `--brief` and `--full`

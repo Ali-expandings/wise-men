@@ -262,10 +262,10 @@ You (main thread) act as Chairman. Do NOT spawn a subagent. Read all member answ
 
 ```
 ## Recommendation
-[The answer in one paragraph. Specific.]
+[The decision in one to three sentences — the plan's detail goes in What to do, once.]
 
 ## Why
-[Reasons from evidence: every precedent, legal effect, statistic or date is from the brief, marked "(unverified — check X)", or cut. No member or persona names, votes, peer scores, tiers or stage results.]
+[Reasons from evidence: every precedent, legal effect, statistic or date is from the brief, marked "(unverified — check X)", or cut. One voice: never mention how the answer was produced — no members, "analyses" or "perspectives", reviewers, votes, rounds, debate or how many agreed, in any wording.]
 
 ## What to do
 [Action question: first step, time box or decision date, when to stop or escalate. Analytical question: a usable test or triage. Never invented steps.]
@@ -277,10 +277,10 @@ You (main thread) act as Chairman. Do NOT spawn a subagent. Read all member answ
 [Quoted at full strength, labeled by the position it holds, not a persona; when it wins; what would show it.]
 
 ## Confidence
-[High / Medium / Low per load-bearing claim, from the evidence behind it — never from how many members agreed; then the material unknowns.]
+[High / Medium / Low per load-bearing claim, from the evidence behind it — never from agreement, convergence or surviving debate; then the material unknowns.]
 
 ---
-[Only real degradations, one line each.]
+[Only real degradations (abstention, excluded reviewer, failed DA, skipped debate), one line each — other protocol notes go in the council record.]
 ```
 
 **Counter-position rule**: if a member was strongly confident in a position the majority disagreed with, it goes in verbatim or near-verbatim, never softened, and it must argue against the Recommendation — re-stating the majority thesis with hedges is not dissent (the eval docked every council output that did this); a valid point the answer needs belongs in the answer. Length never changes the format.
@@ -305,7 +305,7 @@ Any "no" → fix the synthesis and state what changed, or (if you disagree with 
 
 ## Output format (to user)
 
-Default = the Stage 4 decision memo at every council tier. A long counter-position never changes the format, and nothing about how the council ran appears above the footer — no member or persona names, votes, peer scores, tier, stage results or transcript offers; the council record holds all of it.
+Default = the Stage 4 decision memo at every council tier. A long counter-position never changes the format, and nothing about how the council ran appears anywhere in the memo, in any wording — no members, "analyses", reviewers, votes, rounds, debate, tier, stage results, head-counts or transcript offers; the council record holds all of it.
 
 **Solo tier output** is different — three sections (Synthesis / Dissent / Confidence) and an honest footer, so a solo pass never masquerades as a council:
 

@@ -49,9 +49,9 @@ Answer these five, each with one line of evidence quoted or cited from the mater
 
 2. GROUNDING — Does every substantive claim in the Recommendation, Why and What to do trace to something a member actually said or to the stated facts? Flag anything the draft asserts that no member supports.
 
-3. CONFIDENCE — Does each stated confidence match the evidence behind its claim? (High confidence on a claim the members contested, or that nobody verified, fails; so does Low confidence on a claim backed by strong, verified evidence. Agreement among members is not evidence.)
+3. CONFIDENCE — Does each stated confidence match the evidence behind its claim? (High confidence on a claim the members contested, or that nobody verified, fails; so does Low confidence on a claim backed by strong, verified evidence. Agreement, convergence and surviving debate are not evidence — a confidence justified by them fails.)
 
-4. DISCLOSURE — Are all degradations visible in the material above — abstentions, excluded reviewers, a failed Devil's Advocate, a skipped debate round — disclosed in the footer? And is everything above the footer free of council mechanics: member or persona names, votes, peer scores, tier, stage results, transcript offers?
+4. DISCLOSURE — Are all degradations visible in the material above — abstentions, excluded reviewers, a failed Devil's Advocate, a skipped debate round — disclosed in the footer? And does the memo avoid describing how it was produced, in any wording — members, "analyses", "perspectives", reviewers, votes, rounds, debate, convergence, head-counts, tier, stage results, transcript offers? Does the footer hold only real degradations?
 
 5. CLAIMS — Is every load-bearing precedent, legal or regulatory effect, statistic, date or timeline (including any claim that a delay is recoverable) in the stated facts, marked unverified with what to check, or cut? Do the draft's numbers and timelines agree with each other?
 
