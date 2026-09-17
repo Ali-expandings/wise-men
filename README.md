@@ -28,16 +28,16 @@ Eight hard questions — engineering, product, research, writing, ethics, a pers
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-dark.svg"><img src="assets/h2h.svg" width="860" alt="Mean total score out of 25 on 8 blind-judged questions: wise-men 23.3, LifeOS Council 21.4, llm-council 20.8, brainstorming 17.9, plain answer 16.4, grilling 16.3. wise-men, LifeOS Council and llm-council beat the plain answer on all 8 questions."></picture></p>
 
-| vs plain answer | total /25 | correctness | insight | practical | risk awareness | dissent | beat the plain answer |
+| vs plain answer | total /25 | correct | insight | practical | risk | dissent | beat plain |
 |---|--:|--:|--:|--:|--:|--:|--:|
 | **wise-men** | **23.3** (+6.9) | **4.6** | **4.6** | 4.0 | **5.0** | **5.0** | **8 of 8** |
-| [LifeOS Council](https://github.com/danielmiessler/LifeOS) · 19k★ repo | 21.4 (+5.0) | 4.4 | 4.3 | 4.1 | 4.3 | 4.4 | **8 of 8** |
-| [llm-council](https://github.com/aiwithremy/claude-skills-llm-council) · 2.1k★ | 20.8 (+4.4) | 3.9 | 4.5 | 4.0 | 4.4 | 4.0 | **8 of 8** |
-| [brainstorming](https://github.com/obra/superpowers) from superpowers · 288k★ repo | 17.9 (+1.5) | **4.6** | 3.8 | **4.4** | 3.3 | 1.9 | 4 of 8 |
-| [grilling](https://github.com/mattpocock/skills) from mattpocock/skills · 264k★ repo | 16.3 (−0.1) | 3.9 | 3.3 | 4.0 | 3.3 | 1.9 | 3 of 8 |
-| plain answer, no skill | 16.4 | **4.6** | 3.3 | 4.0 | 2.9 | 1.6 | — |
+| [LifeOS Council](https://github.com/danielmiessler/LifeOS) 19k★ | 21.4 (+5.0) | 4.4 | 4.3 | 4.1 | 4.3 | 4.4 | **8 of 8** |
+| [llm-council](https://github.com/aiwithremy/claude-skills-llm-council) 2.1k★ | 20.8 (+4.4) | 3.9 | 4.5 | 4.0 | 4.4 | 4.0 | **8 of 8** |
+| [superpowers](https://github.com/obra/superpowers) brainstorming 288k★ | 17.9 (+1.5) | **4.6** | 3.8 | **4.4** | 3.3 | 1.9 | 4 of 8 |
+| [mattpocock](https://github.com/mattpocock/skills) grilling 264k★ | 16.3 (−0.1) | 3.9 | 3.3 | 4.0 | 3.3 | 1.9 | 3 of 8 |
+| plain answer | 16.4 | **4.6** | 3.3 | 4.0 | 2.9 | 1.6 | — |
 
-Bold = best in the column (ties bolded together).
+Bold = best in the column (ties bolded together). Stars are for the whole repo.
 
 **What it shows.** wise-men had the highest mean and was the only arm to score 5 on risk awareness and on dissent on all eight questions; its lowest total on any question was 22. The two other councils also beat the plain answer every time — structured multi-voice deliberation works — and wise-men's lead over them (+1.9 and +2.5 points) holds on this sample but is small enough that N=8 cannot settle it. brainstorming and grilling are built to interview you before deciding; with nobody to answer they had to assume, so this measures them on a job they were not designed for. Where wise-men did **not** lead: correctness was a three-way tie, brainstorming was rated more practical, and in 7 of 8 judgments the judge criticised the process talk inside wise-men's answers — the clearest thing to fix next.
 
