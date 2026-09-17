@@ -64,4 +64,10 @@ if python3 -c 'import yaml' 2>/dev/null; then
   case "$out" in *"p(one-sided)=6.30e-06"*) say "Wilcoxon reproduces (p=6.30e-06)" ok;; *) say "Wilcoxon output changed: $out" FAIL; fail=1;; esac
 else say "PyYAML missing — skipped stats reproduction" warn; fi
 
+# 8b. Head-to-head numbers reproduce from the parsed judgments (needs PyYAML)
+if python3 -c 'import yaml' 2>/dev/null; then
+  hr=$(python3 eval-data/head-to-head/h2h.py report 2>/dev/null | grep -m1 '^wise-men')
+  case "$hr" in *" 23.25 "*) say "head-to-head report reproduces (wise-men 23.25)" ok;; *) say "head-to-head report changed: $hr" FAIL; fail=1;; esac
+fi
+
 [ $fail = 0 ] && echo "ALL CHECKS PASSED" || { echo "CHECKS FAILED"; exit 1; }

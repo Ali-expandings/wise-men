@@ -2,7 +2,12 @@
 
 [![stars](https://img.shields.io/github/stars/Ali-expandings/wise-men?style=flat)](https://github.com/Ali-expandings/wise-men/stargazers) [![license](https://img.shields.io/github/license/Ali-expandings/wise-men)](LICENSE) [![check](https://github.com/Ali-expandings/wise-men/actions/workflows/check.yml/badge.svg)](https://github.com/Ali-expandings/wise-men/actions/workflows/check.yml) [![plugin](https://img.shields.io/badge/Claude%20Code-plugin-blue)](#install)
 
-Most prompt patterns ask you to take their word for it. This one ships with the blind eval that tested it — raw answers, judgments, and the script that reproduces the p-value.
+Most prompt patterns ask you to take their word for it. This one ships with the blind evals that tested it — raw answers, judgments, and the scripts that reproduce every number.
+
+<p align="center">
+  <strong>Highest mean score in a blind head-to-head with superpowers' brainstorming, mattpocock's grilling, LifeOS Council and llm-council · 5/5 on risk and dissent on every question · beat a structured prompt on 28 of 29</strong><br>
+  <sub>Two evals, one blind judge each, 5-axis rubric; the head-to-head was pre-registered before any arm ran. <a href="#does-it-actually-work">Charts, method and caveats</a>.</sub>
+</p>
 
 ```
 /plugin marketplace add Ali-expandings/wise-men
@@ -15,9 +20,49 @@ Then: *"run a council on whether we should rewrite the billing service or strang
 
 ## Does it actually work?
 
-![Same 29 questions, three ways of answering — council 24.5, structured prompt 20.8, direct 16.3](assets/headline.svg)
+Two blind evals, both shipped raw in this repo. The first puts wise-men next to skills people already use. The second asks the question every prompt-skill eventually gets: does it beat just asking well?
 
-**Short version: the core loop is measured; the refinements on top are field-used, not measured.** The numbers above come from the **v2.3-era core loop** — a council with no context brief, no reasoning-procedure assignment, no validators, no synthesis-checker, and with the Devil's-Advocate model upgrade deliberately switched off so every member ran the same model. Everything this repo adds on top of that is *reasoned from* the result, not measured by it. The measured configuration is weaker than what ships, so the shipped default should be at least as good — but treat that as an expectation, not a finding. The judge was a single blinded Claude model grading Claude outputs, which is exactly the bias described in one of the papers credited at the bottom of this file.
+### 1. Against the skills people already use (N=8, pre-registered)
+
+Eight hard questions — engineering, product, research, writing, ethics, a personal decision. Six ways to answer each: wise-men, four popular skills a Claude Code user would otherwise reach for to think a decision through, and a plain answer with no skill. The same model ran every arm with its skill file verbatim. A fresh blind judge per question scored the six answers as A–F, in an order sealed before anything ran.
+
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-dark.svg"><img src="assets/h2h.svg" width="860" alt="Mean total score out of 25 on 8 blind-judged questions: wise-men 23.3, LifeOS Council 21.4, llm-council 20.8, brainstorming 17.9, plain answer 16.4, grilling 16.3. wise-men, LifeOS Council and llm-council beat the plain answer on all 8 questions."></picture></p>
+
+| vs plain answer | total /25 | correctness | insight | practical | risk awareness | dissent | beat the plain answer |
+|---|--:|--:|--:|--:|--:|--:|--:|
+| **wise-men** | **23.3** (+6.9) | **4.6** | **4.6** | 4.0 | **5.0** | **5.0** | **8 of 8** |
+| [LifeOS Council](https://github.com/danielmiessler/LifeOS) · 19k★ repo | 21.4 (+5.0) | 4.4 | 4.3 | 4.1 | 4.3 | 4.4 | **8 of 8** |
+| [llm-council](https://github.com/aiwithremy/claude-skills-llm-council) · 2.1k★ | 20.8 (+4.4) | 3.9 | 4.5 | 4.0 | 4.4 | 4.0 | **8 of 8** |
+| [brainstorming](https://github.com/obra/superpowers) from superpowers · 288k★ repo | 17.9 (+1.5) | **4.6** | 3.8 | **4.4** | 3.3 | 1.9 | 4 of 8 |
+| [grilling](https://github.com/mattpocock/skills) from mattpocock/skills · 264k★ repo | 16.3 (−0.1) | 3.9 | 3.3 | 4.0 | 3.3 | 1.9 | 3 of 8 |
+| plain answer, no skill | 16.4 | **4.6** | 3.3 | 4.0 | 2.9 | 1.6 | — |
+
+Bold = best in the column (ties bolded together).
+
+**What it shows.** wise-men had the highest mean and was the only arm to score 5 on risk awareness and on dissent on all eight questions; its lowest total on any question was 22. The two other councils also beat the plain answer every time — structured multi-voice deliberation works — and wise-men's lead over them (+1.9 and +2.5 points) holds on this sample but is small enough that N=8 cannot settle it. brainstorming and grilling are built to interview you before deciding; with nobody to answer they had to assume, so this measures them on a job they were not designed for. Where wise-men did **not** lead: correctness was a three-way tie, brainstorming was rated more practical, and in 7 of 8 judgments the judge criticised the process talk inside wise-men's answers — the clearest thing to fix next.
+
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-axes-dark.svg"><img src="assets/h2h-axes.svg" width="860" alt="Per-axis mean scores, 1 to 5. Correctness: tie at 4.6 between wise-men, brainstorming and the plain answer. Insight: wise-men 4.6, plain 3.3. Practical use: brainstorming 4.4, wise-men and plain 4.0. Risk awareness: wise-men 5.0, plain 2.9. Dissent quality: wise-men 5.0, plain 1.6."></picture></p>
+
+<details>
+<summary>Every question, the cost, and how the study was run</summary>
+
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-questions-dark.svg"><img src="assets/h2h-questions.svg" width="860" alt="Per-question scores: wise-men scored between 22 and 24 on every question; against the best of the other four skills it was ahead on 3 questions, tied on 2 and behind on 3."></picture></p>
+
+- **Pre-registered** in [`PREREG.md`](eval-data/head-to-head/PREREG.md) before any arm ran: arms pinned to commits, the 8 questions fixed, the judge rubric identical to the N=29 eval below, the blinding order sealed (seed 20260916), the analysis fixed, and no significance test at N=8.
+- **Parity.** Every arm ran in a fresh subagent on the same model, with its skill file and the question verbatim; skills that spawn subagents did so. brainstorming and grilling got the one pre-registered adaptation: ask your questions, state the likely answers, carry on.
+- **Normalization.** Headers and orchestrator status lines were stripped from every arm. wise-men's appended audit trail was stripped on 4 questions, because the skill shows it only on request; LifeOS Council's round-by-round debate was kept, because its output format makes the transcript the answer. Nothing was edited.
+- **Deviations**, all disclosed in [`RESULTS.md`](eval-data/head-to-head/RESULTS.md): one amendment after Q13 exposed that arms could read the author's files (from then on an arm reads only its own skill files), and five re-runs — two at Q13 (one arm had read private notes, one orchestrator returned early) and three at Q55 (killed by a rate limit before producing any output).
+- **Cost.** wise-men was the slowest arm: a median of 8.2 minutes per question, against 3.5 for LifeOS Council, 3.9 for llm-council, about a minute for brainstorming and grilling, and 15 seconds for a plain answer. It chose deep tier on 4 of the 8 questions.
+- **Limits.** N=8, one judge model, and every answer and judgment comes from the same model family. Star counts are for whole repos (superpowers and mattpocock/skills ship many skills), from the GitHub API on 2026-09-17.
+
+Raw answers, blinded packets, judgments and parsed scores: [`eval-data/head-to-head/`](eval-data/head-to-head/). Reproduce the table: `python3 eval-data/head-to-head/h2h.py report`.
+</details>
+
+### 2. Against a structured single prompt (N=29)
+
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/headline-dark.svg"><img src="assets/headline.svg" width="860" alt="Same 29 questions, three ways of answering: council 24.5, structured prompt 20.8, direct answer 16.3"></picture></p>
+
+**Short version: the core loop is measured; the refinements on top are field-used, not measured.** The numbers above come from the **v2.3-era core loop** — a council with no context brief, no reasoning-procedure assignment, no validators, no synthesis-checker, and with the Devil's-Advocate model upgrade deliberately switched off so every member ran the same model. Everything this repo adds on top of that is *reasoned from* the result, not measured by it. (The head-to-head above did run the shipped v3.9.2 protocol end to end, but against other skills and a plain answer, not against this structured prompt.) The measured configuration is weaker than what ships, so the shipped default should be at least as good — but treat that as an expectation, not a finding. The judge was a single blinded Claude model grading Claude outputs, which is exactly the bias described in one of the papers credited at the bottom of this file.
 
 With that stated plainly, the table behind the chart — 30-question blind evaluation, 3 arms per question, 5-axis rubric (max 25):
 
@@ -36,9 +81,9 @@ With that stated plainly, the table behind the chart — 30-question blind evalu
 <details>
 <summary>Every question, and where the gap comes from</summary>
 
-![Council vs structured prompt on every question, sorted by gap; council ahead on 28 of 29](assets/questions.svg)
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/questions-dark.svg"><img src="assets/questions.svg" width="860" alt="Council vs structured prompt on every question, sorted by gap; council ahead on 28 of 29"></picture></p>
 
-![Per-axis means: correctness no difference; insight, practical, risk, dissent significantly better](assets/axes.svg)
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/axes-dark.svg"><img src="assets/axes.svg" width="860" alt="Per-axis means: correctness no difference; insight, practical, risk, dissent significantly better"></picture></p>
 
 Charts regenerate from `eval-data/parsed/` with `python3 scripts/make_charts.py`.
 </details>
@@ -125,7 +170,9 @@ Two design choices carry most of the weight:
 
 ## How it compares
 
-The question every prompt-skill gets asked — after ponytail's benchmark was matched by a seven-word prompt — is *does the skill beat just asking well?* This eval was built around that question. Arm B is one structured prompt (five perspectives + a dissent, no subagents); it is also shipped as the `solo` tier.
+Measured against the skills people already use, see [the head-to-head](#1-against-the-skills-people-already-use-n8-pre-registered): highest mean score, and 5/5 on risk and dissent on all 8 questions.
+
+The question every prompt-skill gets asked — after ponytail's benchmark was matched by a seven-word prompt — is *does the skill beat just asking well?* The N=29 eval was built around that question. Arm B is one structured prompt (five perspectives + a dissent, no subagents); it is also shipped as the `solo` tier.
 
 | vs direct answer (blind, 25-pt rubric, N=29) | score | beat the structured prompt | cost |
 |---|---|---|---|
@@ -146,7 +193,7 @@ Against the other council skills for Claude Code (facts from their READMEs, 2026
 | Cost tiers | 5, with spend ceiling | — | — | 5 modes | budget mode |
 | Evidence in the repo | raw eval + script | none | none | one A/B figure | one cost audit |
 
-![Feature matrix: council skills for Claude Code, from their READMEs 2026-09-16](assets/landscape.svg)
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/landscape-dark.svg"><img src="assets/landscape.svg" width="860" alt="Feature matrix: council skills for Claude Code, from their READMEs 2026-09-16"></picture></p>
 
 What they have that this doesn't: multi-vendor councils, convergence-driven long debates, consensus gates, code-specific scanners, HTML reports — listed honestly in the landscape file.
 
@@ -158,7 +205,8 @@ Roughly: solo ~free, quick ~3-5¢, standard ~5-7¢, deep ~15¢, paranoid ~25-50�
 
 - **Single-model.** Every member is Claude, so persona diversity approximates but doesn't achieve architectural diversity. Shared blindspots survive.
 - **The Chairman is the orchestrator.** Same thread picks the personas and writes the synthesis. Stage 4.5's external checker mitigates this; it doesn't remove it.
-- **The refinements aren't separately measured.** The eval validated the core loop. Everything added since is reasoned from it and shaped by live use — which is the same circularity the skill would flag in your reasoning. A held-out second eval is the open item.
+- **The refinements aren't isolated.** The N=29 eval validated the v2.3 core loop against a structured prompt; the head-to-head measured the shipped protocol end to end against other skills, at N=8. No eval isolates what each refinement adds — which is the same circularity the skill would flag in your reasoning.
+- **One judge model, same family.** Both evals use a single blind judge model grading answers from the same model family. The skill's own synthesis checker exists because that kind of judge has known biases.
 - **Members are offline.** `wise-member` cannot browse or run anything. Facts go in through the context brief; flagged claims are verified by the orchestrator afterwards, in a separately labeled section.
 - **Verbose.** `SKILL.md` is long. A casual invocation reads it, improvises, and mostly gets the protocol right; the numbered runbook at the top exists to keep that honest.
 
@@ -171,10 +219,11 @@ agents/wise-member.md     tool-restricted member agent — auto-registered by th
 resources/                personas · model routing · stage prompt templates · council-record template · landscape (competitors, sourced)
 examples/                 two worked end-to-end runs
 eval-spec.md              the frozen evaluation design (written before the eval ran)
-eval-data/                the full blind eval: questions, raw arms, judgments, stats, frozen v2.3 protocol
+eval-data/                the N=29 blind eval: questions, raw arms, judgments, stats, frozen v2.3 protocol
+eval-data/head-to-head/   the pre-registered head-to-head vs four popular skills: raw answers, blinded packets, judgments, h2h.py
 scripts/check.sh          consistency check — run before every commit (trigger sync, no $-digit, agent copy, PII)
-scripts/make_charts.py    regenerates assets/*.svg from eval-data/parsed/
-assets/                   banner + README charts (hand-authored SVG, theme-safe)
+scripts/make_charts.py    regenerates assets/*.svg (light + dark) from both evals' parsed scores
+assets/                   banner + README charts (hand-authored SVG, a light and a dark file each)
 CHANGELOG.md              condensed version history (detail in eval-data/SESSION_LOG.md)
 requirements.txt          PyYAML — only needed to re-run the eval stats
 AGENTS.md · CONTRIBUTING.md · SECURITY.md · LICENSE · .gitignore

@@ -42,24 +42,24 @@ Dev's schema-versioning story and mine are the same postmortem — an unbounded 
 **Priya:**
 Building on all three — Sam's structural point lands: I was crediting my payments team with discipline when really we just hadn't hit year two yet. Elena's CI-enforced-scope idea is the missing piece I didn't have language for. Where I still disagree with Dev: "event count grows regardless" proves overextension happened, not that scoping is powerless — an OrderAggregate absorbing every department's requirement was never scoped, it was named like it was.
 
-Final recommendation to Ali: don't ask "does ES work," ask "can we encode the boundary so it survives us leaving." Concretely — one bounded context, versioned schemas enforced in CI (not code review), a written upcasting runbook with a named owner role (not a named person), and a pre-committed kill switch: if a second team wants in on the aggregate, that's a new context with its own store, not an extension. If you can't get institutional buy-in for that scaffolding before writing the first event, you're not ready for ES — build CRUD with an audit log instead.
+Final recommendation to the user: don't ask "does ES work," ask "can we encode the boundary so it survives us leaving." Concretely — one bounded context, versioned schemas enforced in CI (not code review), a written upcasting runbook with a named owner role (not a named person), and a pre-committed kill switch: if a second team wants in on the aggregate, that's a new context with its own store, not an extension. If you can't get institutional buy-in for that scaffolding before writing the first event, you're not ready for ES — build CRUD with an audit log instead.
 
 **Dev:**
-Priya's payments-boundary point lands — my company one aggregate was "single context" on paper but had no enforcement keeping it single. That's the gap. Where I still don't buy in: calling turnover a separate "structural" bucket from scope discipline is a distinction without a difference. Scope erodes because the person enforcing it left — same failure, one cause. Elena's CI-enforced schemas help, but I've watched teams write the runbook and then not follow it because nobody's incentivized to. Sam's the closest to my floor: it's not a design problem, it's "who gets paid to say no in year two." My rec to Ali: don't ask if event sourcing is right, ask who owns scope enforcement in month eighteen. No answer, don't build it — you're not buying a pattern, you're buying a permanent staffing commitment.
+Priya's payments-boundary point lands — my company one aggregate was "single context" on paper but had no enforcement keeping it single. That's the gap. Where I still don't buy in: calling turnover a separate "structural" bucket from scope discipline is a distinction without a difference. Scope erodes because the person enforcing it left — same failure, one cause. Elena's CI-enforced schemas help, but I've watched teams write the runbook and then not follow it because nobody's incentivized to. Sam's the closest to my floor: it's not a design problem, it's "who gets paid to say no in year two." My rec to the user: don't ask if event sourcing is right, ask who owns scope enforcement in month eighteen. No answer, don't build it — you're not buying a pattern, you're buying a permanent staffing commitment.
 
 **Sam:**
 Real convergence, not just politeness — Elena's split (disciplinary vs structural failure) is the right frame, and it reorganizes my own point: scope creep and turnover aren't two problems, turnover is what makes scope creep unrecoverable. A team with the original owner catches "just add UserPreferencesAggregate" in code review. A team without them doesn't, because nobody left can tell you why the line was there.
 
 What changed my mind: I came in blaming org churn categorically. Priya's narrow-aggregate survival story is a real counterexample — turnover didn't kill that one. So the variable isn't turnover, it's whether scope discipline got encoded outside one person's head.
 
-For Ali: don't retry event sourcing as a rewrite. Pick the smallest, most-audited slice, write the scope boundary and upcasting policy into CI/docs before day one, and ask "who owns this in two years" before "which aggregate." No named owner, no ES.
+For the user: don't retry event sourcing as a rewrite. Pick the smallest, most-audited slice, write the scope boundary and upcasting policy into CI/docs before day one, and ask "who owns this in two years" before "which aggregate." No named owner, no ES.
 
 **Elena:**
 Where I've moved: Sam's structural point landed — Dev's 47-event postmortem is the same failure Sam names, not a counterexample to scope discipline, it's what scope discipline looks like when nobody's mandated to enforce it against a roadmap. That's a real update from my R1 read, which leaned too hard on "just follow DDD guidance."
 
 Still disagree: I won't fully cede pattern-adoption to "structural, full stop." Encodable safeguards — versioned schemas in CI, projection-rebuild runbooks — are a design-time choice too; teams that skip them were making a bet, not victims of an org chart. Structural explains why it erodes; it doesn't remove the initial decision to skip tooling.
 
-Recommendation to Ali: single bounded context, and before writing the first event, write the upcasting/ownership runbook and put schema checks in CI — not as a nice-to-have, as a gate a departing engineer can't quietly remove.
+Recommendation to the user: single bounded context, and before writing the first event, write the upcasting/ownership runbook and put schema checks in CI — not as a nice-to-have, as a gate a departing engineer can't quietly remove.
 
 ### Council Synthesis
 

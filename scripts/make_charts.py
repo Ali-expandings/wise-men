@@ -1,25 +1,70 @@
 #!/usr/bin/env python3
-"""Regenerate README charts as hand-authored SVG from eval-data/parsed/*.yaml.
-Run: python3 scripts/make_charts.py   (needs PyYAML only). Colours are chosen to read on GitHub light and dark themes."""
-import glob, math, os, re, statistics as st
+"""Regenerate the README charts as hand-authored SVG.
+
+Run: python3 scripts/make_charts.py   (needs PyYAML only)
+
+Every chart is written twice, <name>.svg for GitHub's light theme and <name>-dark.svg for dark; the README picks one
+with <picture>. Head-to-head arm colours were checked for colour-blind separation in both themes (worst adjacent pair
+dE 16.0 in OKLab x100 under protanopia/deuteranopia simulation; target >= 8). Text always uses neutral ink, never a
+series colour: identity comes from the mark beside the text."""
+import glob, math, os, statistics as st
+from decimal import Decimal, ROUND_HALF_UP
 import yaml
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PARSED = os.path.join(ROOT, "eval-data", "parsed"); OUT = os.path.join(ROOT, "assets")
+PARSED = os.path.join(ROOT, "eval-data", "parsed"); H2H = os.path.join(ROOT, "eval-data", "head-to-head", "parsed"); OUT = os.path.join(ROOT, "assets")
 AXES = ["correctness", "insight", "practical", "risk", "dissent"]
-FONT = "-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif"
-TXT, MUTE, GRID = "#8b949e", "#6e7681", "rgba(139,148,158,0.22)"
-ARMS = [("arm_c", "wise-men council", "#1a9e8a"), ("arm_b", "structured single prompt", "#7d8ea5"), ("arm_a", "direct answer", "#b9c2ce")]
+AXIS_NAME = {"correctness": "Correctness", "insight": "Insight", "practical": "Practical use", "risk": "Risk awareness", "dissent": "Dissent quality"}
+FONT = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+TEAL = "#1a9e8a"
+THEMES = {
+    "light": dict(INK="#1f2328", TXT="#59636e", MUTE="#818b98", GRID="#d8dee4", SURF="#ffffff", PROMPT="#7d8ea5", DIRECT="#b9c2ce", PLAIN="#8c959f", OTHER="#8c959f", AMBER="#d9a441",
+                  ARM={"brainstorming": "#e87ba4", "grilling": "#4a3aa7", "lifeos-council": "#eb6834", "llm-council": "#2a78d6"}),
+    "dark": dict(INK="#e6edf3", TXT="#9198a1", MUTE="#6e7681", GRID="#262c36", SURF="#0d1117", PROMPT="#7d8ea5", DIRECT="#4b535d", PLAIN="#656c76", OTHER="#6e7681", AMBER="#d9a441",
+                 ARM={"brainstorming": "#d55181", "grilling": "#9085e9", "lifeos-council": "#d95926", "llm-council": "#3987e5"}),
+}
+C = dict(THEMES["light"])  # active theme
 
+# Head-to-head arms. Bar order = the validated colour order: plain answer first (the baseline), wise-men last.
+H_ARMS = ["direct", "brainstorming", "grilling", "lifeos-council", "llm-council", "wise-men"]
+H_NAME = {"direct": "plain answer", "brainstorming": "brainstorming", "grilling": "grilling", "lifeos-council": "LifeOS Council", "llm-council": "llm-council", "wise-men": "wise-men"}
+H_SRC = {"direct": "no skill", "brainstorming": "obra/superpowers · 288k★ repo", "grilling": "mattpocock/skills · 264k★ repo",
+         "lifeos-council": "danielmiessler/LifeOS · 19k★ repo", "llm-council": "aiwithremy · 2.1k★", "wise-men": "this repo"}
+TOPIC = {"Q05": "Monolith or microservices?", "Q09": "Why event sourcing gets messy", "Q13": "Entering a market with one giant", "Q19": "Per-seat or usage pricing?",
+         "Q25": "Why replications fail", "Q36": "Blameless yet accountable postmortem", "Q48": "Colleagues underpaid, HR did nothing", "Q55": "A PhD at 35?"}
+
+def num(v): return f"{v:.1f}".rstrip("0").rstrip(".") if isinstance(v, float) else str(v)
+def r1(x): return str(Decimal(str(x)).quantize(Decimal("0.1"), ROUND_HALF_UP))
+def esc(s): return str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+def svg(w, h, body, title): return f'<svg viewBox="0 0 {num(w)} {num(h)}" width="{num(w)}" xmlns="http://www.w3.org/2000/svg" font-family="{FONT}">\n<title>{esc(title)}</title>\n{body}</svg>\n'
+def t(x, y, s, size=12, fill=None, weight=400, anchor="start", extra=""):
+    return f'<text x="{num(x)}" y="{num(y)}" font-size="{size}" font-weight="{weight}" fill="{fill or C["TXT"]}" text-anchor="{anchor}" {extra}>{esc(s)}</text>\n'
+def line(x1, y1, x2, y2, col, w=1, extra=""): return f'<line x1="{num(x1)}" y1="{num(y1)}" x2="{num(x2)}" y2="{num(y2)}" stroke="{col}" stroke-width="{w}" {extra}/>\n'
+def hbar(x, y, w, h, fill, r=4):  # grows right from the baseline; rounded data end, square at the baseline
+    if w <= 0: return ""
+    r = min(r, w, h / 2)
+    return f'<path d="M{num(x)},{num(y)}h{num(w - r)}a{num(r)},{num(r)} 0 0 1 {num(r)},{num(r)}v{num(h - 2 * r)}a{num(r)},{num(r)} 0 0 1 -{num(r)},{num(r)}h-{num(w - r)}z" fill="{fill}"/>\n'
+def vbar(x, base, w, h, fill, r=4):  # grows up from the baseline; rounded top
+    if h <= 0: return ""
+    r = min(r, h, w / 2)
+    return f'<path d="M{num(x)},{num(base)}v-{num(h - r)}a{num(r)},{num(r)} 0 0 1 {num(r)},-{num(r)}h{num(w - 2 * r)}a{num(r)},{num(r)} 0 0 1 {num(r)},{num(r)}v{num(h - r)}z" fill="{fill}"/>\n'
+def dot(cx, cy, r, fill): return f'<circle cx="{num(cx)}" cy="{num(cy)}" r="{r}" fill="{fill}" stroke="{C["SURF"]}" stroke-width="2"/>\n'
+def ring(cx, cy, r, col): return f'<circle cx="{num(cx)}" cy="{num(cy)}" r="{r}" fill="none" stroke="{col}" stroke-width="1.6"/>\n'
+def swatch(x, y, fill): return f'<rect x="{num(x)}" y="{num(y)}" width="12" height="12" rx="3" fill="{fill}"/>\n'
+def dashed(x1, y1, x2, y2): return line(x1, y1, x2, y2, C["INK"], 1, 'stroke-opacity="0.55" stroke-dasharray="4 3"')
+
+# ---------- N=29 eval (council vs structured prompt vs direct) ----------
+def arms29(): return [("arm_c", "wise-men council", TEAL), ("arm_b", "structured single prompt", C["PROMPT"]), ("arm_a", "direct answer", C["DIRECT"])]
 def load():
-    rows = {}
+    rows = {}; keys = ["arm_c", "arm_b", "arm_a"]
     for f in sorted(glob.glob(os.path.join(PARSED, "Q*.yaml"))):
         if "tiebreaker" in f: continue
         txt = open(f).read(); d = yaml.safe_load(txt); q = d["question_id"]
-        comp = {a: d["arms"][a]["composite_5axis"] for a, _, _ in ARMS}
-        if all(isinstance(d["arms"][a], dict) and "correctness" in d["arms"][a] for a, _, _ in ARMS):
-            axes = {a: {x: d["arms"][a][x] for x in AXES} for a, _, _ in ARMS}
+        comp = {a: d["arms"][a]["composite_5axis"] for a in keys}
+        if all(isinstance(d["arms"][a], dict) and "correctness" in d["arms"][a] for a in keys):
+            axes = {a: {x: d["arms"][a][x] for x in AXES} for a in keys}
         else:
+            import re
             m = re.search(r"blinding_map[^:]*:\s*([XYZ]=[ABC](?:,\s*[XYZ]=[ABC]){2})", txt)
             s2a = {s: "arm_" + a.lower() for s, a in (p.split("=") for p in m.group(1).replace(" ", "").split(","))}
             axes = {}
@@ -30,58 +75,56 @@ def load():
     assert len(rows) == 29, len(rows); return rows
 
 def ci95(xs): return st.mean(xs), 2.048 * st.stdev(xs) / math.sqrt(len(xs))
-def svg(w, h, body, title): return f'<svg viewBox="0 0 {w} {h}" width="{w}" xmlns="http://www.w3.org/2000/svg" font-family="{FONT}">\n<title>{title}</title>\n{body}</svg>\n'
-def t(x, y, s, size=12, fill=TXT, weight=400, anchor="start", extra=""): return f'<text x="{x}" y="{y}" font-size="{size}" font-weight="{weight}" fill="{fill}" text-anchor="{anchor}" {extra}>{s}</text>\n'
 
 def chart_headline(rows):
     W, H = 860, 250; x0, x1 = 240, 800; sc = (x1 - x0) / 25
-    b = t(x0, 30, "Same 29 questions, three ways of answering", 16, TXT, 600)
-    b += t(x0, 50, "Blind judge · 5-axis rubric, max 25 · mean with 95% CI (dark tick)", 12, MUTE)
+    b = t(x0, 30, "Same 29 questions, three ways of answering", 16, C["INK"], 600)
+    b += t(x0, 50, "Blind judge · 5-axis rubric, max 25 · mean with 95% confidence interval", 12, C["TXT"])
     for g in range(0, 26, 5):
-        b += f'<line x1="{x0+g*sc}" y1="66" x2="{x0+g*sc}" y2="200" stroke="{GRID}"/>' + t(x0 + g * sc, 218, g, 11, MUTE, anchor="middle")
-    for i, (arm, label, col) in enumerate(ARMS):
-        y = 84 + i * 44; xs = [r["comp"][arm] for r in rows.values()]; m, h = ci95(xs)
-        bold = 700 if arm == "arm_c" else 400
-        b += t(x0 - 16, y + 17, label, 14, "#1a9e8a" if arm == "arm_c" else TXT, bold, "end")
-        b += f'<rect x="{x0}" y="{y}" width="{m*sc:.1f}" height="26" rx="4" fill="{col}"/>\n'
-        b += f'<line x1="{x0+(m-h)*sc:.1f}" y1="{y+13}" x2="{x0+(m+h)*sc:.1f}" y2="{y+13}" stroke="#0d1117" stroke-opacity="0.55" stroke-width="2"/>\n'
-        b += t(x0 + (m + h) * sc + 12, y + 19, f"{m:.1f}", 18, col if arm != "arm_a" else MUTE, 700)
-    b += t(x0, 240, "Council beat the structured prompt on 28 of 29 questions. Data: eval-data/parsed · script: scripts/make_charts.py", 11, MUTE)
+        b += line(x0 + g * sc, 66, x0 + g * sc, 200, C["GRID"]) + t(x0 + g * sc, 218, g, 11, C["MUTE"], anchor="middle")
+    for i, (arm, label, col) in enumerate(arms29()):
+        y = 84 + i * 44; m, h = ci95([r["comp"][arm] for r in rows.values()]); hero = arm == "arm_c"
+        b += t(x0 - 16, y + 17, label, 14, C["INK"] if hero else C["TXT"], 700 if hero else 400, "end")
+        b += hbar(x0, y, m * sc, 26, col)
+        b += line(x0 + (m - h) * sc, y + 13, x0 + (m + h) * sc, y + 13, C["INK"], 2, 'stroke-opacity="0.6"')
+        b += t(x0 + (m + h) * sc + 12, y + 19, f"{m:.1f}", 18, C["INK"] if arm != "arm_a" else C["TXT"], 700)
+    b += t(x0, 240, "Council beat the structured prompt on 28 of 29 questions. Data: eval-data/parsed · script: scripts/make_charts.py", 11, C["MUTE"])
     return svg(W, H, b, "Council 24.5 vs structured prompt 20.8 vs direct answer 16.3 on a 25-point blind rubric, N=29")
 
 def chart_axes(rows):
-    W, H = 860, 364; y0, y1 = 96, 304; sc = (y1 - y0) / 5; sig = {"correctness": "no difference", "insight": "p &lt; 0.001", "practical": "p &lt; 0.001", "risk": "p &lt; 0.001", "dissent": "p &lt; 0.001"}
-    b = t(40, 30, "Where the gap comes from — per rubric axis", 16, TXT, 600)
-    b += t(40, 50, "Mean score 1–5 · council vs structured prompt, two-sided Wilcoxon, Bonferroni α = 0.01", 12, MUTE)
+    W, H = 860, 364; y0, y1 = 96, 304; sc = (y1 - y0) / 5
+    sig = {"correctness": "no difference", "insight": "p < 0.001", "practical": "p < 0.001", "risk": "p < 0.001", "dissent": "p < 0.001"}
+    b = t(40, 30, "Where the gap comes from — per rubric axis", 16, C["INK"], 600)
+    b += t(40, 50, "Mean score 1–5 · council vs structured prompt, two-sided Wilcoxon, Bonferroni α = 0.01", 12, C["TXT"])
     lx = 40
-    for arm, label, col in ARMS:
-        b += f'<rect x="{lx}" y="62" width="12" height="12" rx="2" fill="{col}"/>' + t(lx + 17, 72, label, 12); lx += 17 + 6.6 * len(label) + 22
+    for arm, label, col in arms29():
+        b += swatch(lx, 62, col) + t(lx + 17, 72, label, 12, C["TXT"]); lx += 17 + 6.6 * len(label) + 22
     for g in range(6):
-        y = y1 - g * sc; b += f'<line x1="40" y1="{y}" x2="820" y2="{y}" stroke="{GRID}"/>' + t(32, y + 4, g, 11, MUTE, anchor="end")
+        y = y1 - g * sc; b += line(40, y, 820, y, C["GRID"]) + t(32, y + 4, g, 11, C["MUTE"], anchor="end")
     gw = 156; bw = 34
     for i, ax in enumerate(AXES):
         gx = 60 + i * gw
-        for k, (arm, _, col) in enumerate(ARMS):
-            m = st.mean(r["axes"][arm][ax] for r in rows.values()); x = gx + k * (bw + 6); y = y1 - m * sc
-            b += f'<rect x="{x}" y="{y:.1f}" width="{bw}" height="{(y1-y):.1f}" rx="3" fill="{col}"/>'
-            b += t(x + bw / 2, y - 6, f"{m:.1f}", 12, col if arm != "arm_a" else MUTE, 600, "middle")
-        b += t(gx + (3 * bw + 12) / 2, y1 + 20, ax, 13, TXT, 500, "middle") + t(gx + (3 * bw + 12) / 2, y1 + 38, sig[ax], 11, "#1a9e8a" if sig[ax] != "no difference" else MUTE, 400, "middle")
-    b += t(40, 354, "Correctness is a tie; the council's edge is insight, practical usefulness, risk awareness, and above all dissent.", 11, MUTE)
+        for k, (arm, _, col) in enumerate(arms29()):
+            m = st.mean(r["axes"][arm][ax] for r in rows.values()); x = gx + k * (bw + 6)
+            b += vbar(x, y1, bw, m * sc, col) + t(x + bw / 2, y1 - m * sc - 6, f"{m:.1f}", 12, C["INK"] if arm == "arm_c" else C["TXT"], 600, "middle")
+        cx = gx + (3 * bw + 12) / 2
+        b += t(cx, y1 + 20, ax, 13, C["INK"], 500, "middle") + t(cx, y1 + 38, sig[ax], 11, C["INK"] if sig[ax] != "no difference" else C["MUTE"], 400, "middle")
+    b += t(40, 354, "Correctness is a tie; the council's edge is insight, practical usefulness, risk awareness, and above all dissent.", 11, C["MUTE"])
     return svg(W, H, b, "Per-axis means for council, structured prompt, and direct answer")
 
 def chart_questions(rows):
     items = sorted(rows.items(), key=lambda kv: kv[1]["comp"]["arm_c"] - kv[1]["comp"]["arm_b"]); rh = 21
-    W, H = 860, 96 + rh * len(items) + 40; x0, x1 = 120, 820; sc = (x1 - x0) / 13
-    b = t(40, 30, "Every question, council vs structured prompt", 16, TXT, 600)
-    b += t(40, 50, "Sorted by gap · score out of 25 · council ahead on 28 of 29", 12, MUTE)
+    W, H = 860, 96 + rh * len(items) + 40; x0, x1 = 120, 820; sc = (x1 - x0) / 13; A = arms29()
+    b = t(40, 30, "Every question, council vs structured prompt", 16, C["INK"], 600)
+    b += t(40, 50, "Sorted by gap · score out of 25 · council ahead on 28 of 29", 12, C["TXT"])
     for g in range(12, 26, 2):
-        x = x0 + (g - 12) * sc; b += f'<line x1="{x}" y1="70" x2="{x}" y2="{H-40}" stroke="{GRID}"/>' + t(x, H - 22, g, 11, MUTE, anchor="middle")
+        x = x0 + (g - 12) * sc; b += line(x, 70, x, H - 40, C["GRID"]) + t(x, H - 22, g, 11, C["MUTE"], anchor="middle")
     for i, (q, r) in enumerate(items):
         y = 84 + i * rh; bx = x0 + (r["comp"]["arm_b"] - 12) * sc; cx = x0 + (r["comp"]["arm_c"] - 12) * sc
-        b += t(x0 - 14, y + 4, q, 11, MUTE, anchor="end") + f'<line x1="{bx}" y1="{y}" x2="{cx}" y2="{y}" stroke="{TXT}" stroke-opacity="0.35" stroke-width="2"/>'
-        b += f'<circle cx="{bx}" cy="{y}" r="5" fill="{ARMS[1][2]}"/><circle cx="{cx}" cy="{y}" r="5.5" fill="{ARMS[0][2]}"/>'
-        if r["comp"]["arm_c"] < r["comp"]["arm_b"]: b += t(cx - 12, y + 4, "the one loss — dissent re-argued the majority", 11, "#d0665a", anchor="end")
-    b += f'<circle cx="{x0+2}" cy="{H-8}" r="5" fill="{ARMS[0][2]}"/>' + t(x0 + 12, H - 4, "council", 11) + f'<circle cx="{x0+82}" cy="{H-8}" r="5" fill="{ARMS[1][2]}"/>' + t(x0 + 92, H - 4, "structured prompt", 11)
+        b += t(x0 - 14, y + 4, q, 11, C["MUTE"], anchor="end") + line(bx, y, cx, y, C["TXT"], 2, 'stroke-opacity="0.35"')
+        b += dot(bx, y, 5, A[1][2]) + dot(cx, y, 5.5, A[0][2])
+        if r["comp"]["arm_c"] < r["comp"]["arm_b"]: b += t(cx - 12, y + 4, "the one loss — dissent re-argued the majority", 11, C["INK"], anchor="end")
+    b += dot(x0 + 2, H - 8, 5, A[0][2]) + t(x0 + 12, H - 4, "council", 11) + dot(x0 + 82, H - 8, 5, A[1][2]) + t(x0 + 92, H - 4, "structured prompt", 11)
     return svg(W, H, b, "Council vs structured prompt on each of 29 questions")
 
 def chart_landscape():
@@ -90,20 +133,105 @@ def chart_landscape():
              ("Dissent verbatim, cannot be truncated", [2, 1, 1, 2, 1, 0]), ("Independent check of the synthesis", [2, 0, 0, 0, 1, 0]), ("Members structurally unable to spawn or run", [2, 0, 0, 0, 1, 0]),
              ("Cost tiers + spend ceiling", [2, 0, 0, 1, 1, 0]), ("Every deviation disclosed in output", [2, 0, 0, 0, 0, 0]), ("Eval data + script shipped in repo", [2, 0, 0, 1, 1, 0])]
     W = 860; rh = 34; x0 = 300; cw = (W - x0 - 20) / len(cols); H = 120 + rh * len(feats) + 40
-    b = t(40, 30, "Council skills for Claude Code — what each one ships", 16, TXT, 600) + t(40, 50, "From each project's README, 2026-09-16 · full table with sources in resources/landscape.md", 12, MUTE)
-    for j, (n, o) in enumerate(cols):
-        cx = x0 + cw * (j + 0.5); parts = [n] if len(n) <= 13 else ([n[:n.find(" ")], n[n.find(" ") + 1:]] if " " in n else [n[:n.rfind("-") + 1], n[n.rfind("-") + 1:]])
-        for li, part in enumerate(parts): b += t(cx, 78 + li * 13, part, 11, "#1a9e8a" if j == 0 else TXT, 700 if j == 0 else 500, "middle")
-        if o: b += t(cx, 78 + len(parts) * 13, o, 10, MUTE, anchor="middle")
-    b += f'<rect x="{x0}" y="62" width="{cw}" height="{rh*len(feats)+58}" rx="8" fill="#1a9e8a" fill-opacity="0.08"/>'
+    b = t(40, 30, "Council skills for Claude Code — what each one ships", 16, C["INK"], 600) + t(40, 50, "From each project's README, 2026-09-16 · full table with sources in resources/landscape.md", 12, C["TXT"])
+    for j, (nm, o) in enumerate(cols):
+        cx = x0 + cw * (j + 0.5); parts = [nm] if len(nm) <= 13 else ([nm[:nm.find(" ")], nm[nm.find(" ") + 1:]] if " " in nm else [nm[:nm.rfind("-") + 1], nm[nm.rfind("-") + 1:]])
+        for li, part in enumerate(parts): b += t(cx, 78 + li * 13, part, 11, C["INK"] if j == 0 else C["TXT"], 700 if j == 0 else 500, "middle")
+        if o: b += t(cx, 78 + len(parts) * 13, o, 10, C["MUTE"], anchor="middle")
+    b += f'<rect x="{num(x0)}" y="62" width="{num(cw)}" height="{rh * len(feats) + 58}" rx="8" fill="{TEAL}" fill-opacity="0.10"/>\n'
     for i, (name, vals) in enumerate(feats):
-        y = 120 + i * rh + rh / 2; b += t(x0 - 16, y + 4, name, 12, TXT, anchor="end") + f'<line x1="40" y1="{y+rh/2}" x2="{W-20}" y2="{y+rh/2}" stroke="{GRID}"/>'
+        y = 120 + i * rh + rh / 2; b += t(x0 - 16, y + 4, name, 12, C["INK"], anchor="end") + line(40, y + rh / 2, W - 20, y + rh / 2, C["GRID"])
         for j, v in enumerate(vals):
             cx = x0 + cw * (j + 0.5)
-            b += {2: f'<circle cx="{cx}" cy="{y}" r="7" fill="#1a9e8a"/>', 1: f'<circle cx="{cx}" cy="{y}" r="7" fill="#d9a441"/>', 0: f'<circle cx="{cx}" cy="{y}" r="6" fill="none" stroke="{TXT}" stroke-opacity="0.45" stroke-width="1.5"/>'}[v]
+            b += {2: f'<circle cx="{num(cx)}" cy="{num(y)}" r="7" fill="{TEAL}"/>', 1: f'<circle cx="{num(cx)}" cy="{num(y)}" r="7" fill="{C["AMBER"]}"/>', 0: ring(cx, y, 6, C["MUTE"])}[v]
     ly = H - 16
-    b += f'<circle cx="46" cy="{ly-4}" r="6" fill="#1a9e8a"/>' + t(58, ly, "yes", 11) + f'<circle cx="106" cy="{ly-4}" r="6" fill="#d9a441"/>' + t(118, ly, "partial or unspecified", 11) + f'<circle cx="256" cy="{ly-4}" r="5.5" fill="none" stroke="{TXT}" stroke-opacity="0.45" stroke-width="1.5"/>' + t(268, ly, "absent", 11)
+    b += f'<circle cx="46" cy="{ly - 4}" r="6" fill="{TEAL}"/>' + t(58, ly, "yes", 11) + f'<circle cx="106" cy="{ly - 4}" r="6" fill="{C["AMBER"]}"/>' + t(118, ly, "partial or unspecified", 11) + ring(256, ly - 4, 5.5, C["MUTE"]) + t(268, ly, "absent", 11)
     return svg(W, H, b, "Feature matrix of council skills for Claude Code")
+
+# ---------- head-to-head (8 questions, 6 arms) ----------
+def load_h2h():
+    rows = {os.path.basename(f)[:-5]: yaml.safe_load(open(f))["arms"] for f in sorted(glob.glob(os.path.join(H2H, "Q*.yaml")))}
+    assert len(rows) == 8 and all(set(r) == set(H_ARMS) for r in rows.values()), len(rows); return rows
+def hmean(rows, a, key="composite"): return st.mean(r[a][key] for r in rows.values())
+def colour(a): return TEAL if a == "wise-men" else C["PLAIN"] if a == "direct" else C["ARM"][a]
+
+def chart_h2h(rows):
+    x0, sc, top, rh, n = 250, 15.6, 112, 46, len(rows)
+    arms = sorted(H_ARMS, key=lambda a: -hmean(rows, a)); plain = hmean(rows, "direct"); bottom = top + rh * len(arms) - 6
+    b = t(40, 32, f"Total score vs a plain answer — {n} hard questions, one blind judge", 16, C["INK"], 600)
+    b += t(40, 52, "Mean of 5 rubric axes, 1–5 each (max 25). In brackets: the gap to the plain answer.", 12, C["TXT"])
+    b += t(40, 68, "The other four are popular skills people already use to think a decision through.", 12, C["TXT"])
+    b += t(840, top - 12, "beat the plain answer", 11, C["MUTE"], anchor="end")
+    for g in range(0, 26, 5):
+        x = x0 + g * sc; b += line(x, top - 4, x, bottom, C["GRID"]) + t(x, bottom + 16, g, 11, C["MUTE"], anchor="middle")
+    for i, a in enumerate(arms):
+        y = top + i * rh; m = hmean(rows, a); hero = a == "wise-men"
+        b += t(x0 - 14, y + 15, H_NAME[a], 13, C["INK"], 700 if hero else 500, "end") + t(x0 - 14, y + 30, H_SRC[a], 11, C["MUTE"], anchor="end")
+        b += hbar(x0, y + 6, m * sc, 22, colour(a))
+        vx = x0 + m * sc + 8; b += t(vx, y + 22, r1(m), 13, C["INK"], 700 if hero else 500)
+        if a == "direct":
+            b += t(840, y + 22, "—", 12, C["MUTE"], anchor="end"); continue
+        d = m - plain; b += t(vx + 32, y + 22, f"({'+' if d >= 0 else '−'}{r1(abs(d))})", 11, C["TXT"])
+        wins = sum(r[a]["composite"] > r["direct"]["composite"] for r in rows.values())
+        b += t(840, y + 22, f"{wins} of {n}", 12, C["INK"] if wins == n else C["TXT"], 600 if wins == n else 400, "end")
+    px = x0 + plain * sc; b += dashed(px, top - 4, px, bottom) + t(px, top - 12, f"plain answer {r1(plain)}", 11, C["MUTE"], anchor="middle")
+    fy = bottom + 42
+    b += t(40, fy, "brainstorming and grilling are built to interview you first; with nobody to answer, they had to assume (pre-registered, disclosed).", 11, C["MUTE"])
+    b += t(40, fy + 16, f"N = {n}, no significance claimed · the same model ran every arm · the judge saw answers as A–F in a sealed order · raw data: eval-data/head-to-head", 11, C["MUTE"])
+    return svg(860, fy + 30, b, "Mean total score out of 25 on 8 blind-judged questions: " + ", ".join(f"{H_NAME[a]} {r1(hmean(rows, a))}" for a in arms))
+
+def chart_h2h_axes(rows):
+    y1, sc, n = 340, 40, len(rows)
+    b = t(40, 32, "Where the gap comes from — each rubric axis", 16, C["INK"], 600)
+    b += t(40, 52, f"Mean score per axis, 1–5, over the same {n} questions · dashed line = the plain answer on that axis", 12, C["TXT"])
+    lx = 40
+    for a in H_ARMS:
+        hero = a == "wise-men"; b += swatch(lx, 72, colour(a)) + t(lx + 17, 82, H_NAME[a], 12, C["INK"] if hero else C["TXT"], 700 if hero else 400); lx += 17 + 6.8 * len(H_NAME[a]) + 22
+    for g in range(6):
+        y = y1 - g * sc; b += line(56, y, 840, y, C["GRID"]) + t(46, y + 4, g, 11, C["MUTE"], anchor="end")
+    bw, gap = 16, 3; gw = len(H_ARMS) * bw + (len(H_ARMS) - 1) * gap; pitch = (840 - 64) / len(AXES)
+    for i, ax in enumerate(AXES):
+        gx = 64 + i * pitch + (pitch - gw) / 2; m = {a: hmean(rows, a, ax) for a in H_ARMS}
+        for k, a in enumerate(H_ARMS): b += vbar(gx + k * (bw + gap), y1, bw, m[a] * sc, colour(a))
+        py = y1 - m["direct"] * sc; b += dashed(gx - 5, py, gx + gw + 5, py) + t(gx + bw / 2, py - 6, r1(m["direct"]), 10, C["MUTE"], anchor="middle")
+        b += t(gx + gw - bw / 2, y1 - m["wise-men"] * sc - 6, r1(m["wise-men"]), 11, C["INK"], 700, "middle")
+        d = m["wise-men"] - m["direct"]
+        b += t(gx + gw / 2, y1 + 22, AXIS_NAME[ax], 13, C["INK"], 600, "middle")
+        b += t(gx + gw / 2, y1 + 39, "wise-men level with plain" if abs(d) < 0.05 else f"wise-men +{r1(d)} over plain", 11, C["TXT"], anchor="middle")
+    perfect = [AXIS_NAME[x].lower() for x in AXES if all(r["wise-men"][x] == 5 for r in rows.values())]
+    others_perfect = any(all(r[a][x] == 5 for r in rows.values()) for a in H_ARMS if a != "wise-men" for x in AXES)
+    top_c = [H_NAME[a] for a in H_ARMS if hmean(rows, a, "correctness") == max(hmean(rows, z, "correctness") for z in H_ARMS)]
+    lead_p = max(H_ARMS, key=lambda a: hmean(rows, a, "practical"))
+    b += t(40, y1 + 72, f"wise-men scored 5 on {' and '.join(perfect)} on all {n} questions" + ("; no other arm did that on any axis." if not others_perfect else "."), 11, C["MUTE"])
+    b += t(40, y1 + 88, f"It did not lead everywhere: correctness was a tie ({', '.join(top_c)}), and {H_NAME[lead_p]} was rated most practical ({r1(hmean(rows, lead_p, 'practical'))} vs wise-men {r1(hmean(rows, 'wise-men', 'practical'))}).", 11, C["MUTE"])
+    return svg(860, y1 + 104, b, "Per-axis mean scores for six arms: " + "; ".join(f"{AXIS_NAME[x]}: " + ", ".join(f"{H_NAME[a]} {r1(hmean(rows, a, x))}" for a in H_ARMS) for x in AXES))
+
+def chart_h2h_questions(rows):
+    x0, x1, lo, hi = 300, 640, 13, 25; sc = (x1 - x0) / (hi - lo); top, rh = 112, 32; qs = sorted(rows); n = len(qs)
+    others = ["brainstorming", "grilling", "lifeos-council", "llm-council"]
+    short = {"brainstorming": "brainstorming", "grilling": "grilling", "lifeos-council": "LifeOS", "llm-council": "llm-council"}
+    wm_min = min(r["wise-men"]["composite"] for r in rows.values()); bottom = top + rh * (n - 1) + 16
+    b = t(40, 32, f"Question by question — wise-men never scored below {wm_min} of 25", 16, C["INK"], 600)
+    b += t(40, 52, "Each row: wise-men, the four other skills and the plain answer, as scored by the blind judge (max 25)", 12, C["TXT"])
+    b += t(660, top - 22, "vs the best other skill", 11, C["MUTE"])
+    for g in (15, 20, 25):
+        x = x0 + (g - lo) * sc; b += line(x, top - 16, x, bottom, C["GRID"]) + t(x, bottom + 16, g, 11, C["MUTE"], anchor="middle")
+    won = tied = lost = 0
+    for i, q in enumerate(qs):
+        y = top + i * rh; r = rows[q]; vals = [r[a]["composite"] for a in H_ARMS]; wm = r["wise-men"]["composite"]
+        b += t(40, y + 4, q, 11, C["MUTE"]) + t(76, y + 4, TOPIC[q], 12, C["INK"])
+        b += line(x0 + (min(vals) - lo) * sc, y, x0 + (max(vals) - lo) * sc, y, C["GRID"], 2)
+        b += ring(x0 + (r["direct"]["composite"] - lo) * sc, y, 7, C["TXT"])
+        for a in others: b += dot(x0 + (r[a]["composite"] - lo) * sc, y, 4.5, C["OTHER"])
+        b += dot(x0 + (wm - lo) * sc, y, 6.5, TEAL)
+        bv = max(r[a]["composite"] for a in others); best = [short[a] for a in others if r[a]["composite"] == bv]
+        rel = "ahead" if wm > bv else "tied" if wm == bv else "behind"; won += wm > bv; tied += wm == bv; lost += wm < bv
+        b += t(660, y + 4, rel, 12, C["INK"]) + t(712, y + 4, f"{', '.join(best)} {bv}", 11, C["MUTE"])
+    ly = bottom + 44
+    b += dot(46, ly - 4, 6.5, TEAL) + t(58, ly, "wise-men", 11) + dot(136, ly - 4, 4.5, C["OTHER"]) + t(146, ly, "the other four skills", 11) + ring(284, ly - 4, 7, C["TXT"]) + t(296, ly, "plain answer", 11)
+    mins = [min(r[a]["composite"] for r in rows.values()) for a in others]
+    b += t(40, ly + 22, f"Against the best of the other four on each question: ahead {won}, tied {tied}, behind {lost}. Their lowest scores were {min(mins)}–{max(mins)}; wise-men's was {wm_min}.", 11, C["MUTE"])
+    return svg(860, ly + 38, b, f"Per-question scores: wise-men lowest {wm_min} of 25; versus the best other skill ahead {won}, tied {tied}, behind {lost}")
 
 def banner():
     W, H = 860, 190
@@ -117,7 +245,12 @@ def banner():
     return svg(W, H, b, "wise-men")
 
 if __name__ == "__main__":
-    rows = load(); os.makedirs(OUT, exist_ok=True)
-    for name, s in (("headline", chart_headline(rows)), ("axes", chart_axes(rows)), ("questions", chart_questions(rows)), ("landscape", chart_landscape()), ("banner", banner())):
-        open(os.path.join(OUT, name + ".svg"), "w").write(s)
-    print("wrote", ", ".join(("headline", "axes", "questions", "landscape", "banner")))
+    rows, h2h = load(), load_h2h(); os.makedirs(OUT, exist_ok=True); wrote = []
+    charts = [("headline", lambda: chart_headline(rows)), ("axes", lambda: chart_axes(rows)), ("questions", lambda: chart_questions(rows)), ("landscape", chart_landscape),
+              ("h2h", lambda: chart_h2h(h2h)), ("h2h-axes", lambda: chart_h2h_axes(h2h)), ("h2h-questions", lambda: chart_h2h_questions(h2h))]
+    for theme, suffix in (("light", ""), ("dark", "-dark")):
+        C.clear(); C.update(THEMES[theme])
+        for name, fn in charts:
+            open(os.path.join(OUT, name + suffix + ".svg"), "w").write(fn()); wrote.append(name + suffix)
+    open(os.path.join(OUT, "banner.svg"), "w").write(banner()); wrote.append("banner")
+    print("wrote", ", ".join(wrote))

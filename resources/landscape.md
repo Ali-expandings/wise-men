@@ -2,6 +2,8 @@
 
 Snapshot taken 2026-09-16 (stars from the GitHub API that day; feature facts from each project's README the same day — they will drift, and if you find one wrong, open an issue). "Evidence shipped" means raw data + a reproducible script in the repo, not a number in a README.
 
+**Measured, not just compared:** a pre-registered blind head-to-head against four popular skills — superpowers' brainstorming, mattpocock's grilling, LifeOS Council and llm-council — is in [`eval-data/head-to-head/RESULTS.md`](../eval-data/head-to-head/RESULTS.md) (2026-09-17).
+
 ## The comparison people actually make
 
 Two skills readers already know set the bar for "prove it": **ponytail** (140k★) ships a benchmark table against a no-skill baseline, and **caveman** (106k★) lists who measured it and what they found — including JetBrains measuring 8.5% against an advertised 65%. The critique that followed ponytail (Scott Logic, June 2026) was the one every prompt-skill fears: *a seven-word prompt matched it.* wise-men's eval was designed around that exact question before the critique existed. Arm B is the seven-word-prompt equivalent — one structured prompt asking for five perspectives and a dissent, no subagents — and the council beat it on 28 of 29 questions (24.5 vs 20.8 / 25). Arm B is also shipped as the `solo` tier, because it captures most of the gain for none of the cost and readers should have it.

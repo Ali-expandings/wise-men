@@ -1,0 +1,58 @@
+<svg viewBox="0 0 860 454" width="860" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+<title>Mean total score out of 25 on 8 blind-judged questions: wise-men 23.3, LifeOS Council 21.4, llm-council 20.8, brainstorming 17.9, plain answer 16.4, grilling 16.3</title>
+<text x="40" y="32" font-size="16" font-weight="600" fill="#1f2328" text-anchor="start" >Total score vs a plain answer — 8 hard questions, one blind judge</text>
+<text x="40" y="52" font-size="12" font-weight="400" fill="#59636e" text-anchor="start" >Mean of 5 rubric axes, 1–5 each (max 25). In brackets: the gap to the plain answer.</text>
+<text x="40" y="68" font-size="12" font-weight="400" fill="#59636e" text-anchor="start" >The other four are popular skills people already use to think a decision through.</text>
+<text x="840" y="100" font-size="11" font-weight="400" fill="#818b98" text-anchor="end" >beat the plain answer</text>
+<line x1="250" y1="108" x2="250" y2="382" stroke="#d8dee4" stroke-width="1" />
+<text x="250" y="398" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >0</text>
+<line x1="328" y1="108" x2="328" y2="382" stroke="#d8dee4" stroke-width="1" />
+<text x="328" y="398" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >5</text>
+<line x1="406" y1="108" x2="406" y2="382" stroke="#d8dee4" stroke-width="1" />
+<text x="406" y="398" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >10</text>
+<line x1="484" y1="108" x2="484" y2="382" stroke="#d8dee4" stroke-width="1" />
+<text x="484" y="398" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >15</text>
+<line x1="562" y1="108" x2="562" y2="382" stroke="#d8dee4" stroke-width="1" />
+<text x="562" y="398" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >20</text>
+<line x1="640" y1="108" x2="640" y2="382" stroke="#d8dee4" stroke-width="1" />
+<text x="640" y="398" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >25</text>
+<text x="236" y="127" font-size="13" font-weight="700" fill="#1f2328" text-anchor="end" >wise-men</text>
+<text x="236" y="142" font-size="11" font-weight="400" fill="#818b98" text-anchor="end" >this repo</text>
+<path d="M250,118h358.7a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-358.7z" fill="#1a9e8a"/>
+<text x="620.7" y="134" font-size="13" font-weight="700" fill="#1f2328" text-anchor="start" >23.3</text>
+<text x="652.7" y="134" font-size="11" font-weight="400" fill="#59636e" text-anchor="start" >(+6.9)</text>
+<text x="840" y="134" font-size="12" font-weight="600" fill="#1f2328" text-anchor="end" >8 of 8</text>
+<text x="236" y="173" font-size="13" font-weight="500" fill="#1f2328" text-anchor="end" >LifeOS Council</text>
+<text x="236" y="188" font-size="11" font-weight="400" fill="#818b98" text-anchor="end" >danielmiessler/LifeOS · 19k★ repo</text>
+<path d="M250,164h329.4a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-329.4z" fill="#eb6834"/>
+<text x="591.5" y="180" font-size="13" font-weight="500" fill="#1f2328" text-anchor="start" >21.4</text>
+<text x="623.5" y="180" font-size="11" font-weight="400" fill="#59636e" text-anchor="start" >(+5.0)</text>
+<text x="840" y="180" font-size="12" font-weight="600" fill="#1f2328" text-anchor="end" >8 of 8</text>
+<text x="236" y="219" font-size="13" font-weight="500" fill="#1f2328" text-anchor="end" >llm-council</text>
+<text x="236" y="234" font-size="11" font-weight="400" fill="#818b98" text-anchor="end" >aiwithremy · 2.1k★</text>
+<path d="M250,210h319.7a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-319.7z" fill="#2a78d6"/>
+<text x="581.7" y="226" font-size="13" font-weight="500" fill="#1f2328" text-anchor="start" >20.8</text>
+<text x="613.7" y="226" font-size="11" font-weight="400" fill="#59636e" text-anchor="start" >(+4.4)</text>
+<text x="840" y="226" font-size="12" font-weight="600" fill="#1f2328" text-anchor="end" >8 of 8</text>
+<text x="236" y="265" font-size="13" font-weight="500" fill="#1f2328" text-anchor="end" >brainstorming</text>
+<text x="236" y="280" font-size="11" font-weight="400" fill="#818b98" text-anchor="end" >obra/superpowers · 288k★ repo</text>
+<path d="M250,256h274.8a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-274.8z" fill="#e87ba4"/>
+<text x="536.8" y="272" font-size="13" font-weight="500" fill="#1f2328" text-anchor="start" >17.9</text>
+<text x="568.8" y="272" font-size="11" font-weight="400" fill="#59636e" text-anchor="start" >(+1.5)</text>
+<text x="840" y="272" font-size="12" font-weight="400" fill="#59636e" text-anchor="end" >4 of 8</text>
+<text x="236" y="311" font-size="13" font-weight="500" fill="#1f2328" text-anchor="end" >plain answer</text>
+<text x="236" y="326" font-size="11" font-weight="400" fill="#818b98" text-anchor="end" >no skill</text>
+<path d="M250,302h251.4a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-251.4z" fill="#8c959f"/>
+<text x="513.5" y="318" font-size="13" font-weight="500" fill="#1f2328" text-anchor="start" >16.4</text>
+<text x="840" y="318" font-size="12" font-weight="400" fill="#818b98" text-anchor="end" >—</text>
+<text x="236" y="357" font-size="13" font-weight="500" fill="#1f2328" text-anchor="end" >grilling</text>
+<text x="236" y="372" font-size="11" font-weight="400" fill="#818b98" text-anchor="end" >mattpocock/skills · 264k★ repo</text>
+<path d="M250,348h249.5a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-249.5z" fill="#4a3aa7"/>
+<text x="511.5" y="364" font-size="13" font-weight="500" fill="#1f2328" text-anchor="start" >16.3</text>
+<text x="543.5" y="364" font-size="11" font-weight="400" fill="#59636e" text-anchor="start" >(−0.1)</text>
+<text x="840" y="364" font-size="12" font-weight="400" fill="#59636e" text-anchor="end" >3 of 8</text>
+<line x1="505.4" y1="108" x2="505.4" y2="382" stroke="#1f2328" stroke-width="1" stroke-opacity="0.55" stroke-dasharray="4 3"/>
+<text x="505.4" y="100" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >plain answer 16.4</text>
+<text x="40" y="424" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >brainstorming and grilling are built to interview you first; with nobody to answer, they had to assume (pre-registered, disclosed).</text>
+<text x="40" y="440" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >N = 8, no significance claimed · the same model ran every arm · the judge saw answers as A–F in a sealed order · raw data: eval-data/head-to-head</text>
+</svg>

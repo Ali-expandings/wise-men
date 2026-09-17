@@ -1,0 +1,107 @@
+<svg viewBox="0 0 860 434" width="860" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+<title>Per-question scores: wise-men lowest 22 of 25; versus the best other skill ahead 3, tied 2, behind 3</title>
+<text x="40" y="32" font-size="16" font-weight="600" fill="#1f2328" text-anchor="start" >Question by question — wise-men never scored below 22 of 25</text>
+<text x="40" y="52" font-size="12" font-weight="400" fill="#59636e" text-anchor="start" >Each row: wise-men, the four other skills and the plain answer, as scored by the blind judge (max 25)</text>
+<text x="660" y="90" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >vs the best other skill</text>
+<line x1="356.7" y1="96" x2="356.7" y2="352" stroke="#d8dee4" stroke-width="1" />
+<text x="356.7" y="368" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >15</text>
+<line x1="498.3" y1="96" x2="498.3" y2="352" stroke="#d8dee4" stroke-width="1" />
+<text x="498.3" y="368" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >20</text>
+<line x1="640" y1="96" x2="640" y2="352" stroke="#d8dee4" stroke-width="1" />
+<text x="640" y="368" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >25</text>
+<text x="40" y="116" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >Q05</text>
+<text x="76" y="116" font-size="12" font-weight="400" fill="#1f2328" text-anchor="start" >Monolith or microservices?</text>
+<line x1="356.7" y1="112" x2="611.7" y2="112" stroke="#d8dee4" stroke-width="2" />
+<circle cx="385" cy="112" r="7" fill="none" stroke="#59636e" stroke-width="1.6"/>
+<circle cx="498.3" cy="112" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="356.7" cy="112" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="470" cy="112" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="583.3" cy="112" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="611.7" cy="112" r="6.5" fill="#1a9e8a" stroke="#ffffff" stroke-width="2"/>
+<text x="660" y="116" font-size="12" font-weight="400" fill="#1f2328" text-anchor="start" >ahead</text>
+<text x="712" y="116" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >llm-council 23</text>
+<text x="40" y="148" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >Q09</text>
+<text x="76" y="148" font-size="12" font-weight="400" fill="#1f2328" text-anchor="start" >Why event sourcing gets messy</text>
+<line x1="356.7" y1="144" x2="611.7" y2="144" stroke="#d8dee4" stroke-width="2" />
+<circle cx="441.7" cy="144" r="7" fill="none" stroke="#59636e" stroke-width="1.6"/>
+<circle cx="441.7" cy="144" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="356.7" cy="144" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="555" cy="144" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="498.3" cy="144" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="611.7" cy="144" r="6.5" fill="#1a9e8a" stroke="#ffffff" stroke-width="2"/>
+<text x="660" y="148" font-size="12" font-weight="400" fill="#1f2328" text-anchor="start" >ahead</text>
+<text x="712" y="148" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >LifeOS 22</text>
+<text x="40" y="180" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >Q13</text>
+<text x="76" y="180" font-size="12" font-weight="400" fill="#1f2328" text-anchor="start" >Entering a market with one giant</text>
+<line x1="356.7" y1="176" x2="611.7" y2="176" stroke="#d8dee4" stroke-width="2" />
+<circle cx="441.7" cy="176" r="7" fill="none" stroke="#59636e" stroke-width="1.6"/>
+<circle cx="526.7" cy="176" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="356.7" cy="176" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="583.3" cy="176" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="611.7" cy="176" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="611.7" cy="176" r="6.5" fill="#1a9e8a" stroke="#ffffff" stroke-width="2"/>
+<text x="660" y="180" font-size="12" font-weight="400" fill="#1f2328" text-anchor="start" >tied</text>
+<text x="712" y="180" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >llm-council 24</text>
+<text x="40" y="212" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >Q19</text>
+<text x="76" y="212" font-size="12" font-weight="400" fill="#1f2328" text-anchor="start" >Per-seat or usage pricing?</text>
+<line x1="356.7" y1="208" x2="611.7" y2="208" stroke="#d8dee4" stroke-width="2" />
+<circle cx="356.7" cy="208" r="7" fill="none" stroke="#59636e" stroke-width="1.6"/>
+<circle cx="356.7" cy="208" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="470" cy="208" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="441.7" cy="208" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="611.7" cy="208" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="555" cy="208" r="6.5" fill="#1a9e8a" stroke="#ffffff" stroke-width="2"/>
+<text x="660" y="212" font-size="12" font-weight="400" fill="#1f2328" text-anchor="start" >behind</text>
+<text x="712" y="212" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >llm-council 24</text>
+<text x="40" y="244" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >Q25</text>
+<text x="76" y="244" font-size="12" font-weight="400" fill="#1f2328" text-anchor="start" >Why replications fail</text>
+<line x1="328.3" y1="240" x2="611.7" y2="240" stroke="#d8dee4" stroke-width="2" />
+<circle cx="385" cy="240" r="7" fill="none" stroke="#59636e" stroke-width="1.6"/>
+<circle cx="470" cy="240" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="328.3" cy="240" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="611.7" cy="240" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="498.3" cy="240" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="583.3" cy="240" r="6.5" fill="#1a9e8a" stroke="#ffffff" stroke-width="2"/>
+<text x="660" y="244" font-size="12" font-weight="400" fill="#1f2328" text-anchor="start" >behind</text>
+<text x="712" y="244" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >LifeOS 24</text>
+<text x="40" y="276" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >Q36</text>
+<text x="76" y="276" font-size="12" font-weight="400" fill="#1f2328" text-anchor="start" >Blameless yet accountable postmortem</text>
+<line x1="356.7" y1="272" x2="583.3" y2="272" stroke="#d8dee4" stroke-width="2" />
+<circle cx="385" cy="272" r="7" fill="none" stroke="#59636e" stroke-width="1.6"/>
+<circle cx="356.7" cy="272" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="470" cy="272" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="583.3" cy="272" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="441.7" cy="272" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="555" cy="272" r="6.5" fill="#1a9e8a" stroke="#ffffff" stroke-width="2"/>
+<text x="660" y="276" font-size="12" font-weight="400" fill="#1f2328" text-anchor="start" >behind</text>
+<text x="712" y="276" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >LifeOS 23</text>
+<text x="40" y="308" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >Q48</text>
+<text x="76" y="308" font-size="12" font-weight="400" fill="#1f2328" text-anchor="start" >Colleagues underpaid, HR did nothing</text>
+<line x1="356.7" y1="304" x2="583.3" y2="304" stroke="#d8dee4" stroke-width="2" />
+<circle cx="356.7" cy="304" r="7" fill="none" stroke="#59636e" stroke-width="1.6"/>
+<circle cx="498.3" cy="304" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="413.3" cy="304" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="583.3" cy="304" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="441.7" cy="304" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="583.3" cy="304" r="6.5" fill="#1a9e8a" stroke="#ffffff" stroke-width="2"/>
+<text x="660" y="308" font-size="12" font-weight="400" fill="#1f2328" text-anchor="start" >tied</text>
+<text x="712" y="308" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >LifeOS 23</text>
+<text x="40" y="340" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >Q55</text>
+<text x="76" y="340" font-size="12" font-weight="400" fill="#1f2328" text-anchor="start" >A PhD at 35?</text>
+<line x1="356.7" y1="336" x2="611.7" y2="336" stroke="#d8dee4" stroke-width="2" />
+<circle cx="413.3" cy="336" r="7" fill="none" stroke="#59636e" stroke-width="1.6"/>
+<circle cx="356.7" cy="336" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="385" cy="336" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="470" cy="336" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="470" cy="336" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<circle cx="611.7" cy="336" r="6.5" fill="#1a9e8a" stroke="#ffffff" stroke-width="2"/>
+<text x="660" y="340" font-size="12" font-weight="400" fill="#1f2328" text-anchor="start" >ahead</text>
+<text x="712" y="340" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >LifeOS, llm-council 19</text>
+<circle cx="46" cy="392" r="6.5" fill="#1a9e8a" stroke="#ffffff" stroke-width="2"/>
+<text x="58" y="396" font-size="11" font-weight="400" fill="#59636e" text-anchor="start" >wise-men</text>
+<circle cx="136" cy="392" r="4.5" fill="#8c959f" stroke="#ffffff" stroke-width="2"/>
+<text x="146" y="396" font-size="11" font-weight="400" fill="#59636e" text-anchor="start" >the other four skills</text>
+<circle cx="284" cy="392" r="7" fill="none" stroke="#59636e" stroke-width="1.6"/>
+<text x="296" y="396" font-size="11" font-weight="400" fill="#59636e" text-anchor="start" >plain answer</text>
+<text x="40" y="418" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >Against the best of the other four on each question: ahead 3, tied 2, behind 3. Their lowest scores were 14–18; wise-men's was 22.</text>
+</svg>

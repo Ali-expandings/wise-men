@@ -1,24 +1,30 @@
-<svg viewBox="0 0 860 250" width="860" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<svg viewBox="0 0 860 250" width="860" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
 <title>Council 24.5 vs structured prompt 20.8 vs direct answer 16.3 on a 25-point blind rubric, N=29</title>
-<text x="240" y="30" font-size="16" font-weight="600" fill="#8b949e" text-anchor="start" >Same 29 questions, three ways of answering</text>
-<text x="240" y="50" font-size="12" font-weight="400" fill="#6e7681" text-anchor="start" >Blind judge · 5-axis rubric, max 25 · mean with 95% CI (dark tick)</text>
-<line x1="240.0" y1="66" x2="240.0" y2="200" stroke="rgba(139,148,158,0.22)"/><text x="240.0" y="218" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >0</text>
-<line x1="352.0" y1="66" x2="352.0" y2="200" stroke="rgba(139,148,158,0.22)"/><text x="352.0" y="218" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >5</text>
-<line x1="464.0" y1="66" x2="464.0" y2="200" stroke="rgba(139,148,158,0.22)"/><text x="464.0" y="218" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >10</text>
-<line x1="576.0" y1="66" x2="576.0" y2="200" stroke="rgba(139,148,158,0.22)"/><text x="576.0" y="218" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >15</text>
-<line x1="688.0" y1="66" x2="688.0" y2="200" stroke="rgba(139,148,158,0.22)"/><text x="688.0" y="218" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >20</text>
-<line x1="800.0" y1="66" x2="800.0" y2="200" stroke="rgba(139,148,158,0.22)"/><text x="800.0" y="218" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >25</text>
-<text x="224" y="101" font-size="14" font-weight="700" fill="#1a9e8a" text-anchor="end" >wise-men council</text>
-<rect x="240" y="84" width="548.4" height="26" rx="4" fill="#1a9e8a"/>
-<line x1="779.7" y1="97" x2="797.1" y2="97" stroke="#0d1117" stroke-opacity="0.55" stroke-width="2"/>
-<text x="809.119396604063" y="103" font-size="18" font-weight="700" fill="#1a9e8a" text-anchor="start" >24.5</text>
-<text x="224" y="145" font-size="14" font-weight="400" fill="#8b949e" text-anchor="end" >structured single prompt</text>
-<rect x="240" y="128" width="465.0" height="26" rx="4" fill="#7d8ea5"/>
-<line x1="691.2" y1="141" x2="718.8" y2="141" stroke="#0d1117" stroke-opacity="0.55" stroke-width="2"/>
-<text x="730.7773358648712" y="147" font-size="18" font-weight="700" fill="#7d8ea5" text-anchor="start" >20.8</text>
-<text x="224" y="189" font-size="14" font-weight="400" fill="#8b949e" text-anchor="end" >direct answer</text>
-<rect x="240" y="172" width="364.6" height="26" rx="4" fill="#b9c2ce"/>
-<line x1="589.8" y1="185" x2="619.3" y2="185" stroke="#0d1117" stroke-opacity="0.55" stroke-width="2"/>
-<text x="631.3161410309386" y="191" font-size="18" font-weight="700" fill="#6e7681" text-anchor="start" >16.3</text>
-<text x="240" y="240" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" >Council beat the structured prompt on 28 of 29 questions. Data: eval-data/parsed · script: scripts/make_charts.py</text>
+<text x="240" y="30" font-size="16" font-weight="600" fill="#1f2328" text-anchor="start" >Same 29 questions, three ways of answering</text>
+<text x="240" y="50" font-size="12" font-weight="400" fill="#59636e" text-anchor="start" >Blind judge · 5-axis rubric, max 25 · mean with 95% confidence interval</text>
+<line x1="240" y1="66" x2="240" y2="200" stroke="#d8dee4" stroke-width="1" />
+<text x="240" y="218" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >0</text>
+<line x1="352" y1="66" x2="352" y2="200" stroke="#d8dee4" stroke-width="1" />
+<text x="352" y="218" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >5</text>
+<line x1="464" y1="66" x2="464" y2="200" stroke="#d8dee4" stroke-width="1" />
+<text x="464" y="218" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >10</text>
+<line x1="576" y1="66" x2="576" y2="200" stroke="#d8dee4" stroke-width="1" />
+<text x="576" y="218" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >15</text>
+<line x1="688" y1="66" x2="688" y2="200" stroke="#d8dee4" stroke-width="1" />
+<text x="688" y="218" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >20</text>
+<line x1="800" y1="66" x2="800" y2="200" stroke="#d8dee4" stroke-width="1" />
+<text x="800" y="218" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >25</text>
+<text x="224" y="101" font-size="14" font-weight="700" fill="#1f2328" text-anchor="end" >wise-men council</text>
+<path d="M240,84h544.4a4,4 0 0 1 4,4v18a4,4 0 0 1 -4,4h-544.4z" fill="#1a9e8a"/>
+<line x1="779.7" y1="97" x2="797.1" y2="97" stroke="#1f2328" stroke-width="2" stroke-opacity="0.6"/>
+<text x="809.1" y="103" font-size="18" font-weight="700" fill="#1f2328" text-anchor="start" >24.5</text>
+<text x="224" y="145" font-size="14" font-weight="400" fill="#59636e" text-anchor="end" >structured single prompt</text>
+<path d="M240,128h461a4,4 0 0 1 4,4v18a4,4 0 0 1 -4,4h-461z" fill="#7d8ea5"/>
+<line x1="691.2" y1="141" x2="718.8" y2="141" stroke="#1f2328" stroke-width="2" stroke-opacity="0.6"/>
+<text x="730.8" y="147" font-size="18" font-weight="700" fill="#1f2328" text-anchor="start" >20.8</text>
+<text x="224" y="189" font-size="14" font-weight="400" fill="#59636e" text-anchor="end" >direct answer</text>
+<path d="M240,172h360.6a4,4 0 0 1 4,4v18a4,4 0 0 1 -4,4h-360.6z" fill="#b9c2ce"/>
+<line x1="589.8" y1="185" x2="619.3" y2="185" stroke="#1f2328" stroke-width="2" stroke-opacity="0.6"/>
+<text x="631.3" y="191" font-size="18" font-weight="700" fill="#59636e" text-anchor="start" >16.3</text>
+<text x="240" y="240" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >Council beat the structured prompt on 28 of 29 questions. Data: eval-data/parsed · script: scripts/make_charts.py</text>
 </svg>

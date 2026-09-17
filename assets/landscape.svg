@@ -1,32 +1,66 @@
-<svg viewBox="0 0 860 466" width="860" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<svg viewBox="0 0 860 466" width="860" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
 <title>Feature matrix of council skills for Claude Code</title>
-<text x="40" y="30" font-size="16" font-weight="600" fill="#8b949e" text-anchor="start" >Council skills for Claude Code — what each one ships</text>
-<text x="40" y="50" font-size="12" font-weight="400" fill="#6e7681" text-anchor="start" >From each project's README, 2026-09-16 · full table with sources in resources/landscape.md</text>
-<text x="345.0" y="78" font-size="11" font-weight="700" fill="#1a9e8a" text-anchor="middle" >wise-men</text>
-<text x="435.0" y="78" font-size="11" font-weight="500" fill="#8b949e" text-anchor="middle" >llm-council</text>
-<text x="435.0" y="91" font-size="11" font-weight="500" fill="#8b949e" text-anchor="middle" >skill</text>
-<text x="435.0" y="104" font-size="10" font-weight="400" fill="#6e7681" text-anchor="middle" >aiwithremy</text>
-<text x="525.0" y="78" font-size="11" font-weight="500" fill="#8b949e" text-anchor="middle" >llm-council-</text>
-<text x="525.0" y="91" font-size="11" font-weight="500" fill="#8b949e" text-anchor="middle" >skill</text>
-<text x="525.0" y="104" font-size="10" font-weight="400" fill="#6e7681" text-anchor="middle" >tenfoldmarc</text>
-<text x="615.0" y="78" font-size="11" font-weight="500" fill="#8b949e" text-anchor="middle" >council-</text>
-<text x="615.0" y="91" font-size="11" font-weight="500" fill="#8b949e" text-anchor="middle" >review</text>
-<text x="615.0" y="104" font-size="10" font-weight="400" fill="#6e7681" text-anchor="middle" >ngmeyer</text>
-<text x="705.0" y="78" font-size="11" font-weight="500" fill="#8b949e" text-anchor="middle" >agent-review-</text>
-<text x="705.0" y="91" font-size="11" font-weight="500" fill="#8b949e" text-anchor="middle" >panel</text>
-<text x="705.0" y="104" font-size="10" font-weight="400" fill="#6e7681" text-anchor="middle" >wan-huiyan</text>
-<text x="795.0" y="78" font-size="11" font-weight="500" fill="#8b949e" text-anchor="middle" >llm-council</text>
-<text x="795.0" y="91" font-size="10" font-weight="400" fill="#6e7681" text-anchor="middle" >karpathy</text>
-<rect x="300" y="62" width="90.0" height="364" rx="8" fill="#1a9e8a" fill-opacity="0.08"/><text x="284" y="141.0" font-size="12" font-weight="400" fill="#8b949e" text-anchor="end" >Independent members, no API keys</text>
-<line x1="40" y1="154.0" x2="840" y2="154.0" stroke="rgba(139,148,158,0.22)"/><circle cx="345.0" cy="137.0" r="7" fill="#1a9e8a"/><circle cx="435.0" cy="137.0" r="7" fill="#1a9e8a"/><circle cx="525.0" cy="137.0" r="7" fill="#1a9e8a"/><circle cx="615.0" cy="137.0" r="7" fill="#1a9e8a"/><circle cx="705.0" cy="137.0" r="7" fill="#1a9e8a"/><circle cx="795.0" cy="137.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><text x="284" y="175.0" font-size="12" font-weight="400" fill="#8b949e" text-anchor="end" >Rubric peer review, machine-parsed</text>
-<line x1="40" y1="188.0" x2="840" y2="188.0" stroke="rgba(139,148,158,0.22)"/><circle cx="345.0" cy="171.0" r="7" fill="#1a9e8a"/><circle cx="435.0" cy="171.0" r="7" fill="#d9a441"/><circle cx="525.0" cy="171.0" r="7" fill="#d9a441"/><circle cx="615.0" cy="171.0" r="7" fill="#d9a441"/><circle cx="705.0" cy="171.0" r="7" fill="#d9a441"/><circle cx="795.0" cy="171.0" r="7" fill="#d9a441"/><text x="284" y="209.0" font-size="12" font-weight="400" fill="#8b949e" text-anchor="end" >Debate on a mechanical trigger</text>
-<line x1="40" y1="222.0" x2="840" y2="222.0" stroke="rgba(139,148,158,0.22)"/><circle cx="345.0" cy="205.0" r="7" fill="#1a9e8a"/><circle cx="435.0" cy="205.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><circle cx="525.0" cy="205.0" r="7" fill="#d9a441"/><circle cx="615.0" cy="205.0" r="7" fill="#1a9e8a"/><circle cx="705.0" cy="205.0" r="7" fill="#1a9e8a"/><circle cx="795.0" cy="205.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><text x="284" y="243.0" font-size="12" font-weight="400" fill="#8b949e" text-anchor="end" >Dissent verbatim, cannot be truncated</text>
-<line x1="40" y1="256.0" x2="840" y2="256.0" stroke="rgba(139,148,158,0.22)"/><circle cx="345.0" cy="239.0" r="7" fill="#1a9e8a"/><circle cx="435.0" cy="239.0" r="7" fill="#d9a441"/><circle cx="525.0" cy="239.0" r="7" fill="#d9a441"/><circle cx="615.0" cy="239.0" r="7" fill="#1a9e8a"/><circle cx="705.0" cy="239.0" r="7" fill="#d9a441"/><circle cx="795.0" cy="239.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><text x="284" y="277.0" font-size="12" font-weight="400" fill="#8b949e" text-anchor="end" >Independent check of the synthesis</text>
-<line x1="40" y1="290.0" x2="840" y2="290.0" stroke="rgba(139,148,158,0.22)"/><circle cx="345.0" cy="273.0" r="7" fill="#1a9e8a"/><circle cx="435.0" cy="273.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><circle cx="525.0" cy="273.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><circle cx="615.0" cy="273.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><circle cx="705.0" cy="273.0" r="7" fill="#d9a441"/><circle cx="795.0" cy="273.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><text x="284" y="311.0" font-size="12" font-weight="400" fill="#8b949e" text-anchor="end" >Members structurally unable to spawn or run</text>
-<line x1="40" y1="324.0" x2="840" y2="324.0" stroke="rgba(139,148,158,0.22)"/><circle cx="345.0" cy="307.0" r="7" fill="#1a9e8a"/><circle cx="435.0" cy="307.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><circle cx="525.0" cy="307.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><circle cx="615.0" cy="307.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><circle cx="705.0" cy="307.0" r="7" fill="#d9a441"/><circle cx="795.0" cy="307.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><text x="284" y="345.0" font-size="12" font-weight="400" fill="#8b949e" text-anchor="end" >Cost tiers + spend ceiling</text>
-<line x1="40" y1="358.0" x2="840" y2="358.0" stroke="rgba(139,148,158,0.22)"/><circle cx="345.0" cy="341.0" r="7" fill="#1a9e8a"/><circle cx="435.0" cy="341.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><circle cx="525.0" cy="341.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><circle cx="615.0" cy="341.0" r="7" fill="#d9a441"/><circle cx="705.0" cy="341.0" r="7" fill="#d9a441"/><circle cx="795.0" cy="341.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><text x="284" y="379.0" font-size="12" font-weight="400" fill="#8b949e" text-anchor="end" >Every deviation disclosed in output</text>
-<line x1="40" y1="392.0" x2="840" y2="392.0" stroke="rgba(139,148,158,0.22)"/><circle cx="345.0" cy="375.0" r="7" fill="#1a9e8a"/><circle cx="435.0" cy="375.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><circle cx="525.0" cy="375.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><circle cx="615.0" cy="375.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><circle cx="705.0" cy="375.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><circle cx="795.0" cy="375.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><text x="284" y="413.0" font-size="12" font-weight="400" fill="#8b949e" text-anchor="end" >Eval data + script shipped in repo</text>
-<line x1="40" y1="426.0" x2="840" y2="426.0" stroke="rgba(139,148,158,0.22)"/><circle cx="345.0" cy="409.0" r="7" fill="#1a9e8a"/><circle cx="435.0" cy="409.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><circle cx="525.0" cy="409.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><circle cx="615.0" cy="409.0" r="7" fill="#d9a441"/><circle cx="705.0" cy="409.0" r="7" fill="#d9a441"/><circle cx="795.0" cy="409.0" r="6" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><circle cx="46" cy="446" r="6" fill="#1a9e8a"/><text x="58" y="450" font-size="11" font-weight="400" fill="#8b949e" text-anchor="start" >yes</text>
-<circle cx="106" cy="446" r="6" fill="#d9a441"/><text x="118" y="450" font-size="11" font-weight="400" fill="#8b949e" text-anchor="start" >partial or unspecified</text>
-<circle cx="256" cy="446" r="5.5" fill="none" stroke="#8b949e" stroke-opacity="0.45" stroke-width="1.5"/><text x="268" y="450" font-size="11" font-weight="400" fill="#8b949e" text-anchor="start" >absent</text>
+<text x="40" y="30" font-size="16" font-weight="600" fill="#1f2328" text-anchor="start" >Council skills for Claude Code — what each one ships</text>
+<text x="40" y="50" font-size="12" font-weight="400" fill="#59636e" text-anchor="start" >From each project's README, 2026-09-16 · full table with sources in resources/landscape.md</text>
+<text x="345" y="78" font-size="11" font-weight="700" fill="#1f2328" text-anchor="middle" >wise-men</text>
+<text x="435" y="78" font-size="11" font-weight="500" fill="#59636e" text-anchor="middle" >llm-council</text>
+<text x="435" y="91" font-size="11" font-weight="500" fill="#59636e" text-anchor="middle" >skill</text>
+<text x="435" y="104" font-size="10" font-weight="400" fill="#818b98" text-anchor="middle" >aiwithremy</text>
+<text x="525" y="78" font-size="11" font-weight="500" fill="#59636e" text-anchor="middle" >llm-council-</text>
+<text x="525" y="91" font-size="11" font-weight="500" fill="#59636e" text-anchor="middle" >skill</text>
+<text x="525" y="104" font-size="10" font-weight="400" fill="#818b98" text-anchor="middle" >tenfoldmarc</text>
+<text x="615" y="78" font-size="11" font-weight="500" fill="#59636e" text-anchor="middle" >council-</text>
+<text x="615" y="91" font-size="11" font-weight="500" fill="#59636e" text-anchor="middle" >review</text>
+<text x="615" y="104" font-size="10" font-weight="400" fill="#818b98" text-anchor="middle" >ngmeyer</text>
+<text x="705" y="78" font-size="11" font-weight="500" fill="#59636e" text-anchor="middle" >agent-review-</text>
+<text x="705" y="91" font-size="11" font-weight="500" fill="#59636e" text-anchor="middle" >panel</text>
+<text x="705" y="104" font-size="10" font-weight="400" fill="#818b98" text-anchor="middle" >wan-huiyan</text>
+<text x="795" y="78" font-size="11" font-weight="500" fill="#59636e" text-anchor="middle" >llm-council</text>
+<text x="795" y="91" font-size="10" font-weight="400" fill="#818b98" text-anchor="middle" >karpathy</text>
+<rect x="300" y="62" width="90" height="364" rx="8" fill="#1a9e8a" fill-opacity="0.10"/>
+<text x="284" y="141" font-size="12" font-weight="400" fill="#1f2328" text-anchor="end" >Independent members, no API keys</text>
+<line x1="40" y1="154" x2="840" y2="154" stroke="#d8dee4" stroke-width="1" />
+<circle cx="345" cy="137" r="7" fill="#1a9e8a"/><circle cx="435" cy="137" r="7" fill="#1a9e8a"/><circle cx="525" cy="137" r="7" fill="#1a9e8a"/><circle cx="615" cy="137" r="7" fill="#1a9e8a"/><circle cx="705" cy="137" r="7" fill="#1a9e8a"/><circle cx="795" cy="137" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<text x="284" y="175" font-size="12" font-weight="400" fill="#1f2328" text-anchor="end" >Rubric peer review, machine-parsed</text>
+<line x1="40" y1="188" x2="840" y2="188" stroke="#d8dee4" stroke-width="1" />
+<circle cx="345" cy="171" r="7" fill="#1a9e8a"/><circle cx="435" cy="171" r="7" fill="#d9a441"/><circle cx="525" cy="171" r="7" fill="#d9a441"/><circle cx="615" cy="171" r="7" fill="#d9a441"/><circle cx="705" cy="171" r="7" fill="#d9a441"/><circle cx="795" cy="171" r="7" fill="#d9a441"/><text x="284" y="209" font-size="12" font-weight="400" fill="#1f2328" text-anchor="end" >Debate on a mechanical trigger</text>
+<line x1="40" y1="222" x2="840" y2="222" stroke="#d8dee4" stroke-width="1" />
+<circle cx="345" cy="205" r="7" fill="#1a9e8a"/><circle cx="435" cy="205" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<circle cx="525" cy="205" r="7" fill="#d9a441"/><circle cx="615" cy="205" r="7" fill="#1a9e8a"/><circle cx="705" cy="205" r="7" fill="#1a9e8a"/><circle cx="795" cy="205" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<text x="284" y="243" font-size="12" font-weight="400" fill="#1f2328" text-anchor="end" >Dissent verbatim, cannot be truncated</text>
+<line x1="40" y1="256" x2="840" y2="256" stroke="#d8dee4" stroke-width="1" />
+<circle cx="345" cy="239" r="7" fill="#1a9e8a"/><circle cx="435" cy="239" r="7" fill="#d9a441"/><circle cx="525" cy="239" r="7" fill="#d9a441"/><circle cx="615" cy="239" r="7" fill="#1a9e8a"/><circle cx="705" cy="239" r="7" fill="#d9a441"/><circle cx="795" cy="239" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<text x="284" y="277" font-size="12" font-weight="400" fill="#1f2328" text-anchor="end" >Independent check of the synthesis</text>
+<line x1="40" y1="290" x2="840" y2="290" stroke="#d8dee4" stroke-width="1" />
+<circle cx="345" cy="273" r="7" fill="#1a9e8a"/><circle cx="435" cy="273" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<circle cx="525" cy="273" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<circle cx="615" cy="273" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<circle cx="705" cy="273" r="7" fill="#d9a441"/><circle cx="795" cy="273" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<text x="284" y="311" font-size="12" font-weight="400" fill="#1f2328" text-anchor="end" >Members structurally unable to spawn or run</text>
+<line x1="40" y1="324" x2="840" y2="324" stroke="#d8dee4" stroke-width="1" />
+<circle cx="345" cy="307" r="7" fill="#1a9e8a"/><circle cx="435" cy="307" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<circle cx="525" cy="307" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<circle cx="615" cy="307" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<circle cx="705" cy="307" r="7" fill="#d9a441"/><circle cx="795" cy="307" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<text x="284" y="345" font-size="12" font-weight="400" fill="#1f2328" text-anchor="end" >Cost tiers + spend ceiling</text>
+<line x1="40" y1="358" x2="840" y2="358" stroke="#d8dee4" stroke-width="1" />
+<circle cx="345" cy="341" r="7" fill="#1a9e8a"/><circle cx="435" cy="341" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<circle cx="525" cy="341" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<circle cx="615" cy="341" r="7" fill="#d9a441"/><circle cx="705" cy="341" r="7" fill="#d9a441"/><circle cx="795" cy="341" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<text x="284" y="379" font-size="12" font-weight="400" fill="#1f2328" text-anchor="end" >Every deviation disclosed in output</text>
+<line x1="40" y1="392" x2="840" y2="392" stroke="#d8dee4" stroke-width="1" />
+<circle cx="345" cy="375" r="7" fill="#1a9e8a"/><circle cx="435" cy="375" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<circle cx="525" cy="375" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<circle cx="615" cy="375" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<circle cx="705" cy="375" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<circle cx="795" cy="375" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<text x="284" y="413" font-size="12" font-weight="400" fill="#1f2328" text-anchor="end" >Eval data + script shipped in repo</text>
+<line x1="40" y1="426" x2="840" y2="426" stroke="#d8dee4" stroke-width="1" />
+<circle cx="345" cy="409" r="7" fill="#1a9e8a"/><circle cx="435" cy="409" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<circle cx="525" cy="409" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<circle cx="615" cy="409" r="7" fill="#d9a441"/><circle cx="705" cy="409" r="7" fill="#d9a441"/><circle cx="795" cy="409" r="6" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<circle cx="46" cy="446" r="6" fill="#1a9e8a"/><text x="58" y="450" font-size="11" font-weight="400" fill="#59636e" text-anchor="start" >yes</text>
+<circle cx="106" cy="446" r="6" fill="#d9a441"/><text x="118" y="450" font-size="11" font-weight="400" fill="#59636e" text-anchor="start" >partial or unspecified</text>
+<circle cx="256" cy="446" r="5.5" fill="none" stroke="#818b98" stroke-width="1.6"/>
+<text x="268" y="450" font-size="11" font-weight="400" fill="#59636e" text-anchor="start" >absent</text>
 </svg>
