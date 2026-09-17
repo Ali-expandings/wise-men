@@ -149,6 +149,48 @@ It also answers to plain language — "run a council on this", "red team this pl
 
 ## How it works
 
+```mermaid
+flowchart TB
+    Q["<b>Your question, sized first</b><br/>depth · stakes · novelty<br/>the hardest axis decides"]
+    Q -->|"easy"| S(["<b>solo</b><br/>one structured pass<br/>zero subagents"])
+    Q --> M1
+    Q --> M2
+    Q -->|"hard"| M3
+    subgraph council["Same verified facts · different minds · no peeking"]
+        M1["Member<br/>reasons from<br/><b>first principles</b>"]
+        M2["Member<br/>reasons from<br/><b>base rates</b>"]
+        M3["<b>Devil's Advocate</b><br/>on a stronger model<br/>attacks the framing"]
+    end
+    M1 & M2 & M3 --> G["<b>Neutral graders</b><br/>score the verbatim answers<br/>check facts before scoring<br/>a score split forces debate"]
+    G -.->|"debate"| council
+    G --> C["<b>Chairman</b><br/>dissent kept word for word<br/>shared blind spots<br/>lower the confidence"]
+    C --> K["<b>Independent check</b><br/>grounding · dissent<br/>confidence · disclosure<br/><i>caught errors in 4+ runs</i>"]
+    K -.->|"fails: redraft"| C
+    K --> A("<b>Your answer</b><br/>decision · cost if wrong<br/>dissent intact<br/>every shortcut disclosed")
+
+    classDef key stroke:#1a9e8a,stroke-width:2px
+    class M3,C,K key
+```
+
+Easy questions skip the council (`solo` tier). Standard tier skips the debate and the independent check; deep and paranoid debate when the rule fires and always run the check, which also runs whenever a run degrades. `--debate` forces a debate at any tier.
+
+**Each technique exists to block a specific failure:**
+
+| Technique | Failure it prevents |
+|---|---|
+| Effort sized by the hardest of depth, stakes and novelty | a quick answer where a council was needed, or ~10 subagent calls spent on a lookup |
+| One verified, facts-only brief, identical for every member | members arguing from different — or invented — facts |
+| A different reasoning method per member: first principles, base rates, precedent, incentives, falsification | five answers that agree for the same wrong reason |
+| Members run as read-only agents and never see each other | groupthink, runaway subagents, a member editing your files |
+| A Devil's Advocate on a stronger model, told to attack the framing | a token contrarian too weak to change the outcome |
+| Fresh graders score the verbatim answers and check facts first | a confident error, or the orchestrator's paraphrase, winning the scores |
+| A debate triggered by a fixed rule over scores and positions | skipping the argument because consensus *feels* settled |
+| Dissent kept word for word; a blind spot several members share caps the confidence | watered-down dissent and false consensus |
+| An independent check of the final synthesis | fabricated attributions and undisclosed shortcuts — it rejected first drafts in 4+ real runs |
+
+<details>
+<summary>Stage by stage</summary>
+
 ```
 Pre-flight → difficulty (depth / stakes / novelty, max-dominates) → tier
   Stage 0    pick personas by domain; Devil's Advocate is mandatory
@@ -161,6 +203,8 @@ Pre-flight → difficulty (depth / stakes / novelty, max-dominates) → tier
   Stage 4    Chairman synthesizes — dissent preserved verbatim
   Stage 4.5  an independent checker audits the synthesis before you see it
 ```
+
+</details>
 
 Two design choices carry most of the weight:
 
