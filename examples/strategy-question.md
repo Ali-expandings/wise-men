@@ -56,63 +56,44 @@ The severe-disagreement flag and the User-Advocate-vs-DA split would have trigge
 ## Stage 4 — Chairman synthesis
 
 ```
-Note: brief format upgraded to full because preserved dissent exceeded 3 sentences.
+## Recommendation
 
-## Council answer
+Launch on Reddit first — r/LocalLLaMA specifically — after a one-week fix pass on the visible bugs, then post to Product Hunt 2-3 weeks later with the Reddit traction as social proof.
 
-Reddit first — specifically r/LocalLLaMA — but only after a 1-week fix pass on the visible bugs.
-Two-week wait isn't necessary. One week is.
+## Why
 
-Why Reddit:
-- Audience is exactly the local-model users you need
-- Compounding search traffic over weeks vs one-day PH burst
-- Open-source AI tools historically struggle on PH without an existing community
-- No video demo required (you don't have one)
+- The r/LocalLLaMA audience is exactly the local-model users you need.
+- A Reddit post keeps drawing search traffic for weeks; a Product Hunt launch is a one-day burst.
+- Open-source AI tools tend to struggle on Product Hunt without an existing community (a pattern, not a guarantee).
+- Reddit needs no video demo, and you don't have one.
 
-Why the 1-week wait:
-- Fix the voice-input bug or document it as a known issue
-- Get the backend hang into a state where users won't hit it cold
-- Write a 5-line README opener that's not generic-AI-tone
+## What to do
 
-After Reddit lands, repost to PH 2-3 weeks later with "as seen on r/LocalLLaMA" social proof.
-That sequence beats either-platform-first.
+1. Pick one bug to fix this week: voice input or the backend hang — probably whichever is easier.
+2. Rewrite the README opener: five lines, no marketing tone.
+3. Draft the r/LocalLLaMA post, with the link in the first comment so automod doesn't catch it.
+4. Post within 7 days. If the bug isn't fixed and the backend is still flaky by then, wait one more week.
 
-## Dissent worth keeping
+## Risks of this plan
 
-The Devil's Advocate position is the most important dissent here: launching with visible bugs damages
-the only-one-first-impression more than waiting damages momentum. If after 1 week the voice-input bug isn't
-fixed and the backend is still flaky, push another week. The framing the user gave themselves ("only one good
-first impression") is true — honor it.
+- Reddit is brutal on tools that don't "just work": launching with the bugs unfixed would hurt more there than on Product Hunt.
+- Waiting too long costs momentum.
+- Nobody has seen the UI, so whether the visual polish is good enough is unverified; a quick UI review before launch would settle it.
+- Severe-disagreement flag: "the case for launching now and the case for fixing first fundamentally disagree on whether to launch now."
+- Cost of being wrong: moderate — a bad first Reddit thread is hard to repeat, which is why the fix week comes first.
 
-The User Advocate's worry about Reddit's "just works" tolerance is also worth holding: if the bugs
-aren't fixed, Reddit will be brutal in a way PH wouldn't be. Reddit-first only works if the bugs are
-addressed.
+## Strongest counter-position
 
-### Severe-disagreement flags raised
-
-> "User Advocate and Devil's Advocate fundamentally disagree on whether to launch now." (reviewer 3, verbatim)
+"Launching with visible bugs damages the only-one-first-impression more than waiting damages momentum." If after one week the voice-input bug isn't fixed and the backend is still flaky, wait another week: the "only one good first impression" framing is true, so honor it.
 
 ## Confidence
 
-Medium-high. Council converged on Reddit-first (4/5), and converged on "fix bugs first" (4/5).
-Disagreed only on how long to wait (1 vs 2 weeks).
-
-## Action items
-
-1. Decide which bug to fix: voice input OR the backend hang. Probably the one easier to fix.
-2. Rewrite README opener (5 lines, no marketing tone — see humanizer skill)
-3. Draft r/LocalLLaMA post + drop link in first comment (avoids automod)
-4. Set 7-day deadline for posting
-
-## Open questions the council couldn't resolve
-
-- Is the visual polish actually good enough? (Designer flagged low confidence due to not seeing it.)
-  Would benefit from a separate UI review pass before launch.
+Medium-high on Reddit before Product Hunt and on fixing the visible bugs first. Medium on one week being enough, which depends on how hard the bugs are. Low on the visual polish, which nobody has seen.
 ```
 
 ## What to send to user
 
-This run auto-upgraded to full format: the preserved dissent runs past 3 sentences and a severe-disagreement flag was raised, and dissent precedence forbids truncating either. On a run with short dissent and no flags, the brief format (Council answer + Dissent + Confidence) would go out instead.
+The memo above. A long counter-position no longer changes the format, and the reviewer's severe-disagreement flag sits under Risks with the member names replaced by the positions they hold; the verbatim flag, the scores and the member answers stay in the council record.
 
 ## What was good about this run
 

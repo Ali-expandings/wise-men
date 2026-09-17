@@ -88,7 +88,7 @@ Raw answers, blinded packets, judgments and parsed scores: [`eval-data/head-to-h
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/headline-dark.svg"><img src="assets/headline.svg" width="860" alt="Same 29 questions, three ways of answering: council 24.5, structured prompt 20.8, direct answer 16.3"></picture></p>
 
-**Short version: the core loop is measured; the refinements on top are field-used, not measured.** The numbers above come from the **v2.3-era core loop** — a council with no context brief, no reasoning-procedure assignment, no validators, no synthesis-checker, and with the Devil's-Advocate model upgrade deliberately switched off so every member ran the same model. Everything this repo adds on top of that is *reasoned from* the result, not measured by it. (The head-to-head above did run the shipped v3.9.2 protocol end to end, but against other skills and a plain answer, not against this structured prompt.) The measured configuration is weaker than what ships, so the shipped default should be at least as good — but treat that as an expectation, not a finding. The judge was a single blinded Claude model grading Claude outputs, which is exactly the bias described in one of the papers credited at the bottom of this file.
+**Short version: the core loop is measured; the refinements on top are field-used, not measured.** The numbers above come from the **v2.3-era core loop** — a council with no context brief, no reasoning-procedure assignment, no validators, no synthesis-checker, and with the Devil's-Advocate model upgrade deliberately switched off so every member ran the same model. Everything this repo adds on top of that is *reasoned from* the result, not measured by it. (The head-to-head above did run the shipped v3.9.2 protocol end to end, but against other skills and a plain answer, not against this structured prompt. Version 3.10.0 then changed how the answer is written and how peer scores are used, on the evidence of those judgments and a recorded council run; those changes are not measured yet.) The measured configuration is weaker than what ships, so the shipped default should be at least as good — but treat that as an expectation, not a finding. The judge was a single blinded Claude model grading Claude outputs, which is exactly the bias described in one of the papers credited at the bottom of this file.
 
 With that stated plainly, the table behind the chart — 30-question blind evaluation, 3 arms per question, 5-axis rubric (max 25):
 
@@ -199,10 +199,10 @@ flowchart TB
     end
     M1 & M2 & M3 --> G["<b>3–7 neutral graders</b><br/>score the verbatim answers<br/>check facts before scoring<br/>a score split forces debate"]
     G -.->|"debate: 1–2 rounds"| council
-    G --> C["<b>Chairman</b><br/>dissent kept word for word<br/>shared blind spots<br/>lower the confidence"]
-    C --> K["<b>Independent check</b><br/>grounding · dissent<br/>confidence · disclosure<br/><i>caught errors in 4+ runs</i>"]
+    G --> C["<b>Chairman</b><br/>evidence over votes<br/>dissent kept word for word<br/>shared blind spots lower confidence"]
+    C --> K["<b>Independent check</b><br/>grounding · dissent · claims<br/>confidence · disclosure<br/><i>caught errors in 4+ runs</i>"]
     K -.->|"fails: redraft"| C
-    K --> A("<b>Your answer</b><br/>decision · cost if wrong<br/>dissent intact<br/>every shortcut disclosed")
+    K --> A("<b>Your answer</b><br/>a decision memo · first step<br/>strongest counter-case intact<br/>no council talk · shortcuts disclosed")
 
     classDef key stroke:#b8323a,stroke-width:2px
     class M3,C,K key
@@ -222,7 +222,8 @@ Easy questions skip the council (`solo` tier). Standard tier skips the debate an
 | Fresh graders score the verbatim answers and check facts first | a confident error, or the orchestrator's paraphrase, winning the scores |
 | A debate triggered by a fixed rule over scores and positions | skipping the argument because consensus *feels* settled |
 | Dissent kept word for word; a blind spot several members share caps the confidence | watered-down dissent and false consensus |
-| An independent check of the final synthesis | fabricated attributions and undisclosed shortcuts — it rejected first drafts in 4+ real runs |
+| The answer is a decision memo — recommendation, why, what to do, risks, the strongest counter-position — and peer scores never count as evidence in it | council talk burying the answer, and unverified claims dressed as checked because reviewers liked them (both cost points in the head-to-head) |
+| An independent check of the final synthesis, including every load-bearing number, date and precedent | fabricated attributions, unsupported specifics and undisclosed shortcuts — it rejected first drafts in 4+ real runs |
 
 <details>
 <summary>Stage by stage</summary>
@@ -236,7 +237,7 @@ Pre-flight → difficulty (depth / stakes / novelty, max-dominates) → tier
   Stage 1    N members answer in parallel, fixed 5-section contract  → validator
   Stage 2    N fresh neutral graders score everyone on a 4-axis rubric → validator
   Stage 3    debate round if the council genuinely splits
-  Stage 4    Chairman synthesizes — dissent preserved verbatim
+  Stage 4    Chairman writes a decision memo — evidence over votes, dissent verbatim
   Stage 4.5  an independent checker audits the synthesis before you see it
 ```
 
@@ -275,7 +276,7 @@ Against the other council skills for Claude Code (facts from their READMEs or sk
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/landscape-dark.svg"><img src="assets/landscape.svg" width="860" alt="Feature matrix: council skills for Claude Code, from their READMEs or skill files, 2026-09-16/17"></picture></p>
 
-What they have that this doesn't: a short decision-memo answer (Warp's council, which outscored wise-men in round 2 of the head-to-head), multi-vendor councils, convergence-driven long debates, consensus gates, code-specific scanners, HTML reports — listed honestly in the landscape file.
+What they have that this doesn't: multi-vendor councils, convergence-driven long debates, consensus gates, code-specific scanners, HTML reports — listed honestly in the landscape file. The decision-memo answer shape of Warp's council, which outscored wise-men in round 2 of the head-to-head, was adopted in 3.10.0, unmeasured.
 
 ## Cost
 

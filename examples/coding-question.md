@@ -69,49 +69,47 @@ Severe disagreement noted but `standard` doesn't trigger debate. (`deep` would.)
 You (main thread) synthesize:
 
 ```
-## Council answer
+## Recommendation
 
-Split it — but stage the work, don't big-bang it.
+Split it — but stage the work, don't big-bang it. Write integration tests for the golden path first, extract `useSwarm.ts` as the first split, live with it for a week, then decide whether to go further.
 
-Specifically: write 2-3 integration tests covering the mode-switching + swarm-orchestration golden path
-first (~half a day). Then extract `useSwarm.ts` as the first split — it's the most contained slice
-and gives you a working pattern. Watch how it feels for a week. Then decide whether to extract
-`useChat.ts` and mode handlers, or stop there.
+## Why
 
-This staged path beats both "split everything now" and "leave it alone" because:
-1. Tests first = catch regressions during extraction
-2. Extract one piece at a time = real signal on whether the seams are where you think
-3. Reversible at each step
+- Tests first catch regressions during extraction.
+- `useSwarm.ts` is the most contained slice, so it shows whether the seams are where you think before you commit to more.
+- Every step is reversible, which beats both "split everything now" and "leave it alone".
 
-## Dissent worth keeping
+## What to do
 
-The Devil's Advocate position deserves real weight: not every big file needs splitting, and the
-"split because it's big" reflex can introduce false abstractions that hurt more than they help.
+1. This week: write 2-3 integration tests covering mode switching and the swarm-orchestration golden path (~half a day).
+2. Extract `useSwarm.ts`.
+3. After a week of normal work, decide: extract `useChat.ts` and the mode handlers, or stop there.
 
-If after the first extraction (useSwarm.ts) the codebase feels noisier and harder to navigate, that's
-your signal that this file was actually cohesive and you should stop splitting. Trust that signal
-over the file-size number.
+## Risks of this plan
+
+- Splitting because the file is big can create false abstractions that hurt more than they help.
+- Skipping the tests turns the extraction into a regression hunt.
+- Cost of being wrong: low — one extracted hook is a small revert.
+
+## Strongest counter-position
+
+"Not every big file needs splitting, and the 'split because it's big' reflex can introduce false abstractions that hurt more than they help." If the codebase feels noisier and harder to navigate after the first extraction, this file was cohesive: stop splitting, and trust that signal over the file-size number.
 
 ## Confidence
 
-Medium. Council was split on whether to split at all (3-2 in favor), but converged on the staged
-approach as the highest-EV path regardless of starting conclusion.
-
----
-
-*Council of 5 members, standard tier. Want the full audit? Ask for the transcript.*
+Medium that a staged split is right for this file — whether it needs splitting at all is genuinely contested. High that tests come first: nothing argued against it.
 ```
 
 ## What you'd send to user
 
-The block above ("Council answer" + "Dissent" + "Confidence"). Brief format. Audit on request.
+The memo above, as is. Nothing about the council appears in it — no member names, scores or tier; the member answers, scores and position map go to the council record, and `--full` shows them.
 
 ## What was good about this run
 
 - **Mandatory Devil's Advocate caught the over-splitting risk**. Without it, council probably converges on "split everything immediately" and user wastes 2 days on premature refactor.
 - **Maintainer caught the "no tests" risk** that pure-architect persona missed.
 - **Chairman didn't just pick highest-scoring member**. Synthesized a staged path that incorporates both sides' valid concerns.
-- **Confidence is honest**: Medium, not High. Council was split.
+- **Confidence is honest**: Medium on the contested call, high only where nothing argued against it.
 
 ## What could have failed
 
