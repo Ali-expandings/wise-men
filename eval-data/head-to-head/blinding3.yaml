@@ -1,0 +1,316 @@
+seed: 20260918
+note: 'round 3: sealed before any round-3 run; one slot->arm order per question per
+  judge'
+map:
+  Q05:
+    j1:
+      A: ecc-council
+      B: grilling
+      C: wise-men
+      D: llm-council
+      E: brainstorming
+      F: wise-men-3.11
+      G: direct
+      H: warp-council
+      I: lifeos-council
+    j2:
+      A: wise-men
+      B: llm-council
+      C: lifeos-council
+      D: direct
+      E: wise-men-3.11
+      F: grilling
+      G: brainstorming
+      H: ecc-council
+      I: warp-council
+    j3:
+      A: ecc-council
+      B: grilling
+      C: lifeos-council
+      D: wise-men
+      E: warp-council
+      F: wise-men-3.11
+      G: brainstorming
+      H: direct
+      I: llm-council
+  Q09:
+    j1:
+      A: wise-men-3.11
+      B: direct
+      C: brainstorming
+      D: wise-men
+      E: lifeos-council
+      F: warp-council
+      G: ecc-council
+      H: grilling
+      I: llm-council
+    j2:
+      A: llm-council
+      B: warp-council
+      C: wise-men-3.11
+      D: brainstorming
+      E: ecc-council
+      F: grilling
+      G: lifeos-council
+      H: wise-men
+      I: direct
+    j3:
+      A: lifeos-council
+      B: ecc-council
+      C: direct
+      D: wise-men-3.11
+      E: grilling
+      F: llm-council
+      G: warp-council
+      H: brainstorming
+      I: wise-men
+  Q13:
+    j1:
+      A: llm-council
+      B: direct
+      C: brainstorming
+      D: wise-men
+      E: ecc-council
+      F: grilling
+      G: wise-men-3.11
+      H: lifeos-council
+      I: warp-council
+    j2:
+      A: warp-council
+      B: ecc-council
+      C: llm-council
+      D: grilling
+      E: lifeos-council
+      F: wise-men
+      G: brainstorming
+      H: direct
+      I: wise-men-3.11
+    j3:
+      A: brainstorming
+      B: lifeos-council
+      C: wise-men-3.11
+      D: direct
+      E: llm-council
+      F: warp-council
+      G: grilling
+      H: ecc-council
+      I: wise-men
+  Q19:
+    j1:
+      A: warp-council
+      B: brainstorming
+      C: direct
+      D: lifeos-council
+      E: llm-council
+      F: wise-men
+      G: wise-men-3.11
+      H: grilling
+      I: ecc-council
+    j2:
+      A: grilling
+      B: brainstorming
+      C: lifeos-council
+      D: warp-council
+      E: direct
+      F: wise-men-3.11
+      G: wise-men
+      H: ecc-council
+      I: llm-council
+    j3:
+      A: lifeos-council
+      B: llm-council
+      C: wise-men
+      D: warp-council
+      E: direct
+      F: brainstorming
+      G: wise-men-3.11
+      H: grilling
+      I: ecc-council
+  Q25:
+    j1:
+      A: warp-council
+      B: wise-men-3.11
+      C: lifeos-council
+      D: brainstorming
+      E: grilling
+      F: llm-council
+      G: wise-men
+      H: ecc-council
+      I: direct
+    j2:
+      A: ecc-council
+      B: wise-men-3.11
+      C: grilling
+      D: warp-council
+      E: llm-council
+      F: brainstorming
+      G: wise-men
+      H: direct
+      I: lifeos-council
+    j3:
+      A: wise-men-3.11
+      B: grilling
+      C: llm-council
+      D: lifeos-council
+      E: wise-men
+      F: brainstorming
+      G: warp-council
+      H: direct
+      I: ecc-council
+  Q36:
+    j1:
+      A: direct
+      B: brainstorming
+      C: warp-council
+      D: llm-council
+      E: grilling
+      F: wise-men-3.11
+      G: wise-men
+      H: ecc-council
+      I: lifeos-council
+    j2:
+      A: warp-council
+      B: llm-council
+      C: direct
+      D: grilling
+      E: ecc-council
+      F: wise-men-3.11
+      G: lifeos-council
+      H: brainstorming
+      I: wise-men
+    j3:
+      A: warp-council
+      B: llm-council
+      C: lifeos-council
+      D: ecc-council
+      E: brainstorming
+      F: wise-men-3.11
+      G: wise-men
+      H: grilling
+      I: direct
+  Q48:
+    j1:
+      A: grilling
+      B: warp-council
+      C: wise-men-3.11
+      D: wise-men
+      E: ecc-council
+      F: lifeos-council
+      G: brainstorming
+      H: llm-council
+      I: direct
+    j2:
+      A: direct
+      B: wise-men
+      C: llm-council
+      D: lifeos-council
+      E: ecc-council
+      F: brainstorming
+      G: warp-council
+      H: grilling
+      I: wise-men-3.11
+    j3:
+      A: llm-council
+      B: ecc-council
+      C: wise-men
+      D: wise-men-3.11
+      E: brainstorming
+      F: direct
+      G: warp-council
+      H: lifeos-council
+      I: grilling
+  Q55:
+    j1:
+      A: warp-council
+      B: direct
+      C: ecc-council
+      D: grilling
+      E: wise-men
+      F: brainstorming
+      G: wise-men-3.11
+      H: llm-council
+      I: lifeos-council
+    j2:
+      A: lifeos-council
+      B: brainstorming
+      C: wise-men-3.11
+      D: llm-council
+      E: direct
+      F: ecc-council
+      G: grilling
+      H: warp-council
+      I: wise-men
+    j3:
+      A: wise-men
+      B: grilling
+      C: warp-council
+      D: ecc-council
+      E: lifeos-council
+      F: wise-men-3.11
+      G: direct
+      H: llm-council
+      I: brainstorming
+  Q23:
+    j1:
+      A: direct
+      B: wise-men-3.11
+      C: warp-council
+      D: llm-council
+    j2:
+      A: warp-council
+      B: direct
+      C: wise-men-3.11
+      D: llm-council
+    j3:
+      A: warp-council
+      B: llm-council
+      C: direct
+      D: wise-men-3.11
+  Q32:
+    j1:
+      A: warp-council
+      B: wise-men-3.11
+      C: direct
+      D: llm-council
+    j2:
+      A: llm-council
+      B: warp-council
+      C: wise-men-3.11
+      D: direct
+    j3:
+      A: warp-council
+      B: llm-council
+      C: direct
+      D: wise-men-3.11
+  Q43:
+    j1:
+      A: direct
+      B: wise-men-3.11
+      C: warp-council
+      D: llm-council
+    j2:
+      A: wise-men-3.11
+      B: direct
+      C: llm-council
+      D: warp-council
+    j3:
+      A: warp-council
+      B: llm-council
+      C: wise-men-3.11
+      D: direct
+  Q51:
+    j1:
+      A: wise-men-3.11
+      B: llm-council
+      C: direct
+      D: warp-council
+    j2:
+      A: warp-council
+      B: direct
+      C: wise-men-3.11
+      D: llm-council
+    j3:
+      A: wise-men-3.11
+      B: llm-council
+      C: warp-council
+      D: direct
