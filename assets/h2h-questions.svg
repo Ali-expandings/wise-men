@@ -1,6 +1,6 @@
 <svg viewBox="0 0 860 434" width="860" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
-<title>Per-question scores: wise-men lowest 22 of 25; versus the best other skill ahead 3, tied 2, behind 3</title>
-<text x="40" y="32" font-size="16" font-weight="600" fill="#1f2328" text-anchor="start" >Question by question — wise-men never scored below 22 of 25</text>
+<title>Round 1 per-question scores: wise-men lowest 22 of 25; versus the best other skill ahead 3, tied 2, behind 3</title>
+<text x="40" y="32" font-size="16" font-weight="600" fill="#1f2328" text-anchor="start" >Round 1, question by question — wise-men never scored below 22 of 25</text>
 <text x="40" y="52" font-size="12" font-weight="400" fill="#59636e" text-anchor="start" >Each row: wise-men, the four other skills and the plain answer, as scored by the blind judge (max 25)</text>
 <text x="660" y="90" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >vs the best other skill</text>
 <line x1="356.7" y1="96" x2="356.7" y2="352" stroke="#d8dee4" stroke-width="1" />

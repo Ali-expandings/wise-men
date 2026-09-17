@@ -1,0 +1,66 @@
+question_id: Q13
+arms:
+  brainstorming:
+    correctness: 4
+    insight: 3
+    practical: 4
+    risk: 3
+    dissent: 3
+    composite: 17
+    slot: A
+  llm-council:
+    correctness: 4
+    insight: 4
+    practical: 4
+    risk: 5
+    dissent: 4
+    composite: 21
+    slot: B
+  warp-council:
+    correctness: 5
+    insight: 5
+    practical: 4
+    risk: 4
+    dissent: 3
+    composite: 21
+    slot: C
+  grilling:
+    correctness: 3
+    insight: 2
+    practical: 3
+    risk: 2
+    dissent: 1
+    composite: 11
+    slot: D
+  wise-men:
+    correctness: 4
+    insight: 5
+    practical: 3
+    risk: 5
+    dissent: 5
+    composite: 22
+    slot: E
+  lifeos-council:
+    correctness: 4
+    insight: 4
+    practical: 5
+    risk: 4
+    dissent: 5
+    composite: 22
+    slot: F
+  ecc-council:
+    correctness: 4
+    insight: 3
+    practical: 2
+    risk: 3
+    dissent: 2
+    composite: 14
+    slot: G
+  direct:
+    correctness: 5
+    insight: 3
+    practical: 3
+    risk: 3
+    dissent: 2
+    composite: 16
+    slot: H

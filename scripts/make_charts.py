@@ -17,9 +17,9 @@ AXES = ["correctness", "insight", "practical", "risk", "dissent"]
 AXIS_NAME = {"correctness": "Correctness", "insight": "Insight", "practical": "Practical use", "risk": "Risk awareness", "dissent": "Dissent quality"}
 FONT = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
 THEMES = {
-    "light": dict(ACCENT="#9e1b24", INK="#1f2328", TXT="#59636e", MUTE="#818b98", GRID="#d8dee4", SURF="#ffffff", PROMPT="#7d8ea5", DIRECT="#b9c2ce", PLAIN="#8c959f", OTHER="#8c959f", AMBER="#d9a441",
+    "light": dict(ACCENT="#9e1b24", INK="#1f2328", TXT="#59636e", MUTE="#818b98", GRID="#d8dee4", SURF="#ffffff", PROMPT="#7d8ea5", DIRECT="#b9c2ce", PLAIN="#8c959f", OTHER="#8c959f", BAR2="#8c959f", AMBER="#d9a441",
                   ARM={"brainstorming": "#2a78d6", "grilling": "#eb6834", "lifeos-council": "#4a3aa7", "llm-council": "#eda100"}),
-    "dark": dict(ACCENT="#b8323a", INK="#e6edf3", TXT="#9198a1", MUTE="#6e7681", GRID="#262c36", SURF="#0d1117", PROMPT="#7d8ea5", DIRECT="#4b535d", PLAIN="#656c76", OTHER="#6e7681", AMBER="#d9a441",
+    "dark": dict(ACCENT="#b8323a", INK="#e6edf3", TXT="#9198a1", MUTE="#6e7681", GRID="#262c36", SURF="#0d1117", PROMPT="#7d8ea5", DIRECT="#4b535d", PLAIN="#656c76", OTHER="#6e7681", BAR2="#7d8590", AMBER="#d9a441",
                  ARM={"brainstorming": "#3987e5", "grilling": "#d95926", "lifeos-council": "#9085e9", "llm-council": "#c98500"}),
 }
 C = dict(THEMES["light"])  # active theme
@@ -29,6 +29,12 @@ H_ARMS = ["direct", "brainstorming", "grilling", "lifeos-council", "llm-council"
 H_NAME = {"direct": "plain answer", "brainstorming": "brainstorming", "grilling": "grilling", "lifeos-council": "LifeOS Council", "llm-council": "llm-council", "wise-men": "wise-men"}
 H_SRC = {"direct": "no skill", "brainstorming": "obra/superpowers · 288k★ repo", "grilling": "mattpocock/skills · 264k★ repo",
          "lifeos-council": "danielmiessler/LifeOS · 19k★ repo", "llm-council": "aiwithremy · 2.1k★", "wise-men": "this repo"}
+# Round 2 (PREREG-2): the six round-1 arms plus the two most-installed general-purpose council skills. Colour marks only wise-men; every bar is labelled.
+H2H2 = os.path.join(ROOT, "eval-data", "head-to-head", "parsed-v2")
+H2_ARMS = ["direct", "brainstorming", "grilling", "lifeos-council", "llm-council", "ecc-council", "warp-council", "wise-men"]
+H_NAME.update({"ecc-council": "ECC council", "warp-council": "Warp council"})
+H2_SRC = {"direct": "no skill", "brainstorming": "obra/superpowers · 366k installs", "grilling": "mattpocock/skills · 718k installs", "lifeos-council": "danielmiessler/LifeOS · 19k★",
+          "llm-council": "aiwithremy · 1.0k installs", "ecc-council": "affaan-m/ECC · 7.7k installs", "warp-council": "warpdotdev · 24.5k installs", "wise-men": "this repo"}
 TOPIC = {"Q05": "Monolith or microservices?", "Q09": "Why event sourcing gets messy", "Q13": "Entering a market with one giant", "Q19": "Per-seat or usage pricing?",
          "Q25": "Why replications fail", "Q36": "Blameless yet accountable postmortem", "Q48": "Colleagues underpaid, HR did nothing", "Q55": "A PhD at 35?"}
 
@@ -50,6 +56,11 @@ def vbar(x, base, w, h, fill, r=4):  # grows up from the baseline; rounded top
 def dot(cx, cy, r, fill): return f'<circle cx="{num(cx)}" cy="{num(cy)}" r="{r}" fill="{fill}" stroke="{C["SURF"]}" stroke-width="2"/>\n'
 def ring(cx, cy, r, col): return f'<circle cx="{num(cx)}" cy="{num(cy)}" r="{r}" fill="none" stroke="{col}" stroke-width="1.6"/>\n'
 def swatch(x, y, fill): return f'<rect x="{num(x)}" y="{num(y)}" width="12" height="12" rx="3" fill="{fill}"/>\n'
+def hbar_outline(x, y, w, h, col, r=4):  # the plain answer: same shape as hbar, outline only
+    if w <= 0: return ""
+    x, y, w, h = x + 0.75, y + 0.75, w - 1.5, h - 1.5; r = min(r, w, h / 2)
+    return f'<path d="M{num(x)},{num(y)}h{num(w - r)}a{num(r)},{num(r)} 0 0 1 {num(r)},{num(r)}v{num(h - 2 * r)}a{num(r)},{num(r)} 0 0 1 -{num(r)},{num(r)}h-{num(w - r)}z" fill="none" stroke="{col}" stroke-width="1.5"/>\n'
+def band(y, h): return f'<rect x="32" y="{num(y)}" width="816" height="{num(h)}" rx="6" fill="{C["ACCENT"]}" fill-opacity="0.08"/>\n'
 def dashed(x1, y1, x2, y2): return line(x1, y1, x2, y2, C["INK"], 1, 'stroke-opacity="0.55" stroke-dasharray="4 3"')
 
 # ---------- N=29 eval (council vs structured prompt vs direct) ----------
@@ -126,16 +137,20 @@ def chart_questions(rows):
     b += dot(x0 + 2, H - 8, 5, A[0][2]) + t(x0 + 12, H - 4, "council", 11) + dot(x0 + 82, H - 8, 5, A[1][2]) + t(x0 + 92, H - 4, "structured prompt", 11)
     return svg(W, H, b, "Council vs structured prompt on each of 29 questions")
 
+def label_lines(nm):  # column header: one line if short, else split at the space or at the hyphen that balances the two lines
+    if len(nm) <= 9: return [nm]
+    if " " in nm: i = nm.find(" "); return [nm[:i], nm[i + 1:]]
+    k = min((k for k, ch in enumerate(nm) if ch == "-"), key=lambda k: max(k + 1, len(nm) - k - 1)); return [nm[:k + 1], nm[k + 1:]]
 def chart_landscape():
-    cols = [("wise-men", ""), ("llm-council skill", "aiwithremy"), ("llm-council-skill", "tenfoldmarc"), ("council-review", "ngmeyer"), ("agent-review-panel", "wan-huiyan"), ("llm-council", "karpathy")]
-    feats = [("Independent members, no API keys", [2, 2, 2, 2, 2, 0]), ("Rubric peer review, machine-parsed", [2, 1, 1, 1, 1, 1]), ("Debate on a mechanical trigger", [2, 0, 1, 2, 2, 0]),
-             ("Dissent verbatim, cannot be truncated", [2, 1, 1, 2, 1, 0]), ("Independent check of the synthesis", [2, 0, 0, 0, 1, 0]), ("Members structurally unable to spawn or run", [2, 0, 0, 0, 1, 0]),
-             ("Cost tiers + spend ceiling", [2, 0, 0, 1, 1, 0]), ("Every deviation disclosed in output", [2, 0, 0, 0, 0, 0]), ("Eval data + script shipped in repo", [2, 0, 0, 1, 1, 0])]
+    cols = [("wise-men", ""), ("llm-council skill", "aiwithremy"), ("llm-council-skill", "tenfoldmarc"), ("council-review", "ngmeyer"), ("agent-review-panel", "wan-huiyan"), ("Warp council", "warpdotdev"), ("ECC council", "affaan-m"), ("llm-council", "karpathy")]
+    feats = [("Independent members, no API keys", [2, 2, 2, 2, 2, 2, 2, 0]), ("Rubric peer review, machine-parsed", [2, 1, 1, 1, 1, 0, 0, 1]), ("Debate on a mechanical trigger", [2, 0, 1, 2, 2, 1, 1, 0]),
+             ("Dissent verbatim, cannot be truncated", [2, 1, 1, 2, 1, 1, 1, 0]), ("Independent check of the synthesis", [2, 0, 0, 0, 1, 0, 0, 0]), ("Members structurally unable to spawn or run", [2, 0, 0, 0, 1, 1, 0, 0]),
+             ("Cost tiers + spend ceiling", [2, 0, 0, 1, 1, 0, 0, 0]), ("Every deviation disclosed in output", [2, 0, 0, 0, 0, 1, 0, 0]), ("Eval data + script shipped in repo", [2, 0, 0, 1, 1, 0, 0, 0])]
     W = 860; rh = 34; x0 = 300; cw = (W - x0 - 20) / len(cols); H = 120 + rh * len(feats) + 40
-    b = t(40, 30, "Council skills for Claude Code — what each one ships", 16, C["INK"], 600) + t(40, 50, "From each project's README, 2026-09-16 · full table with sources in resources/landscape.md", 12, C["TXT"])
+    b = t(40, 30, "Council skills for Claude Code — what each one ships", 16, C["INK"], 600) + t(40, 50, "From each project's README or skill file, 2026-09-16/17 · full table with sources in resources/landscape.md", 12, C["TXT"])
     for j, (nm, o) in enumerate(cols):
-        cx = x0 + cw * (j + 0.5); parts = [nm] if len(nm) <= 13 else ([nm[:nm.find(" ")], nm[nm.find(" ") + 1:]] if " " in nm else [nm[:nm.rfind("-") + 1], nm[nm.rfind("-") + 1:]])
-        for li, part in enumerate(parts): b += t(cx, 78 + li * 13, part, 11, C["INK"] if j == 0 else C["TXT"], 700 if j == 0 else 500, "middle")
+        cx = x0 + cw * (j + 0.5); parts = label_lines(nm)
+        for li, part in enumerate(parts): b += t(cx, 78 + li * 13, part, 10.5, C["INK"] if j == 0 else C["TXT"], 700 if j == 0 else 500, "middle")
         if o: b += t(cx, 78 + len(parts) * 13, o, 10, C["MUTE"], anchor="middle")
     b += f'<rect x="{num(x0)}" y="62" width="{num(cw)}" height="{rh * len(feats) + 58}" rx="8" fill="{C["ACCENT"]}" fill-opacity="0.10"/>\n'
     for i, (name, vals) in enumerate(feats):
@@ -157,8 +172,8 @@ def colour(a): return C["ACCENT"] if a == "wise-men" else C["PLAIN"] if a == "di
 def chart_h2h(rows):
     x0, sc, top, rh, n = 250, 15.6, 112, 46, len(rows)
     arms = sorted(H_ARMS, key=lambda a: -hmean(rows, a)); plain = hmean(rows, "direct"); bottom = top + rh * len(arms) - 6
-    b = t(40, 32, f"Total score vs a plain answer — {n} hard questions, one blind judge", 16, C["INK"], 600)
-    b += t(40, 52, "Mean of 5 rubric axes, 1–5 each (max 25). In brackets: the gap to the plain answer.", 12, C["TXT"])
+    b = t(40, 32, f"Round 1: total score vs a plain answer — {n} hard questions, one blind judge", 16, C["INK"], 600)
+    b += t(40, 52, "Sum of 5 rubric axes (1–5 each, max 25), averaged over the 8 questions. In brackets: the gap to the plain answer.", 12, C["TXT"])
     b += t(40, 68, "The other four are popular skills people already use to think a decision through.", 12, C["TXT"])
     b += t(840, top - 12, "beat the plain answer", 11, C["MUTE"], anchor="end")
     for g in range(0, 26, 5):
@@ -176,12 +191,12 @@ def chart_h2h(rows):
     px = x0 + plain * sc; b += dashed(px, top - 4, px, bottom) + t(px, top - 12, f"plain answer {r1(plain)}", 11, C["MUTE"], anchor="middle")
     fy = bottom + 42
     b += t(40, fy, "brainstorming and grilling are built to interview you first; with nobody to answer, they had to assume (pre-registered, disclosed).", 11, C["MUTE"])
-    b += t(40, fy + 16, f"N = {n}, no significance claimed · the same model ran every arm · the judge saw answers as A–F in a sealed order · raw data: eval-data/head-to-head", 11, C["MUTE"])
-    return svg(860, fy + 30, b, "Mean total score out of 25 on 8 blind-judged questions: " + ", ".join(f"{H_NAME[a]} {r1(hmean(rows, a))}" for a in arms))
+    b += t(40, fy + 16, f"N = {n}, no significance claimed · one top-level model ran every arm · the judge saw answers as A–F in a sealed order · raw data: eval-data/head-to-head", 11, C["MUTE"])
+    return svg(860, fy + 30, b, "Round 1 mean total score out of 25 on 8 blind-judged questions: " + ", ".join(f"{H_NAME[a]} {r1(hmean(rows, a))}" for a in arms))
 
 def chart_h2h_axes(rows):
     y1, sc, n = 340, 40, len(rows)
-    b = t(40, 32, "Where the gap comes from — each rubric axis", 16, C["INK"], 600)
+    b = t(40, 32, "Round 1: where the gap comes from — each rubric axis", 16, C["INK"], 600)
     b += t(40, 52, f"Mean score per axis, 1–5, over the same {n} questions · dashed line = the plain answer on that axis", 12, C["TXT"])
     lx = 40
     for a in H_ARMS:
@@ -203,14 +218,14 @@ def chart_h2h_axes(rows):
     lead_p = max(H_ARMS, key=lambda a: hmean(rows, a, "practical"))
     b += t(40, y1 + 72, f"wise-men scored 5 on {' and '.join(perfect)} on all {n} questions" + ("; no other arm did that on any axis." if not others_perfect else "."), 11, C["MUTE"])
     b += t(40, y1 + 88, f"It did not lead everywhere: correctness was a tie ({', '.join(top_c)}), and {H_NAME[lead_p]} was rated most practical ({r1(hmean(rows, lead_p, 'practical'))} vs wise-men {r1(hmean(rows, 'wise-men', 'practical'))}).", 11, C["MUTE"])
-    return svg(860, y1 + 104, b, "Per-axis mean scores for six arms: " + "; ".join(f"{AXIS_NAME[x]}: " + ", ".join(f"{H_NAME[a]} {r1(hmean(rows, a, x))}" for a in H_ARMS) for x in AXES))
+    return svg(860, y1 + 104, b, "Round 1 per-axis mean scores for six arms: " + "; ".join(f"{AXIS_NAME[x]}: " + ", ".join(f"{H_NAME[a]} {r1(hmean(rows, a, x))}" for a in H_ARMS) for x in AXES))
 
 def chart_h2h_questions(rows):
     x0, x1, lo, hi = 300, 640, 13, 25; sc = (x1 - x0) / (hi - lo); top, rh = 112, 32; qs = sorted(rows); n = len(qs)
     others = ["brainstorming", "grilling", "lifeos-council", "llm-council"]
     short = {"brainstorming": "brainstorming", "grilling": "grilling", "lifeos-council": "LifeOS", "llm-council": "llm-council"}
     wm_min = min(r["wise-men"]["composite"] for r in rows.values()); bottom = top + rh * (n - 1) + 16
-    b = t(40, 32, f"Question by question — wise-men never scored below {wm_min} of 25", 16, C["INK"], 600)
+    b = t(40, 32, f"Round 1, question by question — wise-men never scored below {wm_min} of 25", 16, C["INK"], 600)
     b += t(40, 52, "Each row: wise-men, the four other skills and the plain answer, as scored by the blind judge (max 25)", 12, C["TXT"])
     b += t(660, top - 22, "vs the best other skill", 11, C["MUTE"])
     for g in (15, 20, 25):
@@ -230,7 +245,92 @@ def chart_h2h_questions(rows):
     b += dot(46, ly - 4, 6.5, C["ACCENT"]) + t(58, ly, "wise-men", 11) + dot(136, ly - 4, 4.5, C["OTHER"]) + t(146, ly, "the other four skills", 11) + ring(284, ly - 4, 7, C["TXT"]) + t(296, ly, "plain answer", 11)
     mins = [min(r[a]["composite"] for r in rows.values()) for a in others]
     b += t(40, ly + 22, f"Against the best of the other four on each question: ahead {won}, tied {tied}, behind {lost}. Their lowest scores were {min(mins)}–{max(mins)}; wise-men's was {wm_min}.", 11, C["MUTE"])
-    return svg(860, ly + 38, b, f"Per-question scores: wise-men lowest {wm_min} of 25; versus the best other skill ahead {won}, tied {tied}, behind {lost}")
+    return svg(860, ly + 38, b, f"Round 1 per-question scores: wise-men lowest {wm_min} of 25; versus the best other skill ahead {won}, tied {tied}, behind {lost}")
+
+def load_h2h2():
+    rows = {os.path.basename(f)[:-5]: yaml.safe_load(open(f))["arms"] for f in sorted(glob.glob(os.path.join(H2H2, "Q*.yaml")))}
+    assert len(rows) == 8 and all(set(r) == set(H2_ARMS) for r in rows.values()), len(rows); return rows
+def by_total(rows): return sorted(H2_ARMS, key=lambda a: (-hmean(rows, a), H2_ARMS.index(a)))
+def bar2(a, x, y, w, h, r=4): return hbar_outline(x, y, w, h, C["TXT"], r) if a == "direct" else hbar(x, y, w, h, C["ACCENT"] if a == "wise-men" else C["BAR2"], r)
+
+def chart_h2h_v2(rows):
+    x0, sc, top, rh, n = 250, 15.6, 112, 46, len(rows)
+    arms = by_total(rows); plain = hmean(rows, "direct"); bottom = top + rh * len(arms) - 6
+    b = t(40, 32, f"Round 2: total score vs a plain answer — {n} hard questions, one blind judge", 16, C["INK"], 600)
+    b += t(40, 52, "Sum of 5 rubric axes (1–5 each, max 25), averaged over the 8 questions. In brackets: the gap to the plain answer.", 12, C["TXT"])
+    b += t(40, 68, "Round 2 added the two most-installed general-purpose council skills, Warp's and ECC's, and re-judged every answer.", 12, C["TXT"])
+    b += t(840, top - 12, "beat the plain answer", 11, C["MUTE"], anchor="end")
+    for g in range(0, 26, 5):
+        x = x0 + g * sc; b += line(x, top - 4, x, bottom, C["GRID"]) + t(x, bottom + 16, g, 11, C["MUTE"], anchor="middle")
+    for i, a in enumerate(arms):
+        y = top + i * rh; m = hmean(rows, a); hero = a == "wise-men"
+        if hero: b += band(y - 3, rh - 2)
+        b += t(x0 - 14, y + 15, H_NAME[a], 13, C["INK"], 700 if hero else 500, "end") + t(x0 - 14, y + 30, H2_SRC[a], 11, C["MUTE"], anchor="end")
+        b += bar2(a, x0, y + 6, m * sc, 22)
+        vx = x0 + m * sc + 8; b += t(vx, y + 22, r1(m), 13, C["INK"], 700 if hero else 500)
+        if a == "direct":
+            b += t(840, y + 22, "—", 12, C["MUTE"], anchor="end"); continue
+        d = m - plain; b += t(vx + 32, y + 22, f"({'+' if d >= 0 else '−'}{r1(abs(d))})", 11, C["TXT"])
+        wins = sum(r[a]["composite"] > r["direct"]["composite"] for r in rows.values())
+        b += t(840, y + 22, f"{wins} of {n}", 12, C["INK"] if wins == n else C["TXT"], 600 if wins == n else 400, "end")
+    px = x0 + plain * sc; b += dashed(px, top - 4, px, bottom) + t(px, top - 12, f"plain answer {r1(plain)}", 11, C["MUTE"], anchor="middle")
+    fy = bottom + 42
+    b += t(40, fy, "Warp's council ran on Claude models only; its skill asks for a model-diverse council (pre-registered, disclosed).", 11, C["MUTE"])
+    b += t(40, fy + 16, "brainstorming and grilling are built to interview you first; with nobody to answer, they had to assume.", 11, C["MUTE"])
+    b += t(40, fy + 32, f"N = {n}, no significance claimed · one top-level model ran every arm · the judge saw answers as A–H in a sealed order · raw data: eval-data/head-to-head", 11, C["MUTE"])
+    return svg(860, fy + 46, b, "Round 2 mean total score out of 25 on 8 blind-judged questions: " + ", ".join(f"{H_NAME[a]} {r1(hmean(rows, a))}" for a in arms))
+
+def chart_h2h_v2_axes(rows):
+    n = len(rows); arms = by_total(rows); top, rh = 118, 34
+    cols = [("composite", "Total /25", 25, 222, 80)] + [(x, AXIS_NAME[x], 5, 364 + k * 94, 46) for k, x in enumerate(AXES)]
+    b = t(40, 32, "Round 2 scoreboard — the total and each rubric axis", 16, C["INK"], 600)
+    b += t(40, 52, f"Mean over the same {n} questions · total out of 25, each axis 1–5 · sorted by total · the plain answer is the outlined bar", 12, C["TXT"])
+    for key, title, mx, x, w in cols: b += t(x, top - 14, title, 11, C["INK"], 600)
+    best = {key: max(hmean(rows, a, key) for a in arms) for key, *_ in cols}
+    for i, a in enumerate(arms):
+        y = top + i * rh; yc = y + rh / 2; hero = a == "wise-men"
+        if hero: b += band(y + 2, rh - 4)
+        b += t(206, yc + 4, H_NAME[a], 13, C["INK"], 700 if hero else 500, "end")
+        for key, title, mx, x, w in cols:
+            v = hmean(rows, a, key); top_v = abs(v - best[key]) < 1e-9
+            b += f'<rect x="{num(x)}" y="{num(yc - 5)}" width="{num(w)}" height="10" rx="3" fill="{C["GRID"]}" fill-opacity="0.6"/>\n'
+            b += bar2(a, x, yc - 5, v / mx * w, 10, 3)
+            b += t(x + w + 8, yc + 4, r1(v), 12, C["INK"] if top_v else C["TXT"], 700 if top_v else 400)
+    leaders = {key: [H_NAME[a] for a in arms if abs(hmean(rows, a, key) - best[key]) < 1e-9] for key, *_ in cols}
+    wm_lead = [AXIS_NAME[x].lower() for x in AXES if "wise-men" in leaders[x]]
+    top_arm = arms[0]; top_lead = [AXIS_NAME[x].lower() for x in AXES if H_NAME[top_arm] in leaders[x]]
+    fy = top + rh * len(arms) + 28
+    b += t(40, fy, f"Bold = highest in the column (ties bolded together). wise-men had the top score on {' and '.join(wm_lead) or 'no axis'}; "
+                   f"{H_NAME[top_arm]} led the total and {len(top_lead)} of the 5 axes.", 11, C["MUTE"])
+    b += t(40, fy + 16, f"Warp's council ran on Claude models only; its skill asks for a model-diverse council. N = {n}, one blind judge per question, no significance claimed.", 11, C["MUTE"])
+    return svg(860, fy + 30, b, "Round 2 scoreboard, means over 8 questions: " + "; ".join(f"{H_NAME[a]}: total {r1(hmean(rows, a))}, " + ", ".join(f"{AXIS_NAME[x].lower()} {r1(hmean(rows, a, x))}" for x in AXES) for a in arms))
+
+def chart_h2h_v2_questions(rows):
+    x0, x1, lo, hi = 300, 640, 10, 25; sc = (x1 - x0) / (hi - lo); top, rh = 112, 32; qs = sorted(rows); n = len(qs)
+    others = [a for a in H2_ARMS if a not in ("direct", "wise-men")]
+    short = {"brainstorming": "brainstorming", "grilling": "grilling", "lifeos-council": "LifeOS", "llm-council": "llm-council", "ecc-council": "ECC", "warp-council": "Warp"}
+    bottom = top + rh * (n - 1) + 16
+    b = t(40, 32, "Round 2, question by question", 16, C["INK"], 600)
+    b += t(40, 52, "Each row: the blind judge's total (max 25) for wise-men, the six other skills and the plain answer", 12, C["TXT"])
+    b += t(660, top - 22, "wise-men vs the best other skill", 11, C["MUTE"])
+    for g in (10, 15, 20, 25):
+        x = x0 + (g - lo) * sc; b += line(x, top - 16, x, bottom, C["GRID"]) + t(x, bottom + 16, g, 11, C["MUTE"], anchor="middle")
+    won = tied = lost = 0
+    for i, q in enumerate(qs):
+        y = top + i * rh; r = rows[q]; vals = [r[a]["composite"] for a in H2_ARMS]; wm = r["wise-men"]["composite"]
+        b += t(40, y + 4, q, 11, C["MUTE"]) + t(76, y + 4, TOPIC[q], 12, C["INK"])
+        b += line(x0 + (min(vals) - lo) * sc, y, x0 + (max(vals) - lo) * sc, y, C["GRID"], 2)
+        b += ring(x0 + (r["direct"]["composite"] - lo) * sc, y, 7, C["TXT"])
+        for a in others: b += dot(x0 + (r[a]["composite"] - lo) * sc, y, 4.5, C["OTHER"])
+        b += dot(x0 + (wm - lo) * sc, y, 6.5, C["ACCENT"])
+        bv = max(r[a]["composite"] for a in others); best = [short[a] for a in others if r[a]["composite"] == bv]
+        rel = "ahead" if wm > bv else "tied" if wm == bv else "behind"; won += wm > bv; tied += wm == bv; lost += wm < bv
+        b += t(660, y + 4, rel, 12, C["INK"]) + t(712, y + 4, f"{', '.join(best)} {bv}", 11, C["MUTE"])
+    ly = bottom + 44
+    b += dot(46, ly - 4, 6.5, C["ACCENT"]) + t(58, ly, "wise-men", 11) + dot(136, ly - 4, 4.5, C["OTHER"]) + t(146, ly, "the other six skills", 11) + ring(276, ly - 4, 7, C["TXT"]) + t(288, ly, "plain answer", 11)
+    top_w = sum(r["warp-council"]["composite"] == max(r[a]["composite"] for a in H2_ARMS) for r in rows.values())
+    b += t(40, ly + 22, f"Against the best of the other six on each question: ahead {won}, tied {tied}, behind {lost}. Warp's council had the top score, alone or shared, on {top_w} of {n}.", 11, C["MUTE"])
+    return svg(860, ly + 38, b, f"Round 2 per-question scores: wise-men versus the best other skill ahead {won}, tied {tied}, behind {lost}; Warp's council top on {top_w} of {n}")
 
 # ---------- banner: the council in pixel art, one 5 px grid, three-tone shading per material, dark-red theme ----------
 BU, B_OUTLINE = 5, "#120b09"
@@ -303,9 +403,10 @@ def banner():
     return svg(860, 190, b, "wise-men: a pixel-art council, a Devil's Advocate, an engineer, the chairman in a high-backed chair, an analyst and an elder")
 
 if __name__ == "__main__":
-    rows, h2h = load(), load_h2h(); os.makedirs(OUT, exist_ok=True); wrote = []
+    rows, h2h, h2h2 = load(), load_h2h(), load_h2h2(); os.makedirs(OUT, exist_ok=True); wrote = []
     charts = [("headline", lambda: chart_headline(rows)), ("axes", lambda: chart_axes(rows)), ("questions", lambda: chart_questions(rows)), ("landscape", chart_landscape),
-              ("h2h", lambda: chart_h2h(h2h)), ("h2h-axes", lambda: chart_h2h_axes(h2h)), ("h2h-questions", lambda: chart_h2h_questions(h2h))]
+              ("h2h", lambda: chart_h2h(h2h)), ("h2h-axes", lambda: chart_h2h_axes(h2h)), ("h2h-questions", lambda: chart_h2h_questions(h2h)),
+              ("h2h-v2", lambda: chart_h2h_v2(h2h2)), ("h2h-v2-axes", lambda: chart_h2h_v2_axes(h2h2)), ("h2h-v2-questions", lambda: chart_h2h_v2_questions(h2h2))]
     for theme, suffix in (("light", ""), ("dark", "-dark")):
         C.clear(); C.update(THEMES[theme])
         for name, fn in charts:

@@ -22,3 +22,7 @@ Out of scope, and why: `marketing-council` (29,835 installs) is marketing-only; 
 ## Verdict
 
 v1 covers the two most-used stress-test skills (grilling, brainstorming) and the two best-known councils (Ole Lehmann's LLM Council, LifeOS Council). It does **not** include the two most-installed general-purpose council skills: **ECC `council`** (from one of the most-starred Claude Code repos) and **Warp `council`**. Warp's skill is written for model-diverse councils (Opus + GPT + an open-source model via Warp's `run_agents`); inside Claude Code it would run on Claude models only, which must be disclosed if it is tested.
+
+## Follow-up (2026-09-17)
+
+Both gaps were closed by head-to-head v2 ([PREREG-2.md](PREREG-2.md), [RESULTS-V2.md](RESULTS-V2.md)): ECC `council` and Warp `council` were run on the same 8 questions and all eight arms were re-judged blind. Warp's council ran on Claude models only, as disclosed. The table above is left as scanned.

@@ -1,0 +1,72 @@
+<svg viewBox="0 0 860 562" width="860" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+<title>Round 2 mean total score out of 25 on 8 blind-judged questions: Warp council 23.4, wise-men 21.1, llm-council 19.4, LifeOS Council 19.1, ECC council 19.1, brainstorming 15.9, plain answer 15.3, grilling 13.8</title>
+<text x="40" y="32" font-size="16" font-weight="600" fill="#1f2328" text-anchor="start" >Round 2: total score vs a plain answer — 8 hard questions, one blind judge</text>
+<text x="40" y="52" font-size="12" font-weight="400" fill="#59636e" text-anchor="start" >Sum of 5 rubric axes (1–5 each, max 25), averaged over the 8 questions. In brackets: the gap to the plain answer.</text>
+<text x="40" y="68" font-size="12" font-weight="400" fill="#59636e" text-anchor="start" >Round 2 added the two most-installed general-purpose council skills, Warp's and ECC's, and re-judged every answer.</text>
+<text x="840" y="100" font-size="11" font-weight="400" fill="#818b98" text-anchor="end" >beat the plain answer</text>
+<line x1="250" y1="108" x2="250" y2="474" stroke="#d8dee4" stroke-width="1" />
+<text x="250" y="490" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >0</text>
+<line x1="328" y1="108" x2="328" y2="474" stroke="#d8dee4" stroke-width="1" />
+<text x="328" y="490" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >5</text>
+<line x1="406" y1="108" x2="406" y2="474" stroke="#d8dee4" stroke-width="1" />
+<text x="406" y="490" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >10</text>
+<line x1="484" y1="108" x2="484" y2="474" stroke="#d8dee4" stroke-width="1" />
+<text x="484" y="490" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >15</text>
+<line x1="562" y1="108" x2="562" y2="474" stroke="#d8dee4" stroke-width="1" />
+<text x="562" y="490" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >20</text>
+<line x1="640" y1="108" x2="640" y2="474" stroke="#d8dee4" stroke-width="1" />
+<text x="640" y="490" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >25</text>
+<text x="236" y="127" font-size="13" font-weight="500" fill="#1f2328" text-anchor="end" >Warp council</text>
+<text x="236" y="142" font-size="11" font-weight="400" fill="#818b98" text-anchor="end" >warpdotdev · 24.5k installs</text>
+<path d="M250,118h360.6a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-360.6z" fill="#8c959f"/>
+<text x="622.6" y="134" font-size="13" font-weight="500" fill="#1f2328" text-anchor="start" >23.4</text>
+<text x="654.6" y="134" font-size="11" font-weight="400" fill="#59636e" text-anchor="start" >(+8.1)</text>
+<text x="840" y="134" font-size="12" font-weight="600" fill="#1f2328" text-anchor="end" >8 of 8</text>
+<rect x="32" y="155" width="816" height="44" rx="6" fill="#9e1b24" fill-opacity="0.08"/>
+<text x="236" y="173" font-size="13" font-weight="700" fill="#1f2328" text-anchor="end" >wise-men</text>
+<text x="236" y="188" font-size="11" font-weight="400" fill="#818b98" text-anchor="end" >this repo</text>
+<path d="M250,164h325.6a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-325.6z" fill="#9e1b24"/>
+<text x="587.5" y="180" font-size="13" font-weight="700" fill="#1f2328" text-anchor="start" >21.1</text>
+<text x="619.5" y="180" font-size="11" font-weight="400" fill="#59636e" text-anchor="start" >(+5.9)</text>
+<text x="840" y="180" font-size="12" font-weight="600" fill="#1f2328" text-anchor="end" >8 of 8</text>
+<text x="236" y="219" font-size="13" font-weight="500" fill="#1f2328" text-anchor="end" >llm-council</text>
+<text x="236" y="234" font-size="11" font-weight="400" fill="#818b98" text-anchor="end" >aiwithremy · 1.0k installs</text>
+<path d="M250,210h298.2a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-298.2z" fill="#8c959f"/>
+<text x="560.2" y="226" font-size="13" font-weight="500" fill="#1f2328" text-anchor="start" >19.4</text>
+<text x="592.2" y="226" font-size="11" font-weight="400" fill="#59636e" text-anchor="start" >(+4.1)</text>
+<text x="840" y="226" font-size="12" font-weight="600" fill="#1f2328" text-anchor="end" >8 of 8</text>
+<text x="236" y="265" font-size="13" font-weight="500" fill="#1f2328" text-anchor="end" >LifeOS Council</text>
+<text x="236" y="280" font-size="11" font-weight="400" fill="#818b98" text-anchor="end" >danielmiessler/LifeOS · 19k★</text>
+<path d="M250,256h294.3a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-294.3z" fill="#8c959f"/>
+<text x="556.3" y="272" font-size="13" font-weight="500" fill="#1f2328" text-anchor="start" >19.1</text>
+<text x="588.3" y="272" font-size="11" font-weight="400" fill="#59636e" text-anchor="start" >(+3.9)</text>
+<text x="840" y="272" font-size="12" font-weight="400" fill="#59636e" text-anchor="end" >7 of 8</text>
+<text x="236" y="311" font-size="13" font-weight="500" fill="#1f2328" text-anchor="end" >ECC council</text>
+<text x="236" y="326" font-size="11" font-weight="400" fill="#818b98" text-anchor="end" >affaan-m/ECC · 7.7k installs</text>
+<path d="M250,302h294.3a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-294.3z" fill="#8c959f"/>
+<text x="556.3" y="318" font-size="13" font-weight="500" fill="#1f2328" text-anchor="start" >19.1</text>
+<text x="588.3" y="318" font-size="11" font-weight="400" fill="#59636e" text-anchor="start" >(+3.9)</text>
+<text x="840" y="318" font-size="12" font-weight="400" fill="#59636e" text-anchor="end" >7 of 8</text>
+<text x="236" y="357" font-size="13" font-weight="500" fill="#1f2328" text-anchor="end" >brainstorming</text>
+<text x="236" y="372" font-size="11" font-weight="400" fill="#818b98" text-anchor="end" >obra/superpowers · 366k installs</text>
+<path d="M250,348h243.7a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-243.7z" fill="#8c959f"/>
+<text x="505.6" y="364" font-size="13" font-weight="500" fill="#1f2328" text-anchor="start" >15.9</text>
+<text x="537.6" y="364" font-size="11" font-weight="400" fill="#59636e" text-anchor="start" >(+0.6)</text>
+<text x="840" y="364" font-size="12" font-weight="400" fill="#59636e" text-anchor="end" >5 of 8</text>
+<text x="236" y="403" font-size="13" font-weight="500" fill="#1f2328" text-anchor="end" >plain answer</text>
+<text x="236" y="418" font-size="11" font-weight="400" fill="#818b98" text-anchor="end" >no skill</text>
+<path d="M250.8,394.8h232.4a4,4 0 0 1 4,4v12.5a4,4 0 0 1 -4,4h-232.4z" fill="none" stroke="#59636e" stroke-width="1.5"/>
+<text x="495.9" y="410" font-size="13" font-weight="500" fill="#1f2328" text-anchor="start" >15.3</text>
+<text x="840" y="410" font-size="12" font-weight="400" fill="#818b98" text-anchor="end" >—</text>
+<text x="236" y="449" font-size="13" font-weight="500" fill="#1f2328" text-anchor="end" >grilling</text>
+<text x="236" y="464" font-size="11" font-weight="400" fill="#818b98" text-anchor="end" >mattpocock/skills · 718k installs</text>
+<path d="M250,440h210.5a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-210.5z" fill="#8c959f"/>
+<text x="472.5" y="456" font-size="13" font-weight="500" fill="#1f2328" text-anchor="start" >13.8</text>
+<text x="504.5" y="456" font-size="11" font-weight="400" fill="#59636e" text-anchor="start" >(−1.5)</text>
+<text x="840" y="456" font-size="12" font-weight="400" fill="#59636e" text-anchor="end" >2 of 8</text>
+<line x1="487.9" y1="108" x2="487.9" y2="474" stroke="#1f2328" stroke-width="1" stroke-opacity="0.55" stroke-dasharray="4 3"/>
+<text x="487.9" y="100" font-size="11" font-weight="400" fill="#818b98" text-anchor="middle" >plain answer 15.3</text>
+<text x="40" y="516" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >Warp's council ran on Claude models only; its skill asks for a model-diverse council (pre-registered, disclosed).</text>
+<text x="40" y="532" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >brainstorming and grilling are built to interview you first; with nobody to answer, they had to assume.</text>
+<text x="40" y="548" font-size="11" font-weight="400" fill="#818b98" text-anchor="start" >N = 8, no significance claimed · one top-level model ran every arm · the judge saw answers as A–H in a sealed order · raw data: eval-data/head-to-head</text>
+</svg>

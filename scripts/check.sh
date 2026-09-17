@@ -68,6 +68,15 @@ else say "PyYAML missing — skipped stats reproduction" warn; fi
 if python3 -c 'import yaml' 2>/dev/null; then
   hr=$(python3 eval-data/head-to-head/h2h.py report 2>/dev/null | grep -m1 '^wise-men')
   case "$hr" in *" 23.25 "*) say "head-to-head report reproduces (wise-men 23.25)" ok;; *) say "head-to-head report changed: $hr" FAIL; fail=1;; esac
+  r2=$(H2H_STUDY=v2 python3 eval-data/head-to-head/h2h.py report 2>/dev/null)
+  case "$(echo "$r2" | grep -m1 '^warp-council')|$(echo "$r2" | grep -m1 '^wise-men')" in
+    *" 23.38 "*"|"*" 21.12 "*) say "head-to-head v2 reproduces (wise-men 21.12)" ok;;
+    *) say "head-to-head v2 report changed" FAIL; fail=1;; esac
+  miss=0
+  for s in v1 v2; do
+    H2H_STUDY=$s python3 eval-data/head-to-head/h2h.py readme 2>/dev/null | while IFS= read -r l; do grep -qxF -- "$l" README.md || echo "$l"; done | grep -q . && miss=1
+  done
+  [ $miss = 0 ] && say "README head-to-head tables match the data" ok || { say "README head-to-head table differs from h2h.py readme" FAIL; fail=1; }
 fi
 
 [ $fail = 0 ] && echo "ALL CHECKS PASSED" || { echo "CHECKS FAILED"; exit 1; }

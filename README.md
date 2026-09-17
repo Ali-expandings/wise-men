@@ -5,8 +5,8 @@
 Most prompt patterns ask you to take their word for it. This one ships with the blind evals that tested it — raw answers, judgments, and the scripts that reproduce every number.
 
 <p align="center">
-  <strong>Highest mean score in a blind head-to-head with superpowers' brainstorming, mattpocock's grilling, LifeOS Council and llm-council · 5/5 on risk and dissent on every question · beat a structured prompt on 28 of 29</strong><br>
-  <sub>Two evals, one blind judge each, 5-axis rubric; the head-to-head was pre-registered before any arm ran. <a href="#does-it-actually-work">Charts, method and caveats</a>.</sub>
+  <strong>2nd of 8 in a pre-registered blind head-to-head, behind Warp's council and ahead of LifeOS Council, llm-council and ECC's council · best dissent score in both rounds · beat a structured prompt on 28 of 29</strong><br>
+  <sub>Two evals, one blind judge per question, 5-axis rubric; each head-to-head round was pre-registered before its new arms ran. <a href="#does-it-actually-work">Charts, method and caveats</a>.</sub>
 </p>
 
 ```
@@ -22,11 +22,47 @@ Then: *"run a council on whether we should rewrite the billing service or strang
 
 Two blind evals, both shipped raw in this repo. The first puts wise-men next to skills people already use. The second asks the question every prompt-skill eventually gets: does it beat just asking well?
 
-### 1. Against the skills people already use (N=8, pre-registered)
+### 1. Against the skills people already use (N=8, pre-registered, two rounds)
 
-Eight hard questions — engineering, product, research, writing, ethics, a personal decision. Six ways to answer each: wise-men, four popular skills a Claude Code user would otherwise reach for to think a decision through, and a plain answer with no skill. The same model ran every arm with its skill file verbatim. A fresh blind judge per question scored the six answers as A–F, in an order sealed before anything ran.
+Eight hard questions — engineering, product, research, writing, ethics, a personal decision. Eight ways to answer each: wise-men, six of the most-used and best-known skills for stress-testing a decision ([picked by installs and stars](eval-data/head-to-head/COMPETITOR-SCAN.md)), and a plain answer with no skill. The same top-level model ran every arm with its skill file verbatim; council members ran on whichever Claude models each skill chose. A fresh blind judge per question scored the answers under letters, in an order sealed in advance. Round 1 had six arms; round 2 added the two most-installed general-purpose council skills, Warp's and ECC's, and re-judged every answer.
 
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-dark.svg"><img src="assets/h2h.svg" width="860" alt="Mean total score out of 25 on 8 blind-judged questions: wise-men 23.3, LifeOS Council 21.4, llm-council 20.8, brainstorming 17.9, plain answer 16.4, grilling 16.3. wise-men, LifeOS Council and llm-council beat the plain answer on all 8 questions."></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v2-dark.svg"><img src="assets/h2h-v2.svg" width="860" alt="Round 2 mean total score out of 25 on 8 blind-judged questions: Warp council 23.4, wise-men 21.1, llm-council 19.4, LifeOS Council 19.1, ECC council 19.1, brainstorming 15.9, plain answer 15.3, grilling 13.8. Warp council, wise-men and llm-council beat the plain answer on all 8 questions."></picture></p>
+
+| round 2 | total /25 (vs plain) | correct | insight | practical | risk | dissent | beat plain |
+|---|--:|--:|--:|--:|--:|--:|--:|
+| [Warp council](https://github.com/warpdotdev/common-skills) 24.5k installs | **23.4** (+8.1) | **4.9** | **4.8** | **4.9** | **4.9** | 4.0 | **8 of 8** |
+| **wise-men** | 21.1 (+5.9) | 3.8 | 4.6 | 3.6 | 4.5 | **4.6** | **8 of 8** |
+| [llm-council](https://github.com/aiwithremy/claude-skills-llm-council) 1.0k installs | 19.4 (+4.1) | 3.6 | 4.1 | 3.8 | 4.3 | 3.6 | **8 of 8** |
+| [LifeOS Council](https://github.com/danielmiessler/LifeOS) 19k★ | 19.1 (+3.9) | 3.4 | 4.1 | 3.8 | 3.8 | 4.1 | 7 of 8 |
+| [ECC council](https://github.com/affaan-m/ECC) 7.7k installs | 19.1 (+3.9) | 4.0 | 3.9 | 3.8 | 3.9 | 3.6 | 7 of 8 |
+| [superpowers](https://github.com/obra/superpowers) brainstorming 366k installs | 15.9 (+0.6) | 3.9 | 3.3 | 3.9 | 2.9 | 2.0 | 5 of 8 |
+| plain answer | 15.3 | 4.3 | 3.0 | 3.5 | 2.6 | 1.9 | — |
+| [mattpocock](https://github.com/mattpocock/skills) grilling 718k installs | 13.8 (−1.5) | 3.4 | 2.9 | 3.3 | 2.8 | 1.5 | 2 of 8 |
+
+Bold = best in the column (ties bolded together). Installs from the skills.sh registry; LifeOS Council ships inside a larger repo, so its stars are shown instead.
+
+**What it shows.** Warp's council scored highest — 23.4, the top score (alone or shared) on 7 of 8 questions, and the lead on every axis except dissent. wise-men came second: ahead of llm-council, LifeOS Council and ECC's council, with the best dissent score of all eight, and it beat the plain answer on every question. The judgments show where it lost the points: in 6 of 8 the judge marked down process talk inside wise-men's answer (council meta, reviewer scores), its practical use was the lowest of the five councils, and its correctness sat below the plain answer's. All eight of Warp's answers share the same four core sections: recommendation, why, tradeoffs and risks, final call. Warp ran adapted: its skill asks for a model-diverse council (Opus-, GPT- and open-source-class members), and here every member was a Claude model, so its intended setup could score differently. brainstorming and grilling are built to interview you before deciding; with nobody to answer they had to assume, so this measures them on a job they were not designed for.
+
+**Round 1** (six arms, before Warp and ECC were added): wise-men had the highest mean, 23.3, and scored 5/5 on risk and dissent on all eight questions. Round 2 re-judged those six answers unchanged; the judge gave each of them a lower mean, by 1.1 to 2.5 points, but kept their order apart from LifeOS Council and llm-council swapping places — so compare scores within a round, not across rounds.
+
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v2-axes-dark.svg"><img src="assets/h2h-v2-axes.svg" width="860" alt="Round 2 scoreboard, means over 8 questions. Total: Warp council 23.4, wise-men 21.1, llm-council 19.4, LifeOS Council 19.1, ECC council 19.1, brainstorming 15.9, plain answer 15.3, grilling 13.8. Warp council led correctness 4.9, insight 4.8, practical use 4.9 and risk awareness 4.9; wise-men led dissent quality with 4.6."></picture></p>
+
+<details>
+<summary>Every question, round 1, the cost, and how the study was run</summary>
+
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v2-questions-dark.svg"><img src="assets/h2h-v2-questions.svg" width="860" alt="Round 2 per-question scores: wise-men scored between 19 and 23; against the best of the other six skills it was tied on 1 question and behind on 7; Warp's council had the top score, alone or shared, on 7 of 8."></picture></p>
+
+- **Pre-registered.** [`PREREG.md`](eval-data/head-to-head/PREREG.md) (round 1, seed 20260916) was committed before any arm ran; [`PREREG-2.md`](eval-data/head-to-head/PREREG-2.md) (round 2, seed 20260917) before its two new arms ran and before any re-judging. They fix the arms and their commits, the 8 questions, the judge prompt, the sealed blinding order and the analysis, with no significance test at N=8. The judge scores the same five axes on the same 1–5 scale as the N=29 eval below, but its prompt differs: it ranks all the answers first instead of comparing pairs, and it has no per-score anchors. The [competitor scan](eval-data/head-to-head/COMPETITOR-SCAN.md) that picked round 2's arms was committed with PREREG-2.
+- **Parity.** Every arm ran in a fresh top-level subagent on the same model (Sonnet), with its skill file and the question verbatim; skills that spawn subagents did so, on the Claude models they chose. Pre-registered adaptations: brainstorming, grilling and ECC's council stated the answers they assumed instead of waiting for a human; Warp's council ran its members as Claude Code subagents on Claude models, with no pause for approval.
+- **Normalization.** Headers and orchestrator status lines were stripped from every arm. wise-men's appended audit trail was stripped on 4 questions, because the skill shows it only on request; LifeOS Council's round-by-round debate was kept, because its output format makes the transcript the answer; Warp's member list stayed where it was a headed section and was cut on 2 questions where it sat as a short paragraph before the first heading, so the judge saw it on 6 of 8; and the header rule also removed a one-line title from 2 brainstorming answers. Normalization only removed text; apart from disclosed redactions of personal details, no answer was edited.
+- **Deviations.** Round 1 ([`RESULTS.md`](eval-data/head-to-head/RESULTS.md)): one amendment after Q13 exposed that arms could read the author's files (from then on an arm reads only its own skill files), and five re-runs — two at Q13 (one arm had read private notes, one orchestrator returned early) and three at Q55 (killed by a rate limit before producing any output). Round 2 ([`RESULTS-V2.md`](eval-data/head-to-head/RESULTS-V2.md)): no re-runs, one parser fix for the extra answer labels, and one first name redacted before blinding.
+- **Cost.** Median minutes per question: Warp's council 12.0, wise-men 8.2, ECC's council 5.1, llm-council 3.9, LifeOS Council 3.5, about a minute for brainstorming and grilling, and 15 seconds for a plain answer. wise-men chose deep tier on 4 of the 8 questions.
+- **Limits.** N=8, one judge model, and every answer and judgment comes from the same model family. Installs from the skills.sh registry and stars from the GitHub API, 2026-09-17; star counts are for whole repos.
+
+<details>
+<summary>Round 1: charts and table (six arms)</summary>
+
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-dark.svg"><img src="assets/h2h.svg" width="860" alt="Round 1 mean total score out of 25 on 8 blind-judged questions: wise-men 23.3, LifeOS Council 21.4, llm-council 20.8, brainstorming 17.9, plain answer 16.4, grilling 16.3. wise-men, LifeOS Council and llm-council beat the plain answer on all 8 questions."></picture></p>
 
 | vs plain answer | total /25 | correct | insight | practical | risk | dissent | beat plain |
 |---|--:|--:|--:|--:|--:|--:|--:|
@@ -39,23 +75,13 @@ Eight hard questions — engineering, product, research, writing, ethics, a pers
 
 Bold = best in the column (ties bolded together). Stars are for the whole repo.
 
-**What it shows.** wise-men had the highest mean and was the only arm to score 5 on risk awareness and on dissent on all eight questions; its lowest total on any question was 22. The two other councils also beat the plain answer every time — structured multi-voice deliberation works — and wise-men's lead over them (+1.9 and +2.5 points) holds on this sample but is small enough that N=8 cannot settle it. brainstorming and grilling are built to interview you before deciding; with nobody to answer they had to assume, so this measures them on a job they were not designed for. Where wise-men did **not** lead: correctness was a three-way tie, brainstorming was rated more practical, and in 7 of 8 judgments the judge criticised the process talk inside wise-men's answers — the clearest thing to fix next.
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-axes-dark.svg"><img src="assets/h2h-axes.svg" width="860" alt="Round 1 per-axis mean scores, 1 to 5. Correctness: tie at 4.6 between wise-men, brainstorming and the plain answer. Insight: wise-men 4.6, plain 3.3. Practical use: brainstorming 4.4, wise-men and plain 4.0. Risk awareness: wise-men 5.0, plain 2.9. Dissent quality: wise-men 5.0, plain 1.6."></picture></p>
 
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-axes-dark.svg"><img src="assets/h2h-axes.svg" width="860" alt="Per-axis mean scores, 1 to 5. Correctness: tie at 4.6 between wise-men, brainstorming and the plain answer. Insight: wise-men 4.6, plain 3.3. Practical use: brainstorming 4.4, wise-men and plain 4.0. Risk awareness: wise-men 5.0, plain 2.9. Dissent quality: wise-men 5.0, plain 1.6."></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-questions-dark.svg"><img src="assets/h2h-questions.svg" width="860" alt="Round 1 per-question scores: wise-men scored between 22 and 24 on every question; against the best of the other four skills it was ahead on 3 questions, tied on 2 and behind on 3."></picture></p>
 
-<details>
-<summary>Every question, the cost, and how the study was run</summary>
+</details>
 
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-questions-dark.svg"><img src="assets/h2h-questions.svg" width="860" alt="Per-question scores: wise-men scored between 22 and 24 on every question; against the best of the other four skills it was ahead on 3 questions, tied on 2 and behind on 3."></picture></p>
-
-- **Pre-registered** in [`PREREG.md`](eval-data/head-to-head/PREREG.md) before any arm ran: arms pinned to commits, the 8 questions fixed, the judge rubric identical to the N=29 eval below, the blinding order sealed (seed 20260916), the analysis fixed, and no significance test at N=8.
-- **Parity.** Every arm ran in a fresh subagent on the same model, with its skill file and the question verbatim; skills that spawn subagents did so. brainstorming and grilling got the one pre-registered adaptation: ask your questions, state the likely answers, carry on.
-- **Normalization.** Headers and orchestrator status lines were stripped from every arm. wise-men's appended audit trail was stripped on 4 questions, because the skill shows it only on request; LifeOS Council's round-by-round debate was kept, because its output format makes the transcript the answer. Nothing was edited.
-- **Deviations**, all disclosed in [`RESULTS.md`](eval-data/head-to-head/RESULTS.md): one amendment after Q13 exposed that arms could read the author's files (from then on an arm reads only its own skill files), and five re-runs — two at Q13 (one arm had read private notes, one orchestrator returned early) and three at Q55 (killed by a rate limit before producing any output).
-- **Cost.** wise-men was the slowest arm: a median of 8.2 minutes per question, against 3.5 for LifeOS Council, 3.9 for llm-council, about a minute for brainstorming and grilling, and 15 seconds for a plain answer. It chose deep tier on 4 of the 8 questions.
-- **Limits.** N=8, one judge model, and every answer and judgment comes from the same model family. Star counts are for whole repos (superpowers and mattpocock/skills ship many skills), from the GitHub API on 2026-09-17.
-
-Raw answers, blinded packets, judgments and parsed scores: [`eval-data/head-to-head/`](eval-data/head-to-head/). Reproduce the table: `python3 eval-data/head-to-head/h2h.py report`.
+Raw answers, blinded packets, judgments and parsed scores: [`eval-data/head-to-head/`](eval-data/head-to-head/). Reproduce the tables: `H2H_STUDY=v2 python3 eval-data/head-to-head/h2h.py readme` (round 2) and `python3 eval-data/head-to-head/h2h.py readme` (round 1); `report` prints the two-decimal means and win–tie–loss counts behind them.
 </details>
 
 ### 2. Against a structured single prompt (N=29)
@@ -224,7 +250,7 @@ Two design choices carry most of the weight:
 
 ## How it compares
 
-Measured against the skills people already use, see [the head-to-head](#1-against-the-skills-people-already-use-n8-pre-registered): highest mean score, and 5/5 on risk and dissent on all 8 questions.
+Measured against the skills people already use, see [the head-to-head](#1-against-the-skills-people-already-use-n8-pre-registered-two-rounds): second of eight in round 2, behind Warp's council; highest of six in round 1; the best dissent score in both rounds.
 
 The question every prompt-skill gets asked — after ponytail's benchmark was matched by a seven-word prompt — is *does the skill beat just asking well?* The N=29 eval was built around that question. Arm B is one structured prompt (five perspectives + a dissent, no subagents); it is also shipped as the `solo` tier.
 
@@ -234,22 +260,22 @@ The question every prompt-skill gets asked — after ponytail's benchmark was ma
 | structured single prompt (= `solo` tier) | 20.8 | — | ~free |
 | direct answer | 16.3 | 0 / 29 | ~free |
 
-Against the other council skills for Claude Code (facts from their READMEs, 2026-09-16; full table with sources in [`resources/landscape.md`](resources/landscape.md)):
+Against the other council skills for Claude Code (facts from their READMEs or skill files, 2026-09-16/17; full table with sources in [`resources/landscape.md`](resources/landscape.md)):
 
-| | wise-men | [llm-council skill](https://github.com/aiwithremy/claude-skills-llm-council) 2.1k★ | [llm-council-skill](https://github.com/tenfoldmarc/llm-council-skill) 766★ | [council-review](https://github.com/ngmeyer/council-review) | [agent-review-panel](https://github.com/wan-huiyan/agent-review-panel) |
-|---|---|---|---|---|---|
-| Independent members, no keys | yes | yes | yes | yes | yes |
-| Peer review | 4-axis rubric, parsed + validated | method unspecified | anonymized | anonymous, confidence | blind final score |
-| Debate | conditional, mechanical trigger | — | inside review | adaptive multi-round | 1–3 rounds |
-| Dissent preserved | verbatim, cannot be truncated | agree/clash | agree/clash | "What You Lose" | with judge rulings |
-| Independent check of the synthesis | yes | — | — | — | Opus judge |
-| Members structurally unable to spawn/run/write | yes | — | — | — | read-only shell |
-| Cost tiers | 5, with spend ceiling | — | — | 5 modes | budget mode |
-| Evidence in the repo | raw eval + script | none | none | one A/B figure | one cost audit |
+| | wise-men | [llm-council skill](https://github.com/aiwithremy/claude-skills-llm-council) 2.1k★ | [llm-council-skill](https://github.com/tenfoldmarc/llm-council-skill) 766★ | [council-review](https://github.com/ngmeyer/council-review) | [agent-review-panel](https://github.com/wan-huiyan/agent-review-panel) | [Warp council](https://github.com/warpdotdev/common-skills) 24.5k installs | [ECC council](https://github.com/affaan-m/ECC) 7.7k installs |
+|---|---|---|---|---|---| --- | --- |
+| Independent members, no keys | yes | yes | yes | yes | yes | yes | yes |
+| Peer review | 4-axis rubric, parsed + validated | method unspecified | anonymized | anonymous, confidence | blind final score | — | — |
+| Debate | conditional, mechanical trigger | — | inside review | adaptive multi-round | 1–3 rounds | optional second round | another round on request |
+| Dissent preserved | verbatim, cannot be truncated | agree/clash | agree/clash | "What You Lose" | with judge rulings | consensus + disagreements | strongest dissent + premise check |
+| Independent check of the synthesis | yes | — | — | — | Opus judge | — | — |
+| Members structurally unable to spawn/run/write | yes | — | — | — | read-only shell | read-only by instruction | — |
+| Cost tiers | 5, with spend ceiling | — | — | 5 modes | budget mode | — | — |
+| Evidence in the repo | raw eval + script | none | none | one A/B figure | one cost audit | none | none |
 
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/landscape-dark.svg"><img src="assets/landscape.svg" width="860" alt="Feature matrix: council skills for Claude Code, from their READMEs 2026-09-16"></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/landscape-dark.svg"><img src="assets/landscape.svg" width="860" alt="Feature matrix: council skills for Claude Code, from their READMEs or skill files, 2026-09-16/17"></picture></p>
 
-What they have that this doesn't: multi-vendor councils, convergence-driven long debates, consensus gates, code-specific scanners, HTML reports — listed honestly in the landscape file.
+What they have that this doesn't: a short decision-memo answer (Warp's council, which outscored wise-men in round 2 of the head-to-head), multi-vendor councils, convergence-driven long debates, consensus gates, code-specific scanners, HTML reports — listed honestly in the landscape file.
 
 ## Cost
 
@@ -259,7 +285,7 @@ Roughly: solo ~free, quick ~3-5¢, standard ~5-7¢, deep ~15¢, paranoid ~25-50�
 
 - **Single-model.** Every member is Claude, so persona diversity approximates but doesn't achieve architectural diversity. Shared blindspots survive.
 - **The Chairman is the orchestrator.** Same thread picks the personas and writes the synthesis. Stage 4.5's external checker mitigates this; it doesn't remove it.
-- **The refinements aren't isolated.** The N=29 eval validated the v2.3 core loop against a structured prompt; the head-to-head measured the shipped protocol end to end against other skills, at N=8. No eval isolates what each refinement adds — which is the same circularity the skill would flag in your reasoning.
+- **The refinements aren't isolated.** The N=29 eval validated the v2.3 core loop against a structured prompt; the head-to-head measured the shipped protocol end to end against six other skills, at N=8. No eval isolates what each refinement adds — which is the same circularity the skill would flag in your reasoning.
 - **One judge model, same family.** Both evals use a single blind judge model grading answers from the same model family. The skill's own synthesis checker exists because that kind of judge has known biases.
 - **Members are offline.** `wise-member` cannot browse or run anything. Facts go in through the context brief; flagged claims are verified by the orchestrator afterwards, in a separately labeled section.
 - **Verbose.** `SKILL.md` is long. A casual invocation reads it, improvises, and mostly gets the protocol right; the numbered runbook at the top exists to keep that honest.
@@ -274,7 +300,7 @@ resources/                personas · model routing · stage prompt templates ·
 examples/                 two worked end-to-end runs
 eval-spec.md              the frozen evaluation design (written before the eval ran)
 eval-data/                the N=29 blind eval: questions, raw arms, judgments, stats, frozen v2.3 protocol
-eval-data/head-to-head/   the pre-registered head-to-head vs four popular skills: raw answers, blinded packets, judgments, h2h.py
+eval-data/head-to-head/   the pre-registered head-to-head (two rounds) vs six popular skills: raw answers, blinded packets, judgments, h2h.py
 scripts/check.sh          consistency check — run before every commit (trigger sync, no $-digit, agent copy, PII)
 scripts/make_charts.py    regenerates assets/*.svg (light + dark) from both evals' parsed scores
 assets/                   banner + README charts (hand-authored SVG, a light and a dark file each)
