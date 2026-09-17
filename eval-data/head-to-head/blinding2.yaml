@@ -1,0 +1,75 @@
+seed: 20260917
+note: 'v2: sealed before any v2 arm was run; slot->arm per question'
+map:
+  Q05:
+    A: lifeos-council
+    B: llm-council
+    C: wise-men
+    D: brainstorming
+    E: warp-council
+    F: direct
+    G: ecc-council
+    H: grilling
+  Q09:
+    A: lifeos-council
+    B: wise-men
+    C: direct
+    D: brainstorming
+    E: warp-council
+    F: grilling
+    G: llm-council
+    H: ecc-council
+  Q13:
+    A: brainstorming
+    B: llm-council
+    C: warp-council
+    D: grilling
+    E: wise-men
+    F: lifeos-council
+    G: ecc-council
+    H: direct
+  Q19:
+    A: lifeos-council
+    B: brainstorming
+    C: ecc-council
+    D: direct
+    E: wise-men
+    F: llm-council
+    G: warp-council
+    H: grilling
+  Q25:
+    A: direct
+    B: warp-council
+    C: grilling
+    D: brainstorming
+    E: ecc-council
+    F: llm-council
+    G: lifeos-council
+    H: wise-men
+  Q36:
+    A: ecc-council
+    B: grilling
+    C: wise-men
+    D: direct
+    E: lifeos-council
+    F: warp-council
+    G: brainstorming
+    H: llm-council
+  Q48:
+    A: wise-men
+    B: direct
+    C: lifeos-council
+    D: grilling
+    E: ecc-council
+    F: brainstorming
+    G: llm-council
+    H: warp-council
+  Q55:
+    A: grilling
+    B: direct
+    C: ecc-council
+    D: warp-council
+    E: wise-men
+    F: lifeos-council
+    G: llm-council
+    H: brainstorming

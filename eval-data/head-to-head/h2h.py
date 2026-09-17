@@ -3,7 +3,16 @@
 import os, re, sys, yaml, glob, statistics as st
 H = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(os.path.dirname(H))
 AXES = ["correctness", "insight", "practical", "risk", "dissent"]
-ARMS = ["wise-men", "brainstorming", "grilling", "lifeos-council", "llm-council", "direct"]
+STUDY = os.environ.get("H2H_STUDY", "v1")   # v1 = the published six-arm study; v2 = PREREG-2 (adds ECC and Warp council)
+CFG = {
+    "v1": dict(arms=["wise-men", "brainstorming", "grilling", "lifeos-council", "llm-council", "direct"], slots="ABCDEF",
+               blinding="blinding.yaml", prompt="judge-prompt-6.txt", blinded="blinded", judgments="judgments", parsed="parsed",
+               order=["wise-men", "lifeos-council", "llm-council", "brainstorming", "grilling", "direct"]),
+    "v2": dict(arms=["wise-men", "brainstorming", "grilling", "lifeos-council", "llm-council", "ecc-council", "warp-council", "direct"], slots="ABCDEFGH",
+               blinding="blinding2.yaml", prompt="judge-prompt-8.txt", blinded="blinded-v2", judgments="judgments-v2", parsed="parsed-v2",
+               order=["wise-men", "lifeos-council", "llm-council", "ecc-council", "warp-council", "brainstorming", "grilling", "direct"]),
+}[STUDY]
+ARMS = CFG["arms"]
 
 def qtext(q):
     d = yaml.safe_load(open(os.path.join(ROOT, "eval-data", "questions.yaml"))); qs = d["questions"] if isinstance(d, dict) and "questions" in d else d
@@ -15,7 +24,7 @@ def normalize(arm, txt):
     t = "\n".join(lines).strip()
     # orchestrator status text that precedes the skill's own output (not part of any skill's user-facing format):
     # for skills whose output is headed, cut to the first '## ' heading if what precedes it is short status prose
-    if arm in ("lifeos-council", "llm-council", "wise-men"):
+    if arm in ("lifeos-council", "llm-council", "wise-men", "ecc-council", "warp-council"):
         m = re.search(r"^## ", t, re.M)
         if m and m.start() > 0 and len(t[:m.start()].split("\n")) <= 4: t = t[m.start():]
     if arm == "wise-men":  # same rule as the N=29 eval: strip the audit footer + status/process text; never edit content
@@ -27,31 +36,31 @@ def normalize(arm, txt):
     return t
 
 def blind(q):
-    bm = yaml.safe_load(open(os.path.join(H, "blinding.yaml")))["map"][q]
+    bm = yaml.safe_load(open(os.path.join(H, CFG["blinding"])))["map"][q]
     parts = []
-    for slot in "ABCDEF":
+    for slot in CFG["slots"]:
         arm = bm[slot]; raw = open(os.path.join(H, "raw", q, arm + ".md")).read()
         parts.append(f'Response {slot}:\n"""\n{normalize(arm, raw)}\n"""\n')
-    tpl = open(os.path.join(H, "judge-prompt-6.txt")).read()
+    tpl = open(os.path.join(H, CFG["prompt"])).read()
     out = tpl.replace("{question}", qtext(q)).replace("{responses}", "\n".join(parts))
-    open(os.path.join(H, "blinded", q + ".md"), "w").write(out); print("blinded", q, len(out), "chars")
+    os.makedirs(os.path.join(H, CFG["blinded"]), exist_ok=True); open(os.path.join(H, CFG["blinded"], q + ".md"), "w").write(out); print("blinded", q, len(out), "chars")
 
 def parse(q):
-    bm = yaml.safe_load(open(os.path.join(H, "blinding.yaml")))["map"][q]
-    j = open(os.path.join(H, "judgments", q + ".md")).read()
+    bm = yaml.safe_load(open(os.path.join(H, CFG["blinding"])))["map"][q]
+    j = open(os.path.join(H, CFG["judgments"], q + ".md")).read()
     blocks = re.findall(r"```scores\n(.*?)```", j, re.S); out = {}
     for b in blocks:
         d = dict(re.findall(r"(\w+):\s*([A-F]|\d)", b)); slot = d["response"]
         out[bm[slot]] = {a: int(d[a]) for a in AXES}; out[bm[slot]]["composite"] = sum(int(d[a]) for a in AXES); out[bm[slot]]["slot"] = slot
     assert set(out) == set(ARMS), set(out)
-    yaml.safe_dump({"question_id": q, "arms": out}, open(os.path.join(H, "parsed", q + ".yaml"), "w"), sort_keys=False); print("parsed", q, {a: out[a]["composite"] for a in ARMS})
+    os.makedirs(os.path.join(H, CFG["parsed"]), exist_ok=True); yaml.safe_dump({"question_id": q, "arms": out}, open(os.path.join(H, CFG["parsed"], q + ".yaml"), "w"), sort_keys=False); print("parsed", q, {a: out[a]["composite"] for a in ARMS})
 
-NAMES = {"wise-men": "wise-men", "lifeos-council": "LifeOS Council", "llm-council": "llm-council", "brainstorming": "brainstorming", "grilling": "grilling", "direct": "plain answer"}
-ORDER = ["wise-men", "lifeos-council", "llm-council", "brainstorming", "grilling", "direct"]  # display order in tables
+NAMES = {"ecc-council": "ECC council", "warp-council": "Warp council", "wise-men": "wise-men", "lifeos-council": "LifeOS Council", "llm-council": "llm-council", "brainstorming": "brainstorming", "grilling": "grilling", "direct": "plain answer"}
+ORDER = CFG["order"]  # display order in tables
 SKILLS = ORDER[:-1]
 
 def rows():
-    return {os.path.basename(f)[:-5]: yaml.safe_load(open(f))["arms"] for f in sorted(glob.glob(os.path.join(H, "parsed", "Q*.yaml")))}
+    return {os.path.basename(f)[:-5]: yaml.safe_load(open(f))["arms"] for f in sorted(glob.glob(os.path.join(H, CFG["parsed"], "Q*.yaml")))}
 
 def durations():
     out = {a: [] for a in ARMS}
@@ -88,6 +97,7 @@ def report():
     print("wise-men vs best other skill per question W-T-L:", sum(x > 0 for x in vb), sum(x == 0 for x in vb), sum(x < 0 for x in vb))
 
 def results():
+    if STUDY != "v1": raise SystemExit("RESULTS-V2.md is written with the v2 analysis; this writer produces v1's RESULTS.md")
     R = rows(); S = stats(R); D = durations(); n = len(R); plain = S["direct"]["mean"]
     T = {q: re.search(r"(solo|quick|standard|deep|paranoid) tier", open(os.path.join(H, "raw", q, "wise-men.md")).read(), re.I).group(1).lower() for q in R}
     D_by_q = {q: int(re.search(r"duration: (\d+)s", open(os.path.join(H, "raw", q, "wise-men.md")).read()).group(1)) for q in R}
