@@ -2,7 +2,7 @@
 <title>Per-axis means for council, structured prompt, and direct answer</title>
 <text x="40" y="30" font-size="16" font-weight="600" fill="#e6edf3" text-anchor="start" >Where the gap comes from — per rubric axis</text>
 <text x="40" y="50" font-size="12" font-weight="400" fill="#9198a1" text-anchor="start" >Mean score 1–5 · council vs structured prompt, two-sided Wilcoxon, Bonferroni α = 0.01</text>
-<rect x="40" y="62" width="12" height="12" rx="3" fill="#1a9e8a"/>
+<rect x="40" y="62" width="12" height="12" rx="3" fill="#b8323a"/>
 <text x="57" y="72" font-size="12" font-weight="400" fill="#9198a1" text-anchor="start" >wise-men council</text>
 <rect x="184.6" y="62" width="12" height="12" rx="3" fill="#7d8ea5"/>
 <text x="201.6" y="72" font-size="12" font-weight="400" fill="#9198a1" text-anchor="start" >structured single prompt</text>
@@ -20,7 +20,7 @@
 <text x="32" y="141.6" font-size="11" font-weight="400" fill="#6e7681" text-anchor="end" >4</text>
 <line x1="40" y1="96" x2="820" y2="96" stroke="#262c36" stroke-width="1" />
 <text x="32" y="100" font-size="11" font-weight="400" fill="#6e7681" text-anchor="end" >5</text>
-<path d="M60,304v-199.7a4,4 0 0 1 4,-4h26a4,4 0 0 1 4,4v199.7z" fill="#1a9e8a"/>
+<path d="M60,304v-199.7a4,4 0 0 1 4,-4h26a4,4 0 0 1 4,4v199.7z" fill="#b8323a"/>
 <text x="77" y="94.3" font-size="12" font-weight="600" fill="#e6edf3" text-anchor="middle" >4.9</text>
 <path d="M100,304v-196.8a4,4 0 0 1 4,-4h26a4,4 0 0 1 4,4v196.8z" fill="#7d8ea5"/>
 <text x="117" y="97.2" font-size="12" font-weight="600" fill="#9198a1" text-anchor="middle" >4.8</text>
@@ -28,7 +28,7 @@
 <text x="157" y="117.3" font-size="12" font-weight="600" fill="#9198a1" text-anchor="middle" >4.3</text>
 <text x="117" y="324" font-size="13" font-weight="500" fill="#e6edf3" text-anchor="middle" >correctness</text>
 <text x="117" y="342" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >no difference</text>
-<path d="M216,304v-204a4,4 0 0 1 4,-4h26a4,4 0 0 1 4,4v204z" fill="#1a9e8a"/>
+<path d="M216,304v-204a4,4 0 0 1 4,-4h26a4,4 0 0 1 4,4v204z" fill="#b8323a"/>
 <text x="233" y="90" font-size="12" font-weight="600" fill="#e6edf3" text-anchor="middle" >5.0</text>
 <path d="M256,304v-159.5a4,4 0 0 1 4,-4h26a4,4 0 0 1 4,4v159.5z" fill="#7d8ea5"/>
 <text x="273" y="134.5" font-size="12" font-weight="600" fill="#9198a1" text-anchor="middle" >3.9</text>
@@ -36,7 +36,7 @@
 <text x="313" y="154.6" font-size="12" font-weight="600" fill="#9198a1" text-anchor="middle" >3.4</text>
 <text x="273" y="324" font-size="13" font-weight="500" fill="#e6edf3" text-anchor="middle" >insight</text>
 <text x="273" y="342" font-size="11" font-weight="400" fill="#e6edf3" text-anchor="middle" >p &lt; 0.001</text>
-<path d="M372,304v-198.3a4,4 0 0 1 4,-4h26a4,4 0 0 1 4,4v198.3z" fill="#1a9e8a"/>
+<path d="M372,304v-198.3a4,4 0 0 1 4,-4h26a4,4 0 0 1 4,4v198.3z" fill="#b8323a"/>
 <text x="389" y="95.7" font-size="12" font-weight="600" fill="#e6edf3" text-anchor="middle" >4.9</text>
 <path d="M412,304v-166.7a4,4 0 0 1 4,-4h26a4,4 0 0 1 4,4v166.7z" fill="#7d8ea5"/>
 <text x="429" y="127.3" font-size="12" font-weight="600" fill="#9198a1" text-anchor="middle" >4.1</text>
@@ -44,7 +44,7 @@
 <text x="469" y="144.5" font-size="12" font-weight="600" fill="#9198a1" text-anchor="middle" >3.7</text>
 <text x="429" y="324" font-size="13" font-weight="500" fill="#e6edf3" text-anchor="middle" >practical</text>
 <text x="429" y="342" font-size="11" font-weight="400" fill="#e6edf3" text-anchor="middle" >p &lt; 0.001</text>
-<path d="M528,304v-199.7a4,4 0 0 1 4,-4h26a4,4 0 0 1 4,4v199.7z" fill="#1a9e8a"/>
+<path d="M528,304v-199.7a4,4 0 0 1 4,-4h26a4,4 0 0 1 4,4v199.7z" fill="#b8323a"/>
 <text x="545" y="94.3" font-size="12" font-weight="600" fill="#e6edf3" text-anchor="middle" >4.9</text>
 <path d="M568,304v-158.1a4,4 0 0 1 4,-4h26a4,4 0 0 1 4,4v158.1z" fill="#7d8ea5"/>
 <text x="585" y="135.9" font-size="12" font-weight="600" fill="#9198a1" text-anchor="middle" >3.9</text>
@@ -52,7 +52,7 @@
 <text x="625" y="164.6" font-size="12" font-weight="600" fill="#9198a1" text-anchor="middle" >3.2</text>
 <text x="585" y="324" font-size="13" font-weight="500" fill="#e6edf3" text-anchor="middle" >risk</text>
 <text x="585" y="342" font-size="11" font-weight="400" fill="#e6edf3" text-anchor="middle" >p &lt; 0.001</text>
-<path d="M684,304v-196.8a4,4 0 0 1 4,-4h26a4,4 0 0 1 4,4v196.8z" fill="#1a9e8a"/>
+<path d="M684,304v-196.8a4,4 0 0 1 4,-4h26a4,4 0 0 1 4,4v196.8z" fill="#b8323a"/>
 <text x="701" y="97.2" font-size="12" font-weight="600" fill="#e6edf3" text-anchor="middle" >4.8</text>
 <path d="M724,304v-162.4a4,4 0 0 1 4,-4h26a4,4 0 0 1 4,4v162.4z" fill="#7d8ea5"/>
 <text x="741" y="131.6" font-size="12" font-weight="600" fill="#9198a1" text-anchor="middle" >4.0</text>

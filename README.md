@@ -1,4 +1,4 @@
-<p align="center"><img src="assets/banner.svg" alt="wise-men — a council of Claude subagents that argue, grade each other, and hand you one answer with the dissent kept intact" width="860"></p>
+<p align="center"><img src="assets/banner.svg" alt="wise-men: a pixel-art council (a Devil's Advocate, an engineer, the chairman in a high-backed chair, an analyst and an elder) beside the tagline: a council of Claude subagents that argue, grade each other, and hand you one answer with the dissent kept intact" width="860"></p>
 
 [![stars](https://img.shields.io/github/stars/Ali-expandings/wise-men?style=flat)](https://github.com/Ali-expandings/wise-men/stargazers) [![license](https://img.shields.io/github/license/Ali-expandings/wise-men)](LICENSE) [![check](https://github.com/Ali-expandings/wise-men/actions/workflows/check.yml/badge.svg)](https://github.com/Ali-expandings/wise-men/actions/workflows/check.yml) [![plugin](https://img.shields.io/badge/Claude%20Code-plugin-blue)](#install)
 
@@ -178,7 +178,7 @@ flowchart TB
     K -.->|"fails: redraft"| C
     K --> A("<b>Your answer</b><br/>decision · cost if wrong<br/>dissent intact<br/>every shortcut disclosed")
 
-    classDef key stroke:#1a9e8a,stroke-width:2px
+    classDef key stroke:#b8323a,stroke-width:2px
     class M3,C,K key
 ```
 

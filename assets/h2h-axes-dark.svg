@@ -4,15 +4,15 @@
 <text x="40" y="52" font-size="12" font-weight="400" fill="#9198a1" text-anchor="start" >Mean score per axis, 1–5, over the same 8 questions · dashed line = the plain answer on that axis</text>
 <rect x="40" y="72" width="12" height="12" rx="3" fill="#656c76"/>
 <text x="57" y="82" font-size="12" font-weight="400" fill="#9198a1" text-anchor="start" >plain answer</text>
-<rect x="160.6" y="72" width="12" height="12" rx="3" fill="#d55181"/>
+<rect x="160.6" y="72" width="12" height="12" rx="3" fill="#3987e5"/>
 <text x="177.6" y="82" font-size="12" font-weight="400" fill="#9198a1" text-anchor="start" >brainstorming</text>
-<rect x="288" y="72" width="12" height="12" rx="3" fill="#9085e9"/>
+<rect x="288" y="72" width="12" height="12" rx="3" fill="#d95926"/>
 <text x="305" y="82" font-size="12" font-weight="400" fill="#9198a1" text-anchor="start" >grilling</text>
-<rect x="381.4" y="72" width="12" height="12" rx="3" fill="#d95926"/>
+<rect x="381.4" y="72" width="12" height="12" rx="3" fill="#9085e9"/>
 <text x="398.4" y="82" font-size="12" font-weight="400" fill="#9198a1" text-anchor="start" >LifeOS Council</text>
-<rect x="515.6" y="72" width="12" height="12" rx="3" fill="#3987e5"/>
+<rect x="515.6" y="72" width="12" height="12" rx="3" fill="#c98500"/>
 <text x="532.6" y="82" font-size="12" font-weight="400" fill="#9198a1" text-anchor="start" >llm-council</text>
-<rect x="629.4" y="72" width="12" height="12" rx="3" fill="#1a9e8a"/>
+<rect x="629.4" y="72" width="12" height="12" rx="3" fill="#b8323a"/>
 <text x="646.4" y="82" font-size="12" font-weight="700" fill="#e6edf3" text-anchor="start" >wise-men</text>
 <line x1="56" y1="340" x2="840" y2="340" stroke="#262c36" stroke-width="1" />
 <text x="46" y="344" font-size="11" font-weight="400" fill="#6e7681" text-anchor="end" >0</text>
@@ -27,55 +27,55 @@
 <line x1="56" y1="140" x2="840" y2="140" stroke="#262c36" stroke-width="1" />
 <text x="46" y="144" font-size="11" font-weight="400" fill="#6e7681" text-anchor="end" >5</text>
 <path d="M86.1,340v-181a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v181z" fill="#656c76"/>
-<path d="M105.1,340v-181a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v181z" fill="#d55181"/>
-<path d="M124.1,340v-151a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v151z" fill="#9085e9"/>
-<path d="M143.1,340v-171a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v171z" fill="#d95926"/>
-<path d="M162.1,340v-151a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v151z" fill="#3987e5"/>
-<path d="M181.1,340v-181a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v181z" fill="#1a9e8a"/>
+<path d="M105.1,340v-181a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v181z" fill="#3987e5"/>
+<path d="M124.1,340v-151a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v151z" fill="#d95926"/>
+<path d="M143.1,340v-171a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v171z" fill="#9085e9"/>
+<path d="M162.1,340v-151a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v151z" fill="#c98500"/>
+<path d="M181.1,340v-181a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v181z" fill="#b8323a"/>
 <line x1="81.1" y1="155" x2="202.1" y2="155" stroke="#e6edf3" stroke-width="1" stroke-opacity="0.55" stroke-dasharray="4 3"/>
 <text x="94.1" y="149" font-size="10" font-weight="400" fill="#6e7681" text-anchor="middle" >4.6</text>
 <text x="189.1" y="149" font-size="11" font-weight="700" fill="#e6edf3" text-anchor="middle" >4.6</text>
 <text x="141.6" y="362" font-size="13" font-weight="600" fill="#e6edf3" text-anchor="middle" >Correctness</text>
 <text x="141.6" y="379" font-size="11" font-weight="400" fill="#9198a1" text-anchor="middle" >wise-men level with plain</text>
 <path d="M241.3,340v-126a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v126z" fill="#656c76"/>
-<path d="M260.3,340v-146a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v146z" fill="#d55181"/>
-<path d="M279.3,340v-126a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v126z" fill="#9085e9"/>
-<path d="M298.3,340v-166a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v166z" fill="#d95926"/>
-<path d="M317.3,340v-176a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v176z" fill="#3987e5"/>
-<path d="M336.3,340v-181a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v181z" fill="#1a9e8a"/>
+<path d="M260.3,340v-146a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v146z" fill="#3987e5"/>
+<path d="M279.3,340v-126a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v126z" fill="#d95926"/>
+<path d="M298.3,340v-166a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v166z" fill="#9085e9"/>
+<path d="M317.3,340v-176a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v176z" fill="#c98500"/>
+<path d="M336.3,340v-181a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v181z" fill="#b8323a"/>
 <line x1="236.3" y1="210" x2="357.3" y2="210" stroke="#e6edf3" stroke-width="1" stroke-opacity="0.55" stroke-dasharray="4 3"/>
 <text x="249.3" y="204" font-size="10" font-weight="400" fill="#6e7681" text-anchor="middle" >3.3</text>
 <text x="344.3" y="149" font-size="11" font-weight="700" fill="#e6edf3" text-anchor="middle" >4.6</text>
 <text x="296.8" y="362" font-size="13" font-weight="600" fill="#e6edf3" text-anchor="middle" >Insight</text>
 <text x="296.8" y="379" font-size="11" font-weight="400" fill="#9198a1" text-anchor="middle" >wise-men +1.4 over plain</text>
 <path d="M396.5,340v-156a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v156z" fill="#656c76"/>
-<path d="M415.5,340v-171a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v171z" fill="#d55181"/>
-<path d="M434.5,340v-156a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v156z" fill="#9085e9"/>
-<path d="M453.5,340v-161a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v161z" fill="#d95926"/>
-<path d="M472.5,340v-156a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v156z" fill="#3987e5"/>
-<path d="M491.5,340v-156a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v156z" fill="#1a9e8a"/>
+<path d="M415.5,340v-171a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v171z" fill="#3987e5"/>
+<path d="M434.5,340v-156a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v156z" fill="#d95926"/>
+<path d="M453.5,340v-161a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v161z" fill="#9085e9"/>
+<path d="M472.5,340v-156a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v156z" fill="#c98500"/>
+<path d="M491.5,340v-156a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v156z" fill="#b8323a"/>
 <line x1="391.5" y1="180" x2="512.5" y2="180" stroke="#e6edf3" stroke-width="1" stroke-opacity="0.55" stroke-dasharray="4 3"/>
 <text x="404.5" y="174" font-size="10" font-weight="400" fill="#6e7681" text-anchor="middle" >4.0</text>
 <text x="499.5" y="174" font-size="11" font-weight="700" fill="#e6edf3" text-anchor="middle" >4.0</text>
 <text x="452" y="362" font-size="13" font-weight="600" fill="#e6edf3" text-anchor="middle" >Practical use</text>
 <text x="452" y="379" font-size="11" font-weight="400" fill="#9198a1" text-anchor="middle" >wise-men level with plain</text>
 <path d="M551.7,340v-111a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v111z" fill="#656c76"/>
-<path d="M570.7,340v-126a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v126z" fill="#d55181"/>
-<path d="M589.7,340v-126a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v126z" fill="#9085e9"/>
-<path d="M608.7,340v-166a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v166z" fill="#d95926"/>
-<path d="M627.7,340v-171a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v171z" fill="#3987e5"/>
-<path d="M646.7,340v-196a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v196z" fill="#1a9e8a"/>
+<path d="M570.7,340v-126a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v126z" fill="#3987e5"/>
+<path d="M589.7,340v-126a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v126z" fill="#d95926"/>
+<path d="M608.7,340v-166a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v166z" fill="#9085e9"/>
+<path d="M627.7,340v-171a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v171z" fill="#c98500"/>
+<path d="M646.7,340v-196a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v196z" fill="#b8323a"/>
 <line x1="546.7" y1="225" x2="667.7" y2="225" stroke="#e6edf3" stroke-width="1" stroke-opacity="0.55" stroke-dasharray="4 3"/>
 <text x="559.7" y="219" font-size="10" font-weight="400" fill="#6e7681" text-anchor="middle" >2.9</text>
 <text x="654.7" y="134" font-size="11" font-weight="700" fill="#e6edf3" text-anchor="middle" >5.0</text>
 <text x="607.2" y="362" font-size="13" font-weight="600" fill="#e6edf3" text-anchor="middle" >Risk awareness</text>
 <text x="607.2" y="379" font-size="11" font-weight="400" fill="#9198a1" text-anchor="middle" >wise-men +2.1 over plain</text>
 <path d="M706.9,340v-61a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v61z" fill="#656c76"/>
-<path d="M725.9,340v-71a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v71z" fill="#d55181"/>
-<path d="M744.9,340v-71a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v71z" fill="#9085e9"/>
-<path d="M763.9,340v-171a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v171z" fill="#d95926"/>
-<path d="M782.9,340v-156a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v156z" fill="#3987e5"/>
-<path d="M801.9,340v-196a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v196z" fill="#1a9e8a"/>
+<path d="M725.9,340v-71a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v71z" fill="#3987e5"/>
+<path d="M744.9,340v-71a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v71z" fill="#d95926"/>
+<path d="M763.9,340v-171a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v171z" fill="#9085e9"/>
+<path d="M782.9,340v-156a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v156z" fill="#c98500"/>
+<path d="M801.9,340v-196a4,4 0 0 1 4,-4h8a4,4 0 0 1 4,4v196z" fill="#b8323a"/>
 <line x1="701.9" y1="275" x2="822.9" y2="275" stroke="#e6edf3" stroke-width="1" stroke-opacity="0.55" stroke-dasharray="4 3"/>
 <text x="714.9" y="269" font-size="10" font-weight="400" fill="#6e7681" text-anchor="middle" >1.6</text>
 <text x="809.9" y="134" font-size="11" font-weight="700" fill="#e6edf3" text-anchor="middle" >5.0</text>

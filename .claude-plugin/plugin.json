@@ -1,6 +1,6 @@
 {
   "name": "wise-men",
-  "version": "3.9.3",
+  "version": "3.9.4",
   "description": "A council of Claude subagents that argue, grade each other, and hand you a synthesized answer with the dissent preserved. Ships its own blind eval.",
   "author": { "name": "Ali-expandings", "url": "https://github.com/Ali-expandings" },
   "homepage": "https://github.com/Ali-expandings/wise-men",

@@ -5,7 +5,7 @@ Run: python3 scripts/make_charts.py   (needs PyYAML only)
 
 Every chart is written twice, <name>.svg for GitHub's light theme and <name>-dark.svg for dark; the README picks one
 with <picture>. Head-to-head arm colours were checked for colour-blind separation in both themes (worst adjacent pair
-dE 16.0 in OKLab x100 under protanopia/deuteranopia simulation; target >= 8). Text always uses neutral ink, never a
+dE 15.6 in OKLab x100 under protanopia/deuteranopia simulation; target >= 8). Text always uses neutral ink, never a
 series colour: identity comes from the mark beside the text."""
 import glob, math, os, statistics as st
 from decimal import Decimal, ROUND_HALF_UP
@@ -16,12 +16,11 @@ PARSED = os.path.join(ROOT, "eval-data", "parsed"); H2H = os.path.join(ROOT, "ev
 AXES = ["correctness", "insight", "practical", "risk", "dissent"]
 AXIS_NAME = {"correctness": "Correctness", "insight": "Insight", "practical": "Practical use", "risk": "Risk awareness", "dissent": "Dissent quality"}
 FONT = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
-TEAL = "#1a9e8a"
 THEMES = {
-    "light": dict(INK="#1f2328", TXT="#59636e", MUTE="#818b98", GRID="#d8dee4", SURF="#ffffff", PROMPT="#7d8ea5", DIRECT="#b9c2ce", PLAIN="#8c959f", OTHER="#8c959f", AMBER="#d9a441",
-                  ARM={"brainstorming": "#e87ba4", "grilling": "#4a3aa7", "lifeos-council": "#eb6834", "llm-council": "#2a78d6"}),
-    "dark": dict(INK="#e6edf3", TXT="#9198a1", MUTE="#6e7681", GRID="#262c36", SURF="#0d1117", PROMPT="#7d8ea5", DIRECT="#4b535d", PLAIN="#656c76", OTHER="#6e7681", AMBER="#d9a441",
-                 ARM={"brainstorming": "#d55181", "grilling": "#9085e9", "lifeos-council": "#d95926", "llm-council": "#3987e5"}),
+    "light": dict(ACCENT="#9e1b24", INK="#1f2328", TXT="#59636e", MUTE="#818b98", GRID="#d8dee4", SURF="#ffffff", PROMPT="#7d8ea5", DIRECT="#b9c2ce", PLAIN="#8c959f", OTHER="#8c959f", AMBER="#d9a441",
+                  ARM={"brainstorming": "#2a78d6", "grilling": "#eb6834", "lifeos-council": "#4a3aa7", "llm-council": "#eda100"}),
+    "dark": dict(ACCENT="#b8323a", INK="#e6edf3", TXT="#9198a1", MUTE="#6e7681", GRID="#262c36", SURF="#0d1117", PROMPT="#7d8ea5", DIRECT="#4b535d", PLAIN="#656c76", OTHER="#6e7681", AMBER="#d9a441",
+                 ARM={"brainstorming": "#3987e5", "grilling": "#d95926", "lifeos-council": "#9085e9", "llm-council": "#c98500"}),
 }
 C = dict(THEMES["light"])  # active theme
 
@@ -54,7 +53,7 @@ def swatch(x, y, fill): return f'<rect x="{num(x)}" y="{num(y)}" width="12" heig
 def dashed(x1, y1, x2, y2): return line(x1, y1, x2, y2, C["INK"], 1, 'stroke-opacity="0.55" stroke-dasharray="4 3"')
 
 # ---------- N=29 eval (council vs structured prompt vs direct) ----------
-def arms29(): return [("arm_c", "wise-men council", TEAL), ("arm_b", "structured single prompt", C["PROMPT"]), ("arm_a", "direct answer", C["DIRECT"])]
+def arms29(): return [("arm_c", "wise-men council", C["ACCENT"]), ("arm_b", "structured single prompt", C["PROMPT"]), ("arm_a", "direct answer", C["DIRECT"])]
 def load():
     rows = {}; keys = ["arm_c", "arm_b", "arm_a"]
     for f in sorted(glob.glob(os.path.join(PARSED, "Q*.yaml"))):
@@ -138,14 +137,14 @@ def chart_landscape():
         cx = x0 + cw * (j + 0.5); parts = [nm] if len(nm) <= 13 else ([nm[:nm.find(" ")], nm[nm.find(" ") + 1:]] if " " in nm else [nm[:nm.rfind("-") + 1], nm[nm.rfind("-") + 1:]])
         for li, part in enumerate(parts): b += t(cx, 78 + li * 13, part, 11, C["INK"] if j == 0 else C["TXT"], 700 if j == 0 else 500, "middle")
         if o: b += t(cx, 78 + len(parts) * 13, o, 10, C["MUTE"], anchor="middle")
-    b += f'<rect x="{num(x0)}" y="62" width="{num(cw)}" height="{rh * len(feats) + 58}" rx="8" fill="{TEAL}" fill-opacity="0.10"/>\n'
+    b += f'<rect x="{num(x0)}" y="62" width="{num(cw)}" height="{rh * len(feats) + 58}" rx="8" fill="{C["ACCENT"]}" fill-opacity="0.10"/>\n'
     for i, (name, vals) in enumerate(feats):
         y = 120 + i * rh + rh / 2; b += t(x0 - 16, y + 4, name, 12, C["INK"], anchor="end") + line(40, y + rh / 2, W - 20, y + rh / 2, C["GRID"])
         for j, v in enumerate(vals):
             cx = x0 + cw * (j + 0.5)
-            b += {2: f'<circle cx="{num(cx)}" cy="{num(y)}" r="7" fill="{TEAL}"/>', 1: f'<circle cx="{num(cx)}" cy="{num(y)}" r="7" fill="{C["AMBER"]}"/>', 0: ring(cx, y, 6, C["MUTE"])}[v]
+            b += {2: f'<circle cx="{num(cx)}" cy="{num(y)}" r="7" fill="{C["ACCENT"]}"/>', 1: f'<circle cx="{num(cx)}" cy="{num(y)}" r="7" fill="{C["AMBER"]}"/>', 0: ring(cx, y, 6, C["MUTE"])}[v]
     ly = H - 16
-    b += f'<circle cx="46" cy="{ly - 4}" r="6" fill="{TEAL}"/>' + t(58, ly, "yes", 11) + f'<circle cx="106" cy="{ly - 4}" r="6" fill="{C["AMBER"]}"/>' + t(118, ly, "partial or unspecified", 11) + ring(256, ly - 4, 5.5, C["MUTE"]) + t(268, ly, "absent", 11)
+    b += f'<circle cx="46" cy="{ly - 4}" r="6" fill="{C["ACCENT"]}"/>' + t(58, ly, "yes", 11) + f'<circle cx="106" cy="{ly - 4}" r="6" fill="{C["AMBER"]}"/>' + t(118, ly, "partial or unspecified", 11) + ring(256, ly - 4, 5.5, C["MUTE"]) + t(268, ly, "absent", 11)
     return svg(W, H, b, "Feature matrix of council skills for Claude Code")
 
 # ---------- head-to-head (8 questions, 6 arms) ----------
@@ -153,7 +152,7 @@ def load_h2h():
     rows = {os.path.basename(f)[:-5]: yaml.safe_load(open(f))["arms"] for f in sorted(glob.glob(os.path.join(H2H, "Q*.yaml")))}
     assert len(rows) == 8 and all(set(r) == set(H_ARMS) for r in rows.values()), len(rows); return rows
 def hmean(rows, a, key="composite"): return st.mean(r[a][key] for r in rows.values())
-def colour(a): return TEAL if a == "wise-men" else C["PLAIN"] if a == "direct" else C["ARM"][a]
+def colour(a): return C["ACCENT"] if a == "wise-men" else C["PLAIN"] if a == "direct" else C["ARM"][a]
 
 def chart_h2h(rows):
     x0, sc, top, rh, n = 250, 15.6, 112, 46, len(rows)
@@ -223,26 +222,85 @@ def chart_h2h_questions(rows):
         b += line(x0 + (min(vals) - lo) * sc, y, x0 + (max(vals) - lo) * sc, y, C["GRID"], 2)
         b += ring(x0 + (r["direct"]["composite"] - lo) * sc, y, 7, C["TXT"])
         for a in others: b += dot(x0 + (r[a]["composite"] - lo) * sc, y, 4.5, C["OTHER"])
-        b += dot(x0 + (wm - lo) * sc, y, 6.5, TEAL)
+        b += dot(x0 + (wm - lo) * sc, y, 6.5, C["ACCENT"])
         bv = max(r[a]["composite"] for a in others); best = [short[a] for a in others if r[a]["composite"] == bv]
         rel = "ahead" if wm > bv else "tied" if wm == bv else "behind"; won += wm > bv; tied += wm == bv; lost += wm < bv
         b += t(660, y + 4, rel, 12, C["INK"]) + t(712, y + 4, f"{', '.join(best)} {bv}", 11, C["MUTE"])
     ly = bottom + 44
-    b += dot(46, ly - 4, 6.5, TEAL) + t(58, ly, "wise-men", 11) + dot(136, ly - 4, 4.5, C["OTHER"]) + t(146, ly, "the other four skills", 11) + ring(284, ly - 4, 7, C["TXT"]) + t(296, ly, "plain answer", 11)
+    b += dot(46, ly - 4, 6.5, C["ACCENT"]) + t(58, ly, "wise-men", 11) + dot(136, ly - 4, 4.5, C["OTHER"]) + t(146, ly, "the other four skills", 11) + ring(284, ly - 4, 7, C["TXT"]) + t(296, ly, "plain answer", 11)
     mins = [min(r[a]["composite"] for r in rows.values()) for a in others]
     b += t(40, ly + 22, f"Against the best of the other four on each question: ahead {won}, tied {tied}, behind {lost}. Their lowest scores were {min(mins)}–{max(mins)}; wise-men's was {wm_min}.", 11, C["MUTE"])
     return svg(860, ly + 38, b, f"Per-question scores: wise-men lowest {wm_min} of 25; versus the best other skill ahead {won}, tied {tied}, behind {lost}")
 
+# ---------- banner: the council in pixel art, one 5 px grid, three-tone shading per material, dark-red theme ----------
+BU, B_OUTLINE = 5, "#120b09"
+B_RAMP = {  # material: highlight, base, shadow
+    "O": ("#e89272", "#d97757", "#a6563b"), "L": ("#a6563b", "#8c4730", "#6e3624"), "C": ("#474d57", "#30353d", "#1f2329"),
+    "D": ("#2c3037", "#1b1e23", "#101215"), "R": ("#b3303a", "#8e1b24", "#5e1117"), "G": ("#a1a8b0", "#747b84", "#4d535b"),
+    "A": ("#e5b04e", "#c48a22", "#8a5e12"), "F": ("#3a2a22", "#2a1d17", "#1a110d")}
+B_FIXED = {"k": "#16100e", "W": "#e8e3dd", "l": "#4a505a", "m": "#2f343c", "r": "#8e1b24", "x": "#5e1117", "Y": "#d4a72c", "B": "#f4f1ec", "b": "#c8c2ba", "N": "#9fb0c2"}
+LEGS = ["..L.L..L.L..", "..L.L..L.L.."]
+FACE, BLANK = ".OOOOOOOOOO.", "............"
+def _at(ch, *cells): return {rc: ch for rc in cells}
+COUNCIL = {  # grid of materials + painted details
+    "devils-advocate": ([".R........R.", ".RR......RR.", "..RR....RR..", FACE, FACE, FACE, FACE, "RRRRRRRRRRRR", "RRRRRRRRRRRR", ".RRRRRRRRRR.", *LEGS],
+                        {**_at("k", (3, 2), (3, 3), (4, 4), (3, 9), (3, 8), (4, 7), (5, 3), (6, 3), (5, 8), (6, 8)), **_at("x", (7, 5), (7, 6))}),
+    "engineer": (["...AAAAAA...", "..AAAAAAAA..", "AAAAAAAAAAAA", FACE, FACE, FACE, FACE, "CCCCCCCCCCCC", "CCCCCCCCCCCC", ".CCCCCCCCCC.", *LEGS],
+                 {**_at("k", (3, 2), (3, 3), (3, 4), (3, 7), (3, 8), (3, 9), (5, 3), (6, 3), (5, 8), (6, 8)), **_at("Y", (8, 1), (8, 10))}),
+    "analyst": ([BLANK, BLANK, BLANK, FACE, FACE, FACE, FACE, "CCCCCCCCCCCC", "CCCCCCCCCCCC", ".CCCCCCCCCC.", *LEGS],
+                {**_at("k", (4, 2), (4, 3), (4, 4), (4, 7), (4, 8), (4, 9), (5, 2), (5, 4), (5, 5), (5, 6), (5, 7), (5, 9), (6, 2), (6, 3), (6, 4), (6, 7), (6, 8), (6, 9)),
+                 **_at("N", (5, 3), (5, 8)), **_at("l", (7, 4), (8, 4), (7, 7), (8, 7)), **_at("x", (7, 5), (7, 6)), **_at("r", (8, 5), (8, 6), (9, 5), (9, 6))}),
+    "elder": (["....GGGG....", "...GGGGGG...", "..GGGGGGGG..", *[".GOOOOOOOOG."] * 4, "GGGGGGGGGGGG", "GGGGGGGGGGGG", ".GGGGGGGGGG.", *LEGS],
+              {**_at("B", (3, 3), (3, 4), (3, 7), (3, 8), (6, 3), (6, 4), (6, 5), (6, 6), (6, 7), (6, 8), (7, 3), (7, 4), (7, 5), (7, 6), (7, 7), (7, 8), (8, 5), (8, 6), (9, 5), (9, 6)),
+               **_at("k", (4, 3), (5, 3), (4, 8), (5, 8)), **_at("b", (8, 4), (8, 7))}),
+    "chairman": ([*[".OOOOOOOOOOOO."] * 5, "DDDDDDDDDDDDDD", "DDDDDDDDDDDDDD", ".DDDDDDDDDDDD.", ".DDDDDDDDDDDD.", "..L.L....L.L..", "..L.L....L.L.."],
+                 {**_at("k", (1, 2), (1, 3), (1, 4), (1, 9), (1, 10), (1, 11), (2, 3), (3, 3), (2, 10), (3, 10)), **_at("m", (5, 5), (5, 8)), **_at("l", (6, 5), (7, 5), (6, 8), (7, 8)), **_at("x", (5, 6), (5, 7)), **_at("r", (6, 6), (6, 7), (7, 6), (7, 7), (8, 6), (8, 7))}),
+    "chair": (["......FFFFFFFF......", "....FFFRRRRRRFFF....", "..FFRRRRRRRRRRRRFF..", *[".FRRRRRRRRRRRRRRRRF."] * 15,
+               "FFFRRRRRRRRRRRRRRFFF", "FFFRRRRRRRRRRRRRRFFF", "FFFFFFFFFFFFFFFFFFFF", ".FF..............FF."],
+              _at("x", (4, 5), (4, 9), (4, 13), (7, 7), (7, 11), (10, 5), (10, 9), (10, 13), (13, 7), (13, 11), (16, 5), (16, 9), (16, 13))),
+}
+
+def _sprite(name, x0, y0):
+    grid, marks = COUNCIL[name]
+    g = [list(row) for row in grid]
+    for (r, c), ch in marks.items(): g[r][c] = ch
+    h, w = len(g), len(g[0])
+    solid = lambda r, c: 0 <= r < h and 0 <= c < w and g[r][c] != "."
+    px = lambda r, c, col: f'<rect x="{x0 + c * BU}" y="{y0 + r * BU}" width="{BU}" height="{BU}" fill="{col}"/>'
+    out = [px(r, c, B_OUTLINE) for r in range(-1, h + 1) for c in range(-1, w + 1)
+           if not solid(r, c) and any(solid(r + a, c + b) for a, b in ((1, 0), (-1, 0), (0, 1), (0, -1)))]
+    for r in range(h):
+        for c in range(w):
+            m = g[r][c]
+            if m == ".": continue
+            if m in B_RAMP:
+                hi, base, sh = B_RAMP[m]
+                col = hi if not solid(r - 1, c) or not solid(r, c - 1) else sh if not solid(r + 1, c) or not solid(r, c + 1) else base
+            else:
+                col = B_FIXED[m]
+            out.append(px(r, c, col))
+    return "".join(out)
+
 def banner():
-    W, H = 860, 190
-    b = f'<rect width="{W}" height="{H}" rx="14" fill="#0b0f14"/>\n'
-    for k, (cx, cy) in enumerate([(88, 96), (114, 70), (146, 62), (178, 70), (204, 96)]):
-        b += f'<circle cx="{cx}" cy="{cy}" r="9" fill="{"#1a9e8a" if k == 3 else "#e6edf3"}"/>'
-    b += f'<path d="M 88 96 Q 146 150 204 96" fill="none" stroke="#e6edf3" stroke-opacity="0.35" stroke-width="2"/>'
-    b += t(250, 92, "wise-men", 52, "#e6edf3", 700, extra='letter-spacing="-1"')
-    b += t(252, 126, "A council of Claude subagents that argue, grade each other,", 16, "#8b949e")
-    b += t(252, 148, "and hand you one answer with the dissent kept intact.", 16, "#8b949e")
-    return svg(W, H, b, "wise-men")
+    mw, chw, gap, x0 = 12 * BU, 20 * BU, 6, 20
+    xs = [x0, x0 + mw + gap, x0 + 2 * (mw + gap), x0 + 2 * (mw + gap) + chw + gap, x0 + 3 * (mw + gap) + chw + gap]
+    tier_top = [158, 144, 130]
+    b = '<rect width="860" height="190" rx="14" fill="#0d1117"/>\n'
+    for tier, left, right in ((0, xs[0] - 10, xs[4] + mw + 10), (1, xs[1] - 8, xs[3] + mw + 8), (2, xs[2] - 6, xs[2] + chw + 6)):
+        b += (f'<rect x="{left}" y="{tier_top[tier]}" width="{right - left}" height="{178 - tier_top[tier]}" fill="#161b22"/>'
+              f'<rect x="{left}" y="{tier_top[tier]}" width="{right - left}" height="3" fill="{"#8e1b24" if tier == 2 else "#262c34"}"/>\n')
+    chair_y = tier_top[2] - 22 * BU
+    b += '<g shape-rendering="crispEdges">' + _sprite("chair", xs[2], chair_y) + _sprite("chairman", xs[2] + 3 * BU, chair_y + 11 * BU)
+    for i, name, tier in ((0, "devils-advocate", 0), (1, "engineer", 1), (3, "analyst", 1), (4, "elder", 0)):
+        b += _sprite(name, xs[i], tier_top[tier] - 12 * BU)
+    b += "</g>\n"
+    tx = xs[4] + mw + 30
+    b += f'<rect x="{tx + 2}" y="50" width="14" height="4" fill="#8e1b24"/>'
+    b += t(tx + 24, 56, "MULTI-AGENT COUNCIL", 11, "#8b949e", 700, extra='letter-spacing="3"')
+    b += t(tx, 106, "wise-men", 54, "#f0f6fc", 800, extra='letter-spacing="-1.5"')
+    b += t(tx + 2, 134, "A council of Claude subagents that argue, grade each other,", 15, "#9198a1")
+    b += t(tx + 2, 154, "and hand you one answer with the dissent kept intact.", 15, "#9198a1")
+    return svg(860, 190, b, "wise-men: a pixel-art council, a Devil's Advocate, an engineer, the chairman in a high-backed chair, an analyst and an elder")
 
 if __name__ == "__main__":
     rows, h2h = load(), load_h2h(); os.makedirs(OUT, exist_ok=True); wrote = []
