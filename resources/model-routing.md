@@ -36,7 +36,7 @@ Per-million-token rates: cheap 1/5, mid 3/15, strong 5/25, max 10/50 (input/outp
 
 - Solo tier: 1 main-thread pass, ~$0.01-0.02 — no routing needed
 - All-haiku: ~$0.03-0.05
-- Smart-routed standard (4 sonnet members + 1 opus DA + 3 haiku reviewers): ~$0.05-0.07
+- Smart-routed standard (3 sonnet members + opus practitioner anchor + opus DA + 3 haiku reviewers + sonnet checker): ~$0.07-0.09
 - All-sonnet: ~$0.10
 - All-opus: ~$0.15-0.20
 - Paranoid tier (7 opus members + sonnet reviewers + 2 debate rounds): ~$0.25-0.50
@@ -120,6 +120,17 @@ These overrides exist because certain roles **break the council if they're weak*
 | 5 | strong | max tier (falls back to strong if no max-tier model is available on the plan) |
 
 **Why**: Weak DA gives trivial counter-positions. DA must construct the genuinely-best opposing argument. Single most important model choice in the council — the eval's inverted-dissent wins all came from DA reframes strong enough to become the answer.
+
+### Practitioner anchor — always +1 role tier (capped at strong)
+| Composite | Default | Anchor override |
+|---|---|---|
+| 1-2 | (solo tier — no anchor call) | — |
+| quick | haiku | sonnet |
+| 3 | sonnet | opus |
+| 4 | sonnet | opus |
+| 5 | strong | strong (max stays reserved for the DA) |
+
+**Why**: the anchor owns correctness and completeness — the two axes where the head-to-head's winning rival led wise-men by the widest margin (correctness 4.88 vs 3.75, practical 4.88 vs 3.62), and that rival put its strongest model on its correctness seat in at least 7 of 8 runs. A council whose facts come from its cheapest seats loses exactly those axes.
 
 ### Security reviewer — sonnet minimum
 - Composite 1 + security relevant: skip security persona entirely (overkill)
@@ -282,7 +293,7 @@ If haiku model unavailable, fall back to sonnet (warn once per session, not per 
 **Max-tier unavailability is expected, not an error**: every max-tier route (DA at composite 5, `--strong` DA, `--model=max`) degrades to the strong tier automatically when no model above `strong` resolves on this plan. Models retire and plans differ; a missing model id must never break a council. Warn once, route down, continue.
 
 ### Stage 4.5 synthesis checker
-One `wise-member` subagent at the **mid** tier, any tier where it fires (spec in SKILL.md). Do not use the cheap tier (the check is judgment, not formatting) and do not use strong/max (it verifies, it doesn't re-synthesize — mid is enough, and keeping it cheap keeps the incentive to actually run it).
+One `wise-member` subagent at the **mid** tier, at every council tier (spec in SKILL.md). Do not use the cheap tier (the check is judgment, not formatting) and do not use strong/max (it verifies, it doesn't re-synthesize — mid is enough, and keeping it cheap keeps the incentive to actually run it).
 
 ### Member returns garbage after retry
 Treat as abstain. Chairman handles in dissent section. Don't infinite-loop trying models.

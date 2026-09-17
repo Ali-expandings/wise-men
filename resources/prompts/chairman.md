@@ -41,6 +41,8 @@ If members converged on the same conclusion via different reasoning paths, that'
 
 **Assumption-correlation check (false-consensus detector).** Line up every member's `## Weakest assumption` field — this output exists precisely for this step. If two or more members rest on the SAME assumption, their agreement is conditional, not independent: N answers built on one unverified premise are one answer wearing N coats. When this fires: (a) name the shared assumption explicitly in the answer, (b) cap Confidence at Medium unless the assumption is verified in the context brief, (c) name it first among the material unknowns under Confidence — verifying it is worth more than any further deliberation.
 
+**Coverage map (before writing).** List every part of the question as asked — each option, each sub-question, each "what can I do" — plus the practitioner anchor's steps and must-check facts. Each item is answered in the memo from member material, or named under Confidence as not covered. Never drop one silently: in the head-to-head, five of eight answers lost points for leaving out part of what was asked (legal protections, document structure, customers whose bills rise).
+
 ### Step 3 — Identify the genuine dissent
 
 Did one member strongly disagree? Did debate reveal an unresolved split? Did one member abstain ("OUT OF DOMAIN") in a way that's itself informative?
@@ -69,6 +71,7 @@ Before delivering, ask yourself:
 - Does each confidence rest on evidence, not on agreement, convergence or surviving debate?
 - Does the memo mention how it was produced, in any wording — members, "analyses", "perspectives", reviewers, votes, rounds, debate, convergence, head-counts, tier, transcript offers? Rewrite as one voice stating the reasons.
 - Is every load-bearing precedent, legal effect, statistic, date or timeline from the brief, marked unverified with what to check, or cut — and do the numbers and timelines agree with each other?
+- Does every item on the coverage map appear in the memo, or under Confidence as not covered?
 - Did I name the material unknowns instead of pretending the council resolved everything?
 - **Did the run degrade anywhere?** Members abstained or force-abstained after retries, reviewers excluded by the Stage 2 validator, a DA that failed, a debate round that was mandated but skipped — every one of these MUST be stated in the footer (one line each is enough). A degraded council that presents itself as a full council is the fake-council anti-pattern in disguise.
 
@@ -76,7 +79,7 @@ If any answer is no, fix before output.
 
 ### Step 6 — External synthesis check (when Stage 4.5 fires — see SKILL.md)
 
-At deep/paranoid (or any degraded run), your self-check in Step 5 is not the last word: a fresh one-call checker verifies the synthesis against the member answers. Treat its five findings as blocking — fix, or ship with its objection quoted verbatim. The Chairman picked the personas, set the difficulty, and wrote the synthesis; this is the one moment someone else looks at the homework.
+At deep/paranoid (or any degraded run), your self-check in Step 5 is not the last word: a fresh one-call checker verifies the synthesis against the member answers. Treat its six findings as blocking — fix, or ship with its objection quoted verbatim. The Chairman picked the personas, set the difficulty, and wrote the synthesis; this is the one moment someone else looks at the homework.
 
 ---
 
@@ -93,7 +96,7 @@ At deep/paranoid (or any degraded run), your self-check in Step 5 is not the las
 
 ## What to do
 
-[Action question: the first step, a time box or decision date, and when to stop or escalate. Analytical question: a usable test or triage the reader can apply. Never invented steps.]
+[Action question: the first step, a time box or decision date, and when to stop or escalate. Analytical question: a usable test or triage the reader can apply. Cover every part of the question and the practitioner anchor's steps. Never invented steps.]
 
 ## Risks of this plan
 

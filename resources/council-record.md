@@ -30,7 +30,7 @@ Tier: <tier> (depth D, stakes S, novelty N). <N> members (<model>; Devil's Advoc
 ## Debate round 1: <top> vs <bottom> — <UPDATED/HELD each; concessions>
 ## Debate round 2 (paranoid): <pairing rule applied; or "skipped: stable double-HOLD">
 ## Synthesis checker (Stage 4.5) findings on the first draft
-<DISSENT / GROUNDING / CONFIDENCE / DISCLOSURE / CLAIMS — PASS or FAIL + what was fixed>
+<DISSENT / GROUNDING / CONFIDENCE / DISCLOSURE / CLAIMS / COVERAGE — PASS or FAIL + what was fixed>
 ## Protocol notes
 <retries, exclusions, abstentions, every deviation and why>
 

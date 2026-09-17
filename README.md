@@ -185,15 +185,15 @@ flowchart TB
     Q -->|"5"| T4
     subgraph tiers["Spawns only the agents the question needs"]
         T0(["<b>solo</b><br/>0 agents · one pass"])
-        T1["<b>quick</b><br/>~6 agents"]
-        T2["<b>standard</b><br/>~8 agents"]
+        T1["<b>quick</b><br/>~7 agents"]
+        T2["<b>standard</b><br/>~9 agents"]
         T3["<b>deep</b><br/>~15–20 agents"]
         T4["<b>paranoid</b><br/>~25+ agents"]
     end
     T1 & T2 & T3 & T4 --> B["<b>Same verified facts</b><br/>one facts-only brief for all"]
     B --> M1 & M2 & M3
     subgraph council["3–7 members · different minds · no peeking"]
-        M1["Member<br/>reasons from<br/><b>first principles</b>"]
+        M1["<b>Practitioner</b><br/>on a stronger model<br/>owns correctness<br/>and coverage"]
         M2["Member<br/>reasons from<br/><b>base rates</b>"]
         M3["<b>Devil's Advocate</b><br/>on a stronger model<br/>attacks the framing"]
     end
@@ -205,10 +205,10 @@ flowchart TB
     K --> A("<b>Your answer</b><br/>a decision memo · first step<br/>strongest counter-case intact<br/>no council talk · shortcuts disclosed")
 
     classDef key stroke:#b8323a,stroke-width:2px
-    class M3,C,K key
+    class M1,M3,C,K key
 ```
 
-Easy questions skip the council (`solo` tier). Standard tier skips the debate and the independent check; deep and paranoid debate when the rule fires and always run the check, which also runs whenever a run degrades. `--debate` forces a debate at any tier.
+Easy questions skip the council (`solo` tier). Every council tier runs the independent check; quick and standard skip the debate, and deep and paranoid debate when the rule fires. `--debate` forces a debate at any tier.
 
 **Each technique exists to block a specific failure:**
 
@@ -219,6 +219,7 @@ Easy questions skip the council (`solo` tier). Standard tier skips the debate an
 | A different reasoning method per member: first principles, base rates, precedent, incentives, falsification | five answers that agree for the same wrong reason |
 | Members run as read-only agents and never see each other | groupthink, runaway subagents, a member editing your files |
 | A Devil's Advocate on a stronger model, told to attack the framing | a token contrarian too weak to change the outcome |
+| A practitioner seat on a stronger model — named for the job the question belongs to — that owns correctness and covering every part of the question | answers that skip part of what was asked or the steps a professional would take (5 of 8 head-to-head answers lost points this way) |
 | Fresh graders score the verbatim answers and check facts first | a confident error, or the orchestrator's paraphrase, winning the scores |
 | A debate triggered by a fixed rule over scores and positions | skipping the argument because consensus *feels* settled |
 | Dissent kept word for word; a blind spot several members share caps the confidence | watered-down dissent and false consensus |
@@ -280,7 +281,7 @@ What they have that this doesn't: multi-vendor councils, convergence-driven long
 
 ## Cost
 
-Roughly: solo ~free, quick ~3-5¢, standard ~5-7¢, deep ~15¢, paranoid ~25-50¢ per question (2026-07 pricing, cheap models on routine roles). Cheap models grade; stronger models argue; the model mapping lives in one table in `resources/model-routing.md` — update it there when models change and nothing else moves.
+Roughly: solo ~free, quick ~4-6¢, standard ~7-9¢, deep ~16¢, paranoid ~25-50¢ per question (2026-07 pricing, cheap models on routine roles). Cheap models grade; stronger models argue; the model mapping lives in one table in `resources/model-routing.md` — update it there when models change and nothing else moves.
 
 ## Limits (the ones that matter)
 

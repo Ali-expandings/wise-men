@@ -1,6 +1,6 @@
 ---
 name: wise-men
-version: 3.10.0
+version: 3.11.0
 description: Use when the user asks for a "council", "panel", "wise men", "wisemen", "wise-men", "multiple perspectives", "deliberate", "debate", "second opinion x N", "stress-test", "war-game", "red team this", "high-stakes decision", or invokes /wise-men. Wise-men council — multi-persona deliberative answer pattern using Claude subagents. Distinct personas independently answer a hard question, peer-review each other under stable persona labels, optionally debate when split, then a Chairman synthesizes a final answer with preserved dissent. Adaptive tier system (solo/quick/standard/deep/paranoid) auto-scales effort to question stakes. Domain-aware persona auto-selection (engineering/product/strategy/research/writing/creative/ethics/personal). Smart model routing spends cheap models on routine roles and strong models on adversarial ones, driven by 3-axis difficulty (depth/stakes/novelty, max-dominates), with validators and retry fallback at every stage. Blind-judged eval (N=29) of the earlier core loop: the council beat a structured single prompt on 28/29 questions (24.5 vs 20.8 on a 25-point rubric; N=29, one blind Claude judge, pre-registered N=30 verdict pending) — later protocol additions are reasoned from that result, not separately measured; the shipped protocol has ~35 logged live runs (Jul–Sep 2026) behind its v3.8 rules. Inspired by github.com/karpathy/llm-council; design choices drew on (but are not validated by) Du 2023 multi-agent debate, Liang 2024 divergent thinking, Khan 2024 debate-via-persuasion, Zheng 2024 LLM-as-judge bias. Pure Claude — no external APIs.
 ---
 
@@ -23,7 +23,7 @@ You (main thread) are the orchestrator. These steps are MECHANICAL — where a s
 7. Stage 3: build the position map (one-line conclusion per member), then compute the debate trigger from parsed scores + the map. At deep/paranoid, IF IT FIRES, RUN THE ROUND — "the disagreement is already understood" is not a skip reason (that exact rationalization happened in a live run and is why this sentence exists).
 7.5. Anti-anchoring after Stage 1: nothing you learn or think of AFTER members answered may enter a debate prompt, the grading packet, or a member's mouth. New evidence goes into the labeled **Orchestrator addendum** (step 9.6); if it is decisive, re-run the affected members with it in the brief and disclose. (Two live runs changed debaters' positions with orchestrator-injected material; that is the Chairman debating itself.)
 8. Stage 4: Chairman synthesis per chairman.md (counter-position and evidence-over-votes rules are binding).
-9. Stage 4.5 (deep/paranoid always; any tier when a reviewer was excluded or a member force-abstained): spawn ONE fresh synthesis-checker (`wise-member`, mid tier) — it verifies your synthesis against the member answers before output. Fix what it flags or disclose the disagreement.
+9. Stage 4.5 (every council tier; only solo skips it): spawn ONE fresh synthesis-checker (`wise-member`, mid tier) — it verifies your synthesis against the member answers before output. Fix what it flags or disclose the disagreement.
 9.6. Post-council verification: every load-bearing factual claim a member or reviewer FLAGGED as unverified gets checked by you now (web, grep, tests) and reported under a separate heading **Orchestrator verification (after the council — not council output)**. Never fold verification results into the council's verdict silently.
 10. Output per format section: one status line per stage while running (no play-by-play narration); the answer is the decision memo, with no council mechanics in it; every degradation goes in its footer.
 11. Council record: when the question concerns a real project, write the FULL transcript to the project's notes/handoff folder using `resources/council-record.md` — never only to a scratchpad or temp dir (deleted; one live council's record was lost that way). Then offer the one-paragraph vault summary once.
@@ -77,8 +77,8 @@ Max-dominates because each axis can independently break the answer. Hard axis wi
 | Tier | Members | Reviewers | Debate | Calls | Used at composite |
 |---|---|---|---|---|---|
 | **solo** | 0 (single structured pass) | 0 | no | 0 | 1-2 (default) |
-| **quick** | 3 | 3 | no | ~6 | explicit request only |
-| **standard** | 5 | 3 | no | ~8 | 3 (default if no override) |
+| **quick** | 3 | 3 | no | ~6 (+1 checker) | explicit request only |
+| **standard** | 5 | 3 | no | ~8 (+1 checker) | 3 (default if no override) |
 | **deep** | 5-7 | = members | conditional | ~15-20 (+1 checker) | 4 |
 | **paranoid** | 7 | 7 | yes (2 rounds) | ~25+ (+1 checker) | 5 |
 
@@ -117,7 +117,7 @@ Auto-select 3-7 personas based on **question domain** + tier. Full library: `res
 
 **Devil's Advocate is mandatory** in every council, IN ADDITION to the domain roster above (rosters list 4; +DA = 5). Inspired by (not validated by) Liang 2024. **The DA may never abstain** — its domain is disagreement itself; treat a DA "OUT OF DOMAIN" as a validator failure (retry), and if it persists, say so in the output: a council without a working DA is degraded.
 
-If domain unclear, default to mixed: Pragmatist + Skeptic + Architect + Devil's Advocate + Empiricist.
+**Practitioner anchor is mandatory too**: one roster seat goes to a practitioner named for the job the question belongs to (an SRE lead, an employment lawyer, a pricing lead, a research methodologist, an editor), replacing the roster member it overlaps most so counts don't change, on the strong model (routing: +1 role tier), with this appended to its constraints: "You own correctness and completeness: answer every part of the question as asked, give the concrete steps someone who does this for a living would take, and name the facts that must be checked before acting." In the head-to-head the winning rival put its strongest model on exactly this seat, and five of eight wise-men answers lost points for leaving out part of what was asked. If domain unclear, default to mixed: Pragmatist + Skeptic + Architect + Devil's Advocate + Empiricist.
 
 **Reasoning-procedure assignment (the actual source of diversity).** Ensembles help because members' ERRORS decorrelate — and role labels alone mostly shift emphasis, not the path through reasoning space. So each member also gets ONE mandated reasoning procedure, distinct across the council, drawn from: **precedent** (what happened when others did this), **first principles** (derive from the mechanics), **base rates** (what usually happens to things in this reference class), **incentives** (who gains, who pays, what behavior that produces), **falsification** (what evidence would kill each option; which option survives). Match procedure to persona where natural (Historian→precedent, Theorist→first-principles, Empiricist→base-rates), assign the rest to cover the set. Five members reasoning down five different paths who still agree — THAT's signal. Five members with different job titles pattern-matching the same way is not.
 
@@ -252,9 +252,7 @@ If found, spawn one **debate round**:
 
 `paranoid` runs 2 debate rounds. `deep` runs 1 conditional round. `standard` and `quick` skip.
 
-**Round-2 pairing (paranoid)**: re-rank by the post-round-1 re-judge; pair the new top against the new bottom. If that reproduces round 1's pair, pair the top against the next-lowest member so round 2 tests a different seam. Round 2 is subject to the early-stop rule in debate.md. (A live paranoid run had to invent this rule mid-council because it was undefined.)
-
-Full prompt template: `resources/prompts/debate.md`.
+**Round-2 pairing (paranoid)**: re-rank by the post-round-1 re-judge; pair the new top against the new bottom. If that reproduces round 1's pair, pair the top against the next-lowest member so round 2 tests a different seam. Round 2 is subject to the early-stop rule in debate.md. (A live paranoid run had to invent this rule mid-council because it was undefined.) Full prompt template: `resources/prompts/debate.md`.
 
 ### Stage 4 — Chairman synthesis (main thread)
 
@@ -285,21 +283,20 @@ You (main thread) act as Chairman. Do NOT spawn a subagent. Read all member answ
 
 **Counter-position rule**: if a member was strongly confident in a position the majority disagreed with, it goes in verbatim or near-verbatim, never softened, and it must argue against the Recommendation — re-stating the majority thesis with hedges is not dissent (the eval docked every council output that did this); a valid point the answer needs belongs in the answer. Length never changes the format.
 
-**Evidence over votes**: peer scores, agreement and unanimity steer the process (debate trigger, which claims get verified) but are never evidence and never appear as support — reviewers are offline. When the contrarian (usually the DA) is peer-rated strongest, its reframe may lead the diagnosis (the eval's Q02/Q38/Q47 wins), but check or flag its factual claims first and keep the majority's executable steps unless the evidence says otherwise. In the head-to-head, "rated #1 by all reviewers" dressed unverified claims as checked ones and cost correctness points.
-
-Full synthesis template: `resources/prompts/chairman.md`.
+**Evidence over votes**: peer scores, agreement and unanimity steer the process (debate trigger, which claims get verified) but are never evidence and never appear as support — reviewers are offline. When the contrarian (usually the DA) is peer-rated strongest, its reframe may lead the diagnosis (the eval's Q02/Q38/Q47 wins), but check or flag its factual claims first and keep the majority's executable steps unless the evidence says otherwise. In the head-to-head, "rated #1 by all reviewers" dressed unverified claims as checked ones and cost correctness points. Full synthesis template, including the coverage map: `resources/prompts/chairman.md`.
 
 ### Stage 4.5 — Synthesis check (external, one call)
 
-**When**: always at deep/paranoid; at any tier when the run degraded (excluded reviewer, force-abstained member, failed DA). **Why**: the Chairman is the same thread that picked the personas and computed the difficulty — the skill's one structural conflict of interest. A single fresh pair of eyes is the cheapest real mitigation, and it matters most when the main-thread model is not the strongest available.
+**When**: at every council tier — quick, standard, deep, paranoid (a smoke run showed an unchecked Chairman renaming council talk back into the answer; the checker failed that draft on every item). **Why**: the Chairman is the same thread that picked the personas and computed the difficulty — the skill's one structural conflict of interest. A single fresh pair of eyes is the cheapest real mitigation, and it matters most when the main-thread model is not the strongest available.
 
-Spawn ONE fresh `wise-member` subagent (mid tier) with: the original question, the context brief, the member answers (with abstentions marked), the aggregated scores, and your draft synthesis. Its task — answer five yes/no checks, one line of evidence each:
+Spawn ONE fresh `wise-member` subagent (mid tier) with: the original question, the context brief, the member answers (with abstentions marked), the aggregated scores, and your draft synthesis. Its task — answer six yes/no checks, one line of evidence each:
 
 1. Is the counter-position a clean COUNTER-position (not the majority thesis re-hedged), quoted not paraphrased?
 2. Does the Recommendation follow from the answers and scores in front of you (not from information the members never said)?
 3. Does each stated confidence match the evidence behind its claim (not the head-count)?
 4. Are all degradations disclosed in the footer, with no council mechanics (member names, scores, votes, tiers, stages) above it?
 5. Is every load-bearing precedent, legal effect, statistic, date or timeline in the brief, marked unverified, or cut — and do the numbers agree?
+6. Does the memo answer every part of the question as asked, with the practitioner anchor's steps, or name what it leaves out?
 
 Any "no" → fix the synthesis and state what changed, or (if you disagree with the checker) ship your version WITH the checker's objection quoted in the output. Never silently override it. Cost: one mid-tier call (a cent or two) — cheap insurance on exactly the failure the eval said loses councils (Q13-class dissent failures). Full prompt template: `resources/prompts/synthesis-check.md`.
 
@@ -360,7 +357,7 @@ Between 2026-07-12 and 2026-09-16, v3.0–v3.7.2 of this protocol ran ~35 real c
 ## Limits
 
 - **Single-model**: all members are Claude. No bias cancellation from architectural diversity. Persona prompting approximates diversity; Claude shares blindspots with itself across personas.
-- **Cost**: even quick = 6+ subagent calls. Match tier to stakes; prefer solo at composite 1-2.
+- **Cost**: even quick = 7+ subagent calls (members, reviewers, checker). Match tier to stakes; prefer solo at composite 1-2.
 - **Chairman is main thread**: same thread that selected personas and computed difficulty also synthesizes. Conflict of interest is structural; dissent preservation partially mitigates.
 - **Eval measured quality, not cost-effectiveness**: the +3.7 mean gap over solo costs ~10 subagent calls. Whether that trade is worth it is the user's call per question — that's what tiers are for.
 - **Anti-recursion — enforced when the member agent is installed**: this skill ships a tool-restricted agent at `agents/wise-member.md` (Read/Grep/Glob only — no Agent, no Bash, no Skill, no Write); a plugin install registers it as `wise-men:wise-member` automatically, a clone install needs the copy step (see README). Either way council recursion is structurally impossible rather than merely discouraged. **Spawn members, reviewers, and the Stage 4.5 checker with that agent type.** Without it, `general-purpose` + the prompt-level suppression line is mitigation, not enforcement.
@@ -372,15 +369,15 @@ Between 2026-07-12 and 2026-09-16, v3.0–v3.7.2 of this protocol ran ~35 real c
 3-member quick tier:
 
 ```
-Stage 0: Pragmatist + Skeptic + Devil's Advocate (DA on +1 tier model)
+Stage 0: Practitioner anchor + Skeptic + Devil's Advocate (anchor and DA on +1 tier model)
 Stage 1: 3 parallel Agent calls, 5-section output structure required
 Validator: 2-check pass (structure present + 5 sections present)
 Stage 2: 3 parallel Agent calls, rubric scoring on stable persona labels
 Stage 3: skipped
-Stage 4: main thread Chairman synthesis
+Stage 4: main thread Chairman synthesis → Stage 4.5: 1 checker call
 ```
 
-Total: 6 subagent calls. ~25-50s wall time. Cost: roughly 3-5 cents USD.
+Total: 7 subagent calls. ~30-60s wall time. Cost: roughly 4-6 cents USD.
 
 > **Authoring note — scope of this rule:** costs are spelled out in words *in this file only*. The skill loader substitutes any dollar-sign-followed-by-digit sequence in **SKILL.md** with the invocation's positional arguments at load time (even inside backticks) — an earlier version of this very note was mangled that way. Files under `resources/`, `examples/`, and `eval-data/` are read on demand rather than injected, so ordinary currency figures there are correct and were deliberately left alone. Rule: never write a numeric dollar amount **in SKILL.md**; elsewhere, write normally.
 
