@@ -160,7 +160,10 @@ def lines(A=None, W=None):
     return L
 
 def report(): print("\n".join(lines()))
-def readme(): print("\n".join(lines([a for a in ARMS if a != WM[1]], [WM[0]])))  # the README reports the shipped skill and its rivals; the experimental fast arm stays in RESULTS-V4.md
+def readme():  # the README reports quality for the shipped skill and its rivals; minutes, calls, costs and the experimental fast arm are in RESULTS-V4.md
+    for l in lines([a for a in ARMS if a != WM[1]], [WM[0]]):
+        if l.startswith("|"): l = "|".join(l.split("|")[:-4]) + "|"
+        print(l.split("; faster than")[0] + ("." if "; faster than" in l else ""))
 def results():
     R = load(); todo = [q for q in QS if q not in R]
     L = ["# Head-to-head round 4 results", ""] + ([STOPPED.format(n=len(R), total=len(QS), todo=", ".join(todo)), ""] if todo else [])

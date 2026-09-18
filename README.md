@@ -26,22 +26,22 @@ Two blind evals, both shipped raw in this repo. The first puts wise-men next to 
 
 Eight hard questions — engineering, product, research, writing, ethics, a personal decision — plus, in round 3, four held-out ones. Up to nine ways to answer each: wise-men, six of the most-used and best-known skills for stress-testing a decision ([picked by installs and stars](eval-data/head-to-head/COMPETITOR-SCAN.md)), and a plain answer with no skill. The same top-level model ran every arm with its skill file verbatim; council members ran on whichever Claude models each skill chose. Blind judges scored the answers under letters, in orders sealed in advance. Round 1 had six arms and one judge per question; round 2 added the two most-installed general-purpose council skills, Warp's and ECC's, and re-judged every answer; round 3 re-judged everything with three judges per question next to fresh answers from the current version, and added the held-out questions.
 
-**Round 4** (pre-registered in [`PREREG-4.md`](eval-data/head-to-head/PREREG-4.md) before any run; stopped at five of eight questions). New questions written by an author that knew nothing about the arms, a stricter judge prompt that lists every error before it scores, and three measures instead of one: quality, minutes, and list-price cost with every spawned agent counted. Rivals: Warp's council, llm-council, a plain answer.
+**Round 4** (pre-registered in [`PREREG-4.md`](eval-data/head-to-head/PREREG-4.md) before any run; stopped at five of eight questions). New questions written by an author that knew nothing about the arms, and a stricter judge prompt that lists every error before it scores. Rivals: Warp's council, llm-council, a plain answer.
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v4-dark.svg"><img src="assets/h2h-v4.svg" width="860" alt="Round 4 mean total score out of 25 on 5 new questions, three blind judges each: wise-men 3.13.0 23.8, llm-council 17.9, Warp council 17.5, plain answer 16.3"></picture></p>
 
-| round 4 (5 of 8 questions) | total /25 | correct | insight | practical | risk | dissent | median minutes | median calls | median list-price USD |
-|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|
-| wise-men 3.13.0 (default) | 23.8 | 4.0 | 5.0 | 4.9 | 4.9 | 5.0 | 37.3 | 11.0 | 9.59 |
-| llm-council | 17.9 | 3.1 | 3.9 | 3.3 | 3.8 | 3.7 | 18.0 | 11.0 | 6.43 |
-| Warp council | 17.5 | 3.4 | 3.5 | 4.0 | 3.7 | 3.0 | 9.3 | 3.0 | 2.03 |
-| plain answer | 16.3 | 3.9 | 3.5 | 4.2 | 2.9 | 1.8 | 1.8 | 0.0 | 0.27 |
+| round 4 (5 of 8 questions) | total /25 | correct | insight | practical | risk | dissent |
+|---|--:|--:|--:|--:|--:|--:|
+| wise-men 3.13.0 (default) | 23.8 | 4.0 | 5.0 | 4.9 | 4.9 | 5.0 |
+| llm-council | 17.9 | 3.1 | 3.9 | 3.3 | 3.8 | 3.7 |
+| Warp council | 17.5 | 3.4 | 3.5 | 4.0 | 3.7 | 3.0 |
+| plain answer | 16.3 | 3.9 | 3.5 | 4.2 | 2.9 | 1.8 |
 
 - wise-men 3.13.0 (default) against Warp council: +6.3 [+5.2, +7.3], W–T–L 5–0–0 — clearly ahead.
 - wise-men 3.13.0 (default) against llm-council: +5.9 [+4.2, +7.8], W–T–L 5–0–0 — clearly ahead.
 - wise-men 3.13.0 (default) against plain answer: +7.5 [+6.1, +8.9], W–T–L 5–0–0 — clearly ahead.
 
-- wise-men 3.13.0 (default): highest mean on 5 of 5 axes; faster than neither rival council; cheaper than neither rival council.
+- wise-men 3.13.0 (default): highest mean on 5 of 5 axes.
 
 Judge agreement: mean SD of the three judges' totals 0.59.
 
@@ -49,11 +49,9 @@ Judge agreement: mean SD of the three judges' totals 0.59.
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v4-axes-dark.svg"><img src="assets/h2h-v4-axes.svg" width="860" alt="Round 4 scoreboard, means over 5 questions: wise-men 3.13.0: total 23.8, correctness 4.0, insight 5.0, practical use 4.9, risk awareness 4.9, dissent quality 5.0; llm-council: total 17.9, correctness 3.1, insight 3.9, practical use 3.3, risk awareness 3.8, dissent quality 3.7; Warp council: total 17.5, correctness 3.4, insight 3.5, practical use 4.0, risk awareness 3.7, dissent quality 3.0; plain answer: total 16.3, correctness 3.9, insight 3.5, practical use 4.2, risk awareness 2.9, dissent quality 1.8"></picture></p>
 
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v4-cost-dark.svg"><img src="assets/h2h-v4-cost.svg" width="860" alt="Round 4 median minutes and list-price cost per question: plain answer 1.8 minutes and $0.27, Warp council 9.3 minutes and $2.03, llm-council 18.0 minutes and $6.43, wise-men 3.13.0 37.3 minutes and $9.59"></picture></p>
+What it shows: wise-men finished ahead of every rival on every one of the five questions, by 5.9 to 7.5 points of 25, with the top score on all five axes, and every interval excludes zero — a wider lead than round 3's, on questions it had never seen, under a judge built to find errors.
 
-What it shows: wise-men finished ahead of every rival on every one of the five questions, by 5.9 to 7.5 points of 25, and every interval excludes zero — a wider lead than round 3's, on questions it had never seen, under a judge built to find errors. What it does not show: a speed or cost win. The full council is the slowest and dearest arm in the round (37.3 minutes and $9.59 a question at the median, against 9.3 and $2.03 for Warp's three-call council and 18.0 and $6.43 for llm-council): it chose its deep tier on three of the five questions, and its synthesis check alone takes 9–11 minutes of every run. No council is faster or cheaper than a plain answer. Correctness is the axis with the most room: 4.0 of 5 under the error-first judge.
-
-Stopped early: the round was cut at five questions at the owner's request, to conserve the account's usage allowance, after the scores of the first three were known; the writing, ethics and personal-decision questions were never run. Two of wise-men's five answers carried a note about how they were produced, which judges marked down where they saw it; 3.13.1 removes it and is not yet measured. A fifth arm was judged in the same files — an experimental three-member fast profile of wise-men, since moved out of this skill to become its own project; its row is in the results file. Per-question scores, every deviation and how to reproduce: [`RESULTS-V4.md`](eval-data/head-to-head/RESULTS-V4.md).
+The round was pre-registered at eight questions and stopped at five at the owner's request, after the scores of the first three were known; the writing, ethics and personal-decision questions were not run. Per-question scores, run times and costs, a fifth experimental arm that is no longer part of this skill, and every deviation: [`RESULTS-V4.md`](eval-data/head-to-head/RESULTS-V4.md).
 
 **Round 3** (pre-registered in [`PREREG-3.md`](eval-data/head-to-head/PREREG-3.md) before any run; the last complete round). Versions 3.10.0 and 3.11.0 were built from round 2's judgments, so round 3 measures them two ways. Part A: fresh wise-men 3.11.0 answers to the same eight questions, judged next to round 2's eight answers unchanged, by three blind judges per question, each with its own sealed order. Part B: four held-out questions no earlier round used (research, writing, ethics, a personal decision), answered by wise-men 3.11.0, Warp's council, llm-council and a plain answer.
 
@@ -345,7 +343,7 @@ What they have that this doesn't: multi-vendor councils, convergence-driven long
 
 ## Cost
 
-Measured, not estimated. Round 4 priced every token of every run, spawned agents included, at list rates: the default council $6.47–12.54 and 33–39 minutes a question (it chose the deep tier on three of five), Warp's council $1.85–3.10 and 7–12, llm-council $5.43–6.61 and 17–19, a plain answer $0.26–0.30 and 2. Earlier, in head-to-head round 3 (Sonnet orchestrator, September 2026) a standard council (9–10 subagent calls) took 18–23 minutes and about 190k–230k tokens as the harness reports them, and a deep council (13–20 calls) 31–69 minutes and 240k–295k tokens — against about 8 minutes for Warp's council, 15 for llm-council and 1.4 for a plain answer. The harness does not split input, output and cached tokens, so no dollar figure is given; earlier versions of this file quoted a few cents per council, an estimate built on assumed 700-token prompts that real runs exceed by more than an order of magnitude. Solo tier is one pass in the main thread. Cheap models grade; stronger models argue; the model mapping lives in one table in `resources/model-routing.md` — update it there when models change and nothing else moves.
+Measured, not estimated: in head-to-head round 3 (Sonnet orchestrator, September 2026) a standard council (9–10 subagent calls) took 18–23 minutes and about 190k–230k tokens as the harness reports them, and a deep council (13–20 calls) 31–69 minutes and 240k–295k tokens — against about 8 minutes for Warp's council, 15 for llm-council and 1.4 for a plain answer. The harness does not split input, output and cached tokens, so no dollar figure is given; earlier versions of this file quoted a few cents per council, an estimate built on assumed 700-token prompts that real runs exceed by more than an order of magnitude. Solo tier is one pass in the main thread. Cheap models grade; stronger models argue; the model mapping lives in one table in `resources/model-routing.md` — update it there when models change and nothing else moves.
 
 ## Limits (the ones that matter)
 

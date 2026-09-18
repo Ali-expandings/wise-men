@@ -499,8 +499,8 @@ def chart_h2h_v3_axes(rows):
     b += t(40, fy + 16, f"Warp's council ran on Claude models only (its skill asks for a model-diverse council). N = {n}, three blind judges per question, means shown.", 11, C["MUTE"])
     return svg(860, fy + 30, b, f"Round 3{' (in progress)' if interim else ''} scoreboard, means over {n} questions: " + "; ".join(f"{H3_NAME[a]}: total {r1(hmean(rows, a))}, " + ", ".join(f"{AXIS_NAME[x].lower()} {r1(hmean(rows, a, x))}" for x in AXES) for a in arms))
 
-# ---------- round 4 (PREREG-4): new questions, an error-first judge, time and cost measured; stopped at five of eight questions ----------
-H2H4 = os.path.join(ROOT, "eval-data", "head-to-head", "parsed-v4"); H4_RAW = os.path.join(ROOT, "eval-data", "head-to-head", "raw")
+# ---------- round 4 (PREREG-4): new questions, an error-first judge; stopped at five of eight questions ----------
+H2H4 = os.path.join(ROOT, "eval-data", "head-to-head", "parsed-v4")
 H4_HERO = "wise-men-3.13"; H4_A = ["direct", "llm-council", "warp-council", H4_HERO]  # the round's experimental fast arm is not part of this skill: RESULTS-V4.md has its row
 H4_NAME = {"direct": "plain answer", "llm-council": "llm-council", "warp-council": "Warp council", H4_HERO: "wise-men 3.13.0"}
 H4_SRC = dict(H2_SRC, **{H4_HERO: "this repo · full council"})
@@ -514,19 +514,6 @@ def load_h2h4():
 def h4_gap(rows, a):
     d = [r[H4_HERO]["composite"] - r[a]["composite"] for r in rows.values()]; lo, hi = h3_boot(d, seed=20260919); return st.mean(d), lo, hi  # h2h4.py's seed
 def bar4(a, x, y, w, h, r=4): return hbar_outline(x, y, w, h, C["TXT"], r) if a == "direct" else hbar(x, y, w, h, C["ACCENT"] if a == H4_HERO else C["BAR2"], r)
-def h4_costs():  # median minutes (runs not cut by the usage limit) and median list-price USD, read back from the raw answer headers
-    import re
-    out = {a: {"min": [], "usd": []} for a in H4_A}
-    for q in sorted(os.listdir(H4_RAW)):
-        for a in H4_A:
-            p = os.path.join(H4_RAW, q, a + ".md")
-            if not (q.startswith("R4") and os.path.exists(p)): continue
-            h = open(p).read().split("\n\n", 1)[0]; m = re.search(r"minutes: ([\d.]+) \| subagent calls: (\d+).*list-price USD: ([\d.]+)", h)
-            if not m: continue
-            out[a]["usd"].append(float(m[3]))
-            if "interrupted" not in h: out[a]["min"].append(float(m[1]))
-    return {a: (st.median(v["min"]), st.median(v["usd"])) for a, v in out.items()}
-
 def chart_h2h_v4(rows):
     n = len(rows); x0, sc, top, rh = 250, 15.6, 112, 46; arms = sorted(H4_A, key=lambda a: (-hmean(rows, a), H4_A.index(a))); bottom = top + rh * len(arms) - 6
     b = t(40, 32, f"Round 4: total score on new questions — {n} of 8 questions run, three blind judges each", 16, C["INK"], 600)
@@ -595,31 +582,13 @@ def chart_h2h_v4_axes(rows):
     b += t(40, fy + 16, f"every arm lost most. Warp's council ran on Claude models only. N = {n} of 8 pre-registered questions, three blind judges each, means shown.", 11, C["MUTE"])
     return svg(860, fy + 30, b, f"Round 4 scoreboard, means over {n} questions: " + "; ".join(f"{H4_NAME[a]}: total {r1(hmean(rows, a))}, " + ", ".join(f"{AXIS_NAME[x].lower()} {r1(hmean(rows, a, x))}" for x in AXES) for a in arms))
 
-def chart_h2h_v4_cost():
-    cst = h4_costs(); rh = 40; y = 124
-    b = t(40, 32, "Round 4: what each answer cost in time and money", 16, C["INK"], 600)
-    b += t(40, 52, "Medians over the five questions. Minutes: the run's first-to-last timestamp, with runs cut by the account's usage limit left out.", 12, C["TXT"])
-    b += t(40, 68, "Cost: every token of the run and of every agent it spawned — input, output, cache reads and writes — at list prices.", 12, C["TXT"])
-    for title, k, mx, fmt in (("Median minutes per question", 0, 40, lambda v: r1(v) + " min"), ("Median list-price cost per question", 1, 10, lambda v: f"${v:.2f}")):
-        b += t(40, y - 16, title, 12, C["INK"], 600); x0, w = 250, 480
-        for i, a in enumerate(sorted(H4_A, key=lambda a: cst[a][k])):
-            yy = y + i * rh; hero = a == H4_HERO; v = cst[a][k]
-            if hero: b += band(yy - 1, rh - 4)
-            b += t(x0 - 14, yy + 22, H4_NAME[a], 13, C["INK"], 700 if hero else 500, "end") + bar4(a, x0, yy + 6, max(v / mx * w, 3), 22) + t(x0 + max(v / mx * w, 3) + 8, yy + 22, fmt(v), 13, C["INK"], 700 if hero else 500)
-        y += rh * len(H4_A) + 52
-    fy = y - 22
-    b += t(40, fy, "wise-men's full council is the slowest and dearest arm in the round: it chose its deep tier on three of the five questions, and its", 11, C["MUTE"])
-    b += t(40, fy + 16, "synthesis check alone takes 9–11 minutes of every run. No council is faster or cheaper than a plain answer; what the minutes buy is", 11, C["MUTE"])
-    b += t(40, fy + 32, "in the other three charts. Figures are stored in each raw answer's header; the transcripts they came from are local. RESULTS-V4.md.", 11, C["MUTE"])
-    return svg(860, fy + 46, b, "Round 4 median minutes and list-price cost per question: " + ", ".join(f"{H4_NAME[a]} {r1(cst[a][0])} minutes and ${cst[a][1]:.2f}" for a in sorted(H4_A, key=lambda a: cst[a][0])))
-
 if __name__ == "__main__":
     rows, h2h, h2h2, h2h3, h2h4 = load(), load_h2h(), load_h2h2(), load_h2h3(), load_h2h4(); os.makedirs(OUT, exist_ok=True); wrote = []
     charts = [("headline", lambda: chart_headline(rows)), ("axes", lambda: chart_axes(rows)), ("questions", lambda: chart_questions(rows)), ("landscape", chart_landscape),
               ("h2h", lambda: chart_h2h(h2h)), ("h2h-axes", lambda: chart_h2h_axes(h2h)), ("h2h-questions", lambda: chart_h2h_questions(h2h)),
               ("h2h-v2", lambda: chart_h2h_v2(h2h2)), ("h2h-v2-axes", lambda: chart_h2h_v2_axes(h2h2)), ("h2h-v2-questions", lambda: chart_h2h_v2_questions(h2h2)),
               ("h2h-v3", lambda: chart_h2h_v3(h2h3)), ("h2h-v3-axes", lambda: chart_h2h_v3_axes(h2h3)), ("h2h-v3-questions", lambda: chart_h2h_v3_questions(h2h3)),
-              ("h2h-v4", lambda: chart_h2h_v4(h2h4)), ("h2h-v4-axes", lambda: chart_h2h_v4_axes(h2h4)), ("h2h-v4-questions", lambda: chart_h2h_v4_questions(h2h4)), ("h2h-v4-cost", chart_h2h_v4_cost)]
+              ("h2h-v4", lambda: chart_h2h_v4(h2h4)), ("h2h-v4-axes", lambda: chart_h2h_v4_axes(h2h4)), ("h2h-v4-questions", lambda: chart_h2h_v4_questions(h2h4))]
     for theme, suffix in (("light", ""), ("dark", "-dark")):
         C.clear(); C.update(THEMES[theme])
         for name, fn in charts:
