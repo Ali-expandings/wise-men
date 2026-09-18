@@ -25,6 +25,10 @@ The context brief the analyses were given (the stated facts):
 {context brief, or "none"}
 """
 
+Verification results (flagged claims the orchestrator checked before this draft — claim, method, result; or "none"):
+
+{verification table}
+
 The member answers (each with its conclusion, confidence, and weakest assumption):
 
 {member answers, labeled by persona name; mark any that abstained}
@@ -45,17 +49,17 @@ The draft synthesis to check:
 
 Answer these six, each with one line of evidence quoted or cited from the material above:
 
-1. DISSENT — Is the Strongest counter-position section a clean COUNTER-position that argues against the Recommendation, rather than the majority thesis restated with hedges? Is it quoted rather than paraphrased into something softer? (A "dissent" that agrees with the decision in weaker words fails this check.)
+1. DISSENT — Is the Strongest counter-position section a clean COUNTER-position that argues against the Recommendation, rather than the majority thesis restated with hedges? Is it quoted rather than paraphrased into something softer? Does it attack the premise or mitigation the Recommendation leans on — or does something in the member answers, their risks or weakest assumptions, or the draft's own analysis attack the Recommendation more centrally than the counter-position chosen? (A "dissent" that agrees with the decision in weaker words fails this check; so does a well-argued side-hypothesis when a more central attack was available.)
 
 2. GROUNDING — Does every substantive claim in the Recommendation, Why and What to do trace to something a member actually said or to the stated facts? Flag anything the draft asserts that no member supports.
 
 3. CONFIDENCE — Does each stated confidence match the evidence behind its claim? (High confidence on a claim the members contested, or that nobody verified, fails; so does Low confidence on a claim backed by strong, verified evidence. Agreement, convergence and surviving debate are not evidence — a confidence justified by them fails.)
 
-4. DISCLOSURE — Are all degradations visible in the material above — abstentions, excluded reviewers, a failed Devil's Advocate, a skipped debate round — disclosed in the footer? And does the memo avoid describing how it was produced, in any wording — members, "analyses", "perspectives", reviewers, votes, rounds, debate, convergence, head-counts, tier, stage results, transcript offers? Does the footer hold only real degradations?
+4. DISCLOSURE — Are all degradations visible in the material above — abstentions, excluded reviewers, a failed Devil's Advocate, a skipped debate round — disclosed in the footer? And does the memo avoid describing how it was produced, in any wording — members, "analyses", "perspectives", reviewers, votes, rounds, debate, convergence, head-counts, tier, stage results, transcript offers? Does the footer hold only real degradations and corrections made after checking? Does anything precede `## Recommendation` or follow the footer, and does the draft name any source, paper or figure that its own body does not contain?
 
-5. CLAIMS — Is every load-bearing precedent, legal or regulatory effect, statistic, date or timeline (including any claim that a delay is recoverable) in the stated facts, marked unverified with what to check, or cut? Do the draft's numbers and timelines agree with each other?
+5. CLAIMS — Is every load-bearing precedent, legal or regulatory effect, statistic, base rate, comparative claim, date or timeline (including any claim that a delay is recoverable) in the stated facts, corrected per the verification results, marked unverified once with what to check, or cut? Fail it both ways: a shaky load-bearing claim stated plainly, and "(unverified)" tags on textbook facts, repeated tags, or a tag inside Recommendation or What to do. Do the draft's numbers and timelines agree with each other?
 
-6. COVERAGE — Does the draft answer every part of the question as asked (each option, each sub-question, each "what can I do"), including the concrete steps and must-check facts the practitioner member gave — or name under Confidence what it leaves out?
+6. COVERAGE — Does the draft answer every part of the question as asked (each option, each sub-question, each "what can I do"), including the concrete steps and must-check facts the practitioner member gave — or name under Confidence what it leaves out? Does it say each thing once (quote any passage told twice), do its sections fit the question's shape (an evaluation question gets a test or triage, not a project plan), and does any recommended step hand an accuracy decision to an interested party?
 
 Reply in exactly this form:
 
@@ -73,6 +77,6 @@ If all six pass, say so plainly. Do not invent problems to seem useful — a cle
 
 ## What the Chairman does with the result
 
-Any `FAIL` is **blocking**. Either fix the synthesis and state what changed, or — if you genuinely disagree with the checker — ship your version **with the checker's objection quoted verbatim** in the output. Silently overriding it defeats the entire stage.
+Any `FAIL` is **blocking**. Either fix the synthesis and state what changed — in the council record, never above `## Recommendation` (a round-3 run delivered its checker report as the answer's first paragraph) — or — if you genuinely disagree with the checker — ship your version **with the checker's objection quoted verbatim** in the output. Silently overriding it defeats the entire stage.
 
 A checker that returns six PASSes is not wasted spend: it is the only evidence anywhere in the protocol that the synthesis survived a reader who wasn't invested in it.

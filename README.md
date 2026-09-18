@@ -121,7 +121,7 @@ Raw answers, blinded packets, judgments and parsed scores: [`eval-data/head-to-h
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/headline-dark.svg"><img src="assets/headline.svg" width="860" alt="Same 29 questions, three ways of answering: council 24.5, structured prompt 20.8, direct answer 16.3"></picture></p>
 
-**Short version: the core loop is measured; the refinements on top are field-used, not measured.** The numbers above come from the **v2.3-era core loop** — a council with no context brief, no reasoning-procedure assignment, no validators, no synthesis-checker, and with the Devil's-Advocate model upgrade deliberately switched off so every member ran the same model. Everything this repo adds on top of that is *reasoned from* the result, not measured by it. (The head-to-head above did run the shipped v3.9.2 protocol end to end, but against other skills and a plain answer, not against this structured prompt. Versions 3.10.0 and 3.11.0 then changed how the answer is written and how peer scores are used, and added a practitioner seat on the strong model, coverage checks and a synthesis check at every council tier, on the evidence of those judgments and a recorded council run; head-to-head round 3, pre-registered in `eval-data/head-to-head/PREREG-3.md` before any run, measured those changes: +3.7 points over 3.9.2 on the same questions and judges, and first on four held-out questions, see above.) The measured configuration is weaker than what ships, so the shipped default should be at least as good — but treat that as an expectation, not a finding. The judge was a single blinded Claude model grading Claude outputs, which is exactly the bias described in one of the papers credited at the bottom of this file.
+**Short version: the core loop is measured; the refinements on top are field-used, not measured.** The numbers above come from the **v2.3-era core loop** — a council with no context brief, no reasoning-procedure assignment, no validators, no synthesis-checker, and with the Devil's-Advocate model upgrade deliberately switched off so every member ran the same model. Everything this repo adds on top of that is *reasoned from* the result, not measured by it. (The head-to-head above did run the shipped v3.9.2 protocol end to end, but against other skills and a plain answer, not against this structured prompt. Versions 3.10.0 and 3.11.0 then changed how the answer is written and how peer scores are used, and added a practitioner seat on the strong model, coverage checks and a synthesis check at every council tier, on the evidence of those judgments and a recorded council run; head-to-head round 3, pre-registered in `eval-data/head-to-head/PREREG-3.md` before any run, measured those changes: +3.7 points over 3.9.2 on the same questions and judges, and first on four held-out questions, see above. Version 3.12.0 then changed how flagged claims are checked, how the counter-position is chosen, when a claim is tagged unverified and what the memo may repeat, from that round's judgments and a recorded council run; those changes are not measured.) The measured configuration is weaker than what ships, so the shipped default should be at least as good — but treat that as an expectation, not a finding. The judge was a single blinded Claude model grading Claude outputs, which is exactly the bias described in one of the papers credited at the bottom of this file.
 
 With that stated plainly, the table behind the chart — 30-question blind evaluation, 3 arms per question, 5-axis rubric (max 25):
 
@@ -232,13 +232,14 @@ flowchart TB
     end
     M1 & M2 & M3 --> G["<b>3–7 neutral graders</b><br/>score the verbatim answers<br/>check facts before scoring<br/>a score split forces debate"]
     G -.->|"debate: 1–2 rounds"| council
-    G --> C["<b>Chairman</b><br/>evidence over votes<br/>dissent kept word for word<br/>shared blind spots lower confidence"]
-    C --> K["<b>Independent check</b><br/>grounding · dissent · claims<br/>confidence · disclosure<br/><i>caught errors in 4+ runs</i>"]
+    G --> C["<b>Chairman</b><br/>evidence over votes · says it once<br/>counter-case aimed at the<br/>premise the answer leans on"]
+    C --> V["<b>Flagged facts checked</b><br/>corrections go into the memo<br/>not into an appendix"]
+    V --> K["<b>Independent check</b><br/>grounding · dissent · claims<br/>confidence · disclosure · coverage<br/><i>caught errors in 4+ runs</i>"]
     K -.->|"fails: redraft"| C
     K --> A("<b>Your answer</b><br/>a decision memo · first step<br/>strongest counter-case intact<br/>no council talk · shortcuts disclosed")
 
     classDef key stroke:#b8323a,stroke-width:2px
-    class M1,M3,C,K key
+    class M1,M3,C,V,K key
 ```
 
 Easy questions skip the council (`solo` tier). Every council tier runs the independent check; quick and standard skip the debate, and deep and paranoid debate when the rule fires. `--debate` forces a debate at any tier.
@@ -255,9 +256,10 @@ Easy questions skip the council (`solo` tier). Every council tier runs the indep
 | A practitioner seat on a stronger model — named for the job the question belongs to — that owns correctness and covering every part of the question | answers that skip part of what was asked or the steps a professional would take (5 of 8 head-to-head answers lost points this way) |
 | Fresh graders score the verbatim answers and check facts first | a confident error, or the orchestrator's paraphrase, winning the scores |
 | A debate triggered by a fixed rule over scores and positions | skipping the argument because consensus *feels* settled |
-| Dissent kept word for word; a blind spot several members share caps the confidence | watered-down dissent and false consensus |
+| Dissent kept word for word and aimed at the premise the recommendation leans on; a blind spot several members share caps the confidence | watered-down dissent, a well-argued side-issue standing in for the real objection (three round-3 judges docked that), and false consensus |
 | The answer is a decision memo — recommendation, why, what to do, risks, the strongest counter-position — and peer scores never count as evidence in it | council talk burying the answer, and unverified claims dressed as checked because reviewers liked them (both cost points in the head-to-head) |
-| An independent check of the final synthesis, including every load-bearing number, date and precedent | fabricated attributions, unsupported specifics and undisclosed shortcuts — it rejected first drafts in 4+ real runs |
+| Claims the members flagged are checked before the answer ships, and a correction rewrites the sentence instead of sitting in an appendix | the reader acting on the overstated version while the fix hides below the memo (round 3) |
+| An independent check of the corrected draft, including every load-bearing number, date and precedent, anything said twice, and sections that don't fit the question | fabricated attributions, unsupported specifics and undisclosed shortcuts — it rejected first drafts in 4+ real runs |
 
 <details>
 <summary>Stage by stage</summary>
@@ -322,7 +324,7 @@ Measured, not estimated: in head-to-head round 3 (Sonnet orchestrator, September
 - **The Chairman is the orchestrator.** Same thread picks the personas and writes the synthesis. Stage 4.5's external checker mitigates this; it doesn't remove it.
 - **The refinements aren't isolated.** The N=29 eval validated the v2.3 core loop against a structured prompt; the head-to-head measured the shipped protocol end to end against six other skills, at N=8. No eval isolates what each refinement adds — which is the same circularity the skill would flag in your reasoning.
 - **One judge model, same family.** Both evals use a single blind judge model grading answers from the same model family. The skill's own synthesis checker exists because that kind of judge has known biases.
-- **Members are offline.** `wise-member` cannot browse or run anything. Facts go in through the context brief; flagged claims are verified by the orchestrator afterwards, in a separately labeled section.
+- **Members are offline.** `wise-member` cannot browse or run anything. Facts go in through the context brief; flagged claims that survive into the draft are checked by the orchestrator before the independent check, and a correction lands in the memo with one footer line.
 - **Verbose.** `SKILL.md` is long. A casual invocation reads it, improvises, and mostly gets the protocol right; the numbered runbook at the top exists to keep that honest.
 
 ## Repo layout

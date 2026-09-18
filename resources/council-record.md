@@ -18,8 +18,8 @@ Cost of this run: <n> subagent calls (members / reviewers / debate / checker / r
 ## Where the council agreed
 ## Where the council split (preserved dissent — verbatim)
 ## Open questions the council couldn't resolve
-## Orchestrator verification (after the council — not council output)
-<claim → method → result, one line each; state if any result changes the verdict>
+## Verification table (runbook 8.5 — lives here, never in the answer)
+<claim → method → result → what changed in the memo, one line each; "no member made the counter-position; the Chairman wrote it" if so>
 
 # Aggregated scores and debate outcome
 ## Stage 2 panel (<R> reviewers, none excluded / <who> excluded and why, severe-disagreement flags: none / quoted)
