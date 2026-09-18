@@ -1,107 +1,109 @@
 # Example: strategy question — "Product Hunt or Reddit first?"
 
-A worked end-to-end run for a non-engineering question. Shows domain adaptation.
+An illustrative scenario, not a captured run: the project, its bugs and the answers are constructed to show the flow for a non-engineering question. Every fact the members use is in the user's input or the context brief; anything else is marked unverified, as the protocol requires.
 
 ## User input
 
-> I'm launching Lumen (open-source AI chat shell). Should I post to Product Hunt or Reddit first? Only get one good first impression on each.
+> I'm launching Lumen (open-source AI chat shell for local models). Should I post to Product Hunt or Reddit first? I only get one good first impression on each. Known state: two visible bugs (voice input is broken in one browser; one model backend hangs), and I have no demo video yet. No deadline.
 
 ## Pre-flight
 
 - Question: clear. Decision point: PH first vs Reddit first.
 - Single question.
-- Context: open-source, AI category, only-one-shot framing. Enough.
-- Council-shaped: yes (real strategic decision, irreversible-ish first-impression framing).
+- Context: open-source, AI category, one-shot framing, two known bugs, no video, no deadline. Enough.
+- Council-shaped: yes (a real strategic decision with a hard-to-repeat first impression).
 - Domain: product / strategy (with marketing flavor).
-- Tier: standard.
-- Members: User Advocate + Business Analyst + Historian + Devil's Advocate + Designer (5).
-- Expected calls: 8 (5 members + 3 reviewers).
+- Tier: standard (depth 3, stakes 3, novelty 2).
+- Members: Practitioner (a developer-relations lead who has run open-source launches — the anchor, strong model) + User Advocate + Business Analyst + Historian + Devil's Advocate (5). The anchor replaced the Designer, the roster seat it overlapped most.
+- Expected calls: 9 (5 members + 3 reviewers + 1 synthesis checker).
 
 Note: not using Pragmatist/Skeptic/Architect because this isn't a code question. Persona selection matched to domain.
 
+## Stage 0.5 — context brief (identical for every member)
+
+Facts supplied by the user: open-source chat shell for local models; two visible bugs (voice input in one browser, one backend hang); no demo video; no deadline; wants one strong first impression per venue. Not known: current posting rules of any subreddit or of Product Hunt, the size of any existing community, how hard the bugs are. Nothing here was checked against an outside source.
+
 ## Stage 1 — outputs (compressed)
 
-**User Advocate** (med conf): "Reddit users want substance + technical specificity. PH users want polish + product-market vibe. Lumen leans technical → Reddit audience will engage more meaningfully. PH first risks looking like 'another AI wrapper' to a fatigued audience. Confidence: medium. Weakest assumption: that Lumen's polish level matches Reddit's tolerance for 'just works' over 'beautiful demo'."
+**Practitioner** (med conf): "Order of work: fix or hide the two bugs, write a five-line README opener, then post where the users already are. Must-check facts before acting: the target subreddit's self-promotion rules and whether Product Hunt still favours launches with a video (both unverified — rules change). The question also asks about Product Hunt: keep it, but second, once there is something to show. Weakest assumption: that the bugs take days, not weeks."
 
-**Business Analyst** (med conf): "PH gives 1-day visibility spike + permanent searchable page. Reddit gives sub-specific traffic that compounds (search hits for the tool's niche compound for months). Reddit has higher cost-per-post (effort to match sub culture) but higher retention of qualified users. PH = quick burst; Reddit = compounding curve. For open-source with no monetization pressure, Reddit's curve wins. Confidence: medium."
+**User Advocate** (med conf): "Reddit readers want substance and technical detail; Product Hunt readers want polish. Lumen leans technical, so Reddit will engage more. Launching now is fine: open-source users file issues, they don't leave. Weakest assumption: that the bugs are tolerable on first contact."
 
-**Historian** (high conf): "Pattern: 90% of dev-tool open-source projects that launched on PH and were under-engineered for the moment lost the chance permanently. Reddit (r/LocalLLaMA specifically) is the actual home of local-model users. Examples: ollama launched on r/MachineLearning first → built momentum → then crossposted. Open-source AI tools that PH-first without an existing community usually flop on PH (no votes from cold start). Confidence: high. Weakest assumption: that Lumen is comparable to those reference cases."
+**Business Analyst** (med conf): "PH is a one-day spike plus a permanent page; a Reddit thread in the right community keeps drawing search traffic (typical pattern, unverified). With no monetization pressure and no deadline, the slower curve costs nothing. Weakest assumption: that a fitting subreddit allows the post at all."
 
-**Devil's Advocate** (med conf): "Counter-take: don't post to either yet. Both audiences smell hype. Lumen has two visible bugs (voice input broken on one browser; one model backend hangs). Launching now = first impression is a half-working tool. Wait two weeks, fix the visible bugs, write a real README, then pick one launch venue with confidence. The 'only one good first impression' framing is true — which means rushing it is the worst move. Confidence: medium. Weakest assumption: that user can wait two weeks (no time pressure mentioned, but...)."
+**Historian** (med conf): "Typical pattern, not a statistic I can cite (unverified): open-source tools that arrive on Product Hunt with no community behind them get few votes on day one, and the listing cannot be relaunched. Communities of local-model users exist on Reddit. Weakest assumption: that Lumen resembles those cases."
 
-**Designer** (low conf): "Visually: Lumen screenshots well in dark mode. Either platform will work visually. But: PH demands a video demo or it's invisible. Reddit doesn't. If you don't have a 30-sec demo recording, that's a Reddit signal, not PH. Confidence: low (haven't seen the actual screenshots/repo). Weakest assumption: that screenshot quality is decent."
+**Devil's Advocate** (med conf): "Don't post to either yet. The user's own framing — one good first impression — argues against launching a tool with two visible bugs and no video. Fix them, then choose a venue with evidence instead of a guess. Weakest assumption: that waiting costs nothing; no deadline was given, but momentum is real."
 
-## Stage 2 — peer review summary
-
-Aggregated scores:
+## Stage 2 — peer review summary (3 reviewers)
 
 ```
                  | Correct | Insight | Practical | Risk-aware | Avg
-User Advocate    |   3     |   3     |    4      |    3       | 3.25
-Business Analyst |   4     |   4     |    3      |    3       | 3.5
-Historian        |   5     |   4     |    4      |    3       | 4.0
-Devil's Advocate |   4     |   5     |    4      |    5       | 4.5
-Designer         |   3     |   2     |    3      |    3       | 2.75
+Practitioner     |   4.7   |   3.7   |    4.7    |    4.0     | 4.3
+User Advocate    |   3.3   |   3.3   |    4.0    |    3.0     | 3.4
+Business Analyst |   4.0   |   3.7   |    3.3    |    3.3     | 3.6
+Historian        |   4.0   |   3.3   |    3.7    |    3.3     | 3.6
+Devil's Advocate |   4.0   |   4.7   |    4.0    |    4.7     | 4.4
 ```
-
-Top: Devil's Advocate (3 votes — "raises the strongest hidden assumption").
-Bottom: Designer (low signal due to admitted low confidence).
 
 Severe-disagreement flag (from one reviewer): "User Advocate and Devil's Advocate fundamentally disagree on whether to launch now."
 
 ## Stage 3 — skipped (standard tier)
 
-The severe-disagreement flag and the User-Advocate-vs-DA split would have triggered a debate round at `deep` tier — at `standard`, debate is skipped by design and the split flows into the dissent section instead.
+The User-Advocate-vs-DA split would have triggered a debate round at `deep` tier — at `standard`, debate is skipped by design and the split goes into the counter-position instead.
 
-## Stage 4 — Chairman synthesis
+## Stage 4 — Chairman synthesis (first draft), then Stage 4.5
+
+The checker returned five PASS and one FAIL — CLAIMS: the draft said "put the link in the first comment so automod doesn't catch it", a claim about a community's rules that is in no brief and carried no unverified mark. Fixed: replaced by "check the subreddit's posting rules first". The memo below is the checked version.
 
 ```
 ## Recommendation
 
-Launch on Reddit first — r/LocalLLaMA specifically — after a one-week fix pass on the visible bugs, then post to Product Hunt 2-3 weeks later with the Reddit traction as social proof.
+Fix the two visible bugs first (give it one week), then launch on Reddit, in the community where local-model users already are; take it to Product Hunt afterwards, once there is a demo video and some traction to show.
 
 ## Why
 
-- The r/LocalLLaMA audience is exactly the local-model users you need.
-- A Reddit post keeps drawing search traffic for weeks; a Product Hunt launch is a one-day burst.
-- Open-source AI tools tend to struggle on Product Hunt without an existing community (a pattern, not a guarantee).
-- Reddit needs no video demo, and you don't have one.
+- You said you get one good first impression per venue, and you described two bugs a first-time user would hit. Those two facts together decide the order.
+- A technical audience rewards substance over polish, which suits an open-source tool without a video.
+- Product Hunt listings can't be relaunched, and tools arriving there with no community behind them tend to get few votes (typical pattern, unverified — check recent launches in your category).
+- There is no deadline, so a week costs little.
 
 ## What to do
 
-1. Pick one bug to fix this week: voice input or the backend hang — probably whichever is easier.
-2. Rewrite the README opener: five lines, no marketing tone.
-3. Draft the r/LocalLLaMA post, with the link in the first comment so automod doesn't catch it.
-4. Post within 7 days. If the bug isn't fixed and the backend is still flaky by then, wait one more week.
+1. This week: fix or disable the two broken paths (voice input in that browser, the hanging backend). If one proves hard, ship with it switched off and say so in the README.
+2. Rewrite the README opener: five lines, what it does, how to run it.
+3. Before posting, read the target subreddit's self-promotion rules (unverified here — they change) and follow them.
+4. Post within 7 days of the fix. Stop and rethink if the bugs take more than two weeks: at that point the question is scope, not venue.
+5. Product Hunt: after the video exists and the Reddit thread has shown what people ask about.
 
 ## Risks of this plan
 
-- Reddit is brutal on tools that don't "just work": launching with the bugs unfixed would hurt more there than on Product Hunt.
-- Waiting too long costs momentum.
-- Nobody has seen the UI, so whether the visual polish is good enough is unverified; a quick UI review before launch would settle it.
+- A week can become a month; the step-4 limit exists for that.
+- Technical communities are harsh on tools that don't work on first run: launching with the bugs live would cost more there than on Product Hunt.
+- The subreddit may not allow the post; step 3 finds that out before it matters.
 - Severe-disagreement flag: "the case for launching now and the case for fixing first fundamentally disagree on whether to launch now."
-- Cost of being wrong: moderate — a bad first Reddit thread is hard to repeat, which is why the fix week comes first.
+- Cost of being wrong: moderate and mostly one-way — a bad first thread is hard to repeat, which is why the fix week comes first. If the counter-position is right, you lose a week.
 
 ## Strongest counter-position
 
-"Launching with visible bugs damages the only-one-first-impression more than waiting damages momentum." If after one week the voice-input bug isn't fixed and the backend is still flaky, wait another week: the "only one good first impression" framing is true, so honor it.
+The case for launching now: "Open-source users file issues, they don't leave." A week of polish is a guess about what strangers will care about; the fastest way to learn which bug matters is to let them hit it, and a maintainer who answers issues within hours makes a better first impression than a silent, polished repo. This wins if the bugs sit in paths most users never touch (voice input, one backend) — check your own usage before deciding.
 
 ## Confidence
 
-Medium-high on Reddit before Product Hunt and on fixing the visible bugs first. Medium on one week being enough, which depends on how hard the bugs are. Low on the visual polish, which nobody has seen.
+High that Reddit comes before Product Hunt given no video and no community yet — it follows from your own constraints. Medium that fixing first beats launching now: it turns on how visible the two bugs are, which only you can see. Low on anything about either venue's current rules or algorithms: nothing here was checked against them.
 ```
 
 ## What to send to user
 
-The memo above. A long counter-position no longer changes the format, and the reviewer's severe-disagreement flag sits under Risks with the member names replaced by the positions they hold; the verbatim flag, the scores and the member answers stay in the council record.
+The memo above. A long counter-position never changes the format, and the reviewer's severe-disagreement flag sits under Risks with the member names replaced by the positions they hold; the verbatim flag, the scores, the member answers and the checker's finding stay in the council record.
 
 ## What was good about this run
 
-- **Domain-matched personas**: User Advocate / Business Analyst / Historian / Designer instead of engineering personas. Without this, council would've answered the wrong question.
-- **Historian provided concrete precedent reasoning** (ollama, dev-tool launch patterns) that elevated the answer beyond opinion.
-- **Devil's Advocate caught the "don't launch yet" angle** that none of the others raised — and Chairman correctly preserved it as load-bearing dissent.
-- **Designer's low-confidence answer wasn't punished** in aggregation — it just got noted. Allowing abstain/low-confidence prevents forcing bad signal.
-- **Chairman didn't just say "Reddit"** — synthesized a sequenced plan that incorporated the dissent's core concern.
+- **Domain-matched personas**: a launch practitioner, User Advocate, Business Analyst and Historian instead of engineering personas. Without this, the council would have answered the wrong question.
+- **No invented facts**: the bugs and the missing video came from the user; the Historian offered its precedent as a typical pattern marked unverified rather than a statistic, and the checker caught the one unmarked claim before the user saw it.
+- **The counter-position argues against the recommendation** (launch now), instead of restating "fix first" with hedges.
+- **The practitioner anchor supplied the must-check facts** (posting rules, video expectations) that turned a venue opinion into a plan.
+- **The Chairman didn't just say "Reddit"** — it sequenced both venues and set a stop condition.
 
 ## Adaptive note
 

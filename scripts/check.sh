@@ -31,7 +31,7 @@ v=$(grep -m1 '^version:' SKILL.md | awk '{print $2}'); c=$(grep -m1 -oE '\*\*[0-
 # 7. PII / secrets sweep of the working tree AND git history (add your own names via PII_TERMS)
 # Add personal names via the environment, never here: PII_TERMS='name1|name2|<default pattern>' scripts/check.sh
 PII_TERMS=${PII_TERMS:-'@[a-z0-9.-]+\.(com|net|org)|/Users/[a-z]+|sk-[A-Za-z0-9]{16,}|AKIA[A-Z0-9]{12}|ghp_[A-Za-z0-9]{20,}'}
-hits=$(grep -rnoiE "$PII_TERMS" --include='*.md' --include='*.yaml' --include='*.txt' --include='*.py' . 2>/dev/null | grep -v 'protocol-v2.3-frozen' | grep -v '^./scripts/check.sh' | wc -l | tr -d ' ')
+hits=$(grep -rnoiE "$PII_TERMS" --include='*.md' --include='*.yaml' --include='*.txt' --include='*.py' . 2>/dev/null | grep -v 'protocol-v2.3-frozen' | grep -v '^./scripts/check.sh' | grep -v '^./plans/' | wc -l | tr -d ' ')
 [ "$hits" = "0" ] && say "PII/secret sweep (working tree)" ok || { say "PII/secret sweep: $hits hit(s) — inspect" FAIL; fail=1; }
 if git rev-parse --git-dir >/dev/null 2>&1; then
   hh=$(git log -p --all 2>/dev/null | grep -vE '^(Author|Committer):|^[[:space:]]*[A-Za-z-]+-[Bb]y:' | grep -ciE "$PII_TERMS" || true)
@@ -83,5 +83,13 @@ if python3 -c 'import yaml' 2>/dev/null; then
   H2H3_STDOUT=1 python3 eval-data/head-to-head/h2h3.py results 2>/dev/null | diff -q - eval-data/head-to-head/RESULTS-V3.md >/dev/null \
     && say "RESULTS-V3.md matches h2h3.py results" ok || { say "RESULTS-V3.md differs from h2h3.py results" FAIL; fail=1; }
 fi
+
+# 9. Unit tests for the deterministic helpers (standard library only)
+if python3 -m unittest discover -s tests -q >/dev/null 2>&1; then say "unit tests (scripts/council.py: validators, strict scores, trigger clauses)" ok
+else say "unit tests failed: python3 -m unittest discover -s tests -v" FAIL; fail=1; fi
+
+# 10. One statement per rule: phrases that once contradicted the canonical rule must not come back
+grep -q "At deep/paranoid (or any degraded run)" resources/prompts/chairman.md && { say "chairman.md: stale checker-tier text" FAIL; fail=1; } || say "checker runs at every council tier in every file" ok
+grep -q "similar scores AND no severe-disagreement flag" resources/prompts/debate.md && { say "debate.md: a skip condition overrides the trigger" FAIL; fail=1; } || say "no skip condition overrides a fired debate trigger" ok
 
 [ $fail = 0 ] && echo "ALL CHECKS PASSED" || { echo "CHECKS FAILED"; exit 1; }

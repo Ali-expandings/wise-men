@@ -45,13 +45,27 @@ def blind(q):
     out = tpl.replace("{question}", qtext(q)).replace("{responses}", "\n".join(parts))
     os.makedirs(os.path.join(H, CFG["blinded"]), exist_ok=True); open(os.path.join(H, CFG["blinded"], q + ".md"), "w").write(out); print("blinded", q, len(out), "chars")
 
+def score_blocks(text, letters):
+    """Every fenced scores block in a judgment, parsed strictly: exactly one response letter and the five axes, each an
+    integer 1-5 on its own line, no duplicate keys, no duplicate letters. A malformed block raises instead of being truncated."""
+    out = {}
+    for b in re.findall(r"```scores\n(.*?)```", text, re.S):
+        d = {}
+        for line in (l.strip() for l in b.strip().splitlines() if l.strip()):
+            m = re.fullmatch(r"(\w+):\s*(\S+)", line)
+            assert m and m[1] not in d, ("malformed or duplicate line in scores block", line)
+            d[m[1]] = m[2]
+        assert set(d) == {"response", *AXES}, ("scores block keys", sorted(d))
+        assert d["response"] in letters and d["response"] not in out, ("response letter", d["response"])
+        assert all(re.fullmatch(r"[1-5]", d[a]) for a in AXES), ("axis score must be an integer 1-5", d)
+        out[d["response"]] = {a: int(d[a]) for a in AXES}
+    return out
+
 def parse(q):
     bm = yaml.safe_load(open(os.path.join(H, CFG["blinding"])))["map"][q]
-    j = open(os.path.join(H, CFG["judgments"], q + ".md")).read()
-    blocks = re.findall(r"```scores\n(.*?)```", j, re.S); out = {}
-    for b in blocks:
-        d = dict(re.findall(r"(\w+):\s*([A-H]|\d)", b)); slot = d["response"]
-        out[bm[slot]] = {a: int(d[a]) for a in AXES}; out[bm[slot]]["composite"] = sum(int(d[a]) for a in AXES); out[bm[slot]]["slot"] = slot
+    j = open(os.path.join(H, CFG["judgments"], q + ".md")).read(); out = {}
+    for slot, sc in score_blocks(j, set(bm)).items():
+        out[bm[slot]] = dict(sc); out[bm[slot]]["composite"] = sum(sc[a] for a in AXES); out[bm[slot]]["slot"] = slot
     assert set(out) == set(ARMS), set(out)
     os.makedirs(os.path.join(H, CFG["parsed"]), exist_ok=True); yaml.safe_dump({"question_id": q, "arms": out}, open(os.path.join(H, CFG["parsed"], q + ".yaml"), "w"), sort_keys=False); print("parsed", q, {a: out[a]["composite"] for a in ARMS})
 

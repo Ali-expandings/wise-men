@@ -2,3 +2,6 @@
 __pycache__/
 *.pyc
 .venv/
+
+# local planning notes and handoffs (not part of the published skill)
+plans/

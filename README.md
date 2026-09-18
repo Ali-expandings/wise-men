@@ -291,9 +291,9 @@ The question every prompt-skill gets asked — after ponytail's benchmark was ma
 
 | vs direct answer (blind, 25-pt rubric, N=29) | score | beat the structured prompt | cost |
 |---|---|---|---|
-| **wise-men council** (standard tier) | **24.5** | **28 / 29** | ~5–7¢ |
-| structured single prompt (= `solo` tier) | 20.8 | — | ~free |
-| direct answer | 16.3 | 0 / 29 | ~free |
+| **wise-men council** (standard tier) | **24.5** | **28 / 29** | 8–9 subagent calls; about 20 minutes in the current protocol (measured, below) |
+| structured single prompt (= `solo` tier) | 20.8 | — | one pass, no subagents |
+| direct answer | 16.3 | 0 / 29 | one pass |
 
 Against the other council skills for Claude Code (facts from their READMEs or skill files, 2026-09-16/17; full table with sources in [`resources/landscape.md`](resources/landscape.md)):
 
@@ -314,7 +314,7 @@ What they have that this doesn't: multi-vendor councils, convergence-driven long
 
 ## Cost
 
-Roughly: solo ~free, quick ~4-6¢, standard ~7-9¢, deep ~16¢, paranoid ~25-50¢ per question (2026-07 pricing, cheap models on routine roles). Cheap models grade; stronger models argue; the model mapping lives in one table in `resources/model-routing.md` — update it there when models change and nothing else moves.
+Measured, not estimated: in head-to-head round 3 (Sonnet orchestrator, September 2026) a standard council (9–10 subagent calls) took 18–23 minutes and about 190k–230k tokens as the harness reports them, and a deep council (13–20 calls) 31–69 minutes and 240k–295k tokens — against about 8 minutes for Warp's council, 15 for llm-council and 1.4 for a plain answer. The harness does not split input, output and cached tokens, so no dollar figure is given; earlier versions of this file quoted a few cents per council, an estimate built on assumed 700-token prompts that real runs exceed by more than an order of magnitude. Solo tier is one pass in the main thread. Cheap models grade; stronger models argue; the model mapping lives in one table in `resources/model-routing.md` — update it there when models change and nothing else moves.
 
 ## Limits (the ones that matter)
 

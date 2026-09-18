@@ -77,9 +77,9 @@ Before delivering, ask yourself:
 
 If any answer is no, fix before output.
 
-### Step 6 — External synthesis check (when Stage 4.5 fires — see SKILL.md)
+### Step 6 — External synthesis check (Stage 4.5 — every council tier)
 
-At deep/paranoid (or any degraded run), your self-check in Step 5 is not the last word: a fresh one-call checker verifies the synthesis against the member answers. Treat its six findings as blocking — fix, or ship with its objection quoted verbatim. The Chairman picked the personas, set the difficulty, and wrote the synthesis; this is the one moment someone else looks at the homework.
+At every council tier your self-check in Step 5 is not the last word: a fresh one-call checker verifies the synthesis against the member answers. Treat its six findings as blocking — fix, or ship with its objection quoted verbatim. The Chairman picked the personas, set the difficulty, and wrote the synthesis; this is the one moment someone else looks at the homework.
 
 ---
 

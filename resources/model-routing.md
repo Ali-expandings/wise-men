@@ -26,24 +26,21 @@ Everything else in this file names models for readability, but what is load-bear
 
 **Before trusting this table, check it.** Model names move faster than documentation: run `/model` (or your plan's model list) and confirm each tier still points at a model that exists. If a name here is unfamiliar or missing, remap the tier and change nothing else — the protocol never references a model directly. Legacy ids (`claude-opus-4-8`, `claude-sonnet-4-6`, …) generally keep resolving, so a stale table degrades quietly rather than erroring, which is exactly why the check is worth thirty seconds.
 
-Rules that survive any remapping: **reviewers = cheap** (mid when the grading packet contains claims about artifacts on disk — verification is judgment work), **members = mid**, **DA = one tier above members**, **Chairman = main thread (never routed)**, **auto-retry ceiling = strong** (max is never an auto-retry target). If a tier's model is unavailable on the user's plan, fall to the next tier down and warn once — never fail a council over a model id.
+Rules that survive any remapping: **reviewers = cheap** (mid when the grading packet contains claims about artifacts on disk — verification is judgment work), **members = mid**, **DA = one tier above members**, **Chairman = main thread (never routed)**, **auto-retry ceiling = strong** (max is never an auto-retry target). If a tier's model is unavailable on the user's plan, use the nearest available tier — the cheaper neighbour first, the dearer one only when nothing cheaper exists — warn once, and record requested vs actual model in the routing block. Never fail a council over a model id.
 
-## Cost reality (2026-07 prices; recheck against current pricing)
+## Cost reality (measured 2026-09; relative costs only)
 
-Per-million-token rates: cheap 1/5, mid 3/15, strong 5/25, max 10/50 (input/output USD). Relative costs in the table above are what actually matter and drift far more slowly than absolute prices.
+Per-million-token rates, 2026-07: cheap 1/5, mid 3/15, strong 5/25, max 10/50 (input/output USD). The relative costs in the table above are what routing decisions use, and they drift far more slowly than absolute prices.
 
-**Standard council (5 members + 3 reviewers ≈ 8 calls), realistic token volumes** (~700 in / 400 out per member, ~2700 in / 300 out per reviewer):
+**What a council actually costs — measured, head-to-head round 3** (twelve runs of 3.11.0, Sonnet orchestrator, the skill choosing its own tier; token counts as the harness reports them for the whole run, with no split between input, output and cached context, so no dollar figure is derived):
 
-- Solo tier: 1 main-thread pass, ~$0.01-0.02 — no routing needed
-- All-haiku: ~$0.03-0.05
-- Smart-routed standard (3 sonnet members + opus practitioner anchor + opus DA + 3 haiku reviewers + sonnet checker): ~$0.07-0.09
-- All-sonnet: ~$0.10
-- All-opus: ~$0.15-0.20
-- Paranoid tier (7 opus members + sonnet reviewers + 2 debate rounds): ~$0.25-0.50
+- Standard tier (9–10 subagent calls — 5 members, 3 reviewers, checker): 18–23 minutes uninterrupted, about 190k–230k tokens.
+- Deep tier (13–20 calls): 31–69 minutes, about 240k–295k tokens.
+- For scale, same harness and questions: Warp's council about 8 minutes and 100k–120k tokens; llm-council about 15 minutes and 120k–135k; a plain answer 1.4 minutes and about 75k–80k.
 
-**Smart routing saves ~2-3x** vs all-opus at standard tier (was 3-5x under old Opus pricing). The gap narrowed because Opus got cheap; the routing still pays for itself, but `--strong` is no longer an extravagance.
+Versions up to 3.11.1 quoted a few cents per council (4-6 cents quick, 7-9 standard). Those figures assumed ~700-token member prompts; real member prompts carry the persona block, the brief and the contract, members Read files, and reviewers Read a packet of every answer, so real runs exceed that estimate by more than an order of magnitude. The figures are withdrawn; budget in calls and minutes.
 
-These are per-call averages, not measured per question. Real cost varies ~2x with question length.
+**Smart routing still matters in relative terms**: the routed standard council (3 mid members + strong anchor + strong DA + 3 cheap reviewers + mid checker) costs roughly half of an all-strong council at the rates above, because reviewers and most members stay off the strong tier.
 
 ## Difficulty computation (do this in pre-flight)
 
@@ -173,10 +170,12 @@ Match persona role to best subagent type. Set the `subagent_type` parameter on t
 | Persona role | Subagent type | Required? |
 |---|---|---|
 | **Any member, reviewer, or the Stage 4.5 checker (default)** | **`wise-men:wise-member`** (plugin install) or **`wise-member`** (clone + copy install) — tool-restricted (Read/Grep/Glob only), makes recursion structurally impossible | ships with skill; falls back to `general-purpose` |
-| Security persona, when the environment provides a security-review agent | that agent | optional |
-| Code-focused personas, when a code-review agent exists | that agent (note: some emit compressed output — the orchestrator must handle it) | optional |
+| Security persona, when the environment provides a security-review agent | that agent — **not tool-restricted** (see the boundary note below) | optional |
+| Code-focused personas, when a code-review agent exists | that agent — **not tool-restricted**; some emit compressed output the orchestrator must handle | optional |
 | Anything else / unknown | `wise-member` | — |
 
+> **Boundary note**: only `wise-member` is structurally unable to spawn subagents, run commands or edit files. A seat filled by any other agent type keeps whatever tools that agent has, so the no-recursion guarantee does not cover that seat: use such agents for member seats only (never for reviewers or the Stage 4.5 checker), keep the prompt-level "do not spawn subagents" line, and say once in the output that the seat ran outside the restricted agent.
+>
 > **Caveat**: some environment-provided agents return compressed or otherwise non-standard output. Stage 2 reviewers and the Stage 4 Chairman must handle whatever format a member was spawned through. When in doubt use `wise-member` — its output format is predictable.
 
 ## Per-stage overrides
@@ -209,7 +208,7 @@ For each member output:
      - Either: the 5-section structure is present
      - Or:     the explicit marker "OUT OF DOMAIN — defer to others on this question." is present
      - Empty, refusal, or off-topic = fail.
-  2. Are all 5 footer sections present AND non-empty?
+  2. Unless it abstained with that marker: are all 5 footer sections present AND non-empty?
      - "## Core judgment"
      - "## Top risks"
      - "## Recommended change"
@@ -227,9 +226,9 @@ If either fails:
   → if the member is already at the ceiling (strong, or max via DA/flags):
     retry ONCE at the SAME model instead — a bump has no target, but a fresh
     same-model attempt is cheap and usually recovers a formatting fluke.
-  → if it still fails after retry: mark as "OUT OF DOMAIN — defer" and proceed
-    (exception: a failed DA is never quietly abstained — flag the council as
-    degraded in the output; see SKILL.md Stage 0)
+  → if it still fails after retry: record the member as FAILED (timeout, spawn error, empty or
+    malformed output are execution failures, not abstentions), leave it out of aggregation and
+    disclose it in the footer (a failed DA means the council is degraded; see SKILL.md Stage 0)
   → never more than one retry per member, never infinite loop
 ```
 
@@ -252,7 +251,7 @@ Let user force routing:
 - `--model=sonnet` → all use sonnet
 - `--model=haiku` → all use haiku (Devil's Advocate stays sonnet; warn user this risks weak DA)
 - `--cheap` → haiku everywhere including DA (loud warning: council may collapse)
-- `--strong` → strong tier everywhere, DA on max (insurance for critical decisions; roughly 20 cents at standard council size)
+- `--strong` → strong tier everywhere, DA on max (insurance for critical decisions; roughly twice the routed cost at standard council size)
 - `--solo` → no routing at all (single main-thread pass)
 - Default = compute-and-route per algorithm
 
@@ -288,7 +287,7 @@ This makes routing visible and auditable. User can see if cheap models are silen
 If composite difficulty = 1 AND no irreversibility, the SKILL.md anti-patterns section says "give direct answer". Composite 1-2 that still deserves structure gets solo tier — never summon Haiku × 3 just to confirm the obvious.
 
 ### Model unavailable on user's plan
-If haiku model unavailable, fall back to sonnet (warn once per session, not per call). If sonnet unavailable, opus. If opus unavailable too, fail with clear error. Never silently fail.
+Apply the fallback rule from the model-mapping section: nearest available tier, cheaper neighbour first (cheap has none, so it moves up to mid; mid falls to cheap before strong; strong falls to mid). Warn once per session, not per call, and record requested vs actual model. If no Claude model resolves at all, fail with a clear error. Never silently fail.
 
 **Max-tier unavailability is expected, not an error**: every max-tier route (DA at composite 5, `--strong` DA, `--model=max`) degrades to the strong tier automatically when no model above `strong` resolves on this plan. Models retire and plans differ; a missing model id must never break a council. Warn once, route down, continue.
 
@@ -302,7 +301,7 @@ Treat as abstain. Chairman handles in dissent section. Don't infinite-loop tryin
 Validator is heuristic. If it flags a real answer as garbage, you waste one retry. Acceptable false-positive rate. The 2-check version drastically reduced false positives vs the prior 4-check version.
 
 ### Cost spirals on paranoid tier with many retries
-Worst case: 7 strong-tier members each retried once = 14 strong-tier calls (roughly 19 cents at current member-call sizes) plus the max-tier DA and its possible retry. Retries are capped at 1 per member, so total council cost stays bounded at roughly 2x the no-failure run — acceptable, and in practice retries are rare.
+Worst case: 7 strong-tier members each retried once = 14 strong-tier calls plus the max-tier DA and its possible retry. Retries are capped at 1 per member, so total council cost stays bounded at roughly 2x the no-failure run — acceptable, and in practice retries are rare.
 
 ## How to invoke with model parameter
 

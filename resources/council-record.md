@@ -12,6 +12,7 @@ Suggested filename: `<project-notes>/council/YYYY-MM-DD-<slug>-council.md`.
 # Council transcript: <question in ≤10 words>, <date>
 
 Tier: <tier> (depth D, stakes S, novelty N). <N> members (<model>; Devil's Advocate on <model>), <R> reviewers (<model>), <k> debate round(s), synthesis checker (<model>). Chairman: main thread (<model>).
+Cost of this run: <n> subagent calls (members / reviewers / debate / checker / retries), <minutes> minutes wall time, <tokens> tokens as the harness reports them ("not reported" if it doesn't).
 
 ## The answer as the user saw it (decision memo)
 ## Where the council agreed

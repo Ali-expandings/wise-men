@@ -112,11 +112,7 @@ The result feeds Chairman synthesis. Chairman should:
 
 ## Skip conditions
 
-Skip when the canonical debate-trigger formula does NOT fire — i.e. ALL THREE of: variance < 1.5 on every rubric axis, AND no member is ranked top-2 by some reviewers and bottom-2 by others on the same axis, AND some position on the Chairman's position map holds a majority of non-abstaining members. (All three clauses must be clear to skip; the third exists because a council can split on the CONCLUSION while every member scores well, which the variance clauses cannot see.) Also skip when:
-
-- User specified `quick` or `standard` tier
-- Question is low-stakes (council shouldn't debate "what variable name to use")
-- All non-abstaining members had similar scores AND no severe-disagreement flag was raised by any reviewer
+Skip when the canonical debate-trigger formula does NOT fire — i.e. ALL THREE of: variance < 1.5 on every rubric axis, AND no member is ranked top-2 by some reviewers and bottom-2 by others on the same axis, AND some position on the Chairman's position map holds a majority of non-abstaining members. (All three clauses must be clear to skip; the third exists because a council can split on the CONCLUSION while every member scores well, which the variance clauses cannot see.) The only other skip is by tier: `quick` and `standard` run no debate unless the user passed `--debate`. Nothing else overrides a fired trigger — similar scores with no severe-disagreement flag do not mean the members agree on the conclusion (3.11.x listed that as a skip condition, which contradicted the third clause).
 
 ## Early-stop rule (paranoid's round 2)
 

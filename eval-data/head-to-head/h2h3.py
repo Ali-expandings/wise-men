@@ -5,7 +5,7 @@ import os, re, sys, json, glob, random, statistics as st, yaml
 from decimal import Decimal, ROUND_HALF_UP
 H = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(os.path.dirname(H))
 sys.path.insert(0, H)
-from h2h import normalize, qtext  # the same normalization rules as rounds 1-2
+from h2h import normalize, qtext, score_blocks  # the same normalization and strict score parsing as rounds 1-2
 
 AXES = ["correctness", "insight", "practical", "risk", "dissent"]
 PART_A = ["Q05", "Q09", "Q13", "Q19", "Q25", "Q36", "Q48", "Q55"]
@@ -54,9 +54,7 @@ def save(transcript, arm, q, tokens, tools, seconds, note=""):
 def savejudge(agent_transcript, q, j):
     os.makedirs(os.path.join(H, "judgments-v3"), exist_ok=True); t = final_text(agent_transcript)
     open(os.path.join(H, "judgments-v3", f"{q}-{j}.md"), "w").write(f"# judge: fresh opus subagent, no skills, Read-only | question: {q} | judge: {j} | run: {run_date(agent_transcript)} (round 3)\n# blinded input: blinded-v3/{q}-{j}.md (slots per blinding3.yaml)\n\n{t}\n")
-    got = {}
-    for b in re.findall(r"```scores\n(.*?)```", t, re.S):
-        d = dict(re.findall(r"(\w+):\s*([A-I]|\d)", b)); got[BLIND[q][j][d["response"]]] = sum(int(d[a]) for a in AXES)
+    got = {BLIND[q][j][slot]: sum(sc.values()) for slot, sc in score_blocks(t, set(BLIND[q][j])).items()}
     assert set(got) == set(arms_for(q)), (q, j, set(arms_for(q)) - set(got))
     print("judgment", q, j, dict(sorted(got.items(), key=lambda x: -x[1])))
 
@@ -76,9 +74,8 @@ def parse(q):
     os.makedirs(os.path.join(H, "parsed-v3"), exist_ok=True); arms = arms_for(q); out = {}
     for j in JUDGES:
         text = open(os.path.join(H, "judgments-v3", f"{q}-{j}.md")).read(); got = {}
-        for b in re.findall(r"```scores\n(.*?)```", text, re.S):
-            d = dict(re.findall(r"(\w+):\s*([A-I]|\d)", b)); arm = BLIND[q][j][d["response"]]
-            got[arm] = {a: int(d[a]) for a in AXES}; got[arm]["composite"] = sum(got[arm][a] for a in AXES)
+        for slot, sc in score_blocks(text, set(BLIND[q][j])).items():
+            arm = BLIND[q][j][slot]; got[arm] = dict(sc); got[arm]["composite"] = sum(sc.values())
         assert set(got) == set(arms), (q, j, set(arms) - set(got))
         out[j] = got
     yaml.safe_dump({"question_id": q, "judges": out}, open(os.path.join(H, "parsed-v3", q + ".yaml"), "w"), sort_keys=False)
@@ -139,17 +136,22 @@ def results():
     if todo:
         L += [f"**Interim.** {len(AB)} of the 12 pre-registered questions are fully judged ({', '.join(AB)}); still to come: {', '.join(todo)}. "
               "This file is regenerated from `parsed-v3/` as questions complete, so its numbers and wording can change; the pre-registered analysis covers all 12 ([`PREREG-3.md`](PREREG-3.md)).", ""]
-    if not todo:
-        TA, TB, TAB = table(R, A, A_ARMS), table(R, B, B_ARMS), table(R, AB, B_ARMS)
-        tops = sum(R[q]["wise-men-3.11"]["composite"] > max(R[q][a]["composite"] for a in arms_for(q) if a != "wise-men-3.11") for q in AB)
-        cs = {a: compare(R, shared(a, A, B), a) for a in A_ARMS[1:]}; every = all(cs[a]["lo"] > 0 for a in RIVALS)
-        L += [f"**Result.** wise-men 3.11.0 scored {r2(TA['wise-men-3.11']['mean'])} of 25 on the eight round-2 questions (Part A) and {r2(TB['wise-men-3.11']['mean'])} on the four held-out questions (Part B), "
-              f"the highest mean in both parts, with the top score on {tops} of the 12 questions. Against every other arm the mean per-question difference is positive and its 95% bootstrap interval excludes zero"
-              + (", so under the pre-registered wording it **beats every rival**: " if every else "; under the pre-registered wording it is clearly ahead of: ")
-              + ", ".join(f"{NAMES[a]} {sg2(cs[a]['diff'])} [{sg2(cs[a]['lo'])}, {sg2(cs[a]['hi'])}] on {cs[a]['n']} questions" for a in RIVALS if cs[a]["lo"] > 0) + ". "
-              f"Against its own previous version, wise-men 3.9.2, on Part A: {sg2(cs['wise-men']['diff'])} [{sg2(cs['wise-men']['lo'])}, {sg2(cs['wise-men']['hi'])}], "
-              f"which is the measured effect of versions 3.10.0 and 3.11.0. Part B, which no earlier round used, is the check that the gain is not a fit to round 2's judgments: "
-              f"wise-men 3.11.0 {r2(TB['wise-men-3.11']['mean'])} against Warp council {r2(TB['warp-council']['mean'])}, llm-council {r2(TB['llm-council']['mean'])} and the plain answer {r2(TB['direct']['mean'])}.", ""]
+    if not todo:  # every sentence below is computed from the data: a losing or mixed dataset gets losing or mixed wording
+        TA, TB = table(R, A, A_ARMS), table(R, B, B_ARMS); W = "wise-men-3.11"
+        tops = sum(R[q][W]["composite"] > max(R[q][a]["composite"] for a in arms_for(q) if a != W) for q in AB)
+        cs = {a: compare(R, shared(a, A, B), a) for a in A_ARMS[1:]}
+        rank = {"A": 1 + sum(TA[a]["mean"] > TA[W]["mean"] for a in A_ARMS if a != W), "B": 1 + sum(TB[a]["mean"] > TB[W]["mean"] for a in B_ARMS if a != W)}
+        place = lambda k, n: "the highest mean" if rank[k] == 1 else f"rank {rank[k]} of {n} by mean"
+        by = {w: [a for a in RIVALS if cs[a]["word"] == w] for w in ("clearly ahead", "ahead", "level", "behind")}
+        item = lambda a: f"{NAMES[a]} {sg2(cs[a]['diff'])} [{sg2(cs[a]['lo'])}, {sg2(cs[a]['hi'])}] on {cs[a]['n']} questions"
+        verdict = ("Under the pre-registered wording it **beats every rival**: against each the mean per-question difference is positive and its 95% bootstrap interval excludes zero — " + ", ".join(map(item, by["clearly ahead"])) + "."
+                   if len(by["clearly ahead"]) == len(RIVALS) else
+                   "Under the pre-registered wording it does not beat every rival. " + " ".join(f"{w.capitalize()} of: " + ", ".join(map(item, by[w])) + "." for w in ("clearly ahead", "ahead", "level", "behind") if by[w]))
+        L += [f"**Result.** wise-men 3.11.0 scored {r2(TA[W]['mean'])} of 25 on the eight round-2 questions (Part A, {place('A', len(A_ARMS))}) and {r2(TB[W]['mean'])} on the four held-out questions (Part B, {place('B', len(B_ARMS))}), "
+              f"with the top score on {tops} of the 12 questions. {verdict} "
+              f"Against its own previous version, wise-men 3.9.2, on Part A: {sg2(cs['wise-men']['diff'])} [{sg2(cs['wise-men']['lo'])}, {sg2(cs['wise-men']['hi'])}] ({cs['wise-men']['word']}), "
+              f"the measured effect of versions 3.10.0 and 3.11.0. Part B is the check that the result is not a fit to round 2's judgments: "
+              f"wise-men 3.11.0 {r2(TB[W]['mean'])} against Warp council {r2(TB['warp-council']['mean'])}, llm-council {r2(TB['llm-council']['mean'])} and the plain answer {r2(TB['direct']['mean'])}.", ""]
     L += ["Three blind Opus judges per question, each with its own sealed answer order ([`blinding3.yaml`](blinding3.yaml)); an arm's score on a question is the mean of the three judges; totals are out of 25 (five axes scored 1–5). "
           "Part A re-judges round 2's answers from eight arms next to fresh wise-men 3.11.0 answers to the same eight questions (judge prompt: [`judge-prompt-9.txt`](judge-prompt-9.txt), nine answers labelled A–I); Part B asks four held-out questions no head-to-head has used, with four arms ([`judge-prompt-4.txt`](judge-prompt-4.txt)). Answers are normalized as in rounds 1–2 (`normalize()` in `h2h.py`).", ""]
     for label, qs, arms in (("Part A: round-2 questions", A, A_ARMS), ("Part B: held-out questions", B, B_ARMS), ("All judged questions: the four arms in both parts", AB if B else [], B_ARMS)):
@@ -176,6 +178,8 @@ def results():
     L += ["", f"Clearly ahead of every rival skill and the plain answer on the questions judged so far: **{'yes' if every else 'no'}**" + (" (interim; the pre-registered claim needs all 12 questions)." if todo else "."), ""]
     L += ["## What the numbers say, and what they don't", "",
           "- Part A's questions, and round 2's judgments of them, are the evidence versions 3.10.0 and 3.11.0 were built on, so Part A can reward fitting those judgments. Part B's held-out questions test that" + ("; they have not been judged yet." if not B else "."),
+          "- \"Held-out\" means held out of every head-to-head round and of the judgments the current version was built from. The four questions are not new to the project: like all twelve, they come from `eval-data/questions.yaml`, the 30-question file of the N=29 eval that the v2.3 core loop answered in May 2026.",
+          "- One judgment shows the ceiling is generous: on Q23, judge 2 credits another answer with correcting \"a mistake the other three make\" about what a published-only significance flip shows, yet scores wise-men 3.11.0, one of those three, 5 for correctness. Its memo calls that check \"decisive in both directions\", which overstates it (dropping half the studies also drops power).",
           "- Scores are relative within a round. The eight reused answers are the same files as in round 2, judged here next to a ninth answer by three judges instead of one; compare arms inside this round, not against round 2's numbers.",
           "- Every answer and every judge is a Claude model. Judges see letters, not arm names, but a distinctive answer format can still be recognizable.",
           "- The intervals resample questions, not judges, and the number of questions is small.", ""]

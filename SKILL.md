@@ -119,7 +119,7 @@ Auto-select 3-7 personas based on **question domain** + tier. Full library: `res
 
 **Practitioner anchor is mandatory too**: one roster seat goes to a practitioner named for the job the question belongs to (an SRE lead, an employment lawyer, a pricing lead, a research methodologist, an editor), replacing the roster member it overlaps most so counts don't change, on the strong model (routing: +1 role tier), with this appended to its constraints: "You own correctness and completeness: answer every part of the question as asked, give the concrete steps someone who does this for a living would take, and name the facts that must be checked before acting." In the head-to-head the winning rival put its strongest model on exactly this seat, and five of eight wise-men answers lost points for leaving out part of what was asked. If domain unclear, default to mixed: Pragmatist + Skeptic + Architect + Devil's Advocate + Empiricist.
 
-**Reasoning-procedure assignment (the actual source of diversity).** Ensembles help because members' ERRORS decorrelate — and role labels alone mostly shift emphasis, not the path through reasoning space. So each member also gets ONE mandated reasoning procedure, distinct across the council, drawn from: **precedent** (what happened when others did this), **first principles** (derive from the mechanics), **base rates** (what usually happens to things in this reference class), **incentives** (who gains, who pays, what behavior that produces), **falsification** (what evidence would kill each option; which option survives). Match procedure to persona where natural (Historian→precedent, Theorist→first-principles, Empiricist→base-rates), assign the rest to cover the set. Five members reasoning down five different paths who still agree — THAT's signal. Five members with different job titles pattern-matching the same way is not.
+**Reasoning-procedure assignment (the actual source of diversity).** Ensembles help because members' ERRORS decorrelate — and role labels alone mostly shift emphasis, not the path through reasoning space. So each member also gets ONE mandated reasoning procedure, distinct across the council while the five last (a sixth or seventh member reuses one, paired with a different concern, and the record says so), drawn from: **precedent** (what happened when others did this), **first principles** (derive from the mechanics), **base rates** (what usually happens to things in this reference class), **incentives** (who gains, who pays, what behavior that produces), **falsification** (what evidence would kill each option; which option survives). Match procedure to persona where natural (Historian→precedent, Theorist→first-principles, Empiricist→base-rates), assign the rest to cover the set. Five members reasoning down five different paths who still agree — THAT's signal. Five members with different job titles pattern-matching the same way is not.
 
 ### Stage 0.5 — Context brief (members are blind; you are not)
 
@@ -193,9 +193,9 @@ Silent fallback is forbidden here: it is the one place where the skill's actual 
 Run after Stage 1. Two checks per member output:
 
 1. **Did it engage with the question?** Either the 5-section structure is present, OR the explicit "OUT OF DOMAIN — defer" marker is present. Empty, refusal, or off-topic = fail.
-2. **Are all 5 footer sections present and non-empty?** `## Core judgment`, `## Top risks`, `## Recommended change`, `## Confidence`, `## Weakest assumption` — all five literal headers must appear, and **each section must contain at least one substantive sentence** (not whitespace, not a single bullet marker, not a placeholder).
+2. **Unless it abstained with that marker: are all 5 footer sections present and non-empty?** `## Core judgment`, `## Top risks`, `## Recommended change`, `## Confidence`, `## Weakest assumption` — all five literal headers must appear, and **each section must contain at least one substantive sentence** (not whitespace, not a single bullet marker, not a placeholder).
 
-Fail → retry that member ONCE with model bumped +1 tier (retry ladder in `model-routing.md`; ceiling = opus). **If member is already at the ceiling, retry ONCE at the same model instead.** Still fail after retry → mark "OUT OF DOMAIN — defer" and proceed.
+Fail → retry that member ONCE with model bumped +1 tier (retry ladder in `model-routing.md`; ceiling = opus). **If member is already at the ceiling, retry ONCE at the same model instead.** Still fail after retry → record the member as failed (an execution failure is not an abstention), leave it out of aggregation, and disclose it in the footer.
 
 **Agent-call failures count too**: a spawn error, timeout, or empty tool result is treated exactly like a validation failure — same retry-once-then-abstain path. Never silently drop a member.
 
@@ -377,14 +377,14 @@ Stage 3: skipped
 Stage 4: main thread Chairman synthesis → Stage 4.5: 1 checker call
 ```
 
-Total: 7 subagent calls. ~30-60s wall time. Cost: roughly 4-6 cents USD.
+Total: 7 subagent calls. Budget in calls and minutes, not cents: measured in the head-to-head, a 9-call standard council took about 20 minutes and roughly 200k tokens as the harness reports them.
 
 > **Authoring note — scope of this rule:** costs are spelled out in words *in this file only*. The skill loader substitutes any dollar-sign-followed-by-digit sequence in **SKILL.md** with the invocation's positional arguments at load time (even inside backticks) — an earlier version of this very note was mangled that way. Files under `resources/`, `examples/`, and `eval-data/` are read on demand rather than injected, so ordinary currency figures there are correct and were deliberately left alone. Rule: never write a numeric dollar amount **in SKILL.md**; elsewhere, write normally.
 
 ## Skill chaining (all OPTIONAL — use only if present in this environment; never warn about absence)
 
 - a **prose-polish skill**, if the user has one — clean up Chairman output before showing it
-- a **security-review agent**, if present — natural fit for the security persona slot
+- a **security-review agent**, if present — fits the security persona slot, but is not tool-restricted (boundary note in model-routing.md)
 - a **code-review agent**, if present — for code-focused personas (some emit compressed output; handle it)
 - a **verification skill**, if present — run after a council decides on a code change
 

@@ -1,6 +1,6 @@
 # Example: coding question — "should I split App.tsx?"
 
-A worked end-to-end run. Shows what the council looks like in practice for a typical engineering question.
+An illustrative scenario, not a captured run: it shows what the council looks like for a typical engineering question. The members see only what the user wrote — no source file was supplied — so anything about the code beyond the user's words is marked unverified.
 
 ## User input
 
@@ -15,18 +15,18 @@ A worked end-to-end run. Shows what the council looks like in practice for a typ
 - Domain: engineering / architecture.
 - Difficulty axes: depth=3 (multi-step trade-off), stakes=3 (real but reversible), novelty=2 (well-known pattern). Composite = 3.
 - Tier: standard (from composite 3).
-- Members: Pragmatist + Skeptic + Architect + Maintainer + Devil's Advocate (5).
+- Members: Pragmatist + Skeptic + Architect + Practitioner (a senior React engineer who maintains a large single-page app — the anchor, replacing the Maintainer seat it overlapped most) + Devil's Advocate (5).
 - Model routing (per algorithm):
   - Pragmatist:        sonnet  (tier default)
   - Skeptic:           sonnet  (tier default)
   - Architect:         sonnet  (override: sonnet at standard+ ← matches default here)
-  - Maintainer:        sonnet  (tier default)
+  - Practitioner:      opus    (override: practitioner anchor +1 tier → opus)
   - Devil's Advocate:  opus    (override: DA always +1 tier → opus)
   - Reviewers × 3:     haiku   (tier default — rubric scoring is haiku-tolerant; floor is 3 at standard)
   - Debate:            n/a     (skipped at standard tier)
+  - Synthesis checker: sonnet  (every council tier)
   - Chairman:          main thread
-- Expected calls: 5 + 3 = 8.
-- Estimated cost: ~$0.07 (4 sonnet members + 1 opus DA + 3 haiku reviewers + chairman on main).
+- Expected calls: 5 + 3 + 1 = 9.
 
 ## Stage 1 — 5 parallel Agent calls
 
@@ -34,29 +34,29 @@ Each persona answers independently. Example outputs (compressed for this doc):
 
 **Pragmatist** (high confidence): "It works. 1179 lines is annoying but not broken. Splitting now without a concrete pain point = busywork. Wait until you actually feel friction adding a feature. Confidence: high. Weakest assumption: that the pain point will be obvious when it arrives."
 
-**Skeptic** (medium confidence): "1179 lines hides bugs. Every state mutation is hard to trace. Test coverage is probably weak (or absent). Risk of regressions during the next feature add is real. Confidence: medium. Weakest assumption: that the file is actually as hard to navigate as line count implies — could be well-organized internally."
+**Skeptic** (medium confidence): "1179 lines with four responsibilities makes state mutations hard to trace. Whether tests exist wasn't said (unverified) — if they don't, the next feature add risks regressions nobody sees. Confidence: medium. Weakest assumption: that the file is actually as hard to navigate as line count implies — could be well-organized internally."
 
 **Architect** (high confidence): "Single God Component is a recognized anti-pattern. Standard extraction: `useSwarm.ts`, `useChat.ts`, mode handler modules. Cost is ~1-2 days. Benefit: every future change becomes cheaper. Pay now, not later. Confidence: high. Weakest assumption: that future changes are coming — if project is stable and won't change much, the refactor is wasted."
 
-**Maintainer** (medium confidence): "Putting myself in shoes of someone who inherits this in 6 months: I'd struggle. Mental model of mode-state-UI interactions has no clear seams. But — refactor without tests is risky too. Recommend: write integration tests first, then extract. Confidence: medium. Weakest assumption: that the user has time to write tests."
+**Practitioner** (medium confidence): "What I'd do Monday: check whether any tests cover mode switching and the swarm path (unverified — not stated); if not, write 2-3 integration tests first (~half a day); then extract the most self-contained slice, the swarm wiring, as one hook, and stop to see whether the seam was real. The question asks about the long term: whoever inherits this in six months needs seams, but a refactor without tests is how working apps break. Confidence: medium. Weakest assumption: that the swarm wiring really is the most separable part — I haven't seen the file."
 
 **Devil's Advocate** (high confidence): "The case for not splitting: file size isn't the enemy. Premature abstraction is. Splitting into 5 files of 230 lines each adds import noise, navigation friction, and false boundaries that don't match the actual coupling. Some monoliths are fine. Vite recompiles fast either way. The 'split it because it's big' impulse is pattern-matching to JS culture, not first-principles thinking. Confidence: high. Weakest assumption: that the user is in the 'file is genuinely cohesive' camp rather than the 'file is a dumping ground' camp."
 
-## Stage 2 — 5 parallel Agent calls (peer review, stable persona labels)
+## Stage 2 — 3 parallel Agent calls (peer review, stable persona labels)
 
-Each reviewer gets all 5 answers labeled by persona name (neutral grading frame). Rubric scoring. Example aggregated scores:
+Each of the 3 reviewers Reads the grading packet with all 5 answers labeled by persona name (neutral grading frame). Rubric scoring. Example aggregated scores (means of 3):
 
 ```
               | Correct | Insight | Practical | Risk-aware | Avg
 Pragmatist    |   4     |   3     |    4      |    3       | 3.5
 Skeptic       |   4     |   3     |    3      |    5       | 3.75
 Architect     |   5     |   4     |    4      |    4       | 4.25
-Maintainer    |   4     |   3     |    4      |    4       | 3.75
+Practitioner  |   4     |   3     |    5      |    4       | 4.0 
 Devil's Adv   |   4     |   5     |    3      |    4       | 4.0
 ```
 
-Top picks: Architect (3 votes), Devil's Advocate (2 votes).
-Bottom: Pragmatist (2 votes — "underweights long-term cost").
+Top picks: Architect (2 of 3 reviewers), Devil's Advocate (1).
+Bottom: Pragmatist (2 of 3 — "underweights long-term cost").
 
 Severe disagreement: Architect vs Devil's Advocate are both highly scored but argue opposite conclusions.
 
@@ -64,9 +64,9 @@ Severe disagreement: Architect vs Devil's Advocate are both highly scored but ar
 
 Severe disagreement noted but `standard` doesn't trigger debate. (`deep` would.)
 
-## Stage 4 — Chairman synthesis
+## Stage 4 — Chairman synthesis, then Stage 4.5
 
-You (main thread) synthesize:
+You (main thread) synthesize; one fresh checker then verifies the draft against the member answers (here: six PASS — the draft kept "whether tests exist" as an unknown instead of asserting it). The checked memo:
 
 ```
 ## Recommendation
@@ -81,7 +81,7 @@ Split it — but stage the work, don't big-bang it. Write integration tests for 
 
 ## What to do
 
-1. This week: write 2-3 integration tests covering mode switching and the swarm-orchestration golden path (~half a day).
+1. This week: check what tests exist; if none cover mode switching and the swarm-orchestration golden path, write 2-3 integration tests for them (~half a day).
 2. Extract `useSwarm.ts`.
 3. After a week of normal work, decide: extract `useChat.ts` and the mode handlers, or stop there.
 
@@ -97,7 +97,7 @@ Split it — but stage the work, don't big-bang it. Write integration tests for 
 
 ## Confidence
 
-Medium that a staged split is right for this file — whether it needs splitting at all is genuinely contested. High that tests come first: nothing argued against it.
+Medium that a staged split is right for this file — whether it needs splitting at all is genuinely contested, and nobody here has seen the code. High that tests come before any extraction: the argument holds whichever way the split decision goes. Unknown: whether tests already exist.
 ```
 
 ## What you'd send to user
@@ -107,12 +107,12 @@ The memo above, as is. Nothing about the council appears in it — no member nam
 ## What was good about this run
 
 - **Mandatory Devil's Advocate caught the over-splitting risk**. Without it, council probably converges on "split everything immediately" and user wastes 2 days on premature refactor.
-- **Maintainer caught the "no tests" risk** that pure-architect persona missed.
+- **The practitioner anchor supplied the order of work** (check for tests, write them, extract one slice, stop) and kept "are there tests?" as a fact to check instead of assuming the answer from the line count.
 - **Chairman didn't just pick highest-scoring member**. Synthesized a staged path that incorporates both sides' valid concerns.
 - **Confidence is honest**: Medium on the contested call, high only where nothing argued against it.
 
 ## What could have failed
 
 - If Architect had been the only "split" voice, council would've felt unanimous toward "leave it". DA being mandatory prevented that flatness.
-- If all 5 personas were code-focused, none would've thought to suggest "write tests first" — that was Maintainer's contribution. Mixing persona types matters.
+- If all 5 personas were code-focused, none would've thought to suggest "write tests first" — that was the Practitioner's contribution. Mixing persona types matters.
 - If reviewers had scored persona reputation instead of reasoning quality ("the Architect is usually right"), peer review would've been corrupted by role bias — the rubric's per-axis justifications are the guard against that.

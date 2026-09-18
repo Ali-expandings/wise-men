@@ -112,7 +112,7 @@ When you (main thread) aggregate:
 
    > **Debate-trigger formula**: variance ≥ 1.5 on any rubric axis OR a member ranked top-2 by some reviewers and bottom-2 by others on the same axis OR no position on the Chairman's position map holds a majority of non-abstaining members.
 
-   Trigger fires at `deep` / `paranoid` tiers only.
+   Trigger fires at `deep` / `paranoid` tiers only. **Ties** (scores are integers 1-5, so they are common): a reviewer places a member top-2 (bottom-2) on an axis when fewer than two members scored strictly higher (lower) there; a reviewer who gave every member the same score on that axis says nothing about rank; and the clause fires only when the member's top-2 and bottom-2 scores differ by 2 or more — a 5 from one reviewer and a 4 from another is grading noise, not a split. `scripts/council.py aggregate` computes all three clauses this way (optional, standard-library Python).
 5. **Read every reviewer's severe-disagreement flag verbatim.** Surface them unconditionally in Chairman synthesis (dissent section) — never drop, never paraphrase to soften.
 6. Note which member won which axis (a member can lose overall but win on, say, risk awareness — preserve that signal).
 
