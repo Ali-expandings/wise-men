@@ -451,7 +451,7 @@ def chart_h2h_v3(rows):
 def chart_h2h_v3_questions(rows):
     qs = [q for q in H3_PART_A + H3_PART_B if q in rows]; n = len(qs); interim = n < 12
     lo = min(10, int(min(r[a]["composite"] for r in rows.values() for a in r)))
-    x0, x1, hi = 300, 640, 25; sc = (x1 - x0) / (hi - lo); top, rh = 112, 32; bottom = top + rh * (n - 1) + 16
+    x0, x1, hi = 300, 640, 25; sc = (x1 - x0) / (hi - lo); top, rh = 112, 32; gap = 18 if any(q in H3_PART_B for q in qs) else 0; bottom = top + rh * (n - 1) + gap + 16
     short = {"brainstorming": "brainstorming", "grilling": "grilling", "lifeos-council": "LifeOS", "llm-council": "llm-council", "ecc-council": "ECC", "warp-council": "Warp", "wise-men": "wise-men 3.9.2"}
     b = t(40, 32, f"Round 3{', in progress' if interim else ''}, question by question", 16, C["INK"], 600)
     b += t(40, 52, "Each row: the mean of three blind judges' totals (max 25) for wise-men 3.11.0, every other arm and the plain answer", 12, C["TXT"])
@@ -460,8 +460,8 @@ def chart_h2h_v3_questions(rows):
         x = x0 + (g - lo) * sc; b += line(x, top - 16, x, bottom, C["GRID"]) + t(x, bottom + 16, g, 11, C["MUTE"], anchor="middle")
     won = tied = lost = 0; part_b_at = None
     for i, q in enumerate(qs):
-        y = top + i * rh; r = rows[q]; arms = [a for a in (H3_A if q in H3_PART_A else H3_B)]; others = [a for a in arms if a not in ("direct", "wise-men-3.11")]
-        if q in H3_PART_B and part_b_at is None: part_b_at = y; b += t(40, y - 12, "held-out questions (four arms)", 10, C["MUTE"], 600)
+        y = top + i * rh + (gap if q in H3_PART_B else 0); r = rows[q]; arms = [a for a in (H3_A if q in H3_PART_A else H3_B)]; others = [a for a in arms if a not in ("direct", "wise-men-3.11")]
+        if q in H3_PART_B and part_b_at is None: part_b_at = y; b += t(40, y - 14, "held-out questions (four arms)", 10, C["MUTE"], 600)
         wm = r["wise-men-3.11"]["composite"]; vals = [r[a]["composite"] for a in arms]
         b += t(40, y + 4, q, 11, C["MUTE"]) + t(76, y + 4, TOPIC[q], 12, C["INK"])
         b += line(x0 + (min(vals) - lo) * sc, y, x0 + (max(vals) - lo) * sc, y, C["GRID"], 2) + ring(x0 + (r["direct"]["composite"] - lo) * sc, y, 7, C["TXT"])
