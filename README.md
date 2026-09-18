@@ -5,8 +5,8 @@
 Most prompt patterns ask you to take their word for it. This one ships with the blind evals that tested it — raw answers, judgments, and the scripts that reproduce every number.
 
 <p align="center">
-  <strong>Round 3, in progress: version 3.11.0 has the highest mean of 9 arms on the 6 questions judged so far, 24.4/25 to Warp's council's 21.2, three blind judges per question · round 2: 2nd of 8 · beat a structured prompt on 28 of 29</strong><br>
-  <sub>Two evals, 5-axis rubric; each head-to-head round was pre-registered before its new arms ran. Round 3 has 6 of 12 questions judged, four of them held-out questions no earlier round used. <a href="#does-it-actually-work">Charts, method and caveats</a>.</sub>
+  <strong>Round 3, Part A complete: version 3.11.0 first of 9 arms on the eight round-2 questions, 24.4/25 to Warp's council's 21.3, three blind judges per question, clearly ahead of every arm on that set · four held-out questions running · round 2: 2nd of 8 · beat a structured prompt on 28 of 29</strong><br>
+  <sub>Two evals, 5-axis rubric; each head-to-head round was pre-registered before its new arms ran. Round 3 has 8 of 12 questions judged; the four held-out questions, which no earlier round used, are running. <a href="#does-it-actually-work">Charts, method and caveats</a>.</sub>
 </p>
 
 ```
@@ -26,25 +26,25 @@ Two blind evals, both shipped raw in this repo. The first puts wise-men next to 
 
 Eight hard questions — engineering, product, research, writing, ethics, a personal decision. Eight ways to answer each: wise-men, six of the most-used and best-known skills for stress-testing a decision ([picked by installs and stars](eval-data/head-to-head/COMPETITOR-SCAN.md)), and a plain answer with no skill. The same top-level model ran every arm with its skill file verbatim; council members ran on whichever Claude models each skill chose. A fresh blind judge per question scored the answers under letters, in an order sealed in advance. Round 1 had six arms; round 2 added the two most-installed general-purpose council skills, Warp's and ECC's, and re-judged every answer.
 
-**Round 3, in progress** (pre-registered in [`PREREG-3.md`](eval-data/head-to-head/PREREG-3.md) before any run). Versions 3.10.0 and 3.11.0 were built from round 2's judgments, so round 3 measures them. Part A: fresh wise-men 3.11.0 answers to the same eight questions, judged next to round 2's eight answers by three blind judges per question, each with its own sealed order. Part B: four held-out questions no earlier round used (research, writing, ethics, a personal decision), with wise-men 3.11.0, Warp's council, llm-council and a plain answer. Six of the eight Part A questions are judged; the rest is running. Interim numbers, which will change as questions complete:
+**Round 3, in progress** (pre-registered in [`PREREG-3.md`](eval-data/head-to-head/PREREG-3.md) before any run). Versions 3.10.0 and 3.11.0 were built from round 2's judgments, so round 3 measures them. Part A: fresh wise-men 3.11.0 answers to the same eight questions, judged next to round 2's eight answers by three blind judges per question, each with its own sealed order. Part B: four held-out questions no earlier round used (research, writing, ethics, a personal decision), with wise-men 3.11.0, Warp's council, llm-council and a plain answer. Part A is complete; Part B is running. Interim numbers, which will change as Part B completes:
 
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v3-dark.svg"><img src="assets/h2h-v3.svg" width="860" alt="Round 3 (in progress) mean total score out of 25 on 6 round-2 questions, three blind judges each: wise-men 3.11.0 24.4, Warp council 21.2, wise-men 3.9.2 20.3, llm-council 18.0, ECC council 18.0, LifeOS Council 17.9, brainstorming 14.7, plain answer 14.1, grilling 13.9."></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v3-dark.svg"><img src="assets/h2h-v3.svg" width="860" alt="Round 3 (in progress) mean total score out of 25 on 8 round-2 questions, three blind judges each: wise-men 3.11.0 24.4, Warp council 21.3, wise-men 3.9.2 20.7, LifeOS Council 19.1, llm-council 18.6, ECC council 18.3, brainstorming 14.8, plain answer 14.2, grilling 13.8."></picture></p>
 
-| round 3, Part A (6 of 8 questions) | total /25 | correct | insight | practical | risk | dissent | wise-men 3.11.0 ahead by [95%] | W–T–L |
+| round 3, Part A (8 of 8 questions) | total /25 | correct | insight | practical | risk | dissent | wise-men 3.11.0 ahead by [95%] | W–T–L |
 |---|--:|--:|--:|--:|--:|--:|--:|--:|
-| **wise-men 3.11.0** | 24.4 | 4.8 | 5.0 | 4.8 | 5.0 | 4.8 | — | — |
-| Warp council | 21.2 | 4.6 | 4.3 | 4.6 | 4.4 | 3.4 | +3.2 [+1.3, +4.8] | 5–0–1 |
-| wise-men 3.9.2 | 20.3 | 3.9 | 4.3 | 3.8 | 4.1 | 4.3 | +4.1 [+2.8, +5.2] | 6–0–0 |
-| llm-council | 18.0 | 3.4 | 3.9 | 3.6 | 3.8 | 3.4 | +6.4 [+5.2, +7.4] | 6–0–0 |
-| ECC council | 18.0 | 3.9 | 3.8 | 3.5 | 3.6 | 3.2 | +6.4 [+4.6, +8.6] | 6–0–0 |
-| LifeOS Council | 17.9 | 3.2 | 3.9 | 3.4 | 3.7 | 3.7 | +6.4 [+4.9, +8.3] | 6–0–0 |
-| brainstorming | 14.7 | 3.8 | 3.1 | 3.7 | 2.6 | 1.6 | +9.7 [+8.7, +11.1] | 6–0–0 |
-| plain answer | 14.1 | 3.9 | 2.9 | 3.3 | 2.5 | 1.5 | +10.3 [+9.6, +11.4] | 6–0–0 |
-| grilling | 13.9 | 3.5 | 2.9 | 3.2 | 2.6 | 1.8 | +10.4 [+8.8, +12.1] | 6–0–0 |
+| **wise-men 3.11.0** | 24.4 | 4.8 | 5.0 | 4.8 | 5.0 | 4.9 | — | — |
+| Warp council | 21.3 | 4.6 | 4.3 | 4.6 | 4.5 | 3.3 | +3.2 [+1.8, +4.5] | 7–0–1 |
+| wise-men 3.9.2 | 20.7 | 3.9 | 4.4 | 3.8 | 4.2 | 4.4 | +3.7 [+2.6, +4.8] | 8–0–0 |
+| LifeOS Council | 19.1 | 3.5 | 4.2 | 3.7 | 3.7 | 4.0 | +5.3 [+3.5, +7.3] | 8–0–0 |
+| llm-council | 18.6 | 3.6 | 4.0 | 3.6 | 3.8 | 3.6 | +5.8 [+4.7, +6.8] | 8–0–0 |
+| ECC council | 18.3 | 3.9 | 3.9 | 3.6 | 3.6 | 3.3 | +6.1 [+4.8, +7.8] | 8–0–0 |
+| brainstorming | 14.8 | 3.8 | 3.1 | 3.8 | 2.6 | 1.5 | +9.6 [+8.8, +10.7] | 8–0–0 |
+| plain answer | 14.2 | 4.0 | 2.9 | 3.5 | 2.4 | 1.4 | +10.2 [+9.7, +11.0] | 8–0–0 |
+| grilling | 13.8 | 3.5 | 2.9 | 3.3 | 2.6 | 1.7 | +10.6 [+9.3, +11.8] | 8–0–0 |
 
-Ahead by = mean per-question gap in total score, with a 95% bootstrap interval over questions (10,000 resamples, seed 20260918). On the six questions judged so far, 3.11.0 has the highest mean and the top score on 5 of 6 (Warp's council took Q09, 24.3 to 23.7); every interval excludes zero, the pre-registered bar for "clearly ahead". The pre-registered claim needs all 12 questions, and Part A can reward fitting round 2's judgments, which is what Part B's held-out questions test. Per-question scores, judge agreement (mean SD of the three judges' totals 0.56) and disclosures, including four runs the account's usage limit interrupted and that resumed from their own transcripts: [`RESULTS-V3.md`](eval-data/head-to-head/RESULTS-V3.md).
+Ahead by = mean per-question gap in total score, with a 95% bootstrap interval over questions (10,000 resamples, seed 20260918). On the eight Part A questions, 3.11.0 has the highest mean and the top score on 7 of 8 (Warp's council took Q09, 24.3 to 23.7); every interval excludes zero, the pre-registered bar for "clearly ahead", so on this set it is clearly ahead of every arm, its own previous version included (+3.7). The pre-registered "beats every rival" claim needs all 12 questions, because Warp's council, llm-council and the plain answer are also compared on the held-out set; and Part A can reward fitting round 2's judgments, which is what Part B's held-out questions test. Per-question scores, judge agreement (mean SD of the three judges' totals 0.63) and disclosures, including five runs the account's usage limit interrupted and that resumed from their own transcripts, and one whose orchestrator paused for approval and was told to continue: [`RESULTS-V3.md`](eval-data/head-to-head/RESULTS-V3.md).
 
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v3-questions-dark.svg"><img src="assets/h2h-v3-questions.svg" width="860" alt="Round 3 (in progress) per-question scores over 6 questions: wise-men 3.11.0 versus the best other arm ahead 5, tied 0, behind 1."></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v3-questions-dark.svg"><img src="assets/h2h-v3-questions.svg" width="860" alt="Round 3 (in progress) per-question scores over 8 questions: wise-men 3.11.0 versus the best other arm ahead 7, tied 0, behind 1."></picture></p>
 
 **Round 2** (the completed round; eight arms, one judge per question):
 
@@ -274,7 +274,7 @@ Two design choices carry most of the weight:
 
 ## How it compares
 
-Measured against the skills people already use, see [the head-to-head](#1-against-the-skills-people-already-use-pre-registered-three-rounds): round 3 (in progress): version 3.11.0 has the highest mean of nine arms on the questions judged so far; round 2: second of eight, behind Warp's council; round 1: highest of six; the best dissent score in every round.
+Measured against the skills people already use, see [the head-to-head](#1-against-the-skills-people-already-use-pre-registered-three-rounds): round 3 (Part A complete, held-out part running): version 3.11.0 first of nine on the eight round-2 questions; round 2: second of eight, behind Warp's council; round 1: highest of six; the best dissent score in every round.
 
 The question every prompt-skill gets asked — after ponytail's benchmark was matched by a seven-word prompt — is *does the skill beat just asking well?* The N=29 eval was built around that question. Arm B is one structured prompt (five perspectives + a dissent, no subagents); it is also shipped as the `solo` tier.
 
