@@ -603,3 +603,10 @@ Process notes in the answer: R401 default (footer of "Corrected:" lines about fi
 Other disclosures: Warp's members browsed on R401 (33 web tool calls) and on no other question; every arm inherits the account's terse-writing instruction; all judges and arms are one model family.
 
 Smoke run of 3.13.1 (fast profile, a SaaS churn-and-annual-contracts question, unscored): the answer starts at `## Recommendation`, carries no footer, and never mentions the check, the tier or a council; 11.8 minutes, four subagent calls. One run shows the rule can be followed, not how often it is.
+
+## 2026-09-18 — v3.14.0: the fast profile moves out; round-4 charts
+
+The owner decided the three-member fast profile measured in round 4 should become its own project under another name, and that this repository should carry one thing: the full council, the configuration with the highest measured quality. 3.14.0 removes the `--fast` flag, the fast definition of the quick tier, its cheap-tier four-check variant of the synthesis check and the matching routing rows; the quick tier and `model-routing.md` are 3.12's again. Nothing else from 3.13 is reverted: measured costs, the economy rule, the bounded check and the 3.13.1 process-note rule stay. The last commit that contains the fast profile is 3.13.1.
+
+Round 4 is reported for the shipped skill: `h2h4.py readme` and the four new charts (`h2h-v4`, `-questions`, `-axes`, `-cost`) show the full council, the two rival councils and the plain answer; `h2h4.py report` and `RESULTS-V4.md` still carry all five arms, with the fast arm labelled experimental and removed. The cost chart is drawn even though the full council loses it — slowest and dearest arm in the round — for the same reason earlier charts show the axes wise-men did not win.
+

@@ -1,8 +1,8 @@
 # Synthesis-check prompt template (Stage 4.5)
 
-Spawn ONE fresh subagent (`wise-member`, mid tier; cheap tier at quick) after the Chairman drafts its synthesis and **before the user sees it**.
+Spawn ONE fresh subagent (`wise-member`, mid tier) after the Chairman drafts its synthesis and **before the user sees it**.
 
-**Deliver it cheaply.** Do not re-type the member answers: tell the checker to Read the grading packet the reviewers used, plus one small file you write with the aggregated scores, the verification table and the draft. **Bound it**: the checker works in one pass and replies in the fixed form only — measured in round 3, this one call took 4–11 minutes and up to 70k tokens of deliberation, the largest single stage of a run. **Quick tier** (no peer review, no packet): send the question and the draft inline and ask for checks 1 (DISSENT), 4 (DISCLOSURE), 5 (CLAIMS) and 6 (COVERAGE) only; GROUNDING and CONFIDENCE need the member answers and are skipped; that is the tier's design, recorded in the council record, not a degradation for the footer.
+**Deliver it cheaply.** Do not re-type the member answers: tell the checker to Read the grading packet the reviewers used, plus one small file you write with the aggregated scores, the verification table and the draft. **Bound it**: the checker works in one pass and replies in the fixed form only — measured in round 3, this one call took 4–11 minutes and up to 70k tokens of deliberation, the largest single stage of a run.
 
 **When it fires**: at every council tier (`quick`, `standard`, `deep`, `paranoid`). Solo tier has no council to check against.
 

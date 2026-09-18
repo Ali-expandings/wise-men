@@ -12,7 +12,7 @@ AXES = ["correctness", "insight", "practical", "risk", "dissent"]
 ARMS = ["wise-men-3.13", "wise-men-3.13-fast", "warp-council", "llm-council", "direct"]
 RIVALS = ["warp-council", "llm-council", "direct"]; COUNCILS = ["warp-council", "llm-council"]; WM = ARMS[:2]
 JUDGES = ["j1", "j2", "j3"]
-NAMES = {"wise-men-3.13": "wise-men 3.13.0 (default)", "wise-men-3.13-fast": "wise-men 3.13.0 `--fast`", "warp-council": "Warp council", "llm-council": "llm-council", "direct": "plain answer"}
+NAMES = {"wise-men-3.13": "wise-men 3.13.0 (default)", "wise-men-3.13-fast": "wise-men 3.13.0 fast profile (experimental; removed in 3.14.0)", "warp-council": "Warp council", "llm-council": "llm-council", "direct": "plain answer"}
 HEAD = {"wise-men-3.13": "wise-men-3.13 (SKILL.md v3.13.0, default tier selection)", "wise-men-3.13-fast": "wise-men-3.13-fast (SKILL.md v3.13.0, invoked with --fast)",
         "warp-council": "warp-council (warpdotdev/common-skills 69b4753651ab; adapted as in PREREG-2)", "llm-council": "llm-council (aiwithremy/claude-skills-llm-council 1162f272ab94)", "direct": "direct (no skill)"}
 QS = {q["id"]: q for q in yaml.safe_load(open(os.path.join(H, "questions-r4.yaml")))}
@@ -24,7 +24,7 @@ STOPPED = ("**Stopped early: {n} of {total} questions.** The round was pre-regis
            "no answer or judgment exists for them, and nothing here says how any arm does on those kinds of question. Their sealed answer orders remain in `blinding4.yaml`, so the round can be finished later under the same rules. "
            "Every comparison below is over five questions; intervals are 95% percentile bootstraps over those five.")
 DISCLOSURES = [
-    "- The pre-registered quality gate (a faster configuration may replace the default only if it is not clearly behind the default and is clearly ahead of every rival) is met by the letter: the fast profile is behind the default by 0.5 with an interval that includes zero, and clearly ahead of every rival. The default led on four of the five questions, so the default was not changed on the strength of five questions; the fast profile stays opt-in (`--fast`).",
+    "- A fifth arm was judged in the same files: an experimental three-member fast profile of wise-men, added in 3.13.0 and pre-registered for this round. It scored 23.3, half a point behind the full council with an interval that includes zero, in 10.8 minutes at $2.09, and was clearly ahead of every rival. The pre-registered gate for replacing the default was met by the letter and not used: the default led on four of the five questions. After the round the owner chose to develop the fast profile as a separate project; 3.14.0 removes it from this skill and the README reports the full council only. Its answers, judgments and costs stay in this directory unchanged.",
     "- Tier: the default arm chose its own tier, as the skill directs — deep on R401, R403 and R404 (11–13 subagent calls), standard on R402 and R405 (9–10). From the transcripts, the synthesis check took 9–11 minutes on every default run (0.5–2.1 on the fast profile, which uses the cheap tier and four of the six checks), and deep-tier reviewers 5–9 minutes each against about 2 at standard.",
     "- Normalization is `normalize()` from rounds 1–3, unchanged: it cuts any text before a wise-men answer's first heading and nothing after the memo. On R402 that removed a paragraph in which the default arm described its checker's findings before the memo — the judges did not see it; a user would have. Closing notes about how the answer was produced (a late review, the requested fast mode, corrections after the check) stayed in the wise-men answers that carried them, and judges marked them as process residue. Fixed after the round in 3.13.1.",
     "- Web access: the rival councils' members run as general-purpose agents and can browse. Warp's members did on R401 (33 web tool calls) and on no other question; llm-council's never did. wise-men members cannot browse.",
@@ -140,26 +140,27 @@ def compare(R, a, b):
     return {"diff": st.mean(d), "lo": lo, "hi": hi, "w": sum(x > 0 for x in d), "t": sum(x == 0 for x in d), "l": sum(x < 0 for x in d), "word": word}
 def table(R): return {a: {"mean": st.mean(R[q][a]["composite"] for q in R), "axes": {x: st.mean(R[q][a][x] for q in R) for x in AXES}} for a in ARMS}
 
-def lines():
-    R = load(); n = len(R); T = table(R); C = costs(); L = []
+def lines(A=None, W=None):
+    A = A or ARMS; W = W or WM; R = load(); n = len(R); T = table(R); C = costs(); L = []
     med = lambda v: st.median(v) if v else float("nan")
     L += [f"| round 4 ({n} of {len(QS)} questions) | total /25 | correct | insight | practical | risk | dissent | median minutes | median calls | median list-price USD |", "|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|"]
-    for a in sorted(ARMS, key=lambda a: -T[a]["mean"]):
+    for a in sorted(A, key=lambda a: -T[a]["mean"]):
         L += [f"| {NAMES[a]} | {r1(T[a]['mean'])} | " + " | ".join(r1(T[a]["axes"][x]) for x in AXES) + f" | {r1(med(C[a]['min']))} | {r1(med(C[a]['calls']))} | {r2(med(C[a]['usd']))} |"]
     L += [""]
-    for w in WM:
-        for a in ARMS:
-            if a == w or (a in WM and w == WM[1]): continue
+    for w in W:
+        for a in A:
+            if a == w or (len(W) > 1 and a in W and w == W[1]): continue
             c = compare(R, a, w); L += [f"- {NAMES[w]} against {NAMES[a]}: {sg(c['diff'])} [{sg(c['lo'])}, {sg(c['hi'])}], W–T–L {c['w']}–{c['t']}–{c['l']} — {c['word']}."]
     L += [""]
-    for w in WM:
-        best = {x: max(ARMS, key=lambda a: T[a]["axes"][x]) for x in AXES}
+    for w in W:
+        best = {x: max(A, key=lambda a: T[a]["axes"][x]) for x in AXES}
         L += [f"- {NAMES[w]}: highest mean on {sum(best[x] == w for x in AXES)} of 5 axes; faster than " + (", ".join(NAMES[a] for a in COUNCILS if med(C[w]["min"]) < med(C[a]["min"])) or "neither rival council") +
               "; cheaper than " + (", ".join(NAMES[a] for a in COUNCILS if med(C[w]["usd"]) < med(C[a]["usd"])) or "neither rival council") + "."]
-    sds = [R[q]["_sd"][a] for q in R for a in ARMS]; L += ["", f"Judge agreement: mean SD of the three judges' totals {r2(st.mean(sds))}."]
+    sds = [R[q]["_sd"][a] for q in R for a in A]; L += ["", f"Judge agreement: mean SD of the three judges' totals {r2(st.mean(sds))}."]
     return L
 
 def report(): print("\n".join(lines()))
+def readme(): print("\n".join(lines([a for a in ARMS if a != WM[1]], [WM[0]])))  # the README reports the shipped skill and its rivals; the experimental fast arm stays in RESULTS-V4.md
 def results():
     R = load(); todo = [q for q in QS if q not in R]
     L = ["# Head-to-head round 4 results", ""] + ([STOPPED.format(n=len(R), total=len(QS), todo=", ".join(todo)), ""] if todo else [])
@@ -173,4 +174,4 @@ def results():
     open(os.path.join(H, "RESULTS-V4.md"), "w").write(out); print("wrote RESULTS-V4.md:", len(R), "questions")
 
 if __name__ == "__main__":
-    cmd = sys.argv[1]; {"save": save, "savejudge": savejudge, "blind": blind, "parse": parse, "report": report, "results": results, "readme": report}[cmd](*sys.argv[2:])
+    cmd = sys.argv[1]; {"save": save, "savejudge": savejudge, "blind": blind, "parse": parse, "report": report, "results": results, "readme": readme}[cmd](*sys.argv[2:])

@@ -499,12 +499,127 @@ def chart_h2h_v3_axes(rows):
     b += t(40, fy + 16, f"Warp's council ran on Claude models only (its skill asks for a model-diverse council). N = {n}, three blind judges per question, means shown.", 11, C["MUTE"])
     return svg(860, fy + 30, b, f"Round 3{' (in progress)' if interim else ''} scoreboard, means over {n} questions: " + "; ".join(f"{H3_NAME[a]}: total {r1(hmean(rows, a))}, " + ", ".join(f"{AXIS_NAME[x].lower()} {r1(hmean(rows, a, x))}" for x in AXES) for a in arms))
 
+# ---------- round 4 (PREREG-4): new questions, an error-first judge, time and cost measured; stopped at five of eight questions ----------
+H2H4 = os.path.join(ROOT, "eval-data", "head-to-head", "parsed-v4"); H4_RAW = os.path.join(ROOT, "eval-data", "head-to-head", "raw")
+H4_HERO = "wise-men-3.13"; H4_A = ["direct", "llm-council", "warp-council", H4_HERO]  # the round's experimental fast arm is not part of this skill: RESULTS-V4.md has its row
+H4_NAME = {"direct": "plain answer", "llm-council": "llm-council", "warp-council": "Warp council", H4_HERO: "wise-men 3.13.0"}
+H4_SRC = dict(H2_SRC, **{H4_HERO: "this repo · full council"})
+TOPIC.update({"R401": "Postgres search or a dedicated engine?", "R402": "A pipeline that fails every few weeks", "R403": "A target for halving onboarding drop-off", "R404": "A vendor's 30% case study", "R405": "How far to trust a natural experiment"})
+
+def load_h2h4():
+    rows = {}
+    for f in sorted(glob.glob(os.path.join(H2H4, "R*.yaml"))):
+        d = yaml.safe_load(open(f)); js = list(d["judges"].values()); rows[d["question_id"]] = {a: {k: st.mean(j[a][k] for j in js) for k in AXES + ["composite"]} for a in H4_A}
+    return rows
+def h4_gap(rows, a):
+    d = [r[H4_HERO]["composite"] - r[a]["composite"] for r in rows.values()]; lo, hi = h3_boot(d, seed=20260919); return st.mean(d), lo, hi  # h2h4.py's seed
+def bar4(a, x, y, w, h, r=4): return hbar_outline(x, y, w, h, C["TXT"], r) if a == "direct" else hbar(x, y, w, h, C["ACCENT"] if a == H4_HERO else C["BAR2"], r)
+def h4_costs():  # median minutes (runs not cut by the usage limit) and median list-price USD, read back from the raw answer headers
+    import re
+    out = {a: {"min": [], "usd": []} for a in H4_A}
+    for q in sorted(os.listdir(H4_RAW)):
+        for a in H4_A:
+            p = os.path.join(H4_RAW, q, a + ".md")
+            if not (q.startswith("R4") and os.path.exists(p)): continue
+            h = open(p).read().split("\n\n", 1)[0]; m = re.search(r"minutes: ([\d.]+) \| subagent calls: (\d+).*list-price USD: ([\d.]+)", h)
+            if not m: continue
+            out[a]["usd"].append(float(m[3]))
+            if "interrupted" not in h: out[a]["min"].append(float(m[1]))
+    return {a: (st.median(v["min"]), st.median(v["usd"])) for a, v in out.items()}
+
+def chart_h2h_v4(rows):
+    n = len(rows); x0, sc, top, rh = 250, 15.6, 112, 46; arms = sorted(H4_A, key=lambda a: (-hmean(rows, a), H4_A.index(a))); bottom = top + rh * len(arms) - 6
+    b = t(40, 32, f"Round 4: total score on new questions — {n} of 8 questions run, three blind judges each", 16, C["INK"], 600)
+    b += t(40, 52, "Sum of 5 rubric axes (1–5 each, max 25), mean of 3 judges, averaged over the questions. Right: wise-men's lead, 95% bootstrap interval.", 12, C["TXT"])
+    b += t(40, 68, "Questions written for this round by an author that knew nothing about the arms; a stricter judge that lists every error before it scores.", 12, C["TXT"])
+    b += t(840, top - 12, "wise-men ahead by [95%]", 11, C["MUTE"], anchor="end")
+    for g in range(0, 26, 5):
+        x = x0 + g * sc; b += line(x, top - 4, x, bottom, C["GRID"]) + t(x, bottom + 16, g, 11, C["MUTE"], anchor="middle")
+    for i, a in enumerate(arms):
+        y = top + i * rh; m = hmean(rows, a); hero = a == H4_HERO
+        if hero: b += band(y - 3, rh - 2)
+        b += t(x0 - 14, y + 15, H4_NAME[a], 13, C["INK"], 700 if hero else 500, "end") + t(x0 - 14, y + 30, H4_SRC[a], 11, C["MUTE"], anchor="end")
+        b += bar4(a, x0, y + 6, m * sc, 22) + t(x0 + m * sc + 8, y + 22, r1(m), 13, C["INK"], 700 if hero else 500)
+        if hero: b += t(840, y + 22, "—", 12, C["MUTE"], anchor="end"); continue
+        d, lo, hi = h4_gap(rows, a); b += t(840, y + 22, f"{sgn(d)}  [{sgn(lo)}, {sgn(hi)}]", 12, C["INK"] if lo > 0 else C["TXT"], 600 if lo > 0 else 400, "end")
+    fy = bottom + 42; clear = sum(h4_gap(rows, a)[1] > 0 for a in arms if a != H4_HERO)
+    b += t(40, fy, f"An interval above zero is the pre-registered bar for \"clearly ahead\": met against {clear} of {len(arms) - 1} arms.", 11, C["MUTE"])
+    b += t(40, fy + 16, "Pre-registered at eight questions and stopped at five at the owner's request, to conserve usage, after three questions' scores were known;", 11, C["MUTE"])
+    b += t(40, fy + 32, "the writing, ethics and personal-decision questions were not run. Intervals resample the five questions (10,000 draws), not judges.", 11, C["MUTE"])
+    b += t(40, fy + 48, f"N = {n} · one top-level model ran every arm · Warp's council on Claude models only · three fresh Opus judges per question · PREREG-4.md", 11, C["MUTE"])
+    return svg(860, fy + 62, b, f"Round 4 mean total score out of 25 on {n} new questions, three blind judges each: " + ", ".join(f"{H4_NAME[a]} {r1(hmean(rows, a))}" for a in arms))
+
+def chart_h2h_v4_questions(rows):
+    qs = sorted(rows); n = len(qs); lo = min(10, int(min(r[a]["composite"] for r in rows.values() for a in r)))
+    x0, x1, hi = 300, 640, 25; sc = (x1 - x0) / (hi - lo); top, rh = 112, 32; bottom = top + rh * (n - 1) + 16
+    short = {"llm-council": "llm-council", "warp-council": "Warp", "direct": "plain answer"}
+    b = t(40, 32, "Round 4, question by question", 16, C["INK"], 600)
+    b += t(40, 52, "Each row: the mean of three blind judges' totals (max 25) for wise-men 3.13.0, the two rival councils and the plain answer", 12, C["TXT"])
+    b += t(660, top - 22, "wise-men vs the best other arm", 11, C["MUTE"])
+    for g in range(lo, 26, 5):
+        x = x0 + (g - lo) * sc; b += line(x, top - 16, x, bottom, C["GRID"]) + t(x, bottom + 16, g, 11, C["MUTE"], anchor="middle")
+    won = tied = lost = 0
+    for i, q in enumerate(qs):
+        y = top + i * rh; r = rows[q]; others = [a for a in H4_A if a != H4_HERO]; wm = r[H4_HERO]["composite"]; vals = [r[a]["composite"] for a in H4_A]
+        b += t(40, y + 4, q, 11, C["MUTE"]) + t(84, y + 4, TOPIC[q], 12, C["INK"])
+        b += line(x0 + (min(vals) - lo) * sc, y, x0 + (max(vals) - lo) * sc, y, C["GRID"], 2) + ring(x0 + (r["direct"]["composite"] - lo) * sc, y, 7, C["TXT"])
+        for a in others:
+            if a != "direct": b += dot(x0 + (r[a]["composite"] - lo) * sc, y, 4.5, C["OTHER"])
+        b += dot(x0 + (wm - lo) * sc, y, 6.5, C["ACCENT"])
+        bv = max(r[a]["composite"] for a in others); best = [short[a] for a in others if abs(r[a]["composite"] - bv) < 1e-9]
+        rel = "ahead" if wm > bv + 1e-9 else "tied" if abs(wm - bv) < 1e-9 else "behind"; won += rel == "ahead"; tied += rel == "tied"; lost += rel == "behind"
+        b += t(660, y + 4, rel, 12, C["INK"]) + t(712, y + 4, f"{', '.join(best)} {r1(bv)}", 11, C["MUTE"])
+    ly = bottom + 44
+    b += dot(46, ly - 4, 6.5, C["ACCENT"]) + t(58, ly, "wise-men 3.13.0", 11) + dot(176, ly - 4, 4.5, C["OTHER"]) + t(186, ly, "the rival councils", 11) + ring(306, ly - 4, 7, C["TXT"]) + t(318, ly, "plain answer", 11)
+    b += t(40, ly + 22, f"Against the best other arm on each question: ahead {won}, tied {tied}, behind {lost}.", 11, C["MUTE"])
+    b += t(40, ly + 38, "Five of the eight pre-registered questions were run before the round was stopped. Three fresh Opus judges per question.", 11, C["MUTE"])
+    return svg(860, ly + 54, b, f"Round 4 per-question scores over {n} questions: wise-men 3.13.0 versus the best other arm ahead {won}, tied {tied}, behind {lost}")
+
+def chart_h2h_v4_axes(rows):
+    n = len(rows); arms = sorted(H4_A, key=lambda a: (-hmean(rows, a), H4_A.index(a))); top, rh = 118, 34
+    cols = [("composite", "Total /25", 25, 222, 80)] + [(x, AXIS_NAME[x], 5, 364 + k * 94, 46) for k, x in enumerate(AXES)]
+    b = t(40, 32, "Round 4 scoreboard — the total and each rubric axis", 16, C["INK"], 600)
+    b += t(40, 52, f"Mean of three judges over the {n} questions run · total out of 25, each axis 1–5 · sorted by total · the plain answer is the outlined bar", 12, C["TXT"])
+    for key, title, mx, x, w in cols: b += t(x, top - 14, title, 11, C["INK"], 600)
+    best = {key: max(hmean(rows, a, key) for a in arms) for key, *_ in cols}
+    for i, a in enumerate(arms):
+        y = top + i * rh; yc = y + rh / 2; hero = a == H4_HERO
+        if hero: b += band(y + 2, rh - 4)
+        b += t(206, yc + 4, H4_NAME[a], 13, C["INK"], 700 if hero else 500, "end")
+        for key, title, mx, x, w in cols:
+            v = hmean(rows, a, key); top_v = abs(v - best[key]) < 1e-9
+            b += f'<rect x="{num(x)}" y="{num(yc - 5)}" width="{num(w)}" height="10" rx="3" fill="{C["GRID"]}" fill-opacity="0.6"/>\n' + bar4(a, x, yc - 5, v / mx * w, 10, 3)
+            b += t(x + w + 8, yc + 4, r1(v), 12, C["INK"] if top_v else C["TXT"], 700 if top_v else 400)
+    lead = sum(abs(hmean(rows, H4_HERO, x) - best[x]) < 1e-9 for x in AXES); fy = top + rh * len(arms) + 28
+    b += t(40, fy, f"Bold = highest in the column. wise-men 3.13.0 had the top score on {lead} of the 5 axes. Under the error-first judge correctness is where", 11, C["MUTE"])
+    b += t(40, fy + 16, f"every arm lost most. Warp's council ran on Claude models only. N = {n} of 8 pre-registered questions, three blind judges each, means shown.", 11, C["MUTE"])
+    return svg(860, fy + 30, b, f"Round 4 scoreboard, means over {n} questions: " + "; ".join(f"{H4_NAME[a]}: total {r1(hmean(rows, a))}, " + ", ".join(f"{AXIS_NAME[x].lower()} {r1(hmean(rows, a, x))}" for x in AXES) for a in arms))
+
+def chart_h2h_v4_cost():
+    cst = h4_costs(); rh = 40; y = 124
+    b = t(40, 32, "Round 4: what each answer cost in time and money", 16, C["INK"], 600)
+    b += t(40, 52, "Medians over the five questions. Minutes: the run's first-to-last timestamp, with runs cut by the account's usage limit left out.", 12, C["TXT"])
+    b += t(40, 68, "Cost: every token of the run and of every agent it spawned — input, output, cache reads and writes — at list prices.", 12, C["TXT"])
+    for title, k, mx, fmt in (("Median minutes per question", 0, 40, lambda v: r1(v) + " min"), ("Median list-price cost per question", 1, 10, lambda v: f"${v:.2f}")):
+        b += t(40, y - 16, title, 12, C["INK"], 600); x0, w = 250, 480
+        for i, a in enumerate(sorted(H4_A, key=lambda a: cst[a][k])):
+            yy = y + i * rh; hero = a == H4_HERO; v = cst[a][k]
+            if hero: b += band(yy - 1, rh - 4)
+            b += t(x0 - 14, yy + 22, H4_NAME[a], 13, C["INK"], 700 if hero else 500, "end") + bar4(a, x0, yy + 6, max(v / mx * w, 3), 22) + t(x0 + max(v / mx * w, 3) + 8, yy + 22, fmt(v), 13, C["INK"], 700 if hero else 500)
+        y += rh * len(H4_A) + 52
+    fy = y - 22
+    b += t(40, fy, "wise-men's full council is the slowest and dearest arm in the round: it chose its deep tier on three of the five questions, and its", 11, C["MUTE"])
+    b += t(40, fy + 16, "synthesis check alone takes 9–11 minutes of every run. No council is faster or cheaper than a plain answer; what the minutes buy is", 11, C["MUTE"])
+    b += t(40, fy + 32, "in the other three charts. Figures are stored in each raw answer's header; the transcripts they came from are local. RESULTS-V4.md.", 11, C["MUTE"])
+    return svg(860, fy + 46, b, "Round 4 median minutes and list-price cost per question: " + ", ".join(f"{H4_NAME[a]} {r1(cst[a][0])} minutes and ${cst[a][1]:.2f}" for a in sorted(H4_A, key=lambda a: cst[a][0])))
+
 if __name__ == "__main__":
-    rows, h2h, h2h2, h2h3 = load(), load_h2h(), load_h2h2(), load_h2h3(); os.makedirs(OUT, exist_ok=True); wrote = []
+    rows, h2h, h2h2, h2h3, h2h4 = load(), load_h2h(), load_h2h2(), load_h2h3(), load_h2h4(); os.makedirs(OUT, exist_ok=True); wrote = []
     charts = [("headline", lambda: chart_headline(rows)), ("axes", lambda: chart_axes(rows)), ("questions", lambda: chart_questions(rows)), ("landscape", chart_landscape),
               ("h2h", lambda: chart_h2h(h2h)), ("h2h-axes", lambda: chart_h2h_axes(h2h)), ("h2h-questions", lambda: chart_h2h_questions(h2h)),
               ("h2h-v2", lambda: chart_h2h_v2(h2h2)), ("h2h-v2-axes", lambda: chart_h2h_v2_axes(h2h2)), ("h2h-v2-questions", lambda: chart_h2h_v2_questions(h2h2)),
-              ("h2h-v3", lambda: chart_h2h_v3(h2h3)), ("h2h-v3-axes", lambda: chart_h2h_v3_axes(h2h3)), ("h2h-v3-questions", lambda: chart_h2h_v3_questions(h2h3))]
+              ("h2h-v3", lambda: chart_h2h_v3(h2h3)), ("h2h-v3-axes", lambda: chart_h2h_v3_axes(h2h3)), ("h2h-v3-questions", lambda: chart_h2h_v3_questions(h2h3)),
+              ("h2h-v4", lambda: chart_h2h_v4(h2h4)), ("h2h-v4-axes", lambda: chart_h2h_v4_axes(h2h4)), ("h2h-v4-questions", lambda: chart_h2h_v4_questions(h2h4)), ("h2h-v4-cost", chart_h2h_v4_cost)]
     for theme, suffix in (("light", ""), ("dark", "-dark")):
         C.clear(); C.update(THEMES[theme])
         for name, fn in charts:

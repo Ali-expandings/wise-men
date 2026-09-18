@@ -89,7 +89,7 @@ composite 4    → deep tier
 composite 5    → paranoid tier
 ```
 
-User-explicit tier overrides this (e.g., `/wise-men deep ...`, `/wise-men quick ...` or `--fast` for the 3-member council with no peer review, `--solo` to force solo).
+User-explicit tier overrides this (e.g., `/wise-men deep ...`, `/wise-men quick ...` for a 3-member haiku council, `--solo` to force solo).
 
 ## Base model per tier × stage
 
@@ -97,7 +97,7 @@ User-explicit tier overrides this (e.g., `/wise-men deep ...`, `/wise-men quick 
 |---|---|---|---|---|
 | 1 (solo) | (none — main-thread pass) | (none) | (skip) | main thread |
 | 2 (solo) | (none — main-thread pass) | (none) | (skip) | main thread |
-| — (quick / `--fast`, explicit only) | sonnet (one domain member; anchor and DA on opus) | (none — no Stage 2) | (skip) | main thread |
+| — (quick, explicit only) | haiku | haiku | (skip) | main thread |
 | 3 (standard) | sonnet | haiku | sonnet | main thread |
 | 4 (deep) | sonnet | sonnet | opus | main thread |
 | 5 (paranoid) | opus | sonnet | opus | main thread |
@@ -112,7 +112,6 @@ These overrides exist because certain roles **break the council if they're weak*
 | Composite | Default | DA override |
 |---|---|---|
 | 1-2 | (solo tier — no DA call) | — |
-| quick | sonnet | opus |
 | 3 | sonnet | opus |
 | 4 | sonnet | opus |
 | 5 | strong | max tier (falls back to strong if no max-tier model is available on the plan) |
@@ -123,7 +122,7 @@ These overrides exist because certain roles **break the council if they're weak*
 | Composite | Default | Anchor override |
 |---|---|---|
 | 1-2 | (solo tier — no anchor call) | — |
-| quick | sonnet | opus |
+| quick | haiku | sonnet |
 | 3 | sonnet | opus |
 | 4 | sonnet | opus |
 | 5 | strong | strong (max stays reserved for the DA) |
@@ -293,7 +292,7 @@ Apply the fallback rule from the model-mapping section: nearest available tier, 
 **Max-tier unavailability is expected, not an error**: every max-tier route (DA at composite 5, `--strong` DA, `--model=max`) degrades to the strong tier automatically when no model above `strong` resolves on this plan. Models retire and plans differ; a missing model id must never break a council. Warn once, route down, continue.
 
 ### Stage 4.5 synthesis checker
-One `wise-member` subagent at the **mid** tier at standard, deep and paranoid (spec in SKILL.md); at quick it runs on the **cheap** tier, because there it checks only the draft against the question (four checks, no member answers to cross-reference) and the whole point of the tier is a council at close to single-answer cost. Above quick, do not use the cheap tier (grounding a draft in five to seven answers is judgment, not formatting) and do not use strong/max (it verifies, it doesn't re-synthesize — mid is enough, and keeping it cheap keeps the incentive to actually run it).
+One `wise-member` subagent at the **mid** tier, at every council tier (spec in SKILL.md). Do not use the cheap tier (the check is judgment, not formatting) and do not use strong/max (it verifies, it doesn't re-synthesize — mid is enough, and keeping it cheap keeps the incentive to actually run it).
 
 ### Member returns garbage after retry
 Treat as abstain. Chairman handles in dissent section. Don't infinite-loop trying models.
