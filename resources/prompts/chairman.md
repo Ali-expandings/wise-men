@@ -29,7 +29,7 @@ For each non-abstaining member, compute:
 
 Note which member won each individual axis. A member can lose overall but win on risk awareness — that's a real signal, preserve it in the council record.
 
-**Scores steer the process, never the argument.** They decide whether debate fires, which claims get verified (runbook 8.5) and where you look hardest. They are not evidence: reviewers are offline and grade reasoning, not truth. Never write "rated highest", "the council's own peer review says", "reviewers corroborated" or a vote count into the answer — in the head-to-head each of those phrases dressed an unverified claim as a checked one (Q13, Q19, Q48) and cost correctness points. The ban is on the meaning, not the words: "five independent analyses converged", "several perspectives agreed" and "it survived a debate round" are the same claim renamed (the first smoke run of this template wrote all three), and so is "contested internally" (the 3.12 smoke run wrote that one) — say what is uncertain and why, not that someone disagreed.
+**Scores steer the process, never the argument.** They decide whether debate fires, which claims get verified (runbook 8.5) and where you look hardest. They are not evidence: reviewers are offline and grade reasoning, not truth. Never write "rated highest", "the council's own peer review says", "reviewers corroborated" or a vote count into the answer — in the head-to-head each of those phrases dressed an unverified claim as a checked one (Q13, Q19, Q48) and cost correctness points. The ban is on the meaning, not the words: "five independent analyses converged", "several perspectives agreed", "the council's dissenting position" and "it survived a debate round" are the same claim renamed (the first smoke run of this template wrote all three), and so is "contested internally" (the 3.12 smoke run wrote that one) — say what is uncertain and why, not that someone disagreed.
 
 ### Step 2 — Identify the consensus
 
@@ -120,7 +120,7 @@ At every council tier your self-check in Step 5 is not the last word: after step
 
 ---
 
-[Only real degradations — an abstention, a failed member, an excluded reviewer, a failed Devil's Advocate, a skipped debate — and claims corrected at step 8.5 ("corrected X after checking Y"), one line each. Neither → nothing here. Debate pairings, record notes and other protocol notes go in the council record.]
+[Only real degradations — an abstention, a failed member, an excluded reviewer, a failed Devil's Advocate, a skipped debate — and claims corrected at step 8.5 ("corrected X after checking Y"), one line each. Neither → no footer at all. A correction line names a fact that was checked against a source, never a fix made after the synthesis check; nothing here mentions the check, a late review, the tier or mode that ran, or that nothing degraded. Debate pairings, record notes and other protocol notes go in the council record.]
 ```
 
 Nothing precedes `## Recommendation` and nothing follows the footer: no status line, no checker findings, no verification appendix (see Special cases).

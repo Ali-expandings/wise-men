@@ -19,6 +19,19 @@ QS = {q["id"]: q for q in yaml.safe_load(open(os.path.join(H, "questions-r4.yaml
 BLIND = yaml.safe_load(open(os.path.join(H, "blinding4.yaml")))["map"] if os.path.exists(os.path.join(H, "blinding4.yaml")) else {}
 PRICE = {"haiku": (1, 5), "sonnet": (3, 15), "opus": (5, 25), "fable": (10, 50)}  # USD per million input/output tokens (2026-07 list); cache read 0.1x input, 5-minute cache write 1.25x input
 
+STOPPED = ("**Stopped early: {n} of {total} questions.** The round was pre-registered at eight questions and stopped after five at the repository owner's request, to conserve the account's usage allowance. "
+           "The decision was made while the fifth question was running, after the scores of the first three were known, so it was not a blind stop. {todo} (writing, ethics, a personal decision) were never run: "
+           "no answer or judgment exists for them, and nothing here says how any arm does on those kinds of question. Their sealed answer orders remain in `blinding4.yaml`, so the round can be finished later under the same rules. "
+           "Every comparison below is over five questions; intervals are 95% percentile bootstraps over those five.")
+DISCLOSURES = [
+    "- The pre-registered quality gate (a faster configuration may replace the default only if it is not clearly behind the default and is clearly ahead of every rival) is met by the letter: the fast profile is behind the default by 0.5 with an interval that includes zero, and clearly ahead of every rival. The default led on four of the five questions, so the default was not changed on the strength of five questions; the fast profile stays opt-in (`--fast`).",
+    "- Tier: the default arm chose its own tier, as the skill directs — deep on R401, R403 and R404 (11–13 subagent calls), standard on R402 and R405 (9–10). From the transcripts, the synthesis check took 9–11 minutes on every default run (0.5–2.1 on the fast profile, which uses the cheap tier and four of the six checks), and deep-tier reviewers 5–9 minutes each against about 2 at standard.",
+    "- Normalization is `normalize()` from rounds 1–3, unchanged: it cuts any text before a wise-men answer's first heading and nothing after the memo. On R402 that removed a paragraph in which the default arm described its checker's findings before the memo — the judges did not see it; a user would have. Closing notes about how the answer was produced (a late review, the requested fast mode, corrections after the check) stayed in the wise-men answers that carried them, and judges marked them as process residue. Fixed after the round in 3.13.1.",
+    "- Web access: the rival councils' members run as general-purpose agents and can browse. Warp's members did on R401 (33 web tool calls) and on no other question; llm-council's never did. wise-men members cannot browse.",
+    "- Time is the median over runs not interrupted by the usage limit (four of five for each council arm; all five for the plain answer). Cost and calls use all five runs; a resumed run's cost includes re-reading its own context after the wait.",
+    "- Every judge and every arm is a model from the same family, and every spawned agent in every arm inherits the account's global instruction to write tersely. No human grades and no grades from another model family were collected in this round.",
+]
+
 def r1(x): return str(Decimal(str(x)).quantize(Decimal("0.1"), ROUND_HALF_UP))
 def r2(x): return str(Decimal(str(x)).quantize(Decimal("0.01"), ROUND_HALF_UP))
 def sg(x): return ("+" if x >= 0 else "") + r1(x)
@@ -149,12 +162,12 @@ def lines():
 def report(): print("\n".join(lines()))
 def results():
     R = load(); todo = [q for q in QS if q not in R]
-    L = ["# Head-to-head round 4 results", ""] + ([f"**Interim.** {len(R)} of {len(QS)} questions judged; still to come: {', '.join(todo)}. Regenerated from `parsed-v4/` and the raw headers as questions complete.", ""] if todo else [])
+    L = ["# Head-to-head round 4 results", ""] + ([STOPPED.format(n=len(R), total=len(QS), todo=", ".join(todo)), ""] if todo else [])
     L += ["Eight questions written for this round by an author that knew nothing about the arms ([`PREREG-4.md`](PREREG-4.md), [`questions-r4.yaml`](questions-r4.yaml)); five arms; three blind Opus judges per question with sealed orders ([`blinding4.yaml`](blinding4.yaml)) and an error-first judge prompt ([`judge-prompt-5.txt`](judge-prompt-5.txt)). "
           "Minutes are the orchestrator's first-to-last transcript timestamp; calls are its subagent spawns; USD prices every token the run used — the orchestrator's and every spawned agent's, input, output, cache reads and cache writes — at the 2026-07 list rates in `resources/model-routing.md`. No council can be faster or cheaper than the plain answer; the pre-registered time and cost comparisons are against the rival councils.", ""] + lines()
     L += ["", "## Per question (mean of three judges, total /25)", "", "| question | " + " | ".join(NAMES[a] for a in ARMS) + " |", "|---|" + "--:|" * len(ARMS)] + [f"| {q} ({QS[q]['domain']}, {QS[q]['shape']}) | " + " | ".join(r2(R[q][a]["composite"]) for a in ARMS) + " |" for q in R]
     notes = [f"- {q}, {NAMES[a]}: {l[8:]}" for q in QS for a in ARMS if os.path.exists(os.path.join(H, "raw", q, a + ".md")) for l in open(os.path.join(H, "raw", q, a + ".md")).read().split("\n\n", 1)[0].splitlines() if l.startswith("# note: ")]
-    L += ["", "## Deviations and disclosures", ""] + (notes or ["- None."]) + ["", "## Reproduce", "", "`python3 eval-data/head-to-head/h2h4.py report` prints the table and comparisons; `results` rewrites this file. Time and cost were computed from local agent transcripts when each answer was saved and are stored in the raw file headers; the transcripts themselves are not in the repository.", ""]
+    L += ["", "## Deviations and disclosures", ""] + DISCLOSURES + notes + ["", "## Reproduce", "", "`python3 eval-data/head-to-head/h2h4.py report` prints the table and comparisons; `results` rewrites this file. Time and cost were computed from local agent transcripts when each answer was saved and are stored in the raw file headers; the transcripts themselves are not in the repository.", ""]
     out = "\n".join(L)
     if os.environ.get("H2H4_STDOUT"): sys.stdout.write(out); return
     open(os.path.join(H, "RESULTS-V4.md"), "w").write(out); print("wrote RESULTS-V4.md:", len(R), "questions")

@@ -82,6 +82,11 @@ if python3 -c 'import yaml' 2>/dev/null; then
     && { say "README round-3 table differs from h2h3.py readme" FAIL; fail=1; } || say "README round-3 table matches the data" ok
   H2H3_STDOUT=1 python3 eval-data/head-to-head/h2h3.py results 2>/dev/null | diff -q - eval-data/head-to-head/RESULTS-V3.md >/dev/null \
     && say "RESULTS-V3.md matches h2h3.py results" ok || { say "RESULTS-V3.md differs from h2h3.py results" FAIL; fail=1; }
+  # round 4: same rule — the README table and RESULTS-V4.md must match a fresh regeneration from parsed-v4/ and the raw headers
+  python3 eval-data/head-to-head/h2h4.py readme 2>/dev/null | while IFS= read -r l; do grep -qxF -- "$l" README.md || echo "$l"; done | grep -q . \
+    && { say "README round-4 table differs from h2h4.py readme" FAIL; fail=1; } || say "README round-4 table matches the data" ok
+  H2H4_STDOUT=1 python3 eval-data/head-to-head/h2h4.py results 2>/dev/null | diff -q - eval-data/head-to-head/RESULTS-V4.md >/dev/null \
+    && say "RESULTS-V4.md matches h2h4.py results" ok || { say "RESULTS-V4.md differs from h2h4.py results" FAIL; fail=1; }
 fi
 
 # 9. Unit tests for the deterministic helpers (standard library only)
