@@ -1,0 +1,89 @@
+question_id: Q32
+judges:
+  j1:
+    warp-council:
+      correctness: 4
+      insight: 4
+      practical: 4
+      risk: 4
+      dissent: 2
+      composite: 18
+    wise-men-3.11:
+      correctness: 5
+      insight: 5
+      practical: 4
+      risk: 5
+      dissent: 5
+      composite: 24
+    direct:
+      correctness: 5
+      insight: 4
+      practical: 5
+      risk: 1
+      dissent: 1
+      composite: 16
+    llm-council:
+      correctness: 4
+      insight: 5
+      practical: 3
+      risk: 4
+      dissent: 4
+      composite: 20
+  j2:
+    llm-council:
+      correctness: 4
+      insight: 4
+      practical: 3
+      risk: 4
+      dissent: 4
+      composite: 19
+    warp-council:
+      correctness: 4
+      insight: 4
+      practical: 5
+      risk: 4
+      dissent: 3
+      composite: 20
+    wise-men-3.11:
+      correctness: 5
+      insight: 5
+      practical: 5
+      risk: 5
+      dissent: 5
+      composite: 25
+    direct:
+      correctness: 5
+      insight: 4
+      practical: 4
+      risk: 2
+      dissent: 1
+      composite: 16
+  j3:
+    warp-council:
+      correctness: 4
+      insight: 4
+      practical: 4
+      risk: 4
+      dissent: 3
+      composite: 19
+    llm-council:
+      correctness: 4
+      insight: 5
+      practical: 4
+      risk: 4
+      dissent: 5
+      composite: 22
+    direct:
+      correctness: 5
+      insight: 4
+      practical: 5
+      risk: 2
+      dissent: 1
+      composite: 17
+    wise-men-3.11:
+      correctness: 5
+      insight: 5
+      practical: 4
+      risk: 5
+      dissent: 5
+      composite: 24

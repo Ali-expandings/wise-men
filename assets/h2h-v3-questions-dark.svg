@@ -1,16 +1,16 @@
-<svg viewBox="0 0 860 450" width="860" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
-<title>Round 3 (in progress) per-question scores over 8 questions: wise-men 3.11.0 versus the best other arm ahead 7, tied 0, behind 1</title>
-<text x="40" y="32" font-size="16" font-weight="600" fill="#e6edf3" text-anchor="start" >Round 3, in progress, question by question</text>
+<svg viewBox="0 0 860 578" width="860" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+<title>Round 3 per-question scores over 12 questions: wise-men 3.11.0 versus the best other arm ahead 11, tied 0, behind 1</title>
+<text x="40" y="32" font-size="16" font-weight="600" fill="#e6edf3" text-anchor="start" >Round 3, question by question</text>
 <text x="40" y="52" font-size="12" font-weight="400" fill="#9198a1" text-anchor="start" >Each row: the mean of three blind judges' totals (max 25) for wise-men 3.11.0, every other arm and the plain answer</text>
 <text x="660" y="90" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" >3.11.0 vs the best other arm</text>
-<line x1="300" y1="96" x2="300" y2="352" stroke="#262c36" stroke-width="1" />
-<text x="300" y="368" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >10</text>
-<line x1="413.3" y1="96" x2="413.3" y2="352" stroke="#262c36" stroke-width="1" />
-<text x="413.3" y="368" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >15</text>
-<line x1="526.7" y1="96" x2="526.7" y2="352" stroke="#262c36" stroke-width="1" />
-<text x="526.7" y="368" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >20</text>
-<line x1="640" y1="96" x2="640" y2="352" stroke="#262c36" stroke-width="1" />
-<text x="640" y="368" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >25</text>
+<line x1="300" y1="96" x2="300" y2="480" stroke="#262c36" stroke-width="1" />
+<text x="300" y="496" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >10</text>
+<line x1="413.3" y1="96" x2="413.3" y2="480" stroke="#262c36" stroke-width="1" />
+<text x="413.3" y="496" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >15</text>
+<line x1="526.7" y1="96" x2="526.7" y2="480" stroke="#262c36" stroke-width="1" />
+<text x="526.7" y="496" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >20</text>
+<line x1="640" y1="96" x2="640" y2="480" stroke="#262c36" stroke-width="1" />
+<text x="640" y="496" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >25</text>
 <text x="40" y="116" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" >Q05</text>
 <text x="76" y="116" font-size="12" font-weight="400" fill="#e6edf3" text-anchor="start" >Monolith or microservices?</text>
 <line x1="345.3" y1="112" x2="640" y2="112" stroke="#262c36" stroke-width="2" />
@@ -131,14 +131,51 @@
 <circle cx="624.9" cy="336" r="6.5" fill="#b8323a" stroke="#0d1117" stroke-width="2"/>
 <text x="660" y="340" font-size="12" font-weight="400" fill="#e6edf3" text-anchor="start" >ahead</text>
 <text x="712" y="340" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" >wise-men 3.9.2 22.7</text>
-<circle cx="46" cy="392" r="6.5" fill="#b8323a" stroke="#0d1117" stroke-width="2"/>
-<text x="58" y="396" font-size="11" font-weight="400" fill="#9198a1" text-anchor="start" >wise-men 3.11.0</text>
-<circle cx="176" cy="392" r="6" fill="none" stroke="#b8323a" stroke-width="1.6"/>
-<text x="188" y="396" font-size="11" font-weight="400" fill="#9198a1" text-anchor="start" >wise-men 3.9.2 (round-2 answer)</text>
-<circle cx="376" cy="392" r="4.5" fill="#6e7681" stroke="#0d1117" stroke-width="2"/>
-<text x="386" y="396" font-size="11" font-weight="400" fill="#9198a1" text-anchor="start" >the other skills</text>
-<circle cx="496" cy="392" r="7" fill="none" stroke="#9198a1" stroke-width="1.6"/>
-<text x="508" y="396" font-size="11" font-weight="400" fill="#9198a1" text-anchor="start" >plain answer</text>
-<text x="40" y="418" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" >Against the best other arm on each question: ahead 7, tied 0, behind 1 (of the 8 questions judged so far).</text>
-<text x="40" y="434" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" >The first rows are the round-2 questions; the held-out rows were never used in an earlier round. Three fresh Opus judges per question.</text>
+<text x="40" y="356" font-size="10" font-weight="600" fill="#6e7681" text-anchor="start" >held-out questions (four arms)</text>
+<text x="40" y="372" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" >Q23</text>
+<text x="76" y="372" font-size="12" font-weight="400" fill="#e6edf3" text-anchor="start" >A meta-analysis built on gray literature</text>
+<line x1="504" y1="368" x2="624.9" y2="368" stroke="#262c36" stroke-width="2" />
+<circle cx="549.3" cy="368" r="7" fill="none" stroke="#9198a1" stroke-width="1.6"/>
+<circle cx="519.1" cy="368" r="4.5" fill="#6e7681" stroke="#0d1117" stroke-width="2"/>
+<circle cx="504" cy="368" r="4.5" fill="#6e7681" stroke="#0d1117" stroke-width="2"/>
+<circle cx="624.9" cy="368" r="6.5" fill="#b8323a" stroke="#0d1117" stroke-width="2"/>
+<text x="660" y="372" font-size="12" font-weight="400" fill="#e6edf3" text-anchor="start" >ahead</text>
+<text x="712" y="372" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" >llm-council 19.7</text>
+<text x="40" y="404" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" >Q32</text>
+<text x="76" y="404" font-size="12" font-weight="400" fill="#e6edf3" text-anchor="start" >A cold email to a VP</text>
+<line x1="443.6" y1="400" x2="624.9" y2="400" stroke="#262c36" stroke-width="2" />
+<circle cx="443.6" cy="400" r="7" fill="none" stroke="#9198a1" stroke-width="1.6"/>
+<circle cx="534.2" cy="400" r="4.5" fill="#6e7681" stroke="#0d1117" stroke-width="2"/>
+<circle cx="504" cy="400" r="4.5" fill="#6e7681" stroke="#0d1117" stroke-width="2"/>
+<circle cx="624.9" cy="400" r="6.5" fill="#b8323a" stroke="#0d1117" stroke-width="2"/>
+<text x="660" y="404" font-size="12" font-weight="400" fill="#e6edf3" text-anchor="start" >ahead</text>
+<text x="712" y="404" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" >llm-council 20.3</text>
+<text x="40" y="436" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" >Q43</text>
+<text x="76" y="436" font-size="12" font-weight="400" fill="#e6edf3" text-anchor="start" >A report who is quietly job hunting</text>
+<line x1="481.3" y1="432" x2="632.4" y2="432" stroke="#262c36" stroke-width="2" />
+<circle cx="504" cy="432" r="7" fill="none" stroke="#9198a1" stroke-width="1.6"/>
+<circle cx="481.3" cy="432" r="4.5" fill="#6e7681" stroke="#0d1117" stroke-width="2"/>
+<circle cx="481.3" cy="432" r="4.5" fill="#6e7681" stroke="#0d1117" stroke-width="2"/>
+<circle cx="632.4" cy="432" r="6.5" fill="#b8323a" stroke="#0d1117" stroke-width="2"/>
+<text x="660" y="436" font-size="12" font-weight="400" fill="#e6edf3" text-anchor="start" >ahead</text>
+<text x="712" y="436" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" >llm-council, Warp 18.0</text>
+<text x="40" y="468" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" >Q51</text>
+<text x="76" y="468" font-size="12" font-weight="400" fill="#e6edf3" text-anchor="start" >Senior IC or the manager track?</text>
+<line x1="443.6" y1="464" x2="632.4" y2="464" stroke="#262c36" stroke-width="2" />
+<circle cx="443.6" cy="464" r="7" fill="none" stroke="#9198a1" stroke-width="1.6"/>
+<circle cx="496.4" cy="464" r="4.5" fill="#6e7681" stroke="#0d1117" stroke-width="2"/>
+<circle cx="481.3" cy="464" r="4.5" fill="#6e7681" stroke="#0d1117" stroke-width="2"/>
+<circle cx="632.4" cy="464" r="6.5" fill="#b8323a" stroke="#0d1117" stroke-width="2"/>
+<text x="660" y="468" font-size="12" font-weight="400" fill="#e6edf3" text-anchor="start" >ahead</text>
+<text x="712" y="468" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" >llm-council 18.7</text>
+<circle cx="46" cy="520" r="6.5" fill="#b8323a" stroke="#0d1117" stroke-width="2"/>
+<text x="58" y="524" font-size="11" font-weight="400" fill="#9198a1" text-anchor="start" >wise-men 3.11.0</text>
+<circle cx="176" cy="520" r="6" fill="none" stroke="#b8323a" stroke-width="1.6"/>
+<text x="188" y="524" font-size="11" font-weight="400" fill="#9198a1" text-anchor="start" >wise-men 3.9.2 (round-2 answer)</text>
+<circle cx="376" cy="520" r="4.5" fill="#6e7681" stroke="#0d1117" stroke-width="2"/>
+<text x="386" y="524" font-size="11" font-weight="400" fill="#9198a1" text-anchor="start" >the other skills</text>
+<circle cx="496" cy="520" r="7" fill="none" stroke="#9198a1" stroke-width="1.6"/>
+<text x="508" y="524" font-size="11" font-weight="400" fill="#9198a1" text-anchor="start" >plain answer</text>
+<text x="40" y="546" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" >Against the best other arm on each question: ahead 11, tied 0, behind 1.</text>
+<text x="40" y="562" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" >The first rows are the round-2 questions; the held-out rows were never used in an earlier round. Three fresh Opus judges per question.</text>
 </svg>

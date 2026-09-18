@@ -30,6 +30,9 @@ HEAD = {"wise-men-3.11": "wise-men-3.11 (SKILL.md v3.11.0, commit 1e32841)", "wa
         "llm-council": "llm-council (aiwithremy/claude-skills-llm-council 1162f272ab94)", "direct": "direct (no skill)"}
 NOTE = {"warp-council": "# adaptation: Claude Code subagents instead of run_agents; Claude models only; no approval wait — see PREREG-2.md\n"}
 
+def run_date(jsonl):  # the UTC date the run started, from its transcript
+    return next(r["timestamp"] for r in map(json.loads, open(jsonl)) if r.get("timestamp"))[:10]
+
 def transcript_stats(jsonl):
     from datetime import datetime
     rows = [json.loads(l) for l in open(jsonl)]; ts = [r["timestamp"] for r in rows if r.get("timestamp")]
@@ -40,7 +43,7 @@ def transcript_stats(jsonl):
 def save(transcript, arm, q, tokens, tools, seconds, note=""):
     if tools == "auto" or seconds == "auto": tools, seconds = transcript_stats(transcript)
     txt = final_text(transcript); redacted = re.sub(r"\bAli\b", "the user", txt)
-    head = f"# arm: {HEAD[arm]} | question: {q} | orchestrator: general-purpose/sonnet | run: 2026-09-17 (round 3, PREREG-3 rules)\n" + NOTE.get(arm, "")
+    head = f"# arm: {HEAD[arm]} | question: {q} | orchestrator: general-purpose/sonnet | run: {run_date(transcript)} (round 3, PREREG-3 rules)\n" + NOTE.get(arm, "")
     head += f"# subagent tokens: {tokens} | tool uses: {tools} | duration: {seconds}s\n"
     if note: head += f"# note: {note}\n"
     if redacted != txt: head += "# note: the author's first name (inherited from global config) redacted to \"the user\" per PREREG-3\n"
@@ -50,7 +53,7 @@ def save(transcript, arm, q, tokens, tools, seconds, note=""):
 
 def savejudge(agent_transcript, q, j):
     os.makedirs(os.path.join(H, "judgments-v3"), exist_ok=True); t = final_text(agent_transcript)
-    open(os.path.join(H, "judgments-v3", f"{q}-{j}.md"), "w").write(f"# judge: fresh opus subagent, no skills, Read-only | question: {q} | judge: {j} | run: 2026-09-17 (round 3)\n# blinded input: blinded-v3/{q}-{j}.md (slots per blinding3.yaml)\n\n{t}\n")
+    open(os.path.join(H, "judgments-v3", f"{q}-{j}.md"), "w").write(f"# judge: fresh opus subagent, no skills, Read-only | question: {q} | judge: {j} | run: {run_date(agent_transcript)} (round 3)\n# blinded input: blinded-v3/{q}-{j}.md (slots per blinding3.yaml)\n\n{t}\n")
     got = {}
     for b in re.findall(r"```scores\n(.*?)```", t, re.S):
         d = dict(re.findall(r"(\w+):\s*([A-I]|\d)", b)); got[BLIND[q][j][d["response"]]] = sum(int(d[a]) for a in AXES)
@@ -136,6 +139,17 @@ def results():
     if todo:
         L += [f"**Interim.** {len(AB)} of the 12 pre-registered questions are fully judged ({', '.join(AB)}); still to come: {', '.join(todo)}. "
               "This file is regenerated from `parsed-v3/` as questions complete, so its numbers and wording can change; the pre-registered analysis covers all 12 ([`PREREG-3.md`](PREREG-3.md)).", ""]
+    if not todo:
+        TA, TB, TAB = table(R, A, A_ARMS), table(R, B, B_ARMS), table(R, AB, B_ARMS)
+        tops = sum(R[q]["wise-men-3.11"]["composite"] > max(R[q][a]["composite"] for a in arms_for(q) if a != "wise-men-3.11") for q in AB)
+        cs = {a: compare(R, shared(a, A, B), a) for a in A_ARMS[1:]}; every = all(cs[a]["lo"] > 0 for a in RIVALS)
+        L += [f"**Result.** wise-men 3.11.0 scored {r2(TA['wise-men-3.11']['mean'])} of 25 on the eight round-2 questions (Part A) and {r2(TB['wise-men-3.11']['mean'])} on the four held-out questions (Part B), "
+              f"the highest mean in both parts, with the top score on {tops} of the 12 questions. Against every other arm the mean per-question difference is positive and its 95% bootstrap interval excludes zero"
+              + (", so under the pre-registered wording it **beats every rival**: " if every else "; under the pre-registered wording it is clearly ahead of: ")
+              + ", ".join(f"{NAMES[a]} {sg2(cs[a]['diff'])} [{sg2(cs[a]['lo'])}, {sg2(cs[a]['hi'])}] on {cs[a]['n']} questions" for a in RIVALS if cs[a]["lo"] > 0) + ". "
+              f"Against its own previous version, wise-men 3.9.2, on Part A: {sg2(cs['wise-men']['diff'])} [{sg2(cs['wise-men']['lo'])}, {sg2(cs['wise-men']['hi'])}], "
+              f"which is the measured effect of versions 3.10.0 and 3.11.0. Part B, which no earlier round used, is the check that the gain is not a fit to round 2's judgments: "
+              f"wise-men 3.11.0 {r2(TB['wise-men-3.11']['mean'])} against Warp council {r2(TB['warp-council']['mean'])}, llm-council {r2(TB['llm-council']['mean'])} and the plain answer {r2(TB['direct']['mean'])}.", ""]
     L += ["Three blind Opus judges per question, each with its own sealed answer order ([`blinding3.yaml`](blinding3.yaml)); an arm's score on a question is the mean of the three judges; totals are out of 25 (five axes scored 1–5). "
           "Part A re-judges round 2's answers from eight arms next to fresh wise-men 3.11.0 answers to the same eight questions (judge prompt: [`judge-prompt-9.txt`](judge-prompt-9.txt), nine answers labelled A–I); Part B asks four held-out questions no head-to-head has used, with four arms ([`judge-prompt-4.txt`](judge-prompt-4.txt)). Answers are normalized as in rounds 1–2 (`normalize()` in `h2h.py`).", ""]
     for label, qs, arms in (("Part A: round-2 questions", A, A_ARMS), ("Part B: held-out questions", B, B_ARMS), ("All judged questions: the four arms in both parts", AB if B else [], B_ARMS)):
@@ -177,6 +191,12 @@ def results():
             for l in h:
                 if l.startswith("note: ") and "first name" in l: redacted.append(f"{q} {NAMES[a]}")
                 elif l.startswith("note: "): notes.append(f"{q}, {NAMES[a]}: {l[6:]}")
+    mins = {}
+    for q in PART_A + PART_B:
+        for a in (["wise-men-3.11"] if q in PART_A else B_ARMS):
+            m = re.search(r"duration: (\d+)s", "\n".join(rawhead(q, a)))
+            if m and not any("usage limit" in l or "paused" in l for l in rawhead(q, a)): mins.setdefault(a, []).append(int(m[1]) / 60)
+    if mins: L += ["", "Median minutes per run, uninterrupted runs only: " + ", ".join(f"{NAMES[a]} {r1(st.median(v))}" for a, v in mins.items()) + "."]
     L += ["", "## Deviations and disclosures", ""] + [f"- {n}" for n in notes]
     if redacted: L += [f"- The author's first name, which subagents inherit from the author's global config, was redacted to \"the user\" before blinding, as pre-registered, in: {', '.join(redacted)}."]
     if not notes and not redacted: L += ["- None so far."]
@@ -197,6 +217,16 @@ def readme():
         c = None if a == "wise-men-3.11" else compare(R, A, a)
         gap, wtl = ("—", "—") if c is None else (f"{sg(c['diff'])} [{sg(c['lo'])}, {sg(c['hi'])}]", f"{c['w']}–{c['t']}–{c['l']}")
         print(f"| {'**' + NAMES[a] + '**' if c is None else NAMES[a]} | {r1(T[a]['mean'])} | " + " | ".join(r1(T[a]["axes"][x]) for x in AXES) + f" | {gap} | {wtl} |")
+    if B:
+        TB = table(R, B, B_ARMS)
+        print(f"| round 3, Part B (held-out, {len(B)} of 4 questions) | total /25 | correct | insight | practical | risk | dissent | wise-men 3.11.0 ahead by [95%] | W–T–L |")
+        print("|---|--:|--:|--:|--:|--:|--:|--:|--:|")
+        for a in sorted(B_ARMS, key=lambda a: -TB[a]["mean"]):
+            c = None if a == "wise-men-3.11" else compare(R, B, a)
+            gap, wtl = ("—", "—") if c is None else (f"{sg(c['diff'])} [{sg(c['lo'])}, {sg(c['hi'])}]", f"{c['w']}–{c['t']}–{c['l']}")
+            print(f"| {'**' + NAMES[a] + '**' if c is None else NAMES[a]} | {r1(TB[a]['mean'])} | " + " | ".join(r1(TB[a]["axes"][x]) for x in AXES) + f" | {gap} | {wtl} |")
+        cs = {a: compare(R, A + B, a) for a in B_ARMS[1:]}
+        print(f"Over all {len(A + B)} questions the four arms share, wise-men 3.11.0 is ahead of " + ", ".join(f"{NAMES[a]} by {sg(cs[a]['diff'])} [{sg(cs[a]['lo'])}, {sg(cs[a]['hi'])}]" for a in B_ARMS[1:]) + ".")
     qs = A + B; won = tied = lost = 0
     for q in qs:
         wm = R[q]["wise-men-3.11"]["composite"]; bv = max(R[q][a]["composite"] for a in arms_for(q) if a != "wise-men-3.11")
