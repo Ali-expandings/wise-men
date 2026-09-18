@@ -5,8 +5,8 @@
 Most prompt patterns ask you to take their word for it. This one ships with the blind evals that tested it — raw answers, judgments, and the scripts that reproduce every number.
 
 <p align="center">
-  <strong>2nd of 8 in a pre-registered blind head-to-head, behind Warp's council and ahead of LifeOS Council, llm-council and ECC's council · best dissent score in both rounds · beat a structured prompt on 28 of 29</strong><br>
-  <sub>Two evals, one blind judge per question, 5-axis rubric; each head-to-head round was pre-registered before its new arms ran. <a href="#does-it-actually-work">Charts, method and caveats</a>.</sub>
+  <strong>Round 3, in progress: version 3.11.0 has the highest mean of 9 arms on the 6 questions judged so far, 24.4/25 to Warp's council's 21.2, three blind judges per question · round 2: 2nd of 8 · beat a structured prompt on 28 of 29</strong><br>
+  <sub>Two evals, 5-axis rubric; each head-to-head round was pre-registered before its new arms ran. Round 3 has 6 of 12 questions judged, four of them held-out questions no earlier round used. <a href="#does-it-actually-work">Charts, method and caveats</a>.</sub>
 </p>
 
 ```
@@ -22,9 +22,25 @@ Then: *"run a council on whether we should rewrite the billing service or strang
 
 Two blind evals, both shipped raw in this repo. The first puts wise-men next to skills people already use. The second asks the question every prompt-skill eventually gets: does it beat just asking well?
 
-### 1. Against the skills people already use (N=8, pre-registered, two rounds)
+### 1. Against the skills people already use (pre-registered, three rounds)
 
 Eight hard questions — engineering, product, research, writing, ethics, a personal decision. Eight ways to answer each: wise-men, six of the most-used and best-known skills for stress-testing a decision ([picked by installs and stars](eval-data/head-to-head/COMPETITOR-SCAN.md)), and a plain answer with no skill. The same top-level model ran every arm with its skill file verbatim; council members ran on whichever Claude models each skill chose. A fresh blind judge per question scored the answers under letters, in an order sealed in advance. Round 1 had six arms; round 2 added the two most-installed general-purpose council skills, Warp's and ECC's, and re-judged every answer.
+
+**Round 3, in progress** (pre-registered in [`PREREG-3.md`](eval-data/head-to-head/PREREG-3.md) before any run). Versions 3.10.0 and 3.11.0 were built from round 2's judgments, so round 3 measures them. Part A: fresh wise-men 3.11.0 answers to the same eight questions, judged next to round 2's eight answers by three blind judges per question, each with its own sealed order. Part B: four held-out questions no earlier round used (research, writing, ethics, a personal decision), with wise-men 3.11.0, Warp's council, llm-council and a plain answer. Six of the eight Part A questions are judged; the rest is running. Interim numbers, which will change as questions complete:
+
+| round 3, Part A (6 of 8 questions) | total /25 | correct | insight | practical | risk | dissent | wise-men 3.11.0 ahead by [95%] | W–T–L |
+|---|--:|--:|--:|--:|--:|--:|--:|--:|
+| **wise-men 3.11.0** | 24.4 | 4.8 | 5.0 | 4.8 | 5.0 | 4.8 | — | — |
+| Warp council | 21.2 | 4.6 | 4.3 | 4.6 | 4.4 | 3.4 | +3.2 [+1.3, +4.8] | 5–0–1 |
+| wise-men 3.9.2 | 20.3 | 3.9 | 4.3 | 3.8 | 4.1 | 4.3 | +4.1 [+2.8, +5.2] | 6–0–0 |
+| llm-council | 18.0 | 3.4 | 3.9 | 3.6 | 3.8 | 3.4 | +6.4 [+5.2, +7.4] | 6–0–0 |
+| ECC council | 18.0 | 3.9 | 3.8 | 3.5 | 3.6 | 3.2 | +6.4 [+4.6, +8.6] | 6–0–0 |
+| LifeOS Council | 17.9 | 3.2 | 3.9 | 3.4 | 3.7 | 3.7 | +6.4 [+4.9, +8.3] | 6–0–0 |
+| brainstorming | 14.7 | 3.8 | 3.1 | 3.7 | 2.6 | 1.6 | +9.7 [+8.7, +11.1] | 6–0–0 |
+| plain answer | 14.1 | 3.9 | 2.9 | 3.3 | 2.5 | 1.5 | +10.3 [+9.6, +11.4] | 6–0–0 |
+| grilling | 13.9 | 3.5 | 2.9 | 3.2 | 2.6 | 1.8 | +10.4 [+8.8, +12.1] | 6–0–0 |
+
+Ahead by = mean per-question gap in total score, with a 95% bootstrap interval over questions (10,000 resamples, seed 20260918). On the six questions judged so far, 3.11.0 has the highest mean and the top score on 5 of 6 (Warp's council took Q09, 24.3 to 23.7); every interval excludes zero, the pre-registered bar for "clearly ahead". The pre-registered claim needs all 12 questions, and Part A can reward fitting round 2's judgments, which is what Part B's held-out questions test. Per-question scores, judge agreement (mean SD of the three judges' totals 0.56) and disclosures, including four runs the account's usage limit interrupted and that resumed from their own transcripts: [`RESULTS-V3.md`](eval-data/head-to-head/RESULTS-V3.md).
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v2-dark.svg"><img src="assets/h2h-v2.svg" width="860" alt="Round 2 mean total score out of 25 on 8 blind-judged questions: Warp council 23.4, wise-men 21.1, llm-council 19.4, LifeOS Council 19.1, ECC council 19.1, brainstorming 15.9, plain answer 15.3, grilling 13.8. Warp council, wise-men and llm-council beat the plain answer on all 8 questions."></picture></p>
 
@@ -88,7 +104,7 @@ Raw answers, blinded packets, judgments and parsed scores: [`eval-data/head-to-h
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/headline-dark.svg"><img src="assets/headline.svg" width="860" alt="Same 29 questions, three ways of answering: council 24.5, structured prompt 20.8, direct answer 16.3"></picture></p>
 
-**Short version: the core loop is measured; the refinements on top are field-used, not measured.** The numbers above come from the **v2.3-era core loop** — a council with no context brief, no reasoning-procedure assignment, no validators, no synthesis-checker, and with the Devil's-Advocate model upgrade deliberately switched off so every member ran the same model. Everything this repo adds on top of that is *reasoned from* the result, not measured by it. (The head-to-head above did run the shipped v3.9.2 protocol end to end, but against other skills and a plain answer, not against this structured prompt. Versions 3.10.0 and 3.11.0 then changed how the answer is written and how peer scores are used, and added a practitioner seat on the strong model, coverage checks and a synthesis check at every council tier, on the evidence of those judgments and a recorded council run; those changes are not measured yet — head-to-head round 3, pre-registered in `eval-data/head-to-head/PREREG-3.md`, is under way.) The measured configuration is weaker than what ships, so the shipped default should be at least as good — but treat that as an expectation, not a finding. The judge was a single blinded Claude model grading Claude outputs, which is exactly the bias described in one of the papers credited at the bottom of this file.
+**Short version: the core loop is measured; the refinements on top are field-used, not measured.** The numbers above come from the **v2.3-era core loop** — a council with no context brief, no reasoning-procedure assignment, no validators, no synthesis-checker, and with the Devil's-Advocate model upgrade deliberately switched off so every member ran the same model. Everything this repo adds on top of that is *reasoned from* the result, not measured by it. (The head-to-head above did run the shipped v3.9.2 protocol end to end, but against other skills and a plain answer, not against this structured prompt. Versions 3.10.0 and 3.11.0 then changed how the answer is written and how peer scores are used, and added a practitioner seat on the strong model, coverage checks and a synthesis check at every council tier, on the evidence of those judgments and a recorded council run; head-to-head round 3, pre-registered in `eval-data/head-to-head/PREREG-3.md` before any run, measures those changes; its interim numbers are above.) The measured configuration is weaker than what ships, so the shipped default should be at least as good — but treat that as an expectation, not a finding. The judge was a single blinded Claude model grading Claude outputs, which is exactly the bias described in one of the papers credited at the bottom of this file.
 
 With that stated plainly, the table behind the chart — 30-question blind evaluation, 3 arms per question, 5-axis rubric (max 25):
 
@@ -252,7 +268,7 @@ Two design choices carry most of the weight:
 
 ## How it compares
 
-Measured against the skills people already use, see [the head-to-head](#1-against-the-skills-people-already-use-n8-pre-registered-two-rounds): second of eight in round 2, behind Warp's council; highest of six in round 1; the best dissent score in both rounds.
+Measured against the skills people already use, see [the head-to-head](#1-against-the-skills-people-already-use-pre-registered-three-rounds): round 3 (in progress): version 3.11.0 has the highest mean of nine arms on the questions judged so far; round 2: second of eight, behind Warp's council; round 1: highest of six; the best dissent score in every round.
 
 The question every prompt-skill gets asked — after ponytail's benchmark was matched by a seven-word prompt — is *does the skill beat just asking well?* The N=29 eval was built around that question. Arm B is one structured prompt (five perspectives + a dissent, no subagents); it is also shipped as the `solo` tier.
 
@@ -277,7 +293,7 @@ Against the other council skills for Claude Code (facts from their READMEs or sk
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/landscape-dark.svg"><img src="assets/landscape.svg" width="860" alt="Feature matrix: council skills for Claude Code, from their READMEs or skill files, 2026-09-16/17"></picture></p>
 
-What they have that this doesn't: multi-vendor councils, convergence-driven long debates, consensus gates, code-specific scanners, HTML reports — listed honestly in the landscape file. The decision-memo answer shape of Warp's council, which outscored wise-men in round 2 of the head-to-head, was adopted in 3.10.0, unmeasured.
+What they have that this doesn't: multi-vendor councils, convergence-driven long debates, consensus gates, code-specific scanners, HTML reports — listed honestly in the landscape file. The decision-memo answer shape of Warp's council, which outscored wise-men in round 2 of the head-to-head, was adopted in 3.10.0; round 3 of the head-to-head measures the result.
 
 ## Cost
 
@@ -302,7 +318,7 @@ resources/                personas · model routing · stage prompt templates ·
 examples/                 two worked end-to-end runs
 eval-spec.md              the frozen evaluation design (written before the eval ran)
 eval-data/                the N=29 blind eval: questions, raw arms, judgments, stats, frozen v2.3 protocol
-eval-data/head-to-head/   the pre-registered head-to-head (two rounds) vs six popular skills: raw answers, blinded packets, judgments, h2h.py
+eval-data/head-to-head/   the pre-registered head-to-head (three rounds) vs seven popular skills: raw answers, blinded packets, judgments, h2h.py
 scripts/check.sh          consistency check — run before every commit (trigger sync, no $-digit, agent copy, PII)
 scripts/make_charts.py    regenerates assets/*.svg (light + dark) from both evals' parsed scores
 assets/                   banner + README charts (hand-authored SVG, a light and a dark file each)

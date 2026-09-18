@@ -77,6 +77,11 @@ if python3 -c 'import yaml' 2>/dev/null; then
     H2H_STUDY=$s python3 eval-data/head-to-head/h2h.py readme 2>/dev/null | while IFS= read -r l; do grep -qxF -- "$l" README.md || echo "$l"; done | grep -q . && miss=1
   done
   [ $miss = 0 ] && say "README head-to-head tables match the data" ok || { say "README head-to-head table differs from h2h.py readme" FAIL; fail=1; }
+  # round 3: the README table and RESULTS-V3.md are generated from parsed-v3/ — both must match a fresh regeneration
+  python3 eval-data/head-to-head/h2h3.py readme 2>/dev/null | while IFS= read -r l; do grep -qxF -- "$l" README.md || echo "$l"; done | grep -q . \
+    && { say "README round-3 table differs from h2h3.py readme" FAIL; fail=1; } || say "README round-3 table matches the data" ok
+  H2H3_STDOUT=1 python3 eval-data/head-to-head/h2h3.py results 2>/dev/null | diff -q - eval-data/head-to-head/RESULTS-V3.md >/dev/null \
+    && say "RESULTS-V3.md matches h2h3.py results" ok || { say "RESULTS-V3.md differs from h2h3.py results" FAIL; fail=1; }
 fi
 
 [ $fail = 0 ] && echo "ALL CHECKS PASSED" || { echo "CHECKS FAILED"; exit 1; }

@@ -1,0 +1,194 @@
+question_id: Q19
+judges:
+  j1:
+    warp-council:
+      correctness: 5
+      insight: 4
+      practical: 5
+      risk: 4
+      dissent: 3
+      composite: 21
+    brainstorming:
+      correctness: 4
+      insight: 3
+      practical: 4
+      risk: 3
+      dissent: 2
+      composite: 16
+    direct:
+      correctness: 4
+      insight: 3
+      practical: 4
+      risk: 3
+      dissent: 2
+      composite: 16
+    lifeos-council:
+      correctness: 3
+      insight: 3
+      practical: 3
+      risk: 3
+      dissent: 3
+      composite: 15
+    llm-council:
+      correctness: 4
+      insight: 5
+      practical: 4
+      risk: 5
+      dissent: 4
+      composite: 22
+    wise-men:
+      correctness: 4
+      insight: 5
+      practical: 4
+      risk: 4
+      dissent: 5
+      composite: 22
+    wise-men-3.11:
+      correctness: 5
+      insight: 5
+      practical: 5
+      risk: 5
+      dissent: 5
+      composite: 25
+    grilling:
+      correctness: 4
+      insight: 4
+      practical: 4
+      risk: 3
+      dissent: 2
+      composite: 17
+    ecc-council:
+      correctness: 4
+      insight: 4
+      practical: 4
+      risk: 4
+      dissent: 3
+      composite: 19
+  j2:
+    grilling:
+      correctness: 4
+      insight: 3
+      practical: 4
+      risk: 3
+      dissent: 2
+      composite: 16
+    brainstorming:
+      correctness: 4
+      insight: 3
+      practical: 4
+      risk: 3
+      dissent: 2
+      composite: 16
+    lifeos-council:
+      correctness: 3
+      insight: 3
+      practical: 3
+      risk: 3
+      dissent: 3
+      composite: 15
+    warp-council:
+      correctness: 4
+      insight: 4
+      practical: 5
+      risk: 5
+      dissent: 3
+      composite: 21
+    direct:
+      correctness: 4
+      insight: 3
+      practical: 4
+      risk: 3
+      dissent: 2
+      composite: 16
+    wise-men-3.11:
+      correctness: 5
+      insight: 5
+      practical: 5
+      risk: 5
+      dissent: 5
+      composite: 25
+    wise-men:
+      correctness: 3
+      insight: 4
+      practical: 4
+      risk: 4
+      dissent: 5
+      composite: 20
+    ecc-council:
+      correctness: 4
+      insight: 4
+      practical: 4
+      risk: 4
+      dissent: 3
+      composite: 19
+    llm-council:
+      correctness: 4
+      insight: 4
+      practical: 4
+      risk: 4
+      dissent: 4
+      composite: 20
+  j3:
+    lifeos-council:
+      correctness: 3
+      insight: 3
+      practical: 3
+      risk: 3
+      dissent: 2
+      composite: 14
+    llm-council:
+      correctness: 4
+      insight: 5
+      practical: 4
+      risk: 5
+      dissent: 3
+      composite: 21
+    wise-men:
+      correctness: 3
+      insight: 4
+      practical: 3
+      risk: 4
+      dissent: 4
+      composite: 18
+    warp-council:
+      correctness: 4
+      insight: 4
+      practical: 5
+      risk: 4
+      dissent: 3
+      composite: 20
+    direct:
+      correctness: 4
+      insight: 2
+      practical: 4
+      risk: 2
+      dissent: 1
+      composite: 13
+    brainstorming:
+      correctness: 4
+      insight: 3
+      practical: 4
+      risk: 3
+      dissent: 2
+      composite: 16
+    wise-men-3.11:
+      correctness: 5
+      insight: 5
+      practical: 5
+      risk: 5
+      dissent: 5
+      composite: 25
+    grilling:
+      correctness: 4
+      insight: 3
+      practical: 4
+      risk: 3
+      dissent: 2
+      composite: 16
+    ecc-council:
+      correctness: 4
+      insight: 4
+      practical: 4
+      risk: 4
+      dissent: 3
+      composite: 19
