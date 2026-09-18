@@ -602,3 +602,4 @@ Process notes in the answer: R401 default (footer of "Corrected:" lines about fi
 
 Other disclosures: Warp's members browsed on R401 (33 web tool calls) and on no other question; every arm inherits the account's terse-writing instruction; all judges and arms are one model family.
 
+Smoke run of 3.13.1 (fast profile, a SaaS churn-and-annual-contracts question, unscored): the answer starts at `## Recommendation`, carries no footer, and never mentions the check, the tier or a council; 11.8 minutes, four subagent calls. One run shows the rule can be followed, not how often it is.
