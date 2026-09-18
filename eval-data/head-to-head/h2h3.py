@@ -185,14 +185,23 @@ def results():
     open(os.path.join(H, "RESULTS-V3.md"), "w").write("\n".join(L))
     print("wrote RESULTS-V3.md:", len(AB), "questions; clearly ahead of every rival so far:", every)
 
+def pic(name, alt): return f'<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/{name}-dark.svg"><img src="assets/{name}.svg" width="860" alt="{alt}"></picture></p>'
+
 def readme():
-    R = load(); A, B, todo = done_sets(R); T = table(R, A, A_ARMS)
+    R = load(); A, B, todo = done_sets(R); T = table(R, A, A_ARMS); interim = " (in progress)" if todo else ""
+    order = sorted(A_ARMS, key=lambda a: -T[a]["mean"])
+    print(pic("h2h-v3", f"Round 3{interim} mean total score out of 25 on {len(A)} round-2 questions, three blind judges each: " + ", ".join(f"{NAMES[a]} {r1(T[a]['mean'])}" for a in order) + "."))
     print(f"| round 3, Part A ({len(A)} of 8 questions) | total /25 | correct | insight | practical | risk | dissent | wise-men 3.11.0 ahead by [95%] | W–T–L |")
     print("|---|--:|--:|--:|--:|--:|--:|--:|--:|")
     for a in sorted(A_ARMS, key=lambda a: -T[a]["mean"]):
         c = None if a == "wise-men-3.11" else compare(R, A, a)
         gap, wtl = ("—", "—") if c is None else (f"{sg(c['diff'])} [{sg(c['lo'])}, {sg(c['hi'])}]", f"{c['w']}–{c['t']}–{c['l']}")
         print(f"| {'**' + NAMES[a] + '**' if c is None else NAMES[a]} | {r1(T[a]['mean'])} | " + " | ".join(r1(T[a]["axes"][x]) for x in AXES) + f" | {gap} | {wtl} |")
+    qs = A + B; won = tied = lost = 0
+    for q in qs:
+        wm = R[q]["wise-men-3.11"]["composite"]; bv = max(R[q][a]["composite"] for a in arms_for(q) if a != "wise-men-3.11")
+        won += wm > bv + 1e-9; tied += abs(wm - bv) < 1e-9; lost += wm < bv - 1e-9
+    print(pic("h2h-v3-questions", f"Round 3{interim} per-question scores over {len(qs)} questions: wise-men 3.11.0 versus the best other arm ahead {won}, tied {tied}, behind {lost}."))
 
 if __name__ == "__main__":
     cmd = sys.argv[1]

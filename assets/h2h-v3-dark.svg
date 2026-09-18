@@ -1,0 +1,69 @@
+<svg viewBox="0 0 860 624" width="860" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+<title>Round 3 (in progress) mean total score out of 25 on 6 round-2 questions, three blind judges each: wise-men 3.11.0 24.4, Warp council 21.2, wise-men 3.9.2 20.3, llm-council 18.0, ECC council 18.0, LifeOS Council 17.9, brainstorming 14.7, plain answer 14.1, grilling 13.9</title>
+<text x="40" y="32" font-size="16" font-weight="600" fill="#e6edf3" text-anchor="start" >Round 3, in progress: total score on the round-2 questions — 6 of 8 judged, three blind judges each</text>
+<text x="40" y="52" font-size="12" font-weight="400" fill="#9198a1" text-anchor="start" >Sum of 5 rubric axes (1–5 each, max 25), mean of 3 judges, averaged over the questions. Right: 3.11.0's lead, 95% bootstrap interval.</text>
+<text x="40" y="68" font-size="12" font-weight="400" fill="#9198a1" text-anchor="start" >Fresh wise-men 3.11.0 answers, judged next to the eight round-2 answers unchanged; each judge saw its own sealed order of letters.</text>
+<text x="840" y="100" font-size="11" font-weight="400" fill="#6e7681" text-anchor="end" >3.11.0 ahead by [95%]</text>
+<line x1="250" y1="108" x2="250" y2="520" stroke="#262c36" stroke-width="1" />
+<text x="250" y="536" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >0</text>
+<line x1="328" y1="108" x2="328" y2="520" stroke="#262c36" stroke-width="1" />
+<text x="328" y="536" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >5</text>
+<line x1="406" y1="108" x2="406" y2="520" stroke="#262c36" stroke-width="1" />
+<text x="406" y="536" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >10</text>
+<line x1="484" y1="108" x2="484" y2="520" stroke="#262c36" stroke-width="1" />
+<text x="484" y="536" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >15</text>
+<line x1="562" y1="108" x2="562" y2="520" stroke="#262c36" stroke-width="1" />
+<text x="562" y="536" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >20</text>
+<line x1="640" y1="108" x2="640" y2="520" stroke="#262c36" stroke-width="1" />
+<text x="640" y="536" font-size="11" font-weight="400" fill="#6e7681" text-anchor="middle" >25</text>
+<rect x="32" y="109" width="816" height="44" rx="6" fill="#b8323a" fill-opacity="0.08"/>
+<text x="236" y="127" font-size="13" font-weight="700" fill="#e6edf3" text-anchor="end" >wise-men 3.11.0</text>
+<text x="236" y="142" font-size="11" font-weight="400" fill="#6e7681" text-anchor="end" >this repo · new answers</text>
+<path d="M250,118h376.5a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-376.5z" fill="#b8323a"/>
+<text x="638.5" y="134" font-size="13" font-weight="700" fill="#e6edf3" text-anchor="start" >24.4</text>
+<text x="840" y="134" font-size="12" font-weight="400" fill="#6e7681" text-anchor="end" >—</text>
+<text x="236" y="173" font-size="13" font-weight="500" fill="#e6edf3" text-anchor="end" >Warp council</text>
+<text x="236" y="188" font-size="11" font-weight="400" fill="#6e7681" text-anchor="end" >warpdotdev · 24.5k installs</text>
+<path d="M250,164h327.1a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-327.1z" fill="#7d8590"/>
+<text x="589.1" y="180" font-size="13" font-weight="500" fill="#e6edf3" text-anchor="start" >21.2</text>
+<text x="840" y="180" font-size="12" font-weight="600" fill="#e6edf3" text-anchor="end" >+3.2  [+1.3, +4.8]</text>
+<text x="236" y="219" font-size="13" font-weight="500" fill="#e6edf3" text-anchor="end" >wise-men 3.9.2</text>
+<text x="236" y="234" font-size="11" font-weight="400" fill="#6e7681" text-anchor="end" >this repo · round-2 answers</text>
+<path d="M250,210h312.3a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-312.3z" fill="#7d8590"/>
+<text x="574.3" y="226" font-size="13" font-weight="500" fill="#e6edf3" text-anchor="start" >20.3</text>
+<text x="840" y="226" font-size="12" font-weight="600" fill="#e6edf3" text-anchor="end" >+4.1  [+2.8, +5.2]</text>
+<text x="236" y="265" font-size="13" font-weight="500" fill="#e6edf3" text-anchor="end" >llm-council</text>
+<text x="236" y="280" font-size="11" font-weight="400" fill="#6e7681" text-anchor="end" >aiwithremy · 1.0k installs</text>
+<path d="M250,256h276.8a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-276.8z" fill="#7d8590"/>
+<text x="538.8" y="272" font-size="13" font-weight="500" fill="#e6edf3" text-anchor="start" >18.0</text>
+<text x="840" y="272" font-size="12" font-weight="600" fill="#e6edf3" text-anchor="end" >+6.4  [+5.2, +7.4]</text>
+<text x="236" y="311" font-size="13" font-weight="500" fill="#e6edf3" text-anchor="end" >ECC council</text>
+<text x="236" y="326" font-size="11" font-weight="400" fill="#6e7681" text-anchor="end" >affaan-m/ECC · 7.7k installs</text>
+<path d="M250,302h276.8a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-276.8z" fill="#7d8590"/>
+<text x="538.8" y="318" font-size="13" font-weight="500" fill="#e6edf3" text-anchor="start" >18.0</text>
+<text x="840" y="318" font-size="12" font-weight="600" fill="#e6edf3" text-anchor="end" >+6.4  [+4.6, +8.6]</text>
+<text x="236" y="357" font-size="13" font-weight="500" fill="#e6edf3" text-anchor="end" >LifeOS Council</text>
+<text x="236" y="372" font-size="11" font-weight="400" fill="#6e7681" text-anchor="end" >danielmiessler/LifeOS · 19k★</text>
+<path d="M250,348h275.9a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-275.9z" fill="#7d8590"/>
+<text x="537.9" y="364" font-size="13" font-weight="500" fill="#e6edf3" text-anchor="start" >17.9</text>
+<text x="840" y="364" font-size="12" font-weight="600" fill="#e6edf3" text-anchor="end" >+6.4  [+4.9, +8.3]</text>
+<text x="236" y="403" font-size="13" font-weight="500" fill="#e6edf3" text-anchor="end" >brainstorming</text>
+<text x="236" y="418" font-size="11" font-weight="400" fill="#6e7681" text-anchor="end" >obra/superpowers · 366k installs</text>
+<path d="M250,394h224.8a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-224.8z" fill="#7d8590"/>
+<text x="486.8" y="410" font-size="13" font-weight="500" fill="#e6edf3" text-anchor="start" >14.7</text>
+<text x="840" y="410" font-size="12" font-weight="600" fill="#e6edf3" text-anchor="end" >+9.7  [+8.7, +11.1]</text>
+<text x="236" y="449" font-size="13" font-weight="500" fill="#e6edf3" text-anchor="end" >plain answer</text>
+<text x="236" y="464" font-size="11" font-weight="400" fill="#6e7681" text-anchor="end" >no skill</text>
+<path d="M250.8,440.8h214.6a4,4 0 0 1 4,4v12.5a4,4 0 0 1 -4,4h-214.6z" fill="none" stroke="#9198a1" stroke-width="1.5"/>
+<text x="478.1" y="456" font-size="13" font-weight="500" fill="#e6edf3" text-anchor="start" >14.1</text>
+<text x="840" y="456" font-size="12" font-weight="600" fill="#e6edf3" text-anchor="end" >+10.3  [+9.6, +11.4]</text>
+<text x="236" y="495" font-size="13" font-weight="500" fill="#e6edf3" text-anchor="end" >grilling</text>
+<text x="236" y="510" font-size="11" font-weight="400" fill="#6e7681" text-anchor="end" >mattpocock/skills · 718k installs</text>
+<path d="M250,486h213.5a4,4 0 0 1 4,4v14a4,4 0 0 1 -4,4h-213.5z" fill="#7d8590"/>
+<text x="475.5" y="502" font-size="13" font-weight="500" fill="#e6edf3" text-anchor="start" >13.9</text>
+<text x="840" y="502" font-size="12" font-weight="600" fill="#e6edf3" text-anchor="end" >+10.4  [+8.8, +12.1]</text>
+<text x="40" y="562" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" >An interval above zero is the pre-registered bar for "clearly ahead": met against 8 of 8 arms on the questions judged so far.</text>
+<text x="40" y="578" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" >Intervals resample questions (10,000 draws), not judges. Round 2's judgments of these questions shaped versions 3.10.0 and 3.11.0;</text>
+<text x="40" y="594" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" >the four held-out questions (per-question chart) are the check on that. Warp's council ran on Claude models only (pre-registered, disclosed).</text>
+<text x="40" y="610" font-size="11" font-weight="400" fill="#6e7681" text-anchor="start" >N = 6 · one top-level model ran every arm · three fresh Opus judges per question, letters A–I · PREREG-3.md · raw data: eval-data/head-to-head</text>
+</svg>

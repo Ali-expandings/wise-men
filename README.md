@@ -28,6 +28,8 @@ Eight hard questions — engineering, product, research, writing, ethics, a pers
 
 **Round 3, in progress** (pre-registered in [`PREREG-3.md`](eval-data/head-to-head/PREREG-3.md) before any run). Versions 3.10.0 and 3.11.0 were built from round 2's judgments, so round 3 measures them. Part A: fresh wise-men 3.11.0 answers to the same eight questions, judged next to round 2's eight answers by three blind judges per question, each with its own sealed order. Part B: four held-out questions no earlier round used (research, writing, ethics, a personal decision), with wise-men 3.11.0, Warp's council, llm-council and a plain answer. Six of the eight Part A questions are judged; the rest is running. Interim numbers, which will change as questions complete:
 
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v3-dark.svg"><img src="assets/h2h-v3.svg" width="860" alt="Round 3 (in progress) mean total score out of 25 on 6 round-2 questions, three blind judges each: wise-men 3.11.0 24.4, Warp council 21.2, wise-men 3.9.2 20.3, llm-council 18.0, ECC council 18.0, LifeOS Council 17.9, brainstorming 14.7, plain answer 14.1, grilling 13.9."></picture></p>
+
 | round 3, Part A (6 of 8 questions) | total /25 | correct | insight | practical | risk | dissent | wise-men 3.11.0 ahead by [95%] | W–T–L |
 |---|--:|--:|--:|--:|--:|--:|--:|--:|
 | **wise-men 3.11.0** | 24.4 | 4.8 | 5.0 | 4.8 | 5.0 | 4.8 | — | — |
@@ -41,6 +43,10 @@ Eight hard questions — engineering, product, research, writing, ethics, a pers
 | grilling | 13.9 | 3.5 | 2.9 | 3.2 | 2.6 | 1.8 | +10.4 [+8.8, +12.1] | 6–0–0 |
 
 Ahead by = mean per-question gap in total score, with a 95% bootstrap interval over questions (10,000 resamples, seed 20260918). On the six questions judged so far, 3.11.0 has the highest mean and the top score on 5 of 6 (Warp's council took Q09, 24.3 to 23.7); every interval excludes zero, the pre-registered bar for "clearly ahead". The pre-registered claim needs all 12 questions, and Part A can reward fitting round 2's judgments, which is what Part B's held-out questions test. Per-question scores, judge agreement (mean SD of the three judges' totals 0.56) and disclosures, including four runs the account's usage limit interrupted and that resumed from their own transcripts: [`RESULTS-V3.md`](eval-data/head-to-head/RESULTS-V3.md).
+
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v3-questions-dark.svg"><img src="assets/h2h-v3-questions.svg" width="860" alt="Round 3 (in progress) per-question scores over 6 questions: wise-men 3.11.0 versus the best other arm ahead 5, tied 0, behind 1."></picture></p>
+
+**Round 2** (the completed round; eight arms, one judge per question):
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v2-dark.svg"><img src="assets/h2h-v2.svg" width="860" alt="Round 2 mean total score out of 25 on 8 blind-judged questions: Warp council 23.4, wise-men 21.1, llm-council 19.4, LifeOS Council 19.1, ECC council 19.1, brainstorming 15.9, plain answer 15.3, grilling 13.8. Warp council, wise-men and llm-council beat the plain answer on all 8 questions."></picture></p>
 
