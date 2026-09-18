@@ -1,6 +1,6 @@
 ---
 name: wise-men
-version: 3.12.0
+version: 3.13.0
 description: Use when the user asks for a "council", "panel", "wise men", "wisemen", "wise-men", "multiple perspectives", "deliberate", "debate", "second opinion x N", "stress-test", "war-game", "red team this", "high-stakes decision", or invokes /wise-men. Wise-men council — multi-persona deliberative answer pattern using Claude subagents. Distinct personas independently answer a hard question, peer-review each other under stable persona labels, optionally debate when split, then a Chairman synthesizes a final answer with preserved dissent. Adaptive tier system (solo/quick/standard/deep/paranoid) auto-scales effort to question stakes. Domain-aware persona auto-selection (engineering/product/strategy/research/writing/creative/ethics/personal). Smart model routing spends cheap models on routine roles and strong models on adversarial ones, driven by 3-axis difficulty (depth/stakes/novelty, max-dominates), with validators and retry fallback at every stage. Blind-judged eval (N=29) of the earlier core loop: the council beat a structured single prompt on 28/29 questions (24.5 vs 20.8 on a 25-point rubric; N=29, one blind Claude judge, pre-registered N=30 verdict pending) — later protocol additions are reasoned from that result, not separately measured; the shipped protocol has ~35 logged live runs (Jul–Sep 2026) behind its v3.8 rules. Inspired by github.com/karpathy/llm-council; design choices drew on (but are not validated by) Du 2023 multi-agent debate, Liang 2024 divergent thinking, Khan 2024 debate-via-persuasion, Zheng 2024 LLM-as-judge bias. Pure Claude — no external APIs.
 ---
 
@@ -13,19 +13,19 @@ Multi-persona deliberative answer pattern. Claude subagents in different roles (
 You (main thread) are the orchestrator. These steps are MECHANICAL — where a step says a trigger fires, you run it; deciding it's "not really needed this time" is a protocol deviation, and every deviation MUST be disclosed in the final output (a silently shortcut council is the fake-council anti-pattern).
 
 0. Pre-flight (4 checks below). If the user already invoked /wise-men, do NOT ask "want me to run a council?" — they just asked for one. Run the tier the table mandates.
-1. Compute composite = max(depth, stakes, novelty). The tier table is BINDING: composite ≥3 → spawn a real council; do not rationalize down to solo/direct because it feels sufficient. (Composite 1-2 → solo, per table.) **Spend ceiling**: never exceed the tier table's call count by more than half without an explicit user "go" — the question can claim stakes; it cannot claim budget (a crafted question could otherwise force paranoid, ~20+ spawns).
+1. `--fast` or `quick` → skip to the quick tier now and Read NO other file: this file is sufficient (roster: practitioner anchor + one domain member + DA; anchor and DA on the strong model, the member on mid, the checker on cheap; no Stage 2, no packet). Otherwise compute composite = max(depth, stakes, novelty). The tier table is BINDING: composite ≥3 → spawn a real council; do not rationalize down to solo/direct because it feels sufficient. (Composite 1-2 → solo, per table.) **Spend ceiling**: never exceed the tier table's call count by more than half without an explicit user "go" — the question can claim stakes; it cannot claim budget (a crafted question could otherwise force paranoid, ~20+ spawns).
 2. Stage 0: pick domain roster (4) + Devil's Advocate = 5 (more at deep/paranoid). DA never abstains.
 2.5. Stage 0.5: build the shared context brief (facts only, includes inconvenient facts, current facts gathered once; "none needed" is a valid brief).
 3. Stage 1: spawn ALL members in ONE message (parallel Agent calls), each with the persona block + shared context brief + injection-guarded question + 5-section contract. Models per routing. Members are OFFLINE (`wise-member` = Read/Grep/Glob only — no web, no shell, no tests): anything that needs verifying goes into the brief beforehand or into step 8.5 afterwards.
 4. Stage 1 validator: 2 checks per member; retry-once ladder; spawn errors = same path.
-5. Stage 2: write the **grading packet** to ONE file first (question + brief + every member answer VERBATIM — copy, never summarize or reword; layout = Parts A–C of `resources/council-record.md`), then spawn the reviewers in ONE message as `wise-member`, each told to Read that file, neutral grading frame. Reviewer count: **3 at quick/standard, N (= members) at deep/paranoid** — below that floor is a deviation.
+5. Stage 2 (not at quick): write the **grading packet** to ONE file first (question + brief + every member answer VERBATIM — copy, never summarize or reword; layout = Parts A–C of `resources/council-record.md`), then spawn the reviewers in ONE message as `wise-member`, each told to Read that file, neutral grading frame. Reviewer count: **3 at quick/standard, N (= members) at deep/paranoid** — below that floor is a deviation.
 6. Stage 2 validator: parse every rubric block; retry-once; exclude unparseable reviewers.
 7. Stage 3: build the position map (one-line conclusion per member), then compute the debate trigger from parsed scores + the map. At deep/paranoid, IF IT FIRES, RUN THE ROUND — "the disagreement is already understood" is not a skip reason (that exact rationalization happened in a live run and is why this sentence exists).
 7.5. Anti-anchoring after Stage 1: nothing you learn or think of AFTER members answered may enter a debate prompt, the grading packet, or a member's mouth. New evidence waits for step 8.5, where it can correct the draft in the open; if it is decisive, re-run the affected members with it in the brief and disclose. (Two live runs changed debaters' positions with orchestrator-injected material; that is the Chairman debating itself.)
 8. Stage 4: Chairman synthesis per chairman.md (counter-position and evidence-over-votes rules are binding) — a draft until steps 8.5 and 9 pass.
 8.5. Verification, before the checker: every load-bearing claim a member or reviewer FLAGGED as unverified that survived into the draft gets checked by you now (web, grep, tests). A result that changes a claim rewrites that sentence and its Confidence and adds one footer line naming what was corrected and against what; a result that changes nothing adds nothing; what you could not check stays marked. The claim → method → result table goes to the council record — never an appendix to the answer, never a source the memo does not contain (round 3: an appendix citing sources absent from the memo cost correctness; a correction that lived only in the appendix never reached the reader).
 9. Stage 4.5 (every council tier; only solo skips it): spawn ONE fresh synthesis-checker (`wise-member`, mid tier) — it verifies the corrected draft against the member answers and the verification table before output. Fix what it flags or disclose the disagreement.
-10. Output per format section: one status line per stage while running (no play-by-play narration); the answer is the decision memo, with no council mechanics in it; every degradation goes in its footer.
+10. Economy (measured: members cost cents and two minutes; the orchestrator's turns and the checker's deliberation are most of the bill): Read every file you need in ONE message, and at quick/standard Read a resource only when a step sends you there — SKILL.md is sufficient; never re-type what a file already holds (the checker Reads the grading packet plus one small file with scores, verification table and draft); the quick tier skips Stage 2, so skip the packet and send its checker the question and the draft only. Output per format section: one status line per stage while running (no play-by-play narration); the answer is the decision memo, with no council mechanics in it; every degradation goes in its footer.
 11. Council record: when the question concerns a real project, write the FULL transcript to the project's notes/handoff folder using `resources/council-record.md` — never only to a scratchpad or temp dir (deleted; one live council's record was lost that way). Then offer the one-paragraph vault summary once.
 
 ## When to use vs not use
@@ -77,7 +77,7 @@ Max-dominates because each axis can independently break the answer. Hard axis wi
 | Tier | Members | Reviewers | Debate | Calls | Used at composite |
 |---|---|---|---|---|---|
 | **solo** | 0 (single structured pass) | 0 | no | 0 | 1-2 (default) |
-| **quick** | 3 | 3 | no | ~6 (+1 checker) | explicit request only |
+| **quick** (`--fast`) | 3 (anchor + one domain member + DA) | 0 | no | 3 (+1 cheap-tier checker) | explicit request only |
 | **standard** | 5 | 3 | no | ~8 (+1 checker) | 3 (default if no override) |
 | **deep** | 5-7 | = members | conditional | ~15-20 (+1 checker) | 4 |
 | **paranoid** | 7 | 7 | yes (2 rounds) | ~25+ (+1 checker) | 5 |
@@ -289,7 +289,7 @@ You (main thread) act as Chairman. Do NOT spawn a subagent. Read all member answ
 
 **When**: at every council tier — quick, standard, deep, paranoid (a smoke run showed an unchecked Chairman renaming council talk back into the answer; the checker failed that draft on every item). **Why**: the Chairman is the same thread that picked the personas and computed the difficulty — the skill's one structural conflict of interest. A single fresh pair of eyes is the cheapest real mitigation, and it matters most when the main-thread model is not the strongest available.
 
-Spawn ONE fresh `wise-member` subagent (mid tier) with: the original question, the context brief, the member answers (with abstentions marked), the aggregated scores, and your draft synthesis. Its task — answer six yes/no checks, one line of evidence each:
+Spawn ONE fresh `wise-member` subagent (mid tier; cheap tier at quick) told to work in one pass and reply in the fixed form only — a round-3 checker spent eleven minutes and 70k tokens deliberating. It Reads the grading packet and the scores-and-draft file; at quick it gets the question and the draft inline and runs checks 1, 4, 5 and 6 only. Its task — yes/no checks, one line of evidence each:
 
 1. Is the counter-position a clean COUNTER-position (not the majority thesis re-hedged), quoted not paraphrased, aimed at the Recommendation's load-bearing premise — or does something in the material attack it more centrally?
 2. Does the Recommendation follow from the answers and scores in front of you (not from information the members never said)?
@@ -312,7 +312,7 @@ Default = the Stage 4 decision memo at every council tier. A long counter-positi
 ```
 
 Flags:
-- `--solo` → force solo tier (zero subagents, single structured pass)
+- `--solo` → force solo tier (zero subagents, single structured pass) · `--fast` → force quick tier (3 members, no peer review, cheap-tier check: the cheapest real council)
 - `--brief` → shortens every memo section except the counter-position and any severe-disagreement flag, which are never cut
 - `--full` → the memo + the full audit trail below it (member answers, reviews, position map, routing block, debate, checker findings)
 - `--debate` → **force one debate round after Stage 2 regardless of tier** (at solo, this first upgrades the run to a standard council), and show the full peer-review + debate transcript
@@ -357,7 +357,7 @@ Between 2026-07-12 and 2026-09-16, v3.0–v3.7.2 of this protocol ran ~35 real c
 ## Limits
 
 - **Single-model**: all members are Claude. No bias cancellation from architectural diversity. Persona prompting approximates diversity; Claude shares blindspots with itself across personas.
-- **Cost**: even quick = 7+ subagent calls (members, reviewers, checker). Match tier to stakes; prefer solo at composite 1-2.
+- **Cost**: even quick = 4 subagent calls (members, checker); standard is 9. Match tier to stakes; prefer solo at composite 1-2.
 - **Chairman is main thread**: same thread that selected personas and computed difficulty also synthesizes. Conflict of interest is structural; dissent preservation partially mitigates.
 - **Eval measured quality, not cost-effectiveness**: the +3.7 mean gap over solo costs ~10 subagent calls. Whether that trade is worth it is the user's call per question — that's what tiers are for.
 - **Anti-recursion — enforced when the member agent is installed**: this skill ships a tool-restricted agent at `agents/wise-member.md` (Read/Grep/Glob only — no Agent, no Bash, no Skill, no Write); a plugin install registers it as `wise-men:wise-member` automatically, a clone install needs the copy step (see README). Either way council recursion is structurally impossible rather than merely discouraged. **Spawn members, reviewers, and the Stage 4.5 checker with that agent type.** Without it, `general-purpose` + the prompt-level suppression line is mitigation, not enforcement.
@@ -372,12 +372,11 @@ Between 2026-07-12 and 2026-09-16, v3.0–v3.7.2 of this protocol ran ~35 real c
 Stage 0: Practitioner anchor + Skeptic + Devil's Advocate (anchor and DA on +1 tier model)
 Stage 1: 3 parallel Agent calls, 5-section output structure required
 Validator: 2-check pass (structure present + 5 sections present)
-Stage 2: 3 parallel Agent calls, rubric scoring on stable persona labels
-Stage 3: skipped
-Stage 4: main thread Chairman synthesis → Stage 4.5: 1 checker call
+Stage 2 and 3: skipped (no peer review, no packet, no debate)
+Stage 4: main thread Chairman synthesis → Stage 4.5: 1 cheap-tier checker call (question + draft; checks 1, 4, 5, 6)
 ```
 
-Total: 7 subagent calls. Budget in calls and minutes, not cents: measured in the head-to-head, a 9-call standard council took about 20 minutes and roughly 200k tokens as the harness reports them.
+Total: 4 subagent calls. Budget in calls and minutes, not cents: measured in the head-to-head, a 9-call standard council took about 20 minutes and roughly 200k tokens as the harness reports them.
 
 > **Authoring note — scope of this rule:** costs are spelled out in words *in this file only*. The skill loader substitutes any dollar-sign-followed-by-digit sequence in **SKILL.md** with the invocation's positional arguments at load time (even inside backticks) — an earlier version of this very note was mangled that way. Files under `resources/`, `examples/`, and `eval-data/` are read on demand rather than injected, so ordinary currency figures there are correct and were deliberately left alone. Rule: never write a numeric dollar amount **in SKILL.md**; elsewhere, write normally.
 
