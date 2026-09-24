@@ -87,6 +87,12 @@ if python3 -c 'import yaml' 2>/dev/null; then
     && { say "README round-4 table differs from h2h4.py readme" FAIL; fail=1; } || say "README round-4 table matches the data" ok
   H2H4_STDOUT=1 python3 eval-data/head-to-head/h2h4.py results 2>/dev/null | diff -q - eval-data/head-to-head/RESULTS-V4.md >/dev/null \
     && say "RESULTS-V4.md matches h2h4.py results" ok || { say "RESULTS-V4.md differs from h2h4.py results" FAIL; fail=1; }
+  # round 5: README table, RESULTS-V5.md, blinded packets and parsed scores must match a fresh regeneration
+  python3 eval-data/head-to-head/h2h5.py readme wise-men 2>/dev/null | while IFS= read -r l; do [ -z "$l" ] || grep -qxF -- "$l" README.md || echo "$l"; done | grep -q . \
+    && { say "README round-5 table differs from h2h5.py readme" FAIL; fail=1; } || say "README round-5 table matches the data" ok
+  H2H5_STDOUT=1 python3 eval-data/head-to-head/h2h5.py results 2>/dev/null | diff -q - eval-data/head-to-head/RESULTS-V5.md >/dev/null \
+    && say "RESULTS-V5.md matches h2h5.py results" ok || { say "RESULTS-V5.md differs from h2h5.py results" FAIL; fail=1; }
+  python3 eval-data/head-to-head/h2h5.py verify >/dev/null 2>&1 && say "round-5 packets and scores rebuild from raw/" ok || { say "h2h5.py verify failed" FAIL; fail=1; }
 fi
 
 # 9. Unit tests for the deterministic helpers (standard library only)

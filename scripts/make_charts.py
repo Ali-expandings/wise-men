@@ -582,13 +582,99 @@ def chart_h2h_v4_axes(rows):
     b += t(40, fy + 16, f"every arm lost most. Warp's council ran on Claude models only. N = {n} of 8 pre-registered questions, three blind judges each, means shown.", 11, C["MUTE"])
     return svg(860, fy + 30, b, f"Round 4 scoreboard, means over {n} questions: " + "; ".join(f"{H4_NAME[a]}: total {r1(hmean(rows, a))}, " + ", ".join(f"{AXIS_NAME[x].lower()} {r1(hmean(rows, a, x))}" for x in AXES) for a in arms))
 
+# ---------- round 5 (PREREG-5): wise-men 3.14.0 and wise-men-flash against every rival at its latest version ----------
+import sys
+sys.path.insert(0, os.path.join(ROOT, "eval-data", "head-to-head")); import h2h5
+H5_HERO, H5_FLASH = h2h5.WM, h2h5.FL
+H5_NAME = {H5_HERO: "wise-men 3.14.0", H5_FLASH: "wise-men-flash 0.1.0", "warp-council": "Warp council", "llm-council": "llm-council", "lifeos-council": "LifeOS Council",
+           "ecc-council": "ECC council", "brainstorming": "brainstorming", "grilling": "grilling", "direct": "plain answer"}
+H5_SRC = {H5_HERO: "this repo · full council", H5_FLASH: "sibling skill · three members", "warp-council": "warpdotdev", "llm-council": "aiwithremy", "lifeos-council": "danielmiessler/LifeOS",
+          "ecc-council": "affaan-m/ECC", "brainstorming": "obra/superpowers", "grilling": "mattpocock/skills", "direct": "no skill"}
+TOPIC.update({"R501": "Row-level security or app-layer checks?", "R502": "Outages every January after a freeze", "R503": "Build or buy an automation builder?",
+              "R504": "A $15,000 lifetime value, 3 years in", "R505": "A records study linking a drug to dementia", "R506": "Correcting the error behind a closure",
+              "R507": "An unverifiable tip about a candidate", "R508": "Buying the business I work for"})
+def load_h2h5(): R = h2h5.load(); return {q: {a: R[q][a] for a in h2h5.ARMS} for q in h2h5.RUN_ORDER if q in R}
+def bar5(a, x, y, w, h, r=4):
+    if a == "direct": return hbar_outline(x, y, w, h, C["TXT"], r)
+    return hbar(x, y, w, h, C["ACCENT"] if a == H5_HERO else C["AMBER"] if a == H5_FLASH else C["BAR2"], r)
+def h5_arms(rows): return sorted(h2h5.ARMS, key=lambda a: (-hmean(rows, a), h2h5.ARMS.index(a)))
+def h5_note(n): return f"In progress: {n} of 8 pre-registered questions judged; the rest run after the account's weekly usage limit resets, and these charts are regenerated then." if n < 8 else ""
+
+def chart_h2h_v5(rows):
+    n = len(rows); x0, sc, top, rh = 250, 15.6, 112, 44; arms = h5_arms(rows); bottom = top + rh * len(arms) - 6
+    b = t(40, 32, f"Round 5{', in progress' if n < 8 else ''}: every rival at its latest version — {n} of 8 new questions, three blind judges each", 16, C["INK"], 600)
+    b += t(40, 52, "Sum of 5 rubric axes (1–5 each, max 25), mean of 3 judges, averaged over the questions. Right: wise-men's lead, 95% bootstrap interval.", 12, C["TXT"])
+    b += t(40, 68, "Nine arms judged together under the error-first judge; questions from a blind author; every answer new, all run in the same days on the same models.", 12, C["TXT"])
+    b += t(840, top - 12, "wise-men ahead by [95%]", 11, C["MUTE"], anchor="end")
+    for g in range(0, 26, 5):
+        x = x0 + g * sc; b += line(x, top - 4, x, bottom, C["GRID"]) + t(x, bottom + 16, g, 11, C["MUTE"], anchor="middle")
+    for i, a in enumerate(arms):
+        y = top + i * rh; m = hmean(rows, a); hero = a == H5_HERO
+        if hero: b += band(y - 3, rh - 2)
+        b += t(x0 - 14, y + 15, H5_NAME[a], 13, C["INK"], 700 if hero else 500, "end") + t(x0 - 14, y + 30, H5_SRC[a], 11, C["MUTE"], anchor="end")
+        b += bar5(a, x0, y + 6, m * sc, 22) + t(x0 + m * sc + 8, y + 22, r1(m), 13, C["INK"], 700 if hero else 500)
+        if hero: b += t(840, y + 22, "—", 12, C["MUTE"], anchor="end"); continue
+        c = h2h5.compare(rows, a, H5_HERO); b += t(840, y + 22, f"{sgn(c['diff'])}  [{sgn(c['lo'])}, {sgn(c['hi'])}]", 12, C["INK"] if c["lo"] > 0 else C["TXT"], 600 if c["lo"] > 0 else 400, "end")
+    fy = bottom + 42; clear = sum(h2h5.compare(rows, a, H5_HERO)["lo"] > 0 for a in h2h5.RIVALS)
+    b += t(40, fy, f"An interval above zero is the pre-registered bar for \"clearly ahead\": met against {clear} of {len(h2h5.RIVALS)} rivals so far. The amber bar is the sibling skill, wise-men-flash.", 11, C["MUTE"])
+    b += t(40, fy + 16, h5_note(n) or "Intervals resample questions (10,000 draws), not judges.", 11, C["MUTE"])
+    b += t(40, fy + 32, f"N = {n} · Warp's council on Claude models only · LifeOS and brainstorming given the files their skills name · three fresh Opus judges per question · PREREG-5.md", 11, C["MUTE"])
+    return svg(860, fy + 46, b, f"Round 5{' (in progress)' if n < 8 else ''} mean total score out of 25 on {n} new questions, three blind judges each: " + ", ".join(f"{H5_NAME[a]} {r1(hmean(rows, a))}" for a in arms))
+
+def chart_h2h_v5_questions(rows):
+    qs = list(rows); n = len(qs); lo = min(10, int(min(r[a]["composite"] for r in rows.values() for a in r)))
+    x0, x1, hi = 300, 640, 25; sc = (x1 - x0) / (hi - lo); top, rh = 112, 32; bottom = top + rh * (n - 1) + 16
+    others = [a for a in h2h5.RIVALS if a != "direct"]; short = dict(H5_NAME, **{"warp-council": "Warp", "lifeos-council": "LifeOS", "ecc-council": "ECC"})
+    b = t(40, 32, f"Round 5{', in progress' if n < 8 else ''}, question by question", 16, C["INK"], 600)
+    b += t(40, 52, "Mean of three blind judges' totals (max 25): wise-men 3.14.0, wise-men-flash, six rival skills and a plain answer", 12, C["TXT"])
+    b += t(660, top - 22, "wise-men vs the best rival", 11, C["MUTE"])
+    for g in range(lo, 26, 5):
+        x = x0 + (g - lo) * sc; b += line(x, top - 16, x, bottom, C["GRID"]) + t(x, bottom + 16, g, 11, C["MUTE"], anchor="middle")
+    won = tied = lost = 0
+    for i, q in enumerate(qs):
+        y = top + i * rh; r = rows[q]; wm = r[H5_HERO]["composite"]; vals = [r[a]["composite"] for a in h2h5.ARMS]
+        b += t(40, y + 4, q, 11, C["MUTE"]) + t(84, y + 4, TOPIC[q], 12, C["INK"])
+        b += line(x0 + (min(vals) - lo) * sc, y, x0 + (max(vals) - lo) * sc, y, C["GRID"], 2) + ring(x0 + (r["direct"]["composite"] - lo) * sc, y, 7, C["TXT"])
+        for a in others: b += dot(x0 + (r[a]["composite"] - lo) * sc, y, 4.5, C["OTHER"])
+        b += dot(x0 + (r[H5_FLASH]["composite"] - lo) * sc, y, 5.5, C["AMBER"]) + dot(x0 + (wm - lo) * sc, y, 6.5, C["ACCENT"])
+        bv = max(r[a]["composite"] for a in h2h5.RIVALS); best = [short[a] for a in h2h5.RIVALS if abs(r[a]["composite"] - bv) < 1e-9]
+        rel = "ahead" if wm > bv + 1e-9 else "tied" if abs(wm - bv) < 1e-9 else "behind"; won += rel == "ahead"; tied += rel == "tied"; lost += rel == "behind"
+        b += t(660, y + 4, rel, 12, C["INK"]) + t(712, y + 4, f"{', '.join(best)} {r1(bv)}", 11, C["MUTE"])
+    ly = bottom + 44
+    b += dot(46, ly - 4, 6.5, C["ACCENT"]) + t(58, ly, "wise-men 3.14.0", 11) + dot(176, ly - 4, 5.5, C["AMBER"]) + t(188, ly, "wise-men-flash", 11)
+    b += dot(296, ly - 4, 4.5, C["OTHER"]) + t(306, ly, "the six rival skills", 11) + ring(436, ly - 4, 7, C["TXT"]) + t(448, ly, "plain answer", 11)
+    b += t(40, ly + 22, f"Against the best rival on each question: ahead {won}, tied {tied}, behind {lost}. Questions in the pre-registered run order.", 11, C["MUTE"])
+    b += t(40, ly + 38, h5_note(n) or "Eight new questions from a blind author, one per slot. Three fresh Opus judges per question.", 11, C["MUTE"])
+    return svg(860, ly + 54, b, f"Round 5{' (in progress)' if n < 8 else ''} per-question scores over {n} questions: wise-men 3.14.0 versus the best rival ahead {won}, tied {tied}, behind {lost}")
+
+def chart_h2h_v5_axes(rows):
+    n = len(rows); arms = h5_arms(rows); top, rh = 118, 32
+    cols = [("composite", "Total /25", 25, 222, 80)] + [(x, AXIS_NAME[x], 5, 364 + k * 94, 46) for k, x in enumerate(AXES)]
+    b = t(40, 32, f"Round 5 scoreboard{', in progress' if n < 8 else ''} — the total and each rubric axis", 16, C["INK"], 600)
+    b += t(40, 52, f"Mean of three judges over the {n} questions judged · total out of 25, each axis 1–5 · sorted by total · the plain answer is the outlined bar", 12, C["TXT"])
+    for key, title, mx, x, w in cols: b += t(x, top - 14, title, 11, C["INK"], 600)
+    best = {key: max(hmean(rows, a, key) for a in arms) for key, *_ in cols}
+    for i, a in enumerate(arms):
+        y = top + i * rh; yc = y + rh / 2; hero = a == H5_HERO
+        if hero: b += band(y + 2, rh - 4)
+        b += t(206, yc + 4, H5_NAME[a], 13, C["INK"], 700 if hero else 500, "end")
+        for key, title, mx, x, w in cols:
+            v = hmean(rows, a, key); top_v = abs(v - best[key]) < 1e-9
+            b += f'<rect x="{num(x)}" y="{num(yc - 5)}" width="{num(w)}" height="10" rx="3" fill="{C["GRID"]}" fill-opacity="0.6"/>\n' + bar5(a, x, yc - 5, v / mx * w, 10, 3)
+            b += t(x + w + 8, yc + 4, r1(v), 12, C["INK"] if top_v else C["TXT"], 700 if top_v else 400)
+    lead = [AXIS_NAME[x].lower() for x in AXES if abs(hmean(rows, H5_HERO, x) - best[x]) < 1e-9]; fy = top + rh * len(arms) + 28
+    b += t(40, fy, f"Bold = highest in the column (ties bolded together). wise-men 3.14.0 had the top score on {len(lead)} of the 5 axes" + (f" ({', '.join(lead)})" if lead else "") + ".", 11, C["MUTE"])
+    b += t(40, fy + 16, h5_note(n) or f"N = {n} questions, three blind judges each, means shown.", 11, C["MUTE"])
+    return svg(860, fy + 30, b, f"Round 5 scoreboard{' (in progress)' if n < 8 else ''}, means over {n} questions: " + "; ".join(f"{H5_NAME[a]}: total {r1(hmean(rows, a))}, " + ", ".join(f"{AXIS_NAME[x].lower()} {r1(hmean(rows, a, x))}" for x in AXES) for a in arms))
+
 if __name__ == "__main__":
-    rows, h2h, h2h2, h2h3, h2h4 = load(), load_h2h(), load_h2h2(), load_h2h3(), load_h2h4(); os.makedirs(OUT, exist_ok=True); wrote = []
+    rows, h2h, h2h2, h2h3, h2h4, h2h5r = load(), load_h2h(), load_h2h2(), load_h2h3(), load_h2h4(), load_h2h5(); os.makedirs(OUT, exist_ok=True); wrote = []
     charts = [("headline", lambda: chart_headline(rows)), ("axes", lambda: chart_axes(rows)), ("questions", lambda: chart_questions(rows)), ("landscape", chart_landscape),
               ("h2h", lambda: chart_h2h(h2h)), ("h2h-axes", lambda: chart_h2h_axes(h2h)), ("h2h-questions", lambda: chart_h2h_questions(h2h)),
               ("h2h-v2", lambda: chart_h2h_v2(h2h2)), ("h2h-v2-axes", lambda: chart_h2h_v2_axes(h2h2)), ("h2h-v2-questions", lambda: chart_h2h_v2_questions(h2h2)),
               ("h2h-v3", lambda: chart_h2h_v3(h2h3)), ("h2h-v3-axes", lambda: chart_h2h_v3_axes(h2h3)), ("h2h-v3-questions", lambda: chart_h2h_v3_questions(h2h3)),
-              ("h2h-v4", lambda: chart_h2h_v4(h2h4)), ("h2h-v4-axes", lambda: chart_h2h_v4_axes(h2h4)), ("h2h-v4-questions", lambda: chart_h2h_v4_questions(h2h4))]
+              ("h2h-v4", lambda: chart_h2h_v4(h2h4)), ("h2h-v4-axes", lambda: chart_h2h_v4_axes(h2h4)), ("h2h-v4-questions", lambda: chart_h2h_v4_questions(h2h4)),
+              ("h2h-v5", lambda: chart_h2h_v5(h2h5r)), ("h2h-v5-axes", lambda: chart_h2h_v5_axes(h2h5r)), ("h2h-v5-questions", lambda: chart_h2h_v5_questions(h2h5r))]
     for theme, suffix in (("light", ""), ("dark", "-dark")):
         C.clear(); C.update(THEMES[theme])
         for name, fn in charts:
