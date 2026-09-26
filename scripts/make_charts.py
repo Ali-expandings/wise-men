@@ -598,7 +598,7 @@ def bar5(a, x, y, w, h, r=4):
     if a == "direct": return hbar_outline(x, y, w, h, C["TXT"], r)
     return hbar(x, y, w, h, C["ACCENT"] if a == H5_HERO else C["AMBER"] if a == H5_FLASH else C["BAR2"], r)
 def h5_arms(rows): return sorted(h2h5.ARMS, key=lambda a: (-hmean(rows, a), h2h5.ARMS.index(a)))
-def h5_note(n): return f"In progress: {n} of 8 pre-registered questions judged; the rest run after the account's weekly usage limit resets, and these charts are regenerated then." if n < 8 else ""
+def h5_note(n): return f"In progress: {n} of 8 pre-registered questions judged; the rest are being run in the pre-registered order, and these charts are regenerated as each is judged." if n < 8 else ""
 
 def chart_h2h_v5(rows):
     n = len(rows); x0, sc, top, rh = 250, 15.6, 112, 44; arms = h5_arms(rows); bottom = top + rh * len(arms) - 6
