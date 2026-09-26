@@ -5,8 +5,8 @@
 Most prompt patterns ask you to take their word for it. This one ships with the blind evals that tested it — raw answers, judgments, and the scripts that reproduce every number.
 
 <p align="center">
-  <strong>Beats every rival in a pre-registered blind head-to-head: 24.4/25 against Warp's council at 20.3, llm-council 18.8 and a plain answer 15.5 over 12 questions, with three blind judges each · top score on 11 of 12 · on new questions under a stricter judge (round 4, five of eight run): 23.8 against llm-council 17.9, Warp's council 17.5 and a plain answer 16.3 · beat a structured prompt on 28 of 29</strong><br>
-  <sub>Two evals, 5-axis rubric; each head-to-head round was pre-registered before its new arms ran. Round 3 is the last complete round: eight questions re-judged next to the previous version's answers, plus four held-out questions no earlier round used. Round 4 added new questions, an error-first judge and measured time and cost; it was stopped at five of its eight questions. Round 5 — every rival at its latest version, plus the sibling skill wise-men-flash — is in progress: 7 of 8 questions judged so far, wise-men ahead of all seven rivals on each. <a href="#does-it-actually-work">Charts, method and caveats</a>.</sub>
+  <strong>Beats every rival in a pre-registered blind head-to-head: 23.6/25 against Warp's council 19.1, LifeOS Council 17.5, llm-council 16.8, a plain answer 16.8, superpowers brainstorming 16.3, ECC's council 15.5 and mattpocock grilling 14.9 — ahead of all seven on all eight new questions, three blind judges each · the same in round 3: 24.4 against Warp's council 20.3 over 12 questions · beat a structured prompt on 28 of 29</strong><br>
+  <sub>Two evals, 5-axis rubric; each head-to-head round was pre-registered before its new arms ran. Round 5, the latest, is complete: eight new questions from a blind author, every rival at its latest version plus the sibling skill wise-men-flash (23.4) and a plain answer, every answer new, under an error-first judge. Round 4 was stopped at five of its eight questions; round 3 re-judged eight questions next to the previous version's answers and added four held-out ones. <a href="#does-it-actually-work">Charts, method and caveats</a>.</sub>
 </p>
 
 ```
@@ -24,43 +24,43 @@ Two blind evals, both shipped raw in this repo. The first puts wise-men next to 
 
 ### 1. Against the skills people already use (pre-registered, five rounds)
 
-Eight hard questions — engineering, product, research, writing, ethics, a personal decision — plus, in round 3, four held-out ones. Up to nine ways to answer each: wise-men, six of the most-used and best-known skills for stress-testing a decision ([picked by installs and stars](eval-data/head-to-head/COMPETITOR-SCAN.md)), and a plain answer with no skill. The same top-level model ran every arm with its skill file verbatim; council members ran on whichever Claude models each skill chose. Blind judges scored the answers under letters, in orders sealed in advance. Round 1 had six arms and one judge per question; round 2 added the two most-installed general-purpose council skills, Warp's and ECC's, and re-judged every answer; round 3 re-judged everything with three judges per question next to fresh answers from the current version, and added the held-out questions.
+Eight hard questions a round — engineering, product, research, writing, ethics, a personal decision — plus, in round 3, four held-out ones; from round 4 on, new questions from an author that knew nothing about the arms. Up to nine ways to answer each: wise-men, six of the most-used and best-known skills for stress-testing a decision ([picked by installs and stars](eval-data/head-to-head/COMPETITOR-SCAN.md)), and a plain answer with no skill — in round 5, the sibling skill wise-men-flash as well. The same top-level model ran every arm with its skill file verbatim; council members ran on whichever Claude models each skill chose. Blind judges scored the answers under letters, in orders sealed in advance. Round 1 had six arms and one judge per question; round 2 added the two most-installed general-purpose council skills, Warp's and ECC's, and re-judged every answer; round 3 re-judged everything with three judges per question next to fresh answers from the current version, and added the held-out questions; round 4 brought new questions and an error-first judge and was stopped at five of eight; round 5 ran every rival at its latest version on eight new questions, every answer new.
 
-**Round 5 — in progress, 7 of 8 questions judged** (pre-registered in [`PREREG-5.md`](eval-data/head-to-head/PREREG-5.md) before its questions were written). wise-men 3.14.0 and its sibling skill [wise-men-flash](https://github.com/Ali-expandings/wise-men-flash) against every rival from rounds 1–4 — Warp's council, llm-council, LifeOS Council, ECC's council, superpowers brainstorming and mattpocock grilling, each at its latest version — plus a plain answer. Eight new questions from a blind author, one of each kind, with the writing, ethics and personal questions round 4 never reached run early; every answer new; three blind Opus judges per question under round 4's error-first judge. The remaining questions are being run in the pre-registered order, and the table and charts below are regenerated as each one is judged.
+**Round 5 — complete, all eight questions** (pre-registered in [`PREREG-5.md`](eval-data/head-to-head/PREREG-5.md) before its questions were written). wise-men 3.14.0 and its sibling skill [wise-men-flash](https://github.com/Ali-expandings/wise-men-flash) against every rival from rounds 1–4 — Warp's council, llm-council, LifeOS Council, ECC's council, superpowers brainstorming and mattpocock grilling, each at its latest version — plus a plain answer. Eight new questions from a blind author, one of each kind, with the writing, ethics and personal questions round 4 never reached run early; every answer new; three blind Opus judges per question under round 4's error-first judge. 
 
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v5-dark.svg"><img src="assets/h2h-v5.svg" width="860" alt="Round 5, in progress, 7 of 8 questions judged: wise-men 3.14.0 23.7, wise-men-flash 0.1.0 23.4, Warp council 19.0, LifeOS Council 17.9, plain answer 16.9, llm-council 16.8, superpowers brainstorming 16.1, ECC council 15.9, mattpocock grilling 15.0"></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v5-dark.svg"><img src="assets/h2h-v5.svg" width="860" alt="Round 5, complete, all eight questions: wise-men 3.14.0 23.6, wise-men-flash 0.1.0 23.4, Warp council 19.1, LifeOS Council 17.5, llm-council 16.8, plain answer 16.8, superpowers brainstorming 16.3, ECC council 15.5, mattpocock grilling 14.9"></picture></p>
 
-| round 5 (7 of 8 questions) | total /25 | correct | insight | practical | risk | dissent |
+| round 5 (8 of 8 questions) | total /25 | correct | insight | practical | risk | dissent |
 |---|--:|--:|--:|--:|--:|--:|
-| **wise-men 3.14.0** | 23.7 | 3.9 | 5.0 | 4.9 | 5.0 | 4.9 |
+| **wise-men 3.14.0** | 23.6 | 3.8 | 5.0 | 4.9 | 5.0 | 4.9 |
 | wise-men-flash 0.1.0 | 23.4 | 3.8 | 5.0 | 4.9 | 4.8 | 5.0 |
-| Warp council | 19.0 | 3.9 | 3.8 | 4.1 | 4.1 | 3.1 |
-| LifeOS Council | 17.9 | 3.1 | 3.7 | 3.2 | 3.7 | 4.0 |
-| plain answer | 16.9 | 4.1 | 3.2 | 4.0 | 3.3 | 2.1 |
-| llm-council | 16.8 | 2.9 | 3.9 | 3.1 | 3.6 | 3.2 |
-| superpowers brainstorming | 16.1 | 3.3 | 3.3 | 3.7 | 3.4 | 2.4 |
-| ECC council | 15.9 | 3.4 | 3.0 | 3.1 | 3.2 | 3.0 |
-| mattpocock grilling | 15.0 | 3.1 | 3.3 | 3.5 | 3.1 | 2.0 |
+| Warp council | 19.1 | 3.9 | 3.8 | 4.1 | 4.1 | 3.2 |
+| LifeOS Council | 17.5 | 3.0 | 3.6 | 3.2 | 3.7 | 4.0 |
+| llm-council | 16.8 | 2.9 | 3.9 | 3.2 | 3.7 | 3.2 |
+| plain answer | 16.8 | 4.3 | 3.2 | 4.0 | 3.3 | 2.1 |
+| superpowers brainstorming | 16.3 | 3.4 | 3.3 | 3.7 | 3.4 | 2.4 |
+| ECC council | 15.5 | 3.3 | 3.0 | 3.1 | 3.2 | 3.0 |
+| mattpocock grilling | 14.9 | 3.0 | 3.3 | 3.5 | 3.1 | 2.0 |
 
-- wise-men 3.14.0 against wise-men-flash 0.1.0: +0.3 [−0.4, +1.2], W–T–L 4–0–3 — ahead.
-- wise-men 3.14.0 against Warp council: +4.6 [+3.5, +5.7], W–T–L 7–0–0 — clearly ahead.
-- wise-men 3.14.0 against llm-council: +6.9 [+4.8, +8.9], W–T–L 7–0–0 — clearly ahead.
-- wise-men 3.14.0 against LifeOS Council: +5.8 [+4.7, +7.3], W–T–L 7–0–0 — clearly ahead.
-- wise-men 3.14.0 against ECC council: +7.8 [+6.9, +8.8], W–T–L 7–0–0 — clearly ahead.
-- wise-men 3.14.0 against superpowers brainstorming: +7.5 [+6.4, +8.8], W–T–L 7–0–0 — clearly ahead.
-- wise-men 3.14.0 against mattpocock grilling: +8.6 [+6.8, +10.3], W–T–L 7–0–0 — clearly ahead.
-- wise-men 3.14.0 against plain answer: +6.8 [+5.2, +8.5], W–T–L 7–0–0 — clearly ahead.
+- wise-men 3.14.0 against wise-men-flash 0.1.0: +0.3 [−0.3, +1.0], W–T–L 4–1–3 — ahead.
+- wise-men 3.14.0 against Warp council: +4.5 [+3.6, +5.5], W–T–L 8–0–0 — clearly ahead.
+- wise-men 3.14.0 against llm-council: +6.8 [+5.0, +8.5], W–T–L 8–0–0 — clearly ahead.
+- wise-men 3.14.0 against LifeOS Council: +6.1 [+4.9, +7.5], W–T–L 8–0–0 — clearly ahead.
+- wise-men 3.14.0 against ECC council: +8.1 [+7.1, +9.2], W–T–L 8–0–0 — clearly ahead.
+- wise-men 3.14.0 against superpowers brainstorming: +7.4 [+6.4, +8.6], W–T–L 8–0–0 — clearly ahead.
+- wise-men 3.14.0 against mattpocock grilling: +8.8 [+7.1, +10.3], W–T–L 8–0–0 — clearly ahead.
+- wise-men 3.14.0 against plain answer: +6.8 [+5.4, +8.3], W–T–L 8–0–0 — clearly ahead.
 - wise-men 3.14.0: beats every rival — clearly ahead of all seven.
 
 - Axes, wise-men 3.14.0: the highest insight and risk awareness of the nine arms, tied for the highest practical use; above every rival on 4 of 5 axes.
 
-Judge agreement: mean SD of the three judges' totals 0.67.
+Judge agreement: mean SD of the three judges' totals 0.65.
 
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v5-questions-dark.svg"><img src="assets/h2h-v5-questions.svg" width="860" alt="Round 5 per-question scores, 7 questions: wise-men 3.14.0 ahead of the best rival on 7 of 7"></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v5-questions-dark.svg"><img src="assets/h2h-v5-questions.svg" width="860" alt="Round 5 per-question scores, 8 questions: wise-men 3.14.0 ahead of the best rival on 8 of 8"></picture></p>
 
-<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v5-axes-dark.svg"><img src="assets/h2h-v5-axes.svg" width="860" alt="Round 5 scoreboard, means over 7 questions, total and each rubric axis for all nine arms"></picture></p>
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v5-axes-dark.svg"><img src="assets/h2h-v5-axes.svg" width="860" alt="Round 5 scoreboard, means over 8 questions, total and each rubric axis for all nine arms"></picture></p>
 
-So far wise-men 3.14.0 is ahead of all seven rivals on every question judged, and wise-men-flash is ahead of all seven rivals on every question judged. Correctness is its weakest showing: the plain answer (4.1) scores higher than wise-men 3.14.0 (3.9). With this few questions the intervals are wide; the pre-registered claims apply to the finished round. Per-question scores, run times, costs and every disclosure so far: [`RESULTS-V5.md`](eval-data/head-to-head/RESULTS-V5.md).
+wise-men 3.14.0 was clearly ahead of each of the seven rivals — every interval above zero — so under the wording fixed in PREREG-5 it beats every rival (H1 met); it was ahead of all seven rivals on all eight questions. Its sibling wise-men-flash, run as installed, scored 23.4 and did the same (H2 met; its own repository reports it in full). Correctness is its weakest showing: the plain answer (4.3) and Warp's council (3.9) score higher than wise-men 3.14.0 (3.8). Per-question scores, run times, costs and every disclosure: [`RESULTS-V5.md`](eval-data/head-to-head/RESULTS-V5.md).
 
 **Round 4** (pre-registered in [`PREREG-4.md`](eval-data/head-to-head/PREREG-4.md) before any run; stopped at five of eight questions). New questions written by an author that knew nothing about the arms, and a stricter judge prompt that lists every error before it scores. Rivals: Warp's council, llm-council, a plain answer.
 
@@ -89,7 +89,7 @@ What it shows: wise-men finished ahead of every rival on every one of the five q
 
 The round was pre-registered at eight questions and stopped at five at the owner's request, after the scores of the first three were known; the writing, ethics and personal-decision questions were not run. Per-question scores, run times and costs, a fifth experimental arm that is no longer part of this skill, and every deviation: [`RESULTS-V4.md`](eval-data/head-to-head/RESULTS-V4.md).
 
-**Round 3** (pre-registered in [`PREREG-3.md`](eval-data/head-to-head/PREREG-3.md) before any run; the last complete round). Versions 3.10.0 and 3.11.0 were built from round 2's judgments, so round 3 measures them two ways. Part A: fresh wise-men 3.11.0 answers to the same eight questions, judged next to round 2's eight answers unchanged, by three blind judges per question, each with its own sealed order. Part B: four held-out questions no earlier round used (research, writing, ethics, a personal decision), answered by wise-men 3.11.0, Warp's council, llm-council and a plain answer.
+**Round 3** (pre-registered in [`PREREG-3.md`](eval-data/head-to-head/PREREG-3.md) before any run; complete). Versions 3.10.0 and 3.11.0 were built from round 2's judgments, so round 3 measures them two ways. Part A: fresh wise-men 3.11.0 answers to the same eight questions, judged next to round 2's eight answers unchanged, by three blind judges per question, each with its own sealed order. Part B: four held-out questions no earlier round used (research, writing, ethics, a personal decision), answered by wise-men 3.11.0, Warp's council, llm-council and a plain answer.
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h2h-v3-dark.svg"><img src="assets/h2h-v3.svg" width="860" alt="Round 3 mean total score out of 25 on 8 round-2 questions, three blind judges each: wise-men 3.11.0 24.4, Warp council 21.3, wise-men 3.9.2 20.7, LifeOS Council 19.1, llm-council 18.6, ECC council 18.3, brainstorming 14.8, plain answer 14.2, grilling 13.8."></picture></p>
 
@@ -350,7 +350,7 @@ Two design choices carry most of the weight:
 
 ## How it compares
 
-Measured against the skills people already use, see [the head-to-head](#1-against-the-skills-people-already-use-pre-registered-three-rounds): round 3: version 3.11.0 first of nine on the eight round-2 questions and first of four on the held-out questions, clearly ahead of every arm under the pre-registered wording; round 2: second of eight, behind Warp's council; round 1: highest of six; the best dissent score in every round.
+Measured against the skills people already use, see [the head-to-head](#1-against-the-skills-people-already-use-pre-registered-five-rounds): round 5: version 3.14.0 first of nine on eight new questions — ahead of all seven rivals on every question and clearly ahead of each under the pre-registered wording — with its sibling wise-men-flash second; round 4 (stopped at five of eight questions): first of five; round 3: version 3.11.0 first of nine on the eight round-2 questions and first of four on the held-out questions, clearly ahead of every arm under the pre-registered wording; round 2: second of eight, behind Warp's council; round 1: highest of six; in every round, a higher dissent score than any rival skill.
 
 The question every prompt-skill gets asked — after ponytail's benchmark was matched by a seven-word prompt — is *does the skill beat just asking well?* The N=29 eval was built around that question. Arm B is one structured prompt (five perspectives + a dissent, no subagents); it is also shipped as the `solo` tier.
 
@@ -375,11 +375,11 @@ Against the other council skills for Claude Code (facts from their READMEs or sk
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/landscape-dark.svg"><img src="assets/landscape.svg" width="860" alt="Feature matrix: council skills for Claude Code, from their READMEs or skill files, 2026-09-16/17"></picture></p>
 
-What they have that this doesn't: multi-vendor councils, convergence-driven long debates, consensus gates, code-specific scanners, HTML reports — listed honestly in the landscape file. The decision-memo answer shape of Warp's council, which outscored wise-men in round 2 of the head-to-head, was adopted in 3.10.0; round 3 of the head-to-head then put 3.11.0 ahead of Warp's council by 4.1 points over 12 questions.
+What they have that this doesn't: multi-vendor councils, convergence-driven long debates, consensus gates, code-specific scanners, HTML reports — listed honestly in the landscape file. The decision-memo answer shape of Warp's council, which outscored wise-men in round 2 of the head-to-head, was adopted in 3.10.0; round 3 of the head-to-head then put 3.11.0 ahead of Warp's council by 4.1 points over 12 questions, and round 5 put 3.14.0 ahead of it by 4.5 over eight new ones.
 
 ## Cost
 
-Measured, not estimated: in head-to-head round 3 (Sonnet orchestrator, September 2026) a standard council (9–10 subagent calls) took 18–23 minutes and about 190k–230k tokens as the harness reports them, and a deep council (13–20 calls) 31–69 minutes and 240k–295k tokens — against about 8 minutes for Warp's council, 15 for llm-council and 1.4 for a plain answer. The harness does not split input, output and cached tokens, so no dollar figure is given; earlier versions of this file quoted a few cents per council, an estimate built on assumed 700-token prompts that real runs exceed by more than an order of magnitude. Solo tier is one pass in the main thread. Cheap models grade; stronger models argue; the model mapping lives in one table in `resources/model-routing.md` — update it there when models change and nothing else moves.
+Measured, not estimated: in head-to-head round 3 (Sonnet orchestrator, September 2026) a standard council (9–10 subagent calls) took 18–23 minutes and about 190k–230k tokens as the harness reports them, and a deep council (13–20 calls) 31–69 minutes and 240k–295k tokens — against about 8 minutes for Warp's council, 15 for llm-council and 1.4 for a plain answer. The harness's own totals do not split input, output and cached tokens, so round 3 gives no dollar figure; rounds 4 and 5 read that split from the transcripts and priced every token of every arm at list rates — the figures are in [`RESULTS-V4.md`](eval-data/head-to-head/RESULTS-V4.md) and [`RESULTS-V5.md`](eval-data/head-to-head/RESULTS-V5.md), and this README reports quality. Earlier versions of this file quoted a few cents per council, an estimate built on assumed 700-token prompts that real runs exceed by more than an order of magnitude. Solo tier is one pass in the main thread. Cheap models grade; stronger models argue; the model mapping lives in one table in `resources/model-routing.md` — update it there when models change and nothing else moves.
 
 ## Limits (the ones that matter)
 

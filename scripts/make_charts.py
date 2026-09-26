@@ -616,7 +616,7 @@ def chart_h2h_v5(rows):
         if hero: b += t(840, y + 22, "—", 12, C["MUTE"], anchor="end"); continue
         c = h2h5.compare(rows, a, H5_HERO); b += t(840, y + 22, f"{sgn(c['diff'])}  [{sgn(c['lo'])}, {sgn(c['hi'])}]", 12, C["INK"] if c["lo"] > 0 else C["TXT"], 600 if c["lo"] > 0 else 400, "end")
     fy = bottom + 42; clear = sum(h2h5.compare(rows, a, H5_HERO)["lo"] > 0 for a in h2h5.RIVALS)
-    b += t(40, fy, f"An interval above zero is the pre-registered bar for \"clearly ahead\": met against {clear} of {len(h2h5.RIVALS)} rivals so far. The amber bar is the sibling skill, wise-men-flash.", 11, C["MUTE"])
+    b += t(40, fy, f"An interval above zero is the pre-registered bar for \"clearly ahead\": met against {clear} of {len(h2h5.RIVALS)} rivals{' so far' if n < 8 else ''}. The amber bar is the sibling skill, wise-men-flash.", 11, C["MUTE"])
     b += t(40, fy + 16, h5_note(n) or "Intervals resample questions (10,000 draws), not judges.", 11, C["MUTE"])
     b += t(40, fy + 32, f"N = {n} · Warp's council on Claude models only · LifeOS and brainstorming given the files their skills name · three fresh Opus judges per question · PREREG-5.md", 11, C["MUTE"])
     return svg(860, fy + 46, b, f"Round 5{' (in progress)' if n < 8 else ''} mean total score out of 25 on {n} new questions, three blind judges each: " + ", ".join(f"{H5_NAME[a]} {r1(hmean(rows, a))}" for a in arms))
