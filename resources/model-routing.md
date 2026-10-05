@@ -15,22 +15,26 @@ Routing solves: spend tokens where reasoning depth is actually required.
 
 ## ⚙️ MODEL MAPPING — the one block to update when models change
 
-Everything else in this file names models for readability, but what is load-bearing is the **role tier**. When Anthropic ships or retires a model, update THIS table only; the protocol is unchanged.
+Everything else in this file names models for readability, but what is load-bearing is the **role tier**, and each tier is an **alias**, never a model id. Claude Code points every alias at the newest model in its family, so a new model release needs no edit here: the same aliases resolved to Opus 5 in head-to-head round 4 (2026-09-18) and to Opus 5.5 in round 5 (2026-09-24), with no change to this file.
 
-| Role tier | Means | Current mapping (verified 2026-09; Claude 5 generation) | Relative cost |
+| Role tier | Means | Agent `model` alias | Relative cost |
 |---|---|---|---|
-| **cheap** | fast, structured grading work (reviewers), including spot-checking files an answer cites | Haiku 4.5 — `claude-haiku-4-5` | 1x |
-| **mid** | the council's workhorse — members, debate, the Stage 4.5 checker | Sonnet 5 — `claude-sonnet-5` | ~3x |
-| **strong** | adversarial + critical roles (DA, security, paranoid members) | Opus 5 — `claude-opus-5` | ~5x |
-| **max** | optional ceiling for irreversible decisions (DA at paranoid, `--model=max`) | Fable 5.1 — `claude-fable-5-1` (Fable 5 was retired and replaced, not removed). If no model sits above `strong` on your plan, **max simply equals strong** — a normal state, not a misconfiguration. | ~10x |
+| **cheap** | fast, structured grading work (reviewers), including spot-checking files an answer cites | `haiku` | 1x |
+| **mid** | the council's workhorse — members, debate, the Stage 4.5 checker | `sonnet` | ~2–3x |
+| **strong** | adversarial + critical roles (DA, security, paranoid members) | `opus` | ~4–5x |
+| **max** | optional ceiling for irreversible decisions (DA at paranoid, `--model=max`) | `fable` when it is offered; otherwise **max simply equals strong** — a normal state on many plans, not a misconfiguration | ~10x |
 
-**Before trusting this table, check it.** Model names move faster than documentation: run `/model` (or your plan's model list) and confirm each tier still points at a model that exists. If a name here is unfamiliar or missing, remap the tier and change nothing else — the protocol never references a model directly. Legacy ids (`claude-opus-4-8`, `claude-sonnet-4-6`, …) generally keep resolving, so a stale table degrades quietly rather than erroring, which is exactly why the check is worth thirty seconds.
+**Resolve the tiers from the environment, once per run, before the first spawn.** Read the allowed values of the Agent tool's `model` parameter: that list, not this file, is what exists on this machine and plan.
+
+- An alias missing from the list, or a spawn rejected for its model: use the nearest tier that exists (fallback rule below), retry that spawn once, keep the remap for the rest of the run, and record requested vs actual in the routing block.
+- No `model` parameter at all (another agent harness, or a provider that fixes the model): omit the field, so every seat runs on the session's model, and disclose a single-model council once in the footer. The protocol still runs; only the routing collapses.
+- Full model ids such as `claude-opus-5` belong in records of what ran, never in an Agent call.
 
 Rules that survive any remapping: **reviewers = cheap** (mid when the grading packet contains claims about artifacts on disk — verification is judgment work), **members = mid**, **DA = one tier above members**, **Chairman = main thread (never routed)**, **auto-retry ceiling = strong** (max is never an auto-retry target). If a tier's model is unavailable on the user's plan, use the nearest available tier — the cheaper neighbour first, the dearer one only when nothing cheaper exists — warn once, and record requested vs actual model in the routing block. Never fail a council over a model id.
 
 ## Cost reality (measured 2026-09; relative costs only)
 
-Per-million-token rates, 2026-07: cheap 1/5, mid 3/15, strong 5/25, max 10/50 (input/output USD). The relative costs in the table above are what routing decisions use, and they drift far more slowly than absolute prices.
+Per-million-token rates (input/output USD) as Anthropic listed them on 2026-10-05: cheap (Haiku 4.5) 1/5, mid (Sonnet 5 and 5.5) 2/10, strong (Opus 5.5) 4/20, max (Fable 5.1) 10/50. The head-to-head's dollar figures follow their pre-registered rule instead (2026-07 table: mid 3/15, strong 5/25), so they run about a quarter to a third above today's prices. The relative costs in the table above are what routing decisions use, and they drift far more slowly than absolute prices.
 
 **What a council actually costs — measured, head-to-head round 3** (twelve runs of 3.11.0, Sonnet orchestrator, the skill choosing its own tier; token counts as the harness reports them for the whole run, with no split between input, output and cached context, so no dollar figure is derived):
 

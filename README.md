@@ -244,7 +244,14 @@ git clone https://github.com/Ali-expandings/wise-men.git ~/.claude/skills/wise-m
 mkdir -p ~/.claude/agents && cp ~/.claude/skills/wise-men/agents/wise-member.md ~/.claude/agents/
 ```
 
-The second line matters for the clone path: `wise-member` is a **tool-restricted agent** (read-only, no ability to spawn agents or run commands) used for every council member. It makes runaway recursion structurally impossible instead of merely asking the model not to. The plugin install registers it automatically (as `wise-men:wise-member`); the clone install needs the copy. Without it the skill still runs — just on a politer guarantee.
+**Or with [skills.sh](https://skills.sh)** (Claude Code and other coding agents):
+
+```bash
+npx skills add Ali-expandings/wise-men -g
+mkdir -p ~/.claude/agents && cp ~/.claude/skills/wise-men/agents/wise-member.md ~/.claude/agents/
+```
+
+The second line matters for the clone and skills.sh paths: `wise-member` is a **tool-restricted agent** (read-only, no ability to spawn agents or run commands) used for every council member. It makes runaway recursion structurally impossible instead of merely asking the model not to. The plugin install registers it automatically (as `wise-men:wise-member`); the clone and skills.sh installs need the copy. Without it the skill still runs — just on a politer guarantee.
 
 Requires [Claude Code](https://claude.com/claude-code). No API keys, no external services, no Python (except to re-run the eval stats). Restart Claude Code, then:
 
@@ -356,7 +363,7 @@ The question every prompt-skill gets asked — after ponytail's benchmark was ma
 
 | vs direct answer (blind, 25-pt rubric, N=29) | score | beat the structured prompt | cost |
 |---|---|---|---|
-| **wise-men council** (standard tier) | **24.5** | **28 / 29** | 8–9 subagent calls; about 20 minutes in the current protocol (measured, below) |
+| **wise-men council** (standard tier) | **24.5** | **28 / 29** | 8–9 subagent calls; 18–23 minutes at standard tier (round 3); median 50.2 minutes and 16 calls for 3.14.0 choosing its own tier (round 5) |
 | structured single prompt (= `solo` tier) | 20.8 | — | one pass, no subagents |
 | direct answer | 16.3 | 0 / 29 | one pass |
 
@@ -379,7 +386,7 @@ What they have that this doesn't: multi-vendor councils, convergence-driven long
 
 ## Cost
 
-Measured, not estimated: in head-to-head round 3 (Sonnet orchestrator, September 2026) a standard council (9–10 subagent calls) took 18–23 minutes and about 190k–230k tokens as the harness reports them, and a deep council (13–20 calls) 31–69 minutes and 240k–295k tokens — against about 8 minutes for Warp's council, 15 for llm-council and 1.4 for a plain answer. The harness's own totals do not split input, output and cached tokens, so round 3 gives no dollar figure; rounds 4 and 5 read that split from the transcripts and priced every token of every arm at list rates — the figures are in [`RESULTS-V4.md`](eval-data/head-to-head/RESULTS-V4.md) and [`RESULTS-V5.md`](eval-data/head-to-head/RESULTS-V5.md), and this README reports quality. Earlier versions of this file quoted a few cents per council, an estimate built on assumed 700-token prompts that real runs exceed by more than an order of magnitude. Solo tier is one pass in the main thread. Cheap models grade; stronger models argue; the model mapping lives in one table in `resources/model-routing.md` — update it there when models change and nothing else moves.
+Measured, not estimated: in head-to-head round 3 (Sonnet orchestrator, September 2026) a standard council (9–10 subagent calls) took 18–23 minutes and about 190k–230k tokens as the harness reports them, and a deep council (13–20 calls) 31–69 minutes and 240k–295k tokens — against about 8 minutes for Warp's council, 15 for llm-council and 1.4 for a plain answer. The harness's own totals do not split input, output and cached tokens, so round 3 gives no dollar figure; rounds 4 and 5 read that split from the transcripts and priced every token of every arm at list rates — the figures are in [`RESULTS-V4.md`](eval-data/head-to-head/RESULTS-V4.md) and [`RESULTS-V5.md`](eval-data/head-to-head/RESULTS-V5.md), and this README reports quality. Round 5's median for 3.14.0, choosing its own tier, was 50.2 minutes and 16 subagent calls a question. Its dollar figures follow the pre-registered 2026-07 price table; at the per-model prices Anthropic lists on 2026-10-05 the same runs cost about 29% less (median $12.60 instead of $17.72). Earlier versions of this file quoted a few cents per council, an estimate built on assumed 700-token prompts that real runs exceed by more than an order of magnitude. Solo tier is one pass in the main thread. Cheap models grade; stronger models argue; the model mapping lives in one table in `resources/model-routing.md` — update it there when models change and nothing else moves.
 
 ## Limits (the ones that matter)
 
