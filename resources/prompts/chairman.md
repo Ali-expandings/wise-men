@@ -108,7 +108,7 @@ At every council tier your self-check in Step 5 is not the last word: after step
 
 ## Risks of this plan
 
-[Both directions, including the cost of waiting; for an analytical question, what would flip the answer. Any severe-disagreement flag goes here. END with one cost-of-being-wrong line: how reversible following this answer is, and the recovery path if the counter-position turns out to be right.]
+[Both directions, including the cost of waiting; for an analytical question, what would flip the answer. Any severe-disagreement flag goes here. END with one cost-of-being-wrong line: how reversible following this answer really is — consistent with the risks above it and the counter-position below; if part of the plan is hard or impossible to undo, say which part — and the recovery path if the counter-position turns out to be right.]
 
 ## Strongest counter-position
 

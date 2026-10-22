@@ -5,8 +5,11 @@ cd "$(dirname "$0")/.."
 fail=0
 say(){ printf '%-52s %s\n' "$1" "$2"; }
 
-python3 -c 'import yaml,sys; d=yaml.safe_load(open("SKILL.md").read().split("---")[1]); sys.exit(0 if d.get("name") and d.get("description") else 1)' 2>/dev/null \
-  && say "SKILL.md frontmatter is strict YAML (npx skills can read it)" ok || { say "SKILL.md frontmatter fails strict YAML (quote it, or drop the ': ')" FAIL; fail=1; }
+if python3 -c 'import yaml' 2>/dev/null; then
+  # the frontmatter is the block between the first two lines that are exactly ---
+  python3 -c 'import yaml,sys; L=open("SKILL.md").read().split("\n"); assert L[0]=="---"; d=yaml.safe_load("\n".join(L[1:L.index("---",1)])); sys.exit(0 if d.get("name") and d.get("description") else 1)' 2>/dev/null \
+    && say "SKILL.md frontmatter is strict YAML (npx skills can read it)" ok || { say "SKILL.md frontmatter fails strict YAML (quote it, or drop the ': ')" FAIL; fail=1; }
+else say "PyYAML missing: strict-YAML frontmatter check skipped" info; fi
 
 # 1. Debate-trigger formula identical in the three files that claim it is
 h=$(for f in SKILL.md resources/prompts/peer-review.md resources/prompts/debate.md; do grep -o 'Debate-trigger formula\*\*:.*' "$f" | md5 -q 2>/dev/null || grep -o 'Debate-trigger formula\*\*:.*' "$f" | md5sum | cut -c1-32; done | sort -u | wc -l | tr -d ' ')
