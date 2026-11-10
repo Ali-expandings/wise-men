@@ -14,7 +14,7 @@ An illustrative scenario, not a captured run: the project, its bugs and the answ
 - Council-shaped: yes (a real strategic decision with a hard-to-repeat first impression).
 - Domain: product / strategy (with marketing flavor).
 - Tier: standard (depth 3, stakes 3, novelty 2).
-- Members: Practitioner (a developer-relations lead who has run open-source launches — the anchor, strong model) + User Advocate + Business Analyst + Historian + Devil's Advocate (5). The anchor replaced the Designer, the roster seat it overlapped most.
+- Members: Practitioner (a developer-relations lead who has run open-source launches — the anchor, strongest model) + User Advocate + Business Analyst + Historian + Devil's Advocate (5). The anchor replaced the Designer, the roster seat it overlapped most.
 - Expected calls: 9 (5 members + 3 reviewers + 1 synthesis checker).
 
 Note: not using Pragmatist/Skeptic/Architect because this isn't a code question. Persona selection matched to domain.

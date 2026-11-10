@@ -15,14 +15,14 @@ Routing solves: spend tokens where reasoning depth is actually required.
 
 ## ⚙️ MODEL MAPPING — the one block to update when models change
 
-Everything else in this file names models for readability, but what is load-bearing is the **role tier**, and each tier is an **alias**, never a model id. Claude Code points every alias at the newest model in its family, so a new model release needs no edit here: the same aliases resolved to Opus 5 in head-to-head round 4 (2026-09-18) and to Opus 5.5 in round 5 (2026-09-24), with no change to this file.
+Everything else in this file names models for readability, but what is load-bearing is the **role tier**, and each tier is an **alias**, never a model id. Claude Code points every alias at the newest model in its family, so a new model release needs no edit here: the same aliases resolved to Opus 5 in head-to-head round 4 (2026-09-18) and to Opus 5.5 in round 5 (2026-09-24), with no change to this file. Those rounds ran the practitioner anchor and the Devil's Advocate on `opus` (no measured run was paranoid). Since 3.16.0 (2026-11-10) both seats route to the max tier, `fable` (Fable 5.2 on that date, the strongest model available), falling back to `opus`; no round has measured that routing, and a newer or stronger model is not assumed better.
 
 | Role tier | Means | Agent `model` alias | Relative cost |
 |---|---|---|---|
 | **cheap** | fast, structured grading work (reviewers), including spot-checking files an answer cites | `haiku` | 1x |
 | **mid** | the council's workhorse — members, debate, the Stage 4.5 checker | `sonnet` | ~2–3x |
-| **strong** | adversarial + critical roles (DA, security, paranoid members) | `opus` | ~4–5x |
-| **max** | optional ceiling for irreversible decisions (DA at paranoid, `--model=max`) | `fable` when it is offered; otherwise **max simply equals strong** — a normal state on many plans, not a misconfiguration | ~10x |
+| **strong** | critical roles below the top two (security, paranoid members, debate at deep/paranoid) | `opus` | ~4–5x |
+| **max** | the strongest model available, for the two seats that decide a council's quality: the practitioner anchor and the DA at standard, deep and paranoid (since 3.16.0), plus `--model=max` | `fable` when it is offered; otherwise **max simply equals strong** — a normal state on many plans, not a misconfiguration | ~8x at Fable 5.2's list price (~10x at Fable 5.1's) |
 
 **Resolve the tiers from the environment, once per run, before the first spawn.** Read the allowed values of the Agent tool's `model` parameter: that list, not this file, is what exists on this machine and plan.
 
@@ -30,11 +30,11 @@ Everything else in this file names models for readability, but what is load-bear
 - No `model` parameter at all (another agent harness, or a provider that fixes the model): omit the field, so every seat runs on the session's model, and disclose a single-model council once in the footer. The protocol still runs; only the routing collapses.
 - Full model ids such as `claude-opus-5` belong in records of what ran, never in an Agent call.
 
-Rules that survive any remapping: **reviewers = cheap** (mid when the grading packet contains claims about artifacts on disk — verification is judgment work), **members = mid**, **DA = one tier above members**, **Chairman = main thread (never routed)**, **auto-retry ceiling = strong** (max is never an auto-retry target). If a tier's model is unavailable on the user's plan, use the nearest available tier — the cheaper neighbour first, the dearer one only when nothing cheaper exists — warn once, and record requested vs actual model in the routing block. Never fail a council over a model id.
+Rules that survive any remapping: **reviewers = cheap** (mid when the grading packet contains claims about artifacts on disk — verification is judgment work), **members = mid**, **practitioner anchor and DA = the max tier at standard and above, one tier above members at quick**, **Chairman = main thread (never routed)**, **auto-retry ceiling = strong** (max is never an auto-retry target). If a tier's model is unavailable on the user's plan, use the nearest available tier — the cheaper neighbour first, the dearer one only when nothing cheaper exists — warn once, and record requested vs actual model in the routing block. Never fail a council over a model id.
 
 ## Cost reality (measured 2026-09; relative costs only)
 
-Per-million-token rates (input/output USD) as Anthropic listed them on 2026-10-05: cheap (Haiku 4.5) 1/5, mid (Sonnet 5 and 5.5) 2/10, strong (Opus 5.5) 4/20, max (Fable 5.1) 10/50. The head-to-head's dollar figures follow their pre-registered rule instead (2026-07 table: mid 3/15, strong 5/25), so they run about a quarter to a third above today's prices. The relative costs in the table above are what routing decisions use, and they drift far more slowly than absolute prices.
+Per-million-token rates (input/output USD) as Anthropic listed them on 2026-10-05: cheap (Haiku 4.5) 1/5, mid (Sonnet 5 and 5.5) 2/10, strong (Opus 5.5) 4/20, max (Fable 5.1) 10/50. Fable 5.2, which the max tier resolves to from 2026-11, is listed at 8/40 (Anthropic's model table as of 2026-11-03): twice the strong tier's rate. The head-to-head's dollar figures follow their pre-registered rule instead (2026-07 table: mid 3/15, strong 5/25), so they run about a quarter to a third above today's prices. The relative costs in the table above are what routing decisions use, and they drift far more slowly than absolute prices.
 
 **What a council actually costs — measured, head-to-head round 3** (twelve runs of 3.11.0, Sonnet orchestrator, the skill choosing its own tier; token counts as the harness reports them for the whole run, with no split between input, output and cached context, so no dollar figure is derived):
 
@@ -44,7 +44,7 @@ Per-million-token rates (input/output USD) as Anthropic listed them on 2026-10-0
 
 Versions up to 3.11.1 quoted a few cents per council (4-6 cents quick, 7-9 standard). Those figures assumed ~700-token member prompts; real member prompts carry the persona block, the brief and the contract, members Read files, and reviewers Read a packet of every answer, so real runs exceed that estimate by more than an order of magnitude. The figures are withdrawn; budget in calls and minutes.
 
-**Smart routing still matters in relative terms**: the routed standard council (3 mid members + strong anchor + strong DA + 3 cheap reviewers + mid checker) costs roughly half of an all-strong council at the rates above, because reviewers and most members stay off the strong tier.
+**Smart routing still matters in relative terms**: the routed standard council (3 mid members + max anchor + max DA + 3 cheap reviewers + mid checker) costs about three-quarters of an all-strong (`opus`) council at the rates above with Fable 5.2 on the max tier, counting each seat's tokens as equal, because reviewers and most members stay off the strong tiers. Before 3.16.0, with the anchor and DA on strong, it was about half: those two seats now cost twice what they did.
 
 ## Difficulty computation (do this in pre-flight)
 
@@ -112,26 +112,27 @@ Chairman = main thread always. Cannot be overridden by skill. Whatever model the
 
 These overrides exist because certain roles **break the council if they're weak**, regardless of question difficulty.
 
-### Devil's Advocate — always +1 role tier (capped at the max tier)
+### Devil's Advocate — the max tier at standard and above
 | Composite | Default | DA override |
 |---|---|---|
 | 1-2 | (solo tier — no DA call) | — |
-| 3 | sonnet | opus |
-| 4 | sonnet | opus |
-| 5 | strong | max tier (falls back to strong if no max-tier model is available on the plan) |
+| quick | haiku | sonnet |
+| 3 | sonnet | max (`fable`; `opus` if no max-tier model is offered, then the next tier down) |
+| 4 | sonnet | max (`fable`; `opus` if no max-tier model is offered, then the next tier down) |
+| 5 | strong | max (`fable`; `opus` if no max-tier model is offered, then the next tier down) |
 
-**Why**: Weak DA gives trivial counter-positions. DA must construct the genuinely-best opposing argument. Single most important model choice in the council — the eval's inverted-dissent wins all came from DA reframes strong enough to become the answer.
+**Why**: Weak DA gives trivial counter-positions. DA must construct the genuinely-best opposing argument. Single most important model choice in the council — the eval's inverted-dissent wins all came from DA reframes strong enough to become the answer. Until 3.15.0 the DA was +1 role tier (`opus` at composite 3–4, max only at 5); 3.16.0 puts it on the strongest model at every council tier above quick, as wise-men-flash 0.3.0 does. Untested: every measured run had it on `opus`.
 
-### Practitioner anchor — always +1 role tier (capped at strong)
+### Practitioner anchor — the max tier at standard and above
 | Composite | Default | Anchor override |
 |---|---|---|
 | 1-2 | (solo tier — no anchor call) | — |
 | quick | haiku | sonnet |
-| 3 | sonnet | opus |
-| 4 | sonnet | opus |
-| 5 | strong | strong (max stays reserved for the DA) |
+| 3 | sonnet | max (`fable`; `opus` if no max-tier model is offered, then the next tier down) |
+| 4 | sonnet | max (`fable`; `opus` if no max-tier model is offered, then the next tier down) |
+| 5 | strong | max (`fable`; `opus` if no max-tier model is offered, then the next tier down) |
 
-**Why**: the anchor owns correctness and completeness — the two axes where the head-to-head's winning rival led wise-men by the widest margin (correctness 4.88 vs 3.75, practical 4.88 vs 3.62), and that rival put its strongest model on its correctness seat in at least 7 of 8 runs. A council whose facts come from its cheapest seats loses exactly those axes.
+**Why**: the anchor owns correctness and completeness — the two axes where the head-to-head's winning rival led wise-men by the widest margin (correctness 4.88 vs 3.75, practical 4.88 vs 3.62), and that rival put its strongest model on its correctness seat in at least 7 of 8 runs. A council whose facts come from its cheapest seats loses exactly those axes. Until 3.15.0 the anchor sat on strong (`opus`) and every measured run had it there; 3.16.0 moves it to the max tier, untested.
 
 ### Security reviewer — sonnet minimum
 - Composite 1 + security relevant: skip security persona entirely (overkill)
@@ -225,9 +226,9 @@ For each member output:
 If either fails:
   → retry that member ONCE with model bumped one tier up
        (auto-retry ladder: cheap → mid → strong. Ceiling = strong. The max tier is NEVER
-        an auto-retry target — it enters only via the DA override at composite 5 or an
+        an auto-retry target — it enters only via the anchor and DA overrides or an
         explicit flag. Quick-tier members start at cheap, so their bump target is mid.)
-  → if the member is already at the ceiling (strong, or max via DA/flags):
+  → if the member is already at the ceiling (strong, or max via the anchor/DA overrides or flags):
     retry ONCE at the SAME model instead — a bump has no target, but a fresh
     same-model attempt is cheap and usually recovers a formatting fluke.
   → if it still fails after retry: record the member as FAILED (timeout, spawn error, empty or
@@ -255,7 +256,7 @@ Let user force routing:
 - `--model=sonnet` → all use sonnet
 - `--model=haiku` → all use haiku (Devil's Advocate stays sonnet; warn user this risks weak DA)
 - `--cheap` → haiku everywhere including DA (loud warning: council may collapse)
-- `--strong` → strong tier everywhere, DA on max (insurance for critical decisions; roughly twice the routed cost at standard council size)
+- `--strong` → strong tier everywhere, anchor and DA on max (insurance for critical decisions; roughly one and a half times the routed cost at standard council size)
 - `--solo` → no routing at all (single main-thread pass)
 - Default = compute-and-route per algorithm
 
@@ -274,7 +275,7 @@ Member models:
 - Skeptic:           sonnet
 - Architect:         sonnet
 - Maintainer:        sonnet
-- Devil's Advocate:  opus      (per-role override)
+- Devil's Advocate:  fable     (per-role override: max tier)
 
 Reviewer model: haiku × 3
 Chairman: main thread (sonnet)
@@ -293,7 +294,7 @@ If composite difficulty = 1 AND no irreversibility, the SKILL.md anti-patterns s
 ### Model unavailable on user's plan
 Apply the fallback rule from the model-mapping section: nearest available tier, cheaper neighbour first (cheap has none, so it moves up to mid; mid falls to cheap before strong; strong falls to mid). Warn once per session, not per call, and record requested vs actual model. If no Claude model resolves at all, fail with a clear error. Never silently fail.
 
-**Max-tier unavailability is expected, not an error**: every max-tier route (DA at composite 5, `--strong` DA, `--model=max`) degrades to the strong tier automatically when no model above `strong` resolves on this plan. Models retire and plans differ; a missing model id must never break a council. Warn once, route down, continue.
+**Max-tier unavailability is expected, not an error**: every max-tier route (the practitioner anchor and DA at standard and above, `--model=max`) degrades to the strong tier (`opus`) automatically when no model above `strong` resolves on this plan, and to the next tier down if `opus` is missing too. Models retire and plans differ; a missing model id must never break a council. Warn once, route down, continue.
 
 ### Stage 4.5 synthesis checker
 One `wise-member` subagent at the **mid** tier, at every council tier (spec in SKILL.md). Do not use the cheap tier (the check is judgment, not formatting) and do not use strong/max (it verifies, it doesn't re-synthesize — mid is enough, and keeping it cheap keeps the incentive to actually run it).
@@ -305,7 +306,7 @@ Treat as abstain. Chairman handles in dissent section. Don't infinite-loop tryin
 Validator is heuristic. If it flags a real answer as garbage, you waste one retry. Acceptable false-positive rate. The 2-check version drastically reduced false positives vs the prior 4-check version.
 
 ### Cost spirals on paranoid tier with many retries
-Worst case: 7 strong-tier members each retried once = 14 strong-tier calls plus the max-tier DA and its possible retry. Retries are capped at 1 per member, so total council cost stays bounded at roughly 2x the no-failure run — acceptable, and in practice retries are rare.
+Worst case: 5 strong-tier members each retried once = 10 strong-tier calls plus the max-tier anchor and DA and their possible retries. Retries are capped at 1 per member, so total council cost stays bounded at roughly 2x the no-failure run — acceptable, and in practice retries are rare.
 
 ## How to invoke with model parameter
 
@@ -340,7 +341,7 @@ For each parallel call in Stage 1, set the model per the routing algorithm outpu
 2. Pick tier from composite (1-2=solo, 3=standard, 4=deep, 5=paranoid; quick only on request)
 3. Solo → single main-thread pass, done. Otherwise:
 4. Pick base model per stage (members/reviewers/debate)
-5. Apply per-role overrides (DA always +1 role tier, max tier at paranoid; security/architect/empiricist etc.)
+5. Apply per-role overrides (anchor and DA on the max tier at standard and above, +1 at quick; security/architect/empiricist etc.)
 6. Pick subagent type per persona role
 7. Spawn subagents with explicit model + subagent_type parameters
 8. Run 2-check validator after Stage 1, retry failures once with model+1

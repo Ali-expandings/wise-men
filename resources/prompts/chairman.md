@@ -9,6 +9,7 @@ You (main thread) are the Chairman. Do NOT spawn a subagent for this — synthes
 - N rubric reviews from reviewers (4 axes × N members + top/bottom picks)
 - Debate transcript (if `deep`/`paranoid` tier triggered debate)
 - The user's explicit preferences (tier requested, flags like --brief / --full)
+- Never the user's own call: in my-call-first mode it is asked only after this draft and step 8.5 (SKILL.md runbook 0b), so the six sections cannot lean toward or against it
 
 ## Synthesis algorithm
 
@@ -87,7 +88,7 @@ If any answer is no, fix before output.
 
 ### Step 6 — External synthesis check (Stage 4.5 — every council tier)
 
-At every council tier your self-check in Step 5 is not the last word: after step 8.5 has corrected the draft, a fresh one-call checker verifies it against the member answers and the verification table. Treat its six findings as blocking — fix, or ship with its objection quoted verbatim. The Chairman picked the personas, set the difficulty, and wrote the synthesis; this is the one moment someone else looks at the homework.
+At every council tier your self-check in Step 5 is not the last word: after step 8.5 has corrected the draft, a fresh one-call checker verifies it against the member answers and the verification table. Treat its seven findings (eight in my-call-first mode) as blocking — fix, or ship with its objection quoted verbatim. The Chairman picked the personas, set the difficulty, and wrote the synthesis; this is the one moment someone else looks at the homework.
 
 ---
 
@@ -187,6 +188,17 @@ Members are offline. After drafting and before the checker (runbook 8.5), verify
 - **The check confirms the claim, or there was nothing checkable** → add nothing. A section saying "nothing to verify" was called noise by every judge who mentioned it.
 - **You could not check it** → the claim keeps its single "(unverified — check X)" mark.
 Never name a source, paper, statistic or figure the memo body does not contain (two judges took correctness points for exactly that). The full claim → method → result table goes to the council record, where the audit trail lives.
+
+### my-call-first mode (`--my-call-first`, or "my call first")
+The six sections above are written and verified first; then, before the user sees anything, ask exactly: *"The memo is ready. Before you see it: what's your call, and the one reason it rests on? A line or two is enough."* and stop. When they answer, add one closing section after `## Confidence` and before any footer, then send the draft with it, and their call in a `<user_call>` block, to the checker:
+
+```
+## Your call and this memo
+
+[Their call and reason, quoted in one line. Where this memo agrees and where it differs, plainly. If it differs: the strongest point against their call, and what evidence would show they are right. If it agrees: what would make you both wrong. If it agrees in part, say which part each way. If the choice turns on a value or trade-off only they can weigh, name it and leave it to them. End with the second decision, as one line: "Your second call: keep yours, switch, or change it, and the reason in a line."]
+```
+
+After the call is known, change the six sections only where the checker asks. The closing section restates where the memo agrees and differs by design; that is not a repeat under "say it once". When the second call comes, take it as theirs: no praise for switching, no second argument for keeping. If a council record is written, it keeps both calls, their reasons and the six sections as drafted before the first call.
 
 ### Council confirms what user wanted
 Also important. Don't waste their time with elaborate ceremony: "The evidence supports your leaning; here is why, and the one concern that remains."

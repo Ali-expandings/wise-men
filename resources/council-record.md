@@ -4,6 +4,8 @@ Two uses, one file layout. Parts A–C are the **grading packet** every Stage 2 
 
 Everything in Part C is **verbatim** member output. Copying is the whole point; a reworded answer is the orchestrator's answer.
 
+In my-call-first mode the user's call never enters Parts A–C: the packet is written before the call is asked. The full record adds the section marked *(my-call-first mode only)* below.
+
 Suggested filename: `<project-notes>/council/YYYY-MM-DD-<slug>-council.md`.
 
 ---
@@ -15,6 +17,10 @@ Tier: <tier> (depth D, stakes S, novelty N). <N> members (<model>; Devil's Advoc
 Cost of this run: <n> subagent calls (members / reviewers / debate / checker / retries), <minutes> minutes wall time, <tokens> tokens as the harness reports them ("not reported" if it doesn't).
 
 ## The answer as the user saw it (decision memo)
+## The user's calls (my-call-first mode only)
+First call and reason, verbatim: <...>
+Second call and reason, verbatim: <...; added when it arrives, after the memo>
+The six sections as drafted before the first call: <verbatim, so any later change can be seen>
 ## Where the council agreed
 ## Where the council split (preserved dissent — verbatim)
 ## Open questions the council couldn't resolve
@@ -31,7 +37,7 @@ Cost of this run: <n> subagent calls (members / reviewers / debate / checker / r
 ## Debate round 1: <top> vs <bottom> — <UPDATED/HELD each; concessions>
 ## Debate round 2 (paranoid): <pairing rule applied; or "skipped: stable double-HOLD">
 ## Synthesis checker (Stage 4.5) findings on the first draft
-<DISSENT / GROUNDING / CONFIDENCE / DISCLOSURE / CLAIMS / COVERAGE — PASS or FAIL + what was fixed>
+<DISSENT / GROUNDING / CONFIDENCE / DISCLOSURE / CLAIMS / COVERAGE / CONSISTENCY (+ DEFERENCE in my-call-first mode) — PASS or FAIL + what was fixed>
 ## Protocol notes
 <retries, exclusions, abstentions, every deviation and why>
 
